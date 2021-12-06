@@ -20,6 +20,7 @@ import PaymentHistory from "../pages/Payment/PaymenHistory";
 import AddStaff from "../pages/Administrator/AddStaff";
 import AccountInfo from "../pages/Payment/AccountInfo";
 import TotalTransactions from "../pages/Withdrawals/TotalTransactions";
+import DashboardHome from "../pages/DashboardHome/DashboardHome";
 
 const DashboardLayout = ({ child }) => {
   return <AppLayout>{child()}</AppLayout>;
@@ -103,6 +104,10 @@ const Directory = () => {
         <Route
           path="/transactions"
           render={() => <DashboardLayout child={TotalTransactions} />}
+        />
+        <Route
+          path="/home"
+          render={() => <DashboardLayout child={DashboardHome} />}
         />
       </Switch>
 

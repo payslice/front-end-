@@ -1,26 +1,27 @@
 import React from "react";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 const Navbar = () => {
-	return (
-		<nav className="flex justify-between items-center sticky">
-			<div>
-				<h3 className="t_black font-bold mb-1">Balances</h3>
-				<p className="t_gray text-sm">Today, 19th October 2020</p>
-			</div>
-			<div className="flex items-center">
-				<img
-					src={require("../assets/svgs/notification.svg").default}
-					alt="notification"
-					className="w-12 mobiles:w-10 mr-4"
-				/>
-				<img
-					src={require("../assets/svgs/profile picture.svg").default}
-					alt="profile picture"
-					className="w-12 mobiles:w-10"
-				/>
-			</div>
-		</nav>
-	);
+  return (
+    <nav className="flex justify-between bg-white p-6 mb-16 shadow items-center sticky">
+      <div>
+        <input type="text" placeholder="Type in to search" className="" />
+      </div>
+
+      <div className="flex items-center bg-gray-100 px-6 py-2 rounded">
+        <img
+          src={require("../assets/imgs/user-payslice.png").default}
+          alt="notification"
+          className="w-12 mobiles:w-10 mr-4"
+        />
+        <div className="text-gray-400 my-auto">
+          <h3 className="text-xl text-gray-400 mb-0">Joyce Jims </h3>
+          <p className="font-light mb-0">Manager Account</p>
+        </div>
+        <MdKeyboardArrowDown className="my-auto ml-3" />
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;
