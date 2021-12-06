@@ -14,18 +14,30 @@ const AccountInfo = () => {
       </div>
 
       <div className="mt-10 border rounded border-gray-200">
-        <div className="flex border-b-1 border-gray-200 justify-between">
+        <div className="flex border-b-2 border-gray-200 px-8 py-4 justify-between">
           <div className="text-2xl">Your payslice wallet</div>
-          <MdKeyboardArrowDown />
+          <MdKeyboardArrowDown className="my-auto" />
         </div>
-        <div className="content">
+        <div className="content p-8">
           <div className="font-normal">
             Kindly Transfer into the account Below
           </div>
           <div className="info">
-            <span className="font-bold ">Bank Name:</span>Access Bank
+            <span className="font-bold ">Bank Name: </span>Access Bank
+          </div>
+          <div className="info">
+            <span className="font-bold ">Account Name: </span>Payslice
+            Limited/company name
+          </div>
+          <div className="info">
+            <span className="font-bold ">Account Number: </span>10241838383
           </div>
         </div>
+      </div>
+
+      <div className="flex my-8 border rounded border-gray-200 px-8 py-4 justify-between">
+        <div className="text-2xl">Direct Debit (add card)</div>
+        <MdKeyboardArrowDown className="my-auto" />
       </div>
     </>
   );
