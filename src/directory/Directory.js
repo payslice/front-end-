@@ -41,7 +41,7 @@ const Directory = () => {
       <Switch>
         <Route
           path="/"
-          render={() => <DashboardLayout child={Dashboard} />}
+          render={() => <DashboardLayout child={DashboardHome} />}
           exact
         />
         <Route path="/login" render={() => <AuthPageLayout child={Login} />} />
