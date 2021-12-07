@@ -40,11 +40,16 @@ const Directory = () => {
       {/* <Router> */}
       <Switch>
         <Route
-          path="/"
+          path="/dashboard"
           render={() => <DashboardLayout child={DashboardHome} />}
           exact
         />
-        <Route path="/login" render={() => <AuthPageLayout child={Login} />} />
+        <Route
+          path="/login"
+          render={() => <AuthPageLayout child={Login} />}
+          exact
+        />
+        <Route path="/" render={() => <AuthPageLayout child={Login} />} exact />
         <Route
           path="/register"
           render={() => <AuthPageLayout child={SignUp} />}
@@ -54,12 +59,14 @@ const Directory = () => {
           render={() => <CompanyOnboarding child={CompanyOnboard} />}
         />
         <Route
-          path="/employees"
+          path="/employee"
           render={() => <DashboardLayout child={Employees} />}
+          exact
         />
         <Route
           path="/accepted-employees"
           render={() => <DashboardLayout child={AcceptedEmployees} />}
+          exact
         />
         <Route
           path="/employee/1"
@@ -68,6 +75,7 @@ const Directory = () => {
         <Route
           path="/employee/create"
           render={() => <DashboardLayout child={CreateEmployee} />}
+          exact
         />
         <Route
           path="/employee/upload"
@@ -78,7 +86,7 @@ const Directory = () => {
           render={() => <DashboardLayout child={ConfirmPayday} />}
         />
         <Route
-          path="/payment/summary"
+          path="/payments"
           render={() => <DashboardLayout child={PaymentSummary} />}
         />
         <Route
@@ -105,10 +113,10 @@ const Directory = () => {
           path="/transactions"
           render={() => <DashboardLayout child={TotalTransactions} />}
         />
-        <Route
-          path="/home"
+        {/* <Route
+          path=""
           render={() => <DashboardLayout child={DashboardHome} />}
-        />
+        /> */}
       </Switch>
 
       {/* </Router> */}

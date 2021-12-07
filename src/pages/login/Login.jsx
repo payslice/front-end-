@@ -7,11 +7,11 @@ export const Login = () => {
   const history = useHistory();
   const submitForm = (e) => {
     e.preventDefault();
-    history.push("/");
+    history.push("/dashboard");
   };
   return (
     <>
-      <div className="p-10 w-3/4">
+      <div className="p-10 flex flex-col h-full justify-center w-3/4">
         <h1 className="text-3xl font-bold  uppercase">login</h1>
 
         <form onSubmit={submitForm}>

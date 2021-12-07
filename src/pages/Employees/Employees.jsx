@@ -3,8 +3,10 @@ import { Button } from "../../components/Button/Button";
 import { GreyButton } from "../../components/Button/GreyButton";
 import { Table } from "antd";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { useHistory } from "react-router-dom";
 
 export const Employees = () => {
+  const history = useHistory();
   const columns = [
     {
       title: "Full Name ",
@@ -87,7 +89,10 @@ export const Employees = () => {
       </div>
       <div className="table-actions">
         <div>
-          <GreyButton buttonText="create single staff +" />
+          <GreyButton
+            buttonText="create single staff +"
+            onClick={() => history.push("/employee/create")}
+          />
         </div>
       </div>
 

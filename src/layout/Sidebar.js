@@ -42,8 +42,8 @@ const Sidebar = () => {
           <SidebarItem
             currentPath={currentLocation}
             Icon={FaFolder}
-            path="/employess"
-            caption="Employess"
+            path="/employee"
+            caption="Employees"
           />
           <SidebarItem
             currentPath={currentLocation}

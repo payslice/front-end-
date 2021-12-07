@@ -47,9 +47,9 @@ export const PasswordInput = ({
         {label}
       </label>
 
-      <div className="border-gray-200 bg-gray-100 border mb-5 mt-2 w-full border-gray-400 py-3 px-5 rounded flex justify-between">
+      <div className="border-gray-200 bg-gray-100 border mb-5 mt-2 w-full border-gray-400 rounded flex justify-between">
         <input
-          className=""
+          className="py-3 px-5 rounded bg-gray-100 w-full"
           type={type}
           onFocus
           placeholder={placeholder}
@@ -59,7 +59,7 @@ export const PasswordInput = ({
           value={value}
           required={required}
         />
-        <span className="cursor-pointer">
+        <span className="cursor-pointer bg-gray-100 py-3 px-5 ">
           {type === "password" ? (
             <AiOutlineEye onClick={() => setType("text")} />
           ) : (
