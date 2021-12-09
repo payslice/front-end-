@@ -130,7 +130,7 @@ const Directory = () => {
           render={() => <DashboardLayout child={AccountInfo} />}
         />
         <Route
-          path="/transactions"
+          path="/withdrawals"
           render={() => <DashboardLayout child={TotalTransactions} />}
         />
         {/* <Route
