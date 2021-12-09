@@ -7,7 +7,7 @@ export const Login = () => {
   const history = useHistory();
   const submitForm = (e) => {
     e.preventDefault();
-    history.push("/dashboard");
+    history.push("/onboard/step1");
   };
   return (
     <>

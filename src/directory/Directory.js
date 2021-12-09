@@ -7,6 +7,9 @@ import AuthLayout from "../layout/AuthLayout";
 import { SignUp } from "../pages/signup/SignUp";
 import CompanyOnboard from "../pages/CompanyOnboard/CompanyOnboard";
 import CompanyRegLayout from "../layout/CompanyFormLayout";
+import CompanyPolicy from "../pages/CompanyOnboard/CompanyPolicy";
+import CompanyRepresentative from "../pages/CompanyOnboard/CompanyRep";
+import LinkWithMono from "../pages/CompanyOnboard/LinkWithMono";
 import { Employees } from "../pages/Employees/Employees";
 import { AcceptedEmployees } from "../pages/Employees/AcceptedEmployees";
 import EmployeeDetails from "../pages/Employees/EmployeeDetails";
@@ -55,8 +58,24 @@ const Directory = () => {
           render={() => <AuthPageLayout child={SignUp} />}
         />
         <Route
-          path="/onboard"
+          path="/onboard/step1"
           render={() => <CompanyOnboarding child={CompanyOnboard} />}
+          exact
+        />
+        <Route
+          path="/onboard/step2"
+          render={() => <CompanyOnboarding child={CompanyRepresentative} />}
+          exact
+        />
+        <Route
+          path="/onboard/step3"
+          render={() => <CompanyOnboarding child={CompanyPolicy} />}
+          exact
+        />
+        <Route
+          path="/onboard/step4"
+          render={() => <CompanyOnboarding child={LinkWithMono} />}
+          exact
         />
         <Route
           path="/employee"
@@ -71,6 +90,7 @@ const Directory = () => {
         <Route
           path="/employee/1"
           render={() => <DashboardLayout child={EmployeeDetails} />}
+          exact
         />
         <Route
           path="/employee/create"

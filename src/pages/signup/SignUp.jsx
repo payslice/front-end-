@@ -7,7 +7,7 @@ export const SignUp = () => {
   const history = useHistory();
   const submitForm = (e) => {
     e.preventDefault();
-    history.push("/");
+    history.push("/onboard/step1");
   };
   return (
     <>

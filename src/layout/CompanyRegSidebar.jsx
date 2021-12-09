@@ -30,25 +30,25 @@ const CompanyRegSidebar = () => {
           <SidebarItem
             currentPath={currentLocation}
             Icon={FaUserAlt}
-            path="/company-info"
+            path="/onboard/step1"
             caption="Company Information "
           />
           <SidebarItem
             currentPath={currentLocation}
             Icon={FaFolder}
-            path="/company-representative"
+            path="/onboard/step2"
             caption="Company Representative"
           />
           <SidebarItem
             currentPath={currentLocation}
             Icon={HiBriefcase}
-            path="/company-policy"
+            path="/onboard/step3"
             caption="Company policy"
           />
           <SidebarItem
             currentPath={currentLocation}
             Icon={RiBankFill}
-            path="/bank-details"
+            path="/onboard/step4"
             caption="Bank Details"
           />
         </ul>

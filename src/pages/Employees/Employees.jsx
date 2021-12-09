@@ -102,6 +102,14 @@ export const Employees = () => {
             type: "checkbox",
             ...rowSelection,
           }}
+          className="cursor-pointer"
+          onRow={(record, i) => {
+            return {
+              onClick: (event) => {
+                history.push("/employee/1");
+              },
+            };
+          }}
           columns={columns}
           dataSource={data}
         />
