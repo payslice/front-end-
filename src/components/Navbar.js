@@ -3,7 +3,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between bg-white p-6 mb-16 shadow items-center sticky">
+    <nav className="flex justify-between bg-white p-6 shadow items-center sticky">
       <div>
         <input type="text" placeholder="Type in to search" className="" />
       </div>

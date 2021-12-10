@@ -25,8 +25,8 @@ import AccountInfo from "../pages/Payment/AccountInfo";
 import TotalTransactions from "../pages/Withdrawals/TotalTransactions";
 import DashboardHome from "../pages/DashboardHome/DashboardHome";
 
-const DashboardLayout = ({ child }) => {
-  return <AppLayout>{child()}</AppLayout>;
+const DashboardLayout = ({ child, navTab }) => {
+  return <AppLayout navTab={navTab}>{child()}</AppLayout>;
 };
 
 const AuthPageLayout = ({ child }) => {
@@ -36,6 +36,28 @@ const AuthPageLayout = ({ child }) => {
 const CompanyOnboarding = ({ child }) => {
   return <CompanyRegLayout>{child()}</CompanyRegLayout>;
 };
+
+const employeeNavTab = [
+  {
+    name: "Employees",
+    link: "/employee",
+  },
+  {
+    name: "Accepted Employees",
+    link: "/employee/accepted-employee",
+  },
+];
+
+const paymentNavTab = [
+  {
+    name: "Payments",
+    link: "/payments",
+  },
+  {
+    name: "Payment History",
+    link: "/payments/history",
+  },
+];
 
 const Directory = () => {
   return (
@@ -79,35 +101,53 @@ const Directory = () => {
         />
         <Route
           path="/employee"
-          render={() => <DashboardLayout child={Employees} />}
+          render={() => (
+            <DashboardLayout navTab={employeeNavTab} child={Employees} />
+          )}
           exact
         />
         <Route
-          path="/accepted-employees"
-          render={() => <DashboardLayout child={AcceptedEmployees} />}
+          path="/employee/accepted-employee"
+          render={() => (
+            <DashboardLayout
+              navTab={employeeNavTab}
+              child={AcceptedEmployees}
+            />
+          )}
           exact
         />
         <Route
           path="/employee/1"
-          render={() => <DashboardLayout child={EmployeeDetails} />}
+          render={() => (
+            <DashboardLayout navTab={employeeNavTab} child={EmployeeDetails} />
+          )}
           exact
         />
         <Route
           path="/employee/create"
-          render={() => <DashboardLayout child={CreateEmployee} />}
+          render={() => (
+            <DashboardLayout navTab={employeeNavTab} child={CreateEmployee} />
+          )}
           exact
         />
         <Route
           path="/employee/upload"
-          render={() => <DashboardLayout child={UploadEmployee} />}
+          render={() => (
+            <DashboardLayout navTab={employeeNavTab} child={UploadEmployee} />
+          )}
         />
         <Route
           path="/employee/confirm-pay"
-          render={() => <DashboardLayout child={ConfirmPayday} />}
+          render={() => (
+            <DashboardLayout navTab={employeeNavTab} child={ConfirmPayday} />
+          )}
         />
         <Route
           path="/payments"
-          render={() => <DashboardLayout child={PaymentSummary} />}
+          render={() => (
+            <DashboardLayout navTab={paymentNavTab} child={PaymentSummary} />
+          )}
+          exact
         />
         <Route
           path="/legal-info"
@@ -118,8 +158,11 @@ const Directory = () => {
           render={() => <DashboardLayout child={AdminList} />}
         />
         <Route
-          path="/payment/history"
-          render={() => <DashboardLayout child={PaymentHistory} />}
+          path="/payments/history"
+          render={() => (
+            <DashboardLayout navTab={paymentNavTab} child={PaymentHistory} />
+          )}
+          exact
         />
         <Route
           path="/admin/add"
