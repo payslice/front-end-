@@ -166,10 +166,10 @@ const DashboardHome = () => {
         <div className="w-full flex">
           <div className="graph-container p-8 mr-8 w-2/3 border border-gray-100 rounded-lg">
             <h3 className="text-2xl py-4">Active Withdrawal</h3>
-            <ResponsiveContainer width="100%" height={500}>
+            <ResponsiveContainer width="100%" height={350}>
               <AreaChart
                 width={500}
-                height={600}
+                height={500}
                 data={data}
                 margin={{
                   top: 10,
@@ -186,7 +186,7 @@ const DashboardHome = () => {
                   type="monotone"
                   dataKey="uv"
                   stroke="#8884d8"
-                  fill="#8884d8"
+                  fill="#1C64F2"
                 />
               </AreaChart>
             </ResponsiveContainer>

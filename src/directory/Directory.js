@@ -24,6 +24,7 @@ import AddStaff from "../pages/Administrator/AddStaff";
 import AccountInfo from "../pages/Payment/AccountInfo";
 import TotalTransactions from "../pages/Withdrawals/TotalTransactions";
 import DashboardHome from "../pages/DashboardHome/DashboardHome";
+import { ChooseUser } from "../pages/ChooseUser/ChooseUser";
 
 const DashboardLayout = ({ child, navTab }) => {
   return <AppLayout navTab={navTab}>{child()}</AppLayout>;
@@ -74,7 +75,18 @@ const Directory = () => {
           render={() => <AuthPageLayout child={Login} />}
           exact
         />
-        <Route path="/" render={() => <AuthPageLayout child={Login} />} exact />
+        <Route
+          path="/"
+          render={() => <AuthPageLayout child={ChooseUser} />}
+          exact
+        />
+
+        <Route
+          path="/choose-user"
+          render={() => <AuthPageLayout child={ChooseUser} />}
+          exact
+        />
+
         <Route
           path="/register"
           render={() => <AuthPageLayout child={SignUp} />}
