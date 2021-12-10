@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import Navbar from "../../components/Navbar";
+// import Navbar from "../../components/Navbar";
 
 const DashboardHome = () => {
   const [activeIndex, setActiveIndex] = useState(0);

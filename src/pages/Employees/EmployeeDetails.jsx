@@ -93,13 +93,10 @@ const EmployeeDetails = () => {
   return (
     <div>
       <div className="text-2xl">Employee Details </div>
-      <div
-        className="bg-gray-100 flex px-4 py-3 mt-8"
-        style={{ width: "fit-content" }}
-      >
-        <div className="w-1/3 px-8">Date Joined : 2/10/2010</div>
-        <div className="w-1/3 px-8">Location: DxB- Dubia</div>
-        <div className="w-1/3 px-8">Employee ID: ARMXPPXCOD</div>
+      <div className="bg-gray-100 flex justify-between px-3 py-3 mt-8 w-max">
+        <div className=" px-3">Date Joined : 2/10/2010</div>
+        <div className="px-3">Location: DxB- Dubia</div>
+        <div className=" px-3">Employee ID: ARMXPPXCOD</div>
       </div>
       <div className="mt-12">
         <div className="border border-gray-200 rounded-md">

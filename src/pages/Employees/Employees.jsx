@@ -2,8 +2,8 @@ import React from "react";
 import { Button } from "../../components/Button/Button";
 import { GreyButton } from "../../components/Button/GreyButton";
 import { Table } from "antd";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
+import OptionsMenu from "../../components/TableOptionMenu";
 
 export const Employees = () => {
   const history = useHistory();
@@ -31,7 +31,9 @@ export const Employees = () => {
     {
       title: "Action",
       dataIndex: "action",
-      render: () => <BsThreeDotsVertical />,
+      render: (text, record) => {
+        return <OptionsMenu options={tableOptions} param={record.key} />;
+      },
     },
   ];
 
@@ -79,16 +81,38 @@ export const Employees = () => {
       balance: "50,000",
     },
   ];
+
+  const handleClick = (param) => {
+    console.log("param", param);
+  };
+  const handleViewDetails = (id) => {
+    history.push(`/employee/${id}`);
+  };
+
+  const tableOptions = [
+    {
+      name: "Activate",
+      onClick: handleClick,
+    },
+    {
+      name: "Deactivate",
+      onClick: handleClick,
+    },
+    {
+      name: "View Details",
+      onClick: handleViewDetails,
+    },
+  ];
   return (
     <div>
       <div className="table-header flex w-full justify-between">
         <div className="text-xl my-auto">Employees payroll Report</div>
         <div className="my-auto">
-          <Button buttonText="pay full  payroll" />
+          <Button buttonText="Pay Full Payroll" />
         </div>
       </div>
-      <div className="table-actions">
-        <div>
+      <div className="table-actions flex">
+        <div className="mr-5">
           <GreyButton
             buttonText="create single staff +"
             onClick={() => history.push("/employee/create")}
@@ -103,13 +127,14 @@ export const Employees = () => {
             ...rowSelection,
           }}
           className="cursor-pointer"
-          onRow={(record, i) => {
-            return {
-              onClick: (event) => {
-                history.push("/employee/1");
-              },
-            };
-          }}
+          // onRow={(record, i) => {
+          //   return {
+          //     onClick: (event) => {
+          //       console.log("record", record);
+          //       history.push("/employee/1");
+          //     },
+          //   };
+          // }}
           columns={columns}
           dataSource={data}
         />

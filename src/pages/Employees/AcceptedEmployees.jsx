@@ -2,6 +2,7 @@ import React from "react";
 import { Table } from "antd";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { CustomTag } from "../../components/CustomTag";
+import OptionsMenu from "../../components/TableOptionMenu";
 
 export const AcceptedEmployees = () => {
   const columns = [
@@ -37,7 +38,9 @@ export const AcceptedEmployees = () => {
     {
       title: "Action",
       dataIndex: "action",
-      render: () => <BsThreeDotsVertical />,
+      render: (text, record) => {
+        return <OptionsMenu options={tableOptions} param={record.key} />;
+      },
     },
   ];
 
@@ -85,6 +88,22 @@ export const AcceptedEmployees = () => {
       balance: "50,000",
     },
   ];
+
+  const handleClick = (param) => {
+    console.log("param", param);
+  };
+
+  const tableOptions = [
+    {
+      name: "Activate",
+      onClick: handleClick,
+    },
+    {
+      name: "Stop Earning",
+      onClick: handleClick,
+    },
+  ];
+
   return (
     <div>
       <div className="table-header flex w-full justify-between">

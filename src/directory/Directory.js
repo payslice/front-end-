@@ -129,7 +129,7 @@ const Directory = () => {
           exact
         />
         <Route
-          path="/employee/1"
+          path={`/employee/:id`}
           render={() => (
             <DashboardLayout navTab={employeeNavTab} child={EmployeeDetails} />
           )}
