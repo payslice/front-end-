@@ -1,7 +1,7 @@
 import React from "react";
 import AppLayout from "../layout/AppLayout";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Dashboard from "../pages/Dashboard";
+// import Dashboard from "../pages/Dashboard";
 import { Login } from "../pages/login/Login";
 import AuthLayout from "../layout/AuthLayout";
 import { SignUp } from "../pages/signup/SignUp";
@@ -25,6 +25,9 @@ import AccountInfo from "../pages/Payment/AccountInfo";
 import TotalTransactions from "../pages/Withdrawals/TotalTransactions";
 import DashboardHome from "../pages/DashboardHome/DashboardHome";
 import { ChooseUser } from "../pages/ChooseUser/ChooseUser";
+import { UserSignUp } from "../pages/EmployeePages/Auth/SignUp";
+import { UserLogin } from "../pages/EmployeePages/Auth/Login";
+import { OTPReset } from "../pages/EmployeePages/Auth/OTPReset";
 
 const DashboardLayout = ({ child, navTab }) => {
   return <AppLayout navTab={navTab}>{child()}</AppLayout>;
@@ -75,6 +78,24 @@ const Directory = () => {
           render={() => <AuthPageLayout child={Login} />}
           exact
         />
+        <Route
+          path="/user/register"
+          render={() => <AuthPageLayout child={UserSignUp} />}
+          exact
+        />
+
+        <Route
+          path="/user/login"
+          render={() => <AuthPageLayout child={UserLogin} />}
+          exact
+        />
+
+        <Route
+          path="/user/reset-password"
+          render={() => <AuthPageLayout child={OTPReset} />}
+          exact
+        />
+
         <Route
           path="/"
           render={() => <AuthPageLayout child={ChooseUser} />}

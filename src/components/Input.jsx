@@ -43,7 +43,7 @@ export const PasswordInput = ({
   const [type, setType] = useState("password");
   return (
     <div className="w-full mt-5">
-      <label htmlFor="" className="font-semibold text-lg">
+      <label htmlFor="" className="font-light text-normal">
         {label}
       </label>
 

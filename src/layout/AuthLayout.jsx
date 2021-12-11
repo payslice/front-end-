@@ -8,7 +8,7 @@ const AuthLayout = ({ children }) => {
       className="h-screen max-h-screen overflow-x-hidden w-screen flex"
     >
       <AuthSidebar />
-      <main className="h-screen mobiles:p-4 max-w-full w-full overscroll-x-hidden max-h-screen p-32 flex-1 overflow-y-auto">
+      <main className="h-screen mobiles:p-4 max-w-full w-full overscroll-x-hidden max-h-screen px-32 py-10 flex-1 overflow-y-auto">
         {children}
       </main>
     </div>

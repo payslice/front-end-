@@ -9,6 +9,20 @@ export const ChooseUser = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const history = useHistory();
 
+  const handleUserRoute = () => {
+    switch (selectedIndex) {
+      case 1:
+        history.push("/login");
+        break;
+      case 2:
+        history.push("/user/register");
+        break;
+      default:
+        history.push("/login");
+        break;
+    }
+  };
+
   return (
     <div className="mt-10 w-4/6 ">
       <div className="text-3xl uppercase mb-6">choose user</div>
@@ -67,7 +81,7 @@ export const ChooseUser = () => {
         </div>
       </div>
       <div className="btn flex mt-10 flex-end justify-end">
-        <Button buttonText="Next" onClick={() => history.push("/login")} />
+        <Button buttonText="Next" onClick={handleUserRoute} />
       </div>
     </div>
   );
