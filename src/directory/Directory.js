@@ -28,6 +28,7 @@ import { ChooseUser } from "../pages/ChooseUser/ChooseUser";
 import { UserSignUp } from "../pages/EmployeePages/Auth/SignUp";
 import { UserLogin } from "../pages/EmployeePages/Auth/Login";
 import { OTPReset } from "../pages/EmployeePages/Auth/OTPReset";
+import UserDashboard from "../pages/EmployeePages/Dashboard";
 
 const DashboardLayout = ({ child, navTab }) => {
   return <AppLayout navTab={navTab}>{child()}</AppLayout>;
@@ -198,6 +199,10 @@ const Directory = () => {
           exact
         />
         <Route
+          path="/user/dashboard"
+          render={() => <DashboardLayout child={UserDashboard} />}
+        />
+        <Route
           path="/admin/add"
           render={() => <DashboardLayout child={AddStaff} />}
         />
@@ -209,10 +214,6 @@ const Directory = () => {
           path="/withdrawals"
           render={() => <DashboardLayout child={TotalTransactions} />}
         />
-        {/* <Route
-          path=""
-          render={() => <DashboardLayout child={DashboardHome} />}
-        /> */}
       </Switch>
 
       {/* </Router> */}

@@ -32,7 +32,7 @@ export const UserLogin = () => {
             <Button
               type="submit"
               buttonText="Next"
-              onClick={() => history.push("/user/reset-password")}
+              onClick={() => history.push("/user/dashboard")}
             />
           </div>
         </form>
