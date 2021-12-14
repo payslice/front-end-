@@ -33,6 +33,7 @@ import Withdrawals from "../pages/EmployeePages/Withdrawals/Withdrawals";
 import TimeAttendance from "../pages/EmployeePages/Attendance/TimeAttendance";
 import PersonalInfo from "../pages/EmployeePages/PersonalInfo/PersonalInfo";
 import BankingInfo from "../pages/EmployeePages/PersonalInfo/BankingInfo";
+import WithdrawFunds from "../pages/EmployeePages/Withdrawals/WithdrawFunds";
 
 const DashboardLayout = ({ child, navTab }) => {
   return <AppLayout navTab={navTab}>{child()}</AppLayout>;
@@ -220,6 +221,12 @@ const Directory = () => {
         <Route
           path="/user/withdrawals"
           render={() => <DashboardLayout child={Withdrawals} />}
+          exact
+        />
+        <Route
+          path="/user/withdrawals/withdraw"
+          render={() => <DashboardLayout child={WithdrawFunds} />}
+          exact
         />
         <Route
           path="/user/attendance"
