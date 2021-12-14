@@ -29,6 +29,8 @@ import { UserSignUp } from "../pages/EmployeePages/Auth/SignUp";
 import { UserLogin } from "../pages/EmployeePages/Auth/Login";
 import { OTPReset } from "../pages/EmployeePages/Auth/OTPReset";
 import UserDashboard from "../pages/EmployeePages/Dashboard";
+import Withdrawals from "../pages/EmployeePages/Withdrawals/Withdrawals";
+import TimeAttendance from "../pages/EmployeePages/Attendance/TimeAttendance";
 
 const DashboardLayout = ({ child, navTab }) => {
   return <AppLayout navTab={navTab}>{child()}</AppLayout>;
@@ -202,6 +204,15 @@ const Directory = () => {
           path="/user/dashboard"
           render={() => <DashboardLayout child={UserDashboard} />}
         />
+        <Route
+          path="/user/withdrawals"
+          render={() => <DashboardLayout child={Withdrawals} />}
+        />
+        <Route
+          path="/user/attendance"
+          render={() => <DashboardLayout child={TimeAttendance} />}
+        />
+
         <Route
           path="/admin/add"
           render={() => <DashboardLayout child={AddStaff} />}
