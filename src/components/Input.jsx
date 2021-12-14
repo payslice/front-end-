@@ -10,9 +10,11 @@ export const InputField = ({
   value,
   required,
   label,
+  minLength,
+  maxLength,
 }) => {
   return (
-    <div className="w-full mt-5">
+    <div className="w-full mt-5 mr-5">
       <label htmlFor="" className="font-light text-normal">
         {label}
       </label>
@@ -23,6 +25,8 @@ export const InputField = ({
         placeholder={placeholder}
         name={name}
         id={id}
+        minLength={minLength}
+        maxLength={maxLength}
         onChange={onChange}
         value={value}
         required={required}
@@ -42,7 +46,7 @@ export const PasswordInput = ({
 }) => {
   const [type, setType] = useState("password");
   return (
-    <div className="w-full mt-5">
+    <div className="mt-5">
       <label htmlFor="" className="font-light text-normal">
         {label}
       </label>

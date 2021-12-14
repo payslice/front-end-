@@ -31,6 +31,8 @@ import { OTPReset } from "../pages/EmployeePages/Auth/OTPReset";
 import UserDashboard from "../pages/EmployeePages/Dashboard";
 import Withdrawals from "../pages/EmployeePages/Withdrawals/Withdrawals";
 import TimeAttendance from "../pages/EmployeePages/Attendance/TimeAttendance";
+import PersonalInfo from "../pages/EmployeePages/PersonalInfo/PersonalInfo";
+import BankingInfo from "../pages/EmployeePages/PersonalInfo/BankingInfo";
 
 const DashboardLayout = ({ child, navTab }) => {
   return <AppLayout navTab={navTab}>{child()}</AppLayout>;
@@ -63,6 +65,17 @@ const paymentNavTab = [
   {
     name: "Payment History",
     link: "/payments/history",
+  },
+];
+
+const userInfoNavTab = [
+  {
+    name: "Personal Infomation",
+    link: "/user/settings",
+  },
+  {
+    name: "Banking Information",
+    link: "/user/settings/banking",
   },
 ];
 
@@ -211,6 +224,20 @@ const Directory = () => {
         <Route
           path="/user/attendance"
           render={() => <DashboardLayout child={TimeAttendance} />}
+        />
+        <Route
+          path="/user/settings"
+          render={() => (
+            <DashboardLayout navTab={userInfoNavTab} child={PersonalInfo} />
+          )}
+          exact
+        />
+        <Route
+          path="/user/settings/banking"
+          render={() => (
+            <DashboardLayout navTab={userInfoNavTab} child={BankingInfo} />
+          )}
+          exact
         />
 
         <Route

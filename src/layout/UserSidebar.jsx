@@ -1,15 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import Team from "../assets/svgs/Team";
-import Settings from "../assets/svgs/Settings";
-import Logout from "../assets/svgs/Logout";
-import Contact from "../assets/svgs/Contact";
 import SidebarItem from "./SidebarItem.js";
 import { AiFillHome, AiFillSetting } from "react-icons/ai";
-import { FaFolder } from "react-icons/fa";
 import { MdAnalytics } from "react-icons/md";
 import { HiBriefcase } from "react-icons/hi";
-import { FaCommentDots } from "react-icons/fa";
 
 const UserSidebar = () => {
   const [currentLocation, setCurrentLoacation] = useState("/");
