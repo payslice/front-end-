@@ -1,13 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { InputField } from "../../components/Input";
+import { companyInfoOnboarding } from "../../utils/ApiRequests";
+import { toast } from "react-toastify";
+import MiniLoader from "../../components/Loaders/MiniLoader";
 
 const CompanyOnboard = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    industry: "",
+    tax_identification_number: "",
+    rc_number: "",
+    address: "",
+    phone_number: "",
+    registered_business_name: "",
+  });
+  const [loading, setLoading] = useState(false);
+
   const history = useHistory();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const formEntry = { [name]: value };
+    setFormData({ ...formData, ...formEntry });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await companyInfoOnboarding(formData);
+      setLoading(false);
+      sessionStorage.setItem("P_Slice_CID", res.data.payload.data.id);
+      history.push("/onboard/step3");
+    } catch (error) {
+      toast.error(error.response.data.payload.data.errors.name[0]);
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <div className="text-2xl mb-10">Company onboarding process</div>
@@ -20,20 +52,29 @@ const CompanyOnboard = () => {
         <div className="flex w-full">
           <div className="w-1/2 pr-5">
             <InputField
-              label="Company Name"
-              name="Company Name"
+              label="Registered Business Name"
+              name="registered_business_name"
               placeholder="ABC Company"
               type="text"
               required
+              onChange={(e) => {
+                const { value } = e.target;
+                setFormData({
+                  ...formData,
+                  name: value,
+                  registered_business_name: value,
+                });
+              }}
             />
           </div>
           <div className="w-1/2 pr-5">
             <InputField
               label="Tax Identification Number"
-              name="Company Name"
-              placeholder="ABC Company"
+              name="tax_identification_number"
+              placeholder="Enter Tax ID Number"
               type="text"
               required
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -41,18 +82,20 @@ const CompanyOnboard = () => {
           <div className="w-1/2 pr-5">
             <InputField
               label="RC Number"
-              name="RC Number"
-              placeholder="ABC Company"
+              name="rc_number"
+              placeholder="Enter RC Number"
               type="text"
+              onChange={handleChange}
               required
             />
           </div>
           <div className="w-1/2 pr-5">
             <InputField
               label="Business Address"
-              name="Company Name"
-              placeholder="ABC Company"
+              name="address"
+              placeholder="Enter Business Address"
               type="text"
+              onChange={handleChange}
               required
             />
           </div>
@@ -61,17 +104,19 @@ const CompanyOnboard = () => {
           <div className="w-1/2 pr-5">
             <InputField
               label="Industry"
-              name="RC Number"
-              placeholder="ABC Company"
+              name="industry"
+              placeholder="Enter Industry"
               type="text"
+              onChange={handleChange}
               required
             />
           </div>
           <div className="w-1/2 pr-5">
             <InputField
               label="Business Phone Number"
-              name="Business Phone Number"
+              name="phone_number"
               placeholder="+2349012345678"
+              onChange={handleChange}
               type="tel"
               required
             />
@@ -81,19 +126,20 @@ const CompanyOnboard = () => {
           <div className="w-1/2 pr-5">
             <InputField
               label="Payment Email"
-              name="Payment Email"
-              placeholder="ABC Company"
+              name="email"
+              placeholder="abc@xyz.com"
+              onChange={handleChange}
               type="email"
               required
             />
           </div>
         </div>
         <div className="signUp__submit-btn flex justify-end">
-          <Button
-            type="submit"
-            buttonText="Save"
-            onClick={() => history.push("/onboard/step2")}
-          />
+          {loading ? (
+            <MiniLoader />
+          ) : (
+            <Button type="submit" buttonText="Save" />
+          )}
         </div>
       </form>
     </div>

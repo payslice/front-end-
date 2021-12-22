@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../../components/Button/Button";
 import { GreyButton } from "../../components/Button/GreyButton";
 import { Table } from "antd";
 import { useHistory } from "react-router-dom";
 import OptionsMenu from "../../components/TableOptionMenu";
+import { getAllEmployees } from "../../utils/ApiRequests";
 
 export const Employees = () => {
+  useEffect(() => {
+    const fetchAllEmployees = async () => {
+      try {
+        const res = await getAllEmployees();
+        console.log("res", res.data);
+      } catch (error) {
+        console.log("error", error.response);
+      }
+    };
+    fetchAllEmployees();
+  }, []);
+
   const history = useHistory();
   const columns = [
     {

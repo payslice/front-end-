@@ -7,11 +7,8 @@ import UserSidebar from "./UserSidebar";
 const AppLayout = ({ children, navTab }) => {
   const location = useLocation();
 
-  console.log("location obj", location);
-
   const isEmployee = location?.pathname?.includes("user");
 
-  console.log("check if user", isEmployee);
   return (
     <div
       style={{ maxWidth: "100vw" }}
