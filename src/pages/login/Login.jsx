@@ -34,8 +34,8 @@ export const Login = () => {
 
   return (
     <>
-      <div className="p-10 flex flex-col h-full justify-center w-3/4">
-        <h1 className="text-3xl font-bold  uppercase">login</h1>
+      <div className="p-10 mobiles:p-0 flex flex-col mobiles:block mobiles:mt-28 mobiles:h-0 h-full justify-center w-3/4 mobiles:w-full">
+        <h1 className="text-3xl font-bold uppercase">login</h1>
 
         <form onSubmit={handleSubmit}>
           <div className="mt_10">
@@ -62,10 +62,10 @@ export const Login = () => {
               <Button type="submit" buttonText="Next" />
             )}
           </div>
-          <div>
-            Don't have an account? <a href="/register">Sign Up now</a>
-          </div>
         </form>
+        <div className="mt-16">
+          Don't have an account? <a href="/register">Sign Up now</a>
+        </div>
       </div>
     </>
   );

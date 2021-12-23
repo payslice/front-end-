@@ -11,7 +11,7 @@ export const UserSignUp = () => {
   };
   return (
     <>
-      <div className="p-10 w-3/4">
+      <div className="p-10 w-3/4 mobiles:w-full mobiles:block mobiles:mt-28 mobiles:p-0 ">
         <h1 className="text-3xl uppercase">sign up</h1>
 
         <form onSubmit={submitForm}>
@@ -53,6 +53,9 @@ export const UserSignUp = () => {
             />
           </div>
         </form>
+        <div className="mt-5 pb-16 ">
+          Already have an account? <a href="/user/login">Login</a>
+        </div>
       </div>
     </>
   );

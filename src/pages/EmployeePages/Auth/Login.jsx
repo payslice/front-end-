@@ -11,7 +11,7 @@ export const UserLogin = () => {
   };
   return (
     <>
-      <div className="p-10 flex flex-col h-full justify-center w-3/4">
+      <div className="p-10 flex flex-col h-full justify-center w-3/4 mobiles:w-full mobiles:block mobiles:mt-28 mobiles:p-0 mobiles:h-0">
         <h1 className="text-3xl font-bold  uppercase">login</h1>
 
         <form onSubmit={submitForm}>
@@ -36,6 +36,9 @@ export const UserLogin = () => {
             />
           </div>
         </form>
+        <div className="mt-16">
+          Don't have an account? <a href="/user/register">Sign Up now</a>
+        </div>
       </div>
     </>
   );

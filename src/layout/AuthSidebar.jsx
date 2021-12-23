@@ -23,7 +23,7 @@ const AuthSidebar = () => {
   });
 
   return (
-    <section className="h-screen max-h-screen relative auth_sidebar auth_sidebar_bg  overflow-y-auto overflow-x-hidden">
+    <section className="h-screen max-h-screen relative auth_sidebar auth_sidebar_bg  overflow-y-auto overflow-x-hidden mobiles:hidden">
       <div className="pt-24 px-16">
         <h1 className="mb-3 mobiles:px-1 mobiles:w-full ">
           <img

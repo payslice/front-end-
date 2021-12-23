@@ -24,7 +24,7 @@ export const ChooseUser = () => {
   };
 
   return (
-    <div className="mt-10 w-4/6 ">
+    <div className=" w-4/6 flex flex-col h-full justify-center mobiles:w-full mobiles:mt-28">
       <div className="text-3xl uppercase mb-6">choose user</div>
       <p>
         Creating a more productive workforce is just few steps away <br /> Enter
