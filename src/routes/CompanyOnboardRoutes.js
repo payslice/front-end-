@@ -30,12 +30,13 @@ const CompanyOnboardRoutes = () => {
     <CompanyRegLayout>
       <Switch>
         {CompanyOnboardRoutesList.map((r) => (
-          <PrivateRoute
-            path={r.path}
-            exact={true}
-            component={r.component}
-            key={r.path}
-          />
+          // <PrivateRoute
+          //   path={r.path}
+          //   exact={true}
+          //   component={r.component}
+          //   key={r.path}
+          // />
+          <Route component={r.component} path={r.path} exact={r.exact} />
         ))}
       </Switch>
     </CompanyRegLayout>

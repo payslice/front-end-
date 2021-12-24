@@ -19,14 +19,14 @@ const CompanyRegSidebar = () => {
   return (
     <section className="h-screen max-h-screen relative onboarding_sidebar auth_sidebar_bg overflow-y-auto overflow-x-hidden mobiles:hidden">
       <div className="pt-16 px-16">
-        <h1 className="mb-3 mobiles:px-1 mobiles:w-full ">
+        <h1 className="mb-3  mobiles:px-1 mobiles:w-full ">
           <img
             src={require("../assets/svgs/payslice-logo.svg").default}
-            className="w-52 mobiles:w-full"
+            className="w-52 mobiles:w-full mt-7"
             alt=""
           />
         </h1>
-        <ul className="mt-12">
+        <ul className="mt-24">
           <SidebarItem
             currentPath={currentLocation}
             Icon={FaUserAlt}

@@ -82,7 +82,7 @@ export const OnboardMobileNav = () => {
             onClick={() => setShowMenu(false)}
           >
             <MdArrowBackIosNew fill="#FFFFFF" className="my-auto" />{" "}
-            <div className="text-white my-auto ml-2">Collaspes Panel</div>
+            <div className="text-white my-auto ml-2">Collapse Panel</div>
           </div>
         </div>
       )}
