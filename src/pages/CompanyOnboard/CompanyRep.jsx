@@ -18,8 +18,8 @@ const CompanyRepresentative = () => {
       </p>
 
       <form onSubmit={handleSubmit} className="mt-10">
-        <div className="flex w-full">
-          <div className="w-1/2 pr-5">
+        <div className="flex w-full mobiles:block">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Legal name"
               name="Legal name"
@@ -28,7 +28,7 @@ const CompanyRepresentative = () => {
               required
             />
           </div>
-          <div className="w-1/2 pr-5">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Address"
               name="Address"
@@ -38,8 +38,8 @@ const CompanyRepresentative = () => {
             />
           </div>
         </div>
-        <div className="flex w-full">
-          <div className="w-1/2 pr-5">
+        <div className="flex w-full mobiles:block">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Date of birth"
               name="RC Number"
@@ -48,7 +48,7 @@ const CompanyRepresentative = () => {
               required
             />
           </div>
-          <div className="w-1/2 pr-5">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="ID Type"
               name="ID Type"
@@ -58,8 +58,8 @@ const CompanyRepresentative = () => {
             />
           </div>
         </div>
-        <div className="flex w-full">
-          <div className="w-1/2 pr-5">
+        <div className="flex w-full mobiles:block">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="ID number"
               name="ID number"
@@ -68,7 +68,7 @@ const CompanyRepresentative = () => {
               required
             />
           </div>
-          <div className="w-1/2 pr-5">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Ownership percentage"
               name="Ownership percentage"
@@ -78,8 +78,8 @@ const CompanyRepresentative = () => {
             />
           </div>
         </div>
-        <div className="flex w-full">
-          <div className="w-1/2 pr-5">
+        <div className="flex w-full mobiles:block">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Title (if a senior manager)"
               name="Payment Email"

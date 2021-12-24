@@ -49,8 +49,8 @@ const CompanyOnboard = () => {
       </p>
 
       <form onSubmit={handleSubmit} className="mt-10">
-        <div className="flex w-full">
-          <div className="w-1/2 pr-5">
+        <div className="flex w-full mobiles:block">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Registered Business Name"
               name="registered_business_name"
@@ -67,7 +67,7 @@ const CompanyOnboard = () => {
               }}
             />
           </div>
-          <div className="w-1/2 pr-5">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Tax Identification Number"
               name="tax_identification_number"
@@ -78,8 +78,8 @@ const CompanyOnboard = () => {
             />
           </div>
         </div>
-        <div className="flex w-full">
-          <div className="w-1/2 pr-5">
+        <div className="flex w-full mobiles:block">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="RC Number"
               name="rc_number"
@@ -89,7 +89,7 @@ const CompanyOnboard = () => {
               required
             />
           </div>
-          <div className="w-1/2 pr-5">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Business Address"
               name="address"
@@ -100,8 +100,8 @@ const CompanyOnboard = () => {
             />
           </div>
         </div>
-        <div className="flex w-full">
-          <div className="w-1/2 pr-5">
+        <div className="flex w-full mobiles:block">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Industry"
               name="industry"
@@ -111,7 +111,7 @@ const CompanyOnboard = () => {
               required
             />
           </div>
-          <div className="w-1/2 pr-5">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Business Phone Number"
               name="phone_number"
@@ -122,8 +122,8 @@ const CompanyOnboard = () => {
             />
           </div>
         </div>
-        <div className="flex w-full">
-          <div className="w-1/2 pr-5">
+        <div className="flex w-full mobiles:block">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Payment Email"
               name="email"

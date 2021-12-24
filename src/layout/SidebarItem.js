@@ -18,9 +18,7 @@ const SidebarItem = ({ currentPath, Icon, path, caption }) => {
         >
           <Icon fill={fillValue} />
           <span
-            className={`pl-3 transition-colors ${
-              active ? "" : ""
-            } t_white mobiles:hidden`}
+            className={`pl-3 transition-colors ${active ? "" : ""} t_white `}
           >
             {caption}
           </span>

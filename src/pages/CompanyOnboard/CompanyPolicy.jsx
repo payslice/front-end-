@@ -42,8 +42,8 @@ const CompanyPolicy = () => {
       </p>
 
       <form onSubmit={handleSubmit} className="mt-10">
-        <div className="flex w-full">
-          <div className="w-1/2 pr-5">
+        <div className="flex w-full mobiles:block">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Payroll size"
               name="payroll_size"
@@ -53,7 +53,7 @@ const CompanyPolicy = () => {
               required
             />
           </div>
-          <div className="w-1/2 pr-5">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Salary date (every month)"
               name="salary_date"
@@ -65,8 +65,8 @@ const CompanyPolicy = () => {
           </div>
         </div>
 
-        <div className="flex w-full">
-          <div className="w-1/2 pr-5">
+        <div className="flex w-full mobiles:block">
+          <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
             <InputField
               label="Withdrawn percentage %"
               name="salary_withdrawal_percentage"

@@ -17,7 +17,7 @@ const CompanyRegSidebar = () => {
   });
 
   return (
-    <section className="h-screen max-h-screen relative onboarding_sidebar  auth_sidebar_bg  overflow-y-auto overflow-x-hidden">
+    <section className="h-screen max-h-screen relative onboarding_sidebar auth_sidebar_bg overflow-y-auto overflow-x-hidden mobiles:hidden">
       <div className="pt-16 px-16">
         <h1 className="mb-3 mobiles:px-1 mobiles:w-full ">
           <img
@@ -60,7 +60,7 @@ const CompanyRegSidebar = () => {
       >
         <img
           src={require("../assets/svgs/payslice-bg.svg").default}
-          className="w-72 mobiles:w-full"
+          className="w-72 mobiles:hidden"
           alt=""
         />
       </div>
