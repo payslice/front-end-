@@ -4,6 +4,7 @@ import AuthRoutes, { AuthRoutesList } from "./AuthRoute";
 import CompanyOnboardRoutes, {
   CompanyOnboardRoutesList,
 } from "./CompanyOnboardRoutes";
+import EmployeeRoutes, { EmployeeRoutesList } from "./EmployeeRoutes";
 import EmployerRoutes, { EmployerRoutesList } from "./EmployerRoutes";
 
 const RouteList = [
@@ -21,6 +22,11 @@ const RouteList = [
     path: EmployerRoutesList.map((r) => r.path),
     exact: true,
     component: EmployerRoutes,
+  },
+  {
+    path: EmployeeRoutesList.map((r) => r.path),
+    exact: true,
+    component: EmployeeRoutes,
   },
 ];
 

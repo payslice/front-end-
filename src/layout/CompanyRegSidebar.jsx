@@ -60,7 +60,7 @@ const CompanyRegSidebar = () => {
       >
         <img
           src={require("../assets/svgs/payslice-bg.svg").default}
-          className="w-72 mobiles:hidden"
+          className="w-64 mobiles:hidden"
           alt=""
         />
       </div>

@@ -15,8 +15,10 @@ import AddStaff from "../pages/Administrator/AddStaff";
 import AccountInfo from "../pages/Payment/AccountInfo";
 import TotalTransactions from "../pages/Withdrawals/TotalTransactions";
 import { checkLogin } from "../utils/ApiUtils";
+import DashboardHome from "../pages/DashboardHome/DashboardHome";
 
 export const EmployerRoutesList = [
+  { path: "/dashboard", component: DashboardHome, exact: true },
   {
     path: "/employee",
     component: Employees,
@@ -102,13 +104,14 @@ const EmployerRoutes = () => {
     <AppLayout navTab={useNavTab()}>
       <Switch>
         {EmployerRoutesList.map((r) => (
-          <EmployerRoute
-            path={r.path}
-            exact={true}
-            component={r.component}
-            key={r.path}
-            navTab={r.navTab}
-          />
+          // <EmployerRoute
+          //   path={r.path}
+          //   exact={true}
+          //   component={r.component}
+          //   key={r.path}
+          //   navTab={r.navTab}
+          // />
+          <Route component={r.component} path={r.path} exact={r.exact} />
         ))}
       </Switch>
     </AppLayout>

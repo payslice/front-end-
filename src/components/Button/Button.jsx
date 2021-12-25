@@ -9,6 +9,7 @@ export const Button = ({
   type,
   fullwidth,
   inverted,
+  className,
 }) => {
   return (
     <button
@@ -19,7 +20,7 @@ export const Button = ({
         inverted
           ? "text-gray-800 border border-gray-800 bg-transparent"
           : "text-white bg-gray-800 "
-      }`}
+      } ${className}`}
     >
       {loading ? "Processing..." : buttonText}
     </button>

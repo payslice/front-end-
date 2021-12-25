@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Sidebar from "./Sidebar";
 import UserSidebar from "./UserSidebar";
+import { DahboardMobileNav } from "./DashboardMbNav";
 
 const AppLayout = ({ children, navTab }) => {
   const location = useLocation();
@@ -15,11 +16,12 @@ const AppLayout = ({ children, navTab }) => {
       className="h-screen max-h-screen overflow-x-hidden w-screen flex"
     >
       {isEmployee ? <UserSidebar /> : <Sidebar />}
+      <DahboardMobileNav />
 
-      <main className="h-screen mobiles:p-4 max-w-full w-full overscroll-x-hidden max-h-screen flex-1 overflow-y-auto">
+      <main className="h-screen mobiles:p-6 max-w-full w-full overscroll-x-hidden max-h-screen flex-1 overflow-y-auto mobiles:mt-20">
         <Navbar />
         {navTab && (
-          <div className="bg-gray-100 w-full flex py-5 px-8">
+          <div className="bg-gray-100 w-full flex py-5 px-8 mobiles:hidden">
             {navTab?.map((nav) => {
               return (
                 <Link
@@ -33,7 +35,7 @@ const AppLayout = ({ children, navTab }) => {
           </div>
         )}
 
-        <div className="p-8">{children}</div>
+        <div className="p-8 mobiles:p-0">{children}</div>
       </main>
     </div>
   );

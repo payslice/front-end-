@@ -23,22 +23,6 @@ const DashboardLayout = ({ child, navTab }) => {
   return <AppLayout navTab={navTab}>{child()}</AppLayout>;
 };
 
-const AuthPageLayout = () => {
-  return (
-    <AuthLayout>
-      <Switch>
-        <Route path="/login" component={Login} exact />
-        <Route path="/choose-user" component={ChooseUser} exact />
-        <Route path="/" component={ChooseUser} exact />
-        <Route path="/register" component={SignUp} exact />
-        <Route path="/user/register" component={UserSignUp} exact />
-        <Route path="/user/login" component={UserLogin} exact />
-        <Route path="/user/reset-password" component={OTPReset} exact />
-      </Switch>
-    </AuthLayout>
-  );
-};
-
 const userInfoNavTab = [
   {
     name: "Personal Infomation",
@@ -55,12 +39,6 @@ const Directory = () => {
     <>
       {/* <Router> */}
       <Switch>
-        <Route
-          path="/dashboard"
-          render={() => <DashboardLayout child={DashboardHome} />}
-          exact
-        />
-
         <Route
           path="/user/dashboard"
           render={() => <DashboardLayout child={UserDashboard} />}

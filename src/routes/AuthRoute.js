@@ -11,6 +11,7 @@ import { OTPReset } from "../pages/EmployeePages/Auth/OTPReset";
 export const AuthRoutesList = [
   { path: "/login", component: Login, exact: true },
   { path: "/", component: ChooseUser, exact: true },
+  { path: "/choose-user", component: ChooseUser, exact: true },
   { path: "/register", component: SignUp, exact: true },
   { path: "/user/register", component: UserSignUp, exact: true },
   { path: "/user/login", component: UserLogin, exact: true },

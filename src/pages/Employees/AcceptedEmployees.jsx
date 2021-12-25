@@ -2,7 +2,9 @@ import React from "react";
 import { Table } from "antd";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { CustomTag } from "../../components/CustomTag";
+
 import OptionsMenu from "../../components/TableOptionMenu";
+import { EmployeeTab } from "../../components/EmployeeTab";
 
 export const AcceptedEmployees = () => {
   const columns = [
@@ -107,6 +109,7 @@ export const AcceptedEmployees = () => {
   return (
     <div>
       <div className="table-header flex w-full justify-between">
+        <EmployeeTab />
         <div className="text-xl my-auto">Accepted Employees</div>
       </div>
 

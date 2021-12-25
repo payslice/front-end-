@@ -55,7 +55,7 @@ const AuthSidebar = () => {
       >
         <img
           src={require("../assets/svgs/payslice-bg.svg").default}
-          className="w-72 mobiles:w-full"
+          className="w-64 mobiles:w-full"
           alt=""
         />
       </div>

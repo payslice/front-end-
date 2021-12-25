@@ -5,6 +5,10 @@ import { Table } from "antd";
 import { useHistory } from "react-router-dom";
 import OptionsMenu from "../../components/TableOptionMenu";
 import { getAllEmployees } from "../../utils/ApiRequests";
+import { BsFilter } from "react-icons/bs";
+import { AiOutlineSearch } from "react-icons/ai";
+import { EmployeeTab } from "../../components/EmployeeTab";
+import { EmployeeCard } from "../../components/EmployeeCard";
 
 export const Employees = () => {
   useEffect(() => {
@@ -58,6 +62,10 @@ export const Employees = () => {
         selectedRows
       );
     },
+  };
+
+  const gotoDetailsPage = () => {
+    history.push("/employee/1");
   };
 
   const data = [
@@ -118,10 +126,31 @@ export const Employees = () => {
   ];
   return (
     <div>
-      <div className="table-header flex w-full justify-between">
-        <div className="text-xl my-auto">Employees payroll Report</div>
-        <div className="my-auto">
-          <Button buttonText="Pay Full Payroll" />
+      <div className="table-header flex w-full justify-between mobiles:block">
+        <EmployeeTab />
+        <div className="text-xl my-auto mobiles:mt-3 mobiles:hidden">
+          Employees payroll Report
+        </div>
+        <div className="my-auto mobiles:flex mobiles:justify-end mobiles:mb-4">
+          <Button
+            buttonText="Pay Full Payroll"
+            className="mobiles:px-3 mobiles:py-2"
+          />
+        </div>
+        <div className="mobiles:flex hidden justify-between mb-3 mt-5">
+          <div className="text-normal my-auto ">Employees payroll Report</div>
+          <div className="filter-search-wrapper flex">
+            <BsFilter
+              style={{ background: "#F9F9F9" }}
+              className="p-1 mr-2 "
+              size="32px"
+            />
+            <AiOutlineSearch
+              style={{ background: "#F9F9F9" }}
+              className="p-1 ml-2"
+              size="32px"
+            />
+          </div>
         </div>
       </div>
       <div className="table-actions flex">
@@ -133,7 +162,7 @@ export const Employees = () => {
         </div>
       </div>
 
-      <div className="employee-table my-16">
+      <div className="employee-table my-16 mobiles:hidden">
         <Table
           rowSelection={{
             type: "checkbox",
@@ -151,6 +180,10 @@ export const Employees = () => {
           columns={columns}
           dataSource={data}
         />
+      </div>
+      <div className="mobiles:block hidden">
+        <EmployeeCard gotoDetailsPage={gotoDetailsPage} />
+        <EmployeeCard gotoDetailsPage={gotoDetailsPage} />
       </div>
     </div>
   );

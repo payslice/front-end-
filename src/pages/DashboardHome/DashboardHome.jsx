@@ -61,12 +61,12 @@ const DashboardHome = () => {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <h2 className="text-2xl font-light">
+      <div className="flex justify-between mobiles:block ">
+        <h2 className="text-2xl font-light mobiles:mb-6 mobiles:mt-3">
           Welcome to Payslice , Peter Brown
         </h2>
-        <div className="flex justify-between">
-          <div className="tab flex rounded bg-gray-100 mr-5">
+        <div className="flex justify-between mobiles:block ">
+          <div className="tab flex rounded bg-gray-100 mr-5 mobiles:my-3 mobiles:mr-0 mobiles:justify-between">
             <div
               className={`px-5 rounded py-3 cursor-pointer ${
                 activeIndex === 0 && "__tab-active"
@@ -100,10 +100,10 @@ const DashboardHome = () => {
       </div>
 
       <div className="cards mt-10">
-        <div className="flex">
-          <div className="w-1/4  mr-5 h-40 rounded-lg border border-gray-100 p-6">
+        <div className="flex mobiles:block">
+          <div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
             <p className="font-bold">Payroll Size</p>
-            <p className="font-normal flex">
+            <p className="font-normal flex mobiles:flex mobiles:justify-between">
               December 2020{" "}
               <span
                 className="flex ml-5 font-bold"
@@ -112,21 +112,21 @@ const DashboardHome = () => {
                 +3% <BsArrowUp className="my-auto" />
               </span>
             </p>
-            <h4 className="text-lg font-bold">
+            <h4 className="text-lg font-bold mobiles:flex mobiles:justify-between">
               20,000{" "}
               <span className="ml-2 text-gray-400 text-sm font-light">
                 Veiw more{" "}
               </span>
             </h4>
           </div>
-          <div className="w-1/4  mr-5 h-40 rounded-lg border border-gray-100 p-6">
+          <div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
             <p className="font-bold">Credit limit</p>
             <p className="font-light flex">December 2020</p>
             <h4 className="text-lg font-bold">NGN 20,000 </h4>
           </div>
-          <div className="w-1/4  mr-5 h-40 rounded-lg border border-gray-100 p-6">
+          <div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
             <p className="font-bold">Total accepted Employee</p>
-            <p className="font-normal flex">
+            <p className="font-normal flex mobiles:flex mobiles:justify-between">
               December 2020{" "}
               <span
                 className="flex ml-5 font-bold"
@@ -135,16 +135,16 @@ const DashboardHome = () => {
                 +3% <BsArrowUp className="my-auto" />
               </span>
             </p>
-            <h4 className="text-lg font-bold">
+            <h4 className="text-lg font-bold mobiles:flex mobiles:justify-between">
               135{" "}
               <span className="ml-2 text-gray-400 text-sm font-light">
                 Veiw more{" "}
               </span>
             </h4>
           </div>
-          <div className="w-1/4  mr-5 h-40 rounded-lg border border-gray-100 p-6">
+          <div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
             <p className="font-bold">Upcoming payments</p>
-            <p className="font-normal flex">
+            <p className="font-normal flex mobiles:flex mobiles:justify-between">
               December 2020{" "}
               <span
                 className="flex ml-5 font-bold"
@@ -153,7 +153,7 @@ const DashboardHome = () => {
                 +3% <BsArrowDown className="my-auto font-bold" />
               </span>
             </p>
-            <h4 className="text-lg font-bold">
+            <h4 className="text-lg font-bold mobiles:flex mobiles:justify-between">
               135{" "}
               <span className="ml-2 text-gray-400 text-sm font-light">
                 Repay now
@@ -163,9 +163,9 @@ const DashboardHome = () => {
         </div>
       </div>
       <div className=" my-16">
-        <div className="w-full flex">
-          <div className="graph-container p-8 mr-8 w-2/3 border border-gray-100 rounded-lg">
-            <h3 className="text-2xl py-4">Active Withdrawal</h3>
+        <div className="w-full flex mobiles:block">
+          <div className="graph-container p-6 mobiles:p-0 mr-8 w-2/3 mobiles:w-full mobiles:my-4 border border-gray-100 rounded-lg">
+            <h3 className="text-2xl py-4 px-2">Active Withdrawal</h3>
             <ResponsiveContainer width="100%" height={350}>
               <AreaChart
                 width={500}
@@ -191,7 +191,7 @@ const DashboardHome = () => {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="w-1/3 rounded-lg border h-40 border-gray"></div>
+          <div className="w-1/3 mobiles:w-full rounded-lg border h-40 border-gray"></div>
         </div>
       </div>
     </div>
