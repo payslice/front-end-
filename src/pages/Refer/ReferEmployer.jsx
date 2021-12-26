@@ -11,9 +11,9 @@ export const ReferEmployer = () => {
   };
   return (
     <>
-      <div className="p-10 w-3/4">
-        <h1 className="text-3xl font-bold  uppercase">refer your employer</h1>
-        <small>you can choose to remain anonymous</small>
+      <div className="p-10 w-3/4 mobiles:w-full mobiles:p-0 mobiles:mt-20">
+        <h1 className="text-3xl uppercase">refer your employer</h1>
+        <small>You can choose to remain anonymous</small>
 
         <form onSubmit={submitForm}>
           <div className="mt_10">
