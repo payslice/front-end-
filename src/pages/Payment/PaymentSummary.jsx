@@ -93,22 +93,22 @@ const PaymentSummary = () => {
         <div className="border border-gray-300 p-5 mr-5 my-3 rounded w-1/4 mobiles:w-full">
           <h2 className="text-2xl">Total withdrawals </h2>
           <p className="text-normal">December 2020</p>
-          <h2 className="text-2xl font-bold">NGN140,000</h2>
+          <h2 className="text-2xl font-semibold">NGN140,000</h2>
         </div>
         <div className="border border-gray-300 p-5 mr-5 my-3 rounded w-1/4 mobiles:w-full">
           <h2 className="text-2xl">Total withdrawals </h2>
           <p className="text-normal">December 2020</p>
-          <h2 className="text-2xl font-bold">NGN140,000</h2>
+          <h2 className="text-2xl font-semibold">NGN140,000</h2>
         </div>
         <div className="border border-gray-300 p-5 mr-5 my-3 rounded w-1/4 mobiles:w-full">
           <h2 className="text-2xl">Total withdrawals </h2>
           <p className="text-normal">December 2020</p>
-          <h2 className="text-2xl font-bold">NGN140,000</h2>
+          <h2 className="text-2xl font-semibold">NGN140,000</h2>
         </div>
         <div className="border border-gray-300 p-5 mr-5 my-3 rounded w-1/4 mobiles:w-full">
           <h2 className="text-2xl">Total withdrawals </h2>
           <p className="text-normal">December 2020</p>
-          <h2 className="text-2xl font-bold">NGN140,000</h2>
+          <h2 className="text-2xl font-semibold">NGN140,000</h2>
         </div>
       </div>
 

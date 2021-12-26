@@ -97,21 +97,21 @@ const TotalTransactions = () => {
           </div>
           <div className="w-1/4  mr-5 h-40 bg-gray-100 p-8 mobiles:px-4 mobiles:w-40">
             <p className="font-normal">Total salary withdrawn</p>
-            <h4 className="text-xl font-bold">NGN 420,000</h4>
+            <h4 className="text-xl font-semibold">NGN 420,000</h4>
             <p>
               For <span style={{ color: "#1C6AF4" }}>October</span>{" "}
             </p>
           </div>
           <div className="w-1/4  mr-5 h-40 bg-gray-100 p-8 mobiles:px-4 mobiles:w-40">
             <p className="font-normal">Total salary withdrawn</p>
-            <h4 className="text-xl font-bold">NGN 420,000</h4>
+            <h4 className="text-xl font-semibold">NGN 420,000</h4>
             <p>
               For <span style={{ color: "#1C6AF4" }}>October</span>{" "}
             </p>
           </div>
           <div className="w-1/4  mr-0 h-40 bg-gray-100 p-8 mobiles:px-4 mobiles:w-40">
             <p className="font-normal">Total salary withdrawn</p>
-            <h4 className="text-xl font-bold">NGN 420,000</h4>
+            <h4 className="text-xl font-semibold">NGN 420,000</h4>
             <p>
               For <span style={{ color: "#1C6AF4" }}>October</span>{" "}
             </p>
@@ -123,7 +123,7 @@ const TotalTransactions = () => {
             <div className="mr-3 bg-white card rounded-md border border-gray-200 p-4 flex flex-col justify-center">
               <div className="flex flex-col justify-center">
                 <p className="font-normal">Total salary withdrawn</p>
-                <h4 className="text-xl font-bold">NGN 420,000</h4>
+                <h4 className="text-xl font-semibold">NGN 420,000</h4>
                 <p className="mb-0">
                   For <span style={{ color: "#1C6AF4" }}>October</span>{" "}
                 </p>
@@ -132,7 +132,7 @@ const TotalTransactions = () => {
             <div className=" mr-3 card bg-white card rounded-md border border-gray-200 p-4 flex flex-col justify-center">
               <div className="flex flex-col justify-center">
                 <p className="font-normal">Number of withdrawal</p>
-                <h4 className="text-xl font-bold">55</h4>
+                <h4 className="text-xl font-semibold">55</h4>
                 <p className="mb-0">
                   For <span style={{ color: "#1C6AF4" }}>October</span>{" "}
                 </p>
@@ -141,7 +141,7 @@ const TotalTransactions = () => {
             <div className="mr-0 card bg-white card rounded-md border border-gray-200 p-4 flex flex-col justify-center">
               <div className="flex flex-col justify-center">
                 <p className="font-normal">Total salary withdrawn</p>
-                <h4 className="text-xl font-bold">NGN 420,000</h4>
+                <h4 className="text-xl font-semibold">NGN 420,000</h4>
                 <p className="mb-0">
                   For <span style={{ color: "#1C6AF4" }}>October</span>{" "}
                 </p>
