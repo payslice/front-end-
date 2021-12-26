@@ -118,7 +118,7 @@ const TotalTransactions = () => {
           </div>
         </div>
 
-        <div className="mobiles:block ">
+        <div className="mobiles:block hidden">
           <div class="outer w-full">
             <div className="mr-3 bg-white card rounded-md border border-gray-200 p-4 flex flex-col justify-center">
               <div className="flex flex-col justify-center">

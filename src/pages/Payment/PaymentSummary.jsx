@@ -44,7 +44,7 @@ const PaymentSummary = () => {
           style={{
             color: "white",
             background: "#1C6AF4",
-            width: "fit-content",
+            width: "100px",
           }}
         >
           <RiWalletFill className="my-auto mr-1" /> Pay Now

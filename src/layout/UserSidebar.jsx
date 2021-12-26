@@ -25,7 +25,7 @@ const UserSidebar = () => {
           alt=""
         />
       </h1>
-      <div>
+      <div className="mt-16">
         <ul className="pl-8 mt-10">
           <SidebarItem
             currentPath={currentLocation}
