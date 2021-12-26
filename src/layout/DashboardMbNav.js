@@ -12,6 +12,9 @@ import { FaCommentDots } from "react-icons/fa";
 export const DahboardMobileNav = () => {
   const tdc = useRef();
   const [showMenu, setShowMenu] = useState(false);
+  useClickOutside(tdc, () => {
+    setShowMenu(false);
+  });
 
   const menuItems = [
     {
@@ -53,14 +56,13 @@ export const DahboardMobileNav = () => {
         !showMenu ? "w-full px-6" : "h-full sidebar_bg"
       }`}
     >
-      {!showMenu && (
-        <RiMenuLine
-          style={{ fontSize: "28px" }}
-          onClick={() => {
-            setShowMenu(!showMenu);
-          }}
-        />
-      )}
+      <RiMenuLine
+        style={{ fontSize: "28px" }}
+        className={!showMenu ? "block" : "hidden"}
+        onClick={() => {
+          setShowMenu(!showMenu);
+        }}
+      />
 
       {showMenu && (
         <div className="relative h-full w-full px-4">

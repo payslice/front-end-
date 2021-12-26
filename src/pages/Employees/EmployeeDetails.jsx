@@ -4,6 +4,8 @@ import { Button } from "../../components/Button/Button";
 import { CustomTag } from "../../components/CustomTag";
 import { EmployeeInfo } from "../../components/EmployeeInfo";
 import { Table } from "antd";
+import { EmployeeTab } from "../../components/EmployeeTab";
+import { BackButton } from "../../components/BackButton";
 
 const EmployeeDetails = () => {
   const columns = [
@@ -58,7 +60,7 @@ const EmployeeDetails = () => {
   const data = [
     {
       key: "1",
-      date: "Tue Apr 20, 2021",
+      date: new Date().toLocaleDateString(),
       timeIn: "124:44:04",
       checkInStatus: "Committed",
       location: "Lagos",
@@ -92,22 +94,32 @@ const EmployeeDetails = () => {
   ];
   return (
     <div>
+      <EmployeeTab />
+      <div className="mt-8">
+        <BackButton />
+      </div>
       <div className="text-2xl">Employee Details </div>
-      <div className="bg-gray-100 flex justify-between px-3 py-3 mt-8 w-max">
-        <div className=" px-3">Date Joined : 2/10/2010</div>
-        <div className="px-3">Location: DxB- Dubia</div>
-        <div className=" px-3">Employee ID: ARMXPPXCOD</div>
+      <div className="bg-gray-100 flex flex-wrap mobiles:w-full justify-between px-3 py-3 mt-8 w-max">
+        <div className="mobiles:w-1/2 px-3 mobiles:px-1">
+          Date Joined : 2/10/2010
+        </div>
+        <div className="mobiles:w-1/2 px-3 mobiles:px-1">
+          Location: DxB- Dubia
+        </div>
+        <div className="mobiles:w-full px-3 mobiles:px-1">
+          Employee ID: ARMXPPXCOD
+        </div>
       </div>
       <div className="mt-12">
         <div className="border border-gray-200 rounded-md">
           <div className="flex py-8 px-5 justify-between border-b-2">
             <div className="col-1 text-xl">Employee Details</div>
-            <div className="actn-col">
-              <BsThreeDotsVertical />
+            <div className="actn-col my-auto">
+              <BsThreeDotsVertical className="my-auto" />
             </div>
           </div>
-          <div className="content w-full flex ">
-            <div className="w-1/3 p-5">
+          <div className="content w-full flex mobiles:block">
+            <div className="w-1/3 p-5 mobiles:w-full">
               <EmployeeInfo title="First Name" value="Peter" />
               <EmployeeInfo title="Last Name" value="Brown" />
               <EmployeeInfo title="Gender" value="Male" />
@@ -117,12 +129,12 @@ const EmployeeDetails = () => {
               />
               <EmployeeInfo title="Phone Number" value="08000000332" />
             </div>
-            <div className="w-1/3 p-5">
+            <div className="w-1/3 p-5 mobiles:w-full">
               <EmployeeInfo title="Bank Name" value="Stanbic IBTC" />
               <EmployeeInfo title="Account Name" value="Peter Brown" />
               <EmployeeInfo title="Account Number" value=" 002394949" />
             </div>
-            <div className="w-1/3 p-5">
+            <div className="w-1/3 p-5 mobiles:w-full">
               <EmployeeInfo
                 title="Salary Breakdown:"
                 value="Basic salary - NGN 180,000"
@@ -132,7 +144,10 @@ const EmployeeDetails = () => {
             </div>
           </div>
           <div className="my-5 mx-5">
-            <Button buttonText="Time Attendance " />
+            <Button
+              buttonText="Time Attendance "
+              className="mobiles:py-2 mobiles:px-3"
+            />
           </div>
           <div className="employee-table mb-16 mt-4 mx-5">
             <Table columns={columns} dataSource={data} />

@@ -13,8 +13,8 @@ const CreateEmployee = () => {
       </div>
       <div className="mt-5">
         <form>
-          <div className="flex w-full">
-            <div className="w-1/3 mr-5">
+          <div className="flex w-full mobiles:block">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Staff full name"
                 required
@@ -22,7 +22,7 @@ const CreateEmployee = () => {
                 type="text"
               />
             </div>
-            <div className="w-1/3 mr-5">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Email Address"
                 required
@@ -30,7 +30,7 @@ const CreateEmployee = () => {
                 type="email"
               />
             </div>
-            <div className="w-1/3 mr-5">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Phone Number "
                 required
@@ -39,8 +39,8 @@ const CreateEmployee = () => {
               />
             </div>
           </div>
-          <div className="flex w-full">
-            <div className="w-1/3 mr-5">
+          <div className="flex w-full mobiles:block">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Choose Staff Bank Name "
                 required
@@ -48,7 +48,7 @@ const CreateEmployee = () => {
                 type="text"
               />
             </div>
-            <div className="w-1/3 mr-5">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Account Number "
                 required
@@ -56,7 +56,7 @@ const CreateEmployee = () => {
                 type="email"
               />
             </div>
-            <div className="w-1/3 mr-5">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Staff Account Name  "
                 required
@@ -65,8 +65,8 @@ const CreateEmployee = () => {
               />
             </div>
           </div>
-          <div className="flex w-full">
-            <div className="w-1/3 mr-5">
+          <div className="flex w-full mobiles:block">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Salary (amount)"
                 required
@@ -74,7 +74,7 @@ const CreateEmployee = () => {
                 type="number"
               />
             </div>
-            <div className="w-1/3 mr-5">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Currency"
                 required
@@ -82,7 +82,7 @@ const CreateEmployee = () => {
                 type="text"
               />
             </div>
-            <div className="w-1/3 mr-5">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Location"
                 required
@@ -91,8 +91,8 @@ const CreateEmployee = () => {
               />
             </div>
           </div>
-          <div className="flex w-full">
-            <div className="w-1/3 mr-5 ">
+          <div className="flex w-full mobiles:block">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Employment type"
                 required
@@ -100,7 +100,7 @@ const CreateEmployee = () => {
                 type="text"
               />
             </div>
-            <div className="w-1/3 mr-5">
+            <div className="w-1/3 mr-5 mobiles:w-full">
               <InputField
                 label="Contract length "
                 required
@@ -110,7 +110,11 @@ const CreateEmployee = () => {
             </div>
           </div>
           <div className="mt-5">
-            <Button type="submit" buttonText="Send invitation" />
+            <Button
+              type="submit"
+              className="mobiles:w-full"
+              buttonText="Send invitation"
+            />
           </div>
         </form>
       </div>

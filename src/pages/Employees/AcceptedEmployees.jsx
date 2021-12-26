@@ -1,10 +1,10 @@
 import React from "react";
 import { Table } from "antd";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { CustomTag } from "../../components/CustomTag";
 
 import OptionsMenu from "../../components/TableOptionMenu";
 import { EmployeeTab } from "../../components/EmployeeTab";
+import { AcceptedEmployeeCard } from "../../components/EmployeeCard";
 
 export const AcceptedEmployees = () => {
   const columns = [
@@ -108,12 +108,12 @@ export const AcceptedEmployees = () => {
 
   return (
     <div>
-      <div className="table-header flex w-full justify-between">
+      <div className="table-header flex w-full justify-between mobiles:block">
         <EmployeeTab />
-        <div className="text-xl my-auto">Accepted Employees</div>
+        <div className="text-xl my-auto mobiles:mt-10">Accepted Employees</div>
       </div>
 
-      <div className="employee-table my-16">
+      <div className="employee-table my-16 mobiles:hidden">
         <Table
           rowSelection={{
             type: "checkbox",
@@ -122,6 +122,11 @@ export const AcceptedEmployees = () => {
           columns={columns}
           dataSource={data}
         />
+      </div>
+      <div className="mobiles:block hidden">
+        <AcceptedEmployeeCard />
+
+        <AcceptedEmployeeCard />
       </div>
     </div>
   );

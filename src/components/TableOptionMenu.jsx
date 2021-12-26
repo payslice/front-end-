@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-const OptionsMenu = ({ options, param }) => {
+const OptionsMenu = ({ options, param, customClass }) => {
   const [show, setShow] = useState(false);
 
   const tdc = useRef();
@@ -18,9 +18,13 @@ const OptionsMenu = ({ options, param }) => {
     <div
       ref={tdc}
       style={{ position: "relative", left: "" }}
-      className="w-16 relative my-auto"
+      className={`w-16 relative my-auto ${customClass}`}
     >
-      <BsThreeDotsVertical onClick={handleToggle} />
+      <BsThreeDotsVertical
+        onClick={handleToggle}
+        className="mx-auto"
+        size="18px"
+      />
       {show && (
         <ul
           style={{ top: "120%", left: "", textAlign: "left" }}
