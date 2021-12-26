@@ -65,10 +65,10 @@ const DashboardHome = () => {
         <h2 className="text-2xl font-light mobiles:mb-6 mobiles:mt-3">
           Welcome to Payslice , Peter Brown
         </h2>
-        <div className="flex justify-between mobiles:block ">
-          <div className="tab flex rounded bg-gray-100 mr-5 mobiles:my-3 mobiles:mr-0 mobiles:justify-between">
+        <div className="flex justify-between">
+          <div className="tab flex rounded bg-gray-100 mr-5 mobiles:mr-0">
             <div
-              className={`px-5 rounded py-3 cursor-pointer ${
+              className={`px-5 rounded py-3 cursor-pointer mobiles:w-1/2 mobiles:px-3 mobiles:text-xs ${
                 activeIndex === 0 && "__tab-active"
               }`}
               onClick={() => setActiveIndex(0)}
@@ -76,7 +76,7 @@ const DashboardHome = () => {
               Day
             </div>
             <div
-              className={`px-5 rounded py-3 cursor-pointer ${
+              className={`px-5 rounded py-3 cursor-pointer mobiles:px-3 mobiles:text-xs ${
                 activeIndex === 1 && "__tab-active"
               }`}
               onClick={() => setActiveIndex(1)}
@@ -84,7 +84,7 @@ const DashboardHome = () => {
               Week
             </div>
             <div
-              className={`px-5 rounded py-3 cursor-pointer ${
+              className={`px-5 rounded py-3 cursor-pointer mobiles:px-3 mobiles:text-xs ${
                 activeIndex === 2 && "__tab-active"
               }`}
               onClick={() => setActiveIndex(2)}
@@ -92,9 +92,11 @@ const DashboardHome = () => {
               Month
             </div>
           </div>
-          <div className="tab flex rounded bg-gray-100 px-5 py-2">
+          <div className="tab flex rounded bg-gray-100 px-5 py-2 mobiles:w-1/2 mobiles:text-xs mobiles:px-2">
             <BiCalendarEvent size="20" className="my-auto" />
-            <div className="px-3 my-auto">Jan, 2019 - Dec, 2019</div>
+            <div className="px-3 my-auto mobiles:px-2">
+              Jan, 2019 - Dec, 2019
+            </div>
           </div>
         </div>
       </div>

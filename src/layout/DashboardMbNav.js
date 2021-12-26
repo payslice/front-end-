@@ -52,7 +52,7 @@ export const DahboardMobileNav = () => {
     <div
       ref={tdc}
       //   style={{ position: "relative", left: "" }}
-      className={`w-3/5 relative my-auto hidden mobiles:block pt-8  pb-5  bg-white mobiles:fixed ${
+      className={`w-3/5 relative z-10 my-auto hidden mobiles:block pt-8  pb-5  bg-white mobiles:fixed ${
         !showMenu ? "w-full px-6" : "h-full sidebar_bg"
       }`}
     >
