@@ -47,6 +47,7 @@ export const employerRegister = (formData) => {
 };
 
 export const employerLogin = (formData) => {
+  console.log("api url", constant.apiBaseUrl);
   return ApiRequest().post("/employer_auth/login", formData);
 };
 

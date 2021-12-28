@@ -6,10 +6,12 @@ import { employerLogin } from "../../utils/ApiRequests";
 import { setTokenToStorage } from "../../utils/ApiUtils";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/Loaders/MiniLoader";
+import { ErrorMessage } from "../../components/Message/Message";
 
 export const Login = () => {
   const [loginForm, setLoginForm] = useState({});
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const history = useHistory();
 
   const handleChange = (e) => {
@@ -29,7 +31,8 @@ export const Login = () => {
     } catch (error) {
       // toast.error(error.response.data.payload.data);
       setLoading(false);
-      console.log("error", error.response);
+      console.log("error", error.response.data.payload.data);
+      setError(true);
     }
   };
 
@@ -37,6 +40,12 @@ export const Login = () => {
     <>
       <div className="p-10 mobiles:p-0 flex flex-col mobiles:block mobiles:mt-28 mobiles:h-0 h-full justify-center w-3/4 mobiles:w-full">
         <h1 className="text-3xl font-bold uppercase">login</h1>
+        {error && (
+          <ErrorMessage
+            title="Error"
+            message="An error occured. Please ensure your email and password is correct."
+          />
+        )}
 
         <form onSubmit={handleSubmit}>
           <div className="mt_10">
@@ -64,6 +73,7 @@ export const Login = () => {
             )}
           </div>
         </form>
+
         <div className="mt-16">
           Don't have an account? <a href="/register">Sign Up now</a>
         </div>

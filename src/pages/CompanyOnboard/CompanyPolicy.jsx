@@ -4,6 +4,7 @@ import { Button } from "../../components/Button/Button";
 import { InputField } from "../../components/Input";
 import { companyPolicy } from "../../utils/ApiRequests";
 import { toast } from "react-toastify";
+import MiniLoader from "../../components/Loaders/MiniLoader";
 
 const CompanyPolicy = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ const CompanyPolicy = () => {
     salary_withdrawal_percentage: "",
     payroll_size: "",
   });
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const handleChange = (e) => {
@@ -24,13 +26,15 @@ const CompanyPolicy = () => {
     e.preventDefault();
     const companyId = sessionStorage.getItem("P_Slice_CID");
     const payload = { ...formData, company_id: companyId };
-
+    setLoading(true);
     try {
-      const res = await companyPolicy(payload);
-      console.log("response", res.data);
+      await companyPolicy(payload);
+      setLoading(false);
+      history.push("/onboard/step4");
     } catch (error) {
       toast.error("An error occured");
-      console.log(error, "error");
+      // console.log(error, "error");
+      setLoading(false);
     }
   };
   return (
@@ -54,14 +58,21 @@ const CompanyPolicy = () => {
             />
           </div>
           <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
-            <InputField
-              label="Salary date (every month)"
-              name="salary_date"
-              placeholder=""
-              type="date"
-              onChange={handleChange}
-              required
-            />
+            <div className="mt-5">
+              <label>Salary date (every month)</label>
+              <div className="select-pay mb-5 mt-2">
+                <select
+                  onChange={handleChange}
+                  name="salary_date"
+                  className="bg-gray-200 px-5 py-3 w-full rounded "
+                >
+                  <option value="">Select option</option>
+                  <option value="first_week">First Week</option>
+                  <option value="second_week">Second Week</option>
+                  <option value="last_week"> Last Week</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -78,7 +89,11 @@ const CompanyPolicy = () => {
           </div>
         </div>
         <div className="signUp__submit-btn flex justify-end">
-          <Button type="submit" buttonText="Save" />
+          {loading ? (
+            <MiniLoader />
+          ) : (
+            <Button type="submit" buttonText="Save" />
+          )}
         </div>
       </form>
     </div>
