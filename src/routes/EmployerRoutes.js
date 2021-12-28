@@ -104,14 +104,14 @@ const EmployerRoutes = () => {
     <AppLayout navTab={useNavTab()}>
       <Switch>
         {EmployerRoutesList.map((r) => (
-          // <EmployerRoute
-          //   path={r.path}
-          //   exact={true}
-          //   component={r.component}
-          //   key={r.path}
-          //   navTab={r.navTab}
-          // />
-          <Route component={r.component} path={r.path} exact={r.exact} />
+          <EmployerRoute
+            path={r.path}
+            exact={true}
+            component={r.component}
+            key={r.path}
+            navTab={r.navTab}
+          />
+          // <Route component={r.component} path={r.path} exact={r.exact} />
         ))}
       </Switch>
     </AppLayout>

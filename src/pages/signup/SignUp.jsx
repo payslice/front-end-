@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { InputField, PasswordInput } from "../../components/Input";
 import MiniLoader from "../../components/Loaders/MiniLoader";
-import { SuccessMessage } from "../../components/Message/Message";
+import { SuccessMessage, ErrorMessage } from "../../components/Message/Message";
 import { employerRegister } from "../../utils/ApiRequests";
 
 export const SignUp = () => {
@@ -17,6 +17,8 @@ export const SignUp = () => {
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [errMessage, setErrMessage] = useState();
 
   const history = useHistory();
 
@@ -37,6 +39,8 @@ export const SignUp = () => {
     } catch (error) {
       console.log("error", error.response);
       setLoading(false);
+      setError(true);
+      setErrMessage("An error occured, please try again later.");
     }
   };
 
@@ -95,7 +99,7 @@ export const SignUp = () => {
             )}
           </div>
         </form>
-        <div className="mt-5 pb-16 ">
+        <div className="mt-5 pb-10 ">
           Already have an account? <a href="/login">Login</a>
         </div>
 
@@ -106,6 +110,7 @@ export const SignUp = () => {
 registration."
           />
         )}
+        {error && <ErrorMessage title="Error" message={errMessage} />}
       </div>
     </>
   );

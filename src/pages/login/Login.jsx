@@ -27,8 +27,9 @@ export const Login = () => {
       setTokenToStorage(res.data.payload.data.token);
       history.push("/onboard/step1");
     } catch (error) {
-      toast.error(error.response.data.payload.data);
+      // toast.error(error.response.data.payload.data);
       setLoading(false);
+      console.log("error", error.response);
     }
   };
 
