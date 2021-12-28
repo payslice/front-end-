@@ -60,5 +60,5 @@ export const companyPolicy = (formData) => {
 };
 
 export const getAllEmployees = () => {
-  return ApiRequestWithToken().get("/employee/all");
+  return ApiRequestWithToken().get("/employer/total_number_of_employees");
 };

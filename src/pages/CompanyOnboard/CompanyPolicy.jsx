@@ -5,6 +5,7 @@ import { InputField } from "../../components/Input";
 import { companyPolicy } from "../../utils/ApiRequests";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/Loaders/MiniLoader";
+import { ErrorMessage } from "../../components/Message/Message";
 
 const CompanyPolicy = () => {
   const [formData, setFormData] = useState({
@@ -14,17 +15,21 @@ const CompanyPolicy = () => {
     payroll_size: "",
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
   const history = useHistory();
 
   const handleChange = (e) => {
     const { value, name } = e.target;
     const newFormData = { [name]: value };
     setFormData({ ...formData, ...newFormData });
+    setErrMessage("");
+    setError(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const companyId = sessionStorage.getItem("P_Slice_CID");
+    const companyId = "3898829ccaty89";
     const payload = { ...formData, company_id: companyId };
     setLoading(true);
     try {
@@ -33,8 +38,10 @@ const CompanyPolicy = () => {
       history.push("/onboard/step4");
     } catch (error) {
       toast.error("An error occured");
-      // console.log(error, "error");
+      setError(true);
+      // console.log(error.response.data.payload.data);
       setLoading(false);
+      setErrMessage(error.response.data.payload.data);
     }
   };
   return (
@@ -45,6 +52,7 @@ const CompanyPolicy = () => {
         complete all the required section, clicks on Request Activation
       </p>
 
+      {error && <ErrorMessage title="Error" message={errMessage} />}
       <form onSubmit={handleSubmit} className="mt-10">
         <div className="flex w-full mobiles:block">
           <div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
