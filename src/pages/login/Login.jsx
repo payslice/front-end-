@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { InputField, PasswordInput } from "../../components/Input";
 import { employerLogin } from "../../utils/ApiRequests";
-import { setTokenToStorage } from "../../utils/ApiUtils";
+import { setTokenToStorage, setuserDataToStorage } from "../../utils/ApiUtils";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/Loaders/MiniLoader";
 import { ErrorMessage } from "../../components/Message/Message";
@@ -27,11 +27,13 @@ export const Login = () => {
     try {
       const res = await employerLogin(loginForm);
       setTokenToStorage(res.data.payload.data.token);
+      setuserDataToStorage(res.data.payload.data);
+      setLoading(false);
       history.push("/onboard/step1");
     } catch (error) {
       // toast.error(error.response.data.payload.data);
       setLoading(false);
-      console.log("error", error.response.data.payload.data);
+      // console.log("error", error.response.data.payload.data);
       setError(true);
     }
   };

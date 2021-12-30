@@ -33,7 +33,7 @@ const CompanyOnboard = () => {
       const res = await companyInfoOnboarding(formData);
       setLoading(false);
       sessionStorage.setItem("P_Slice_CID", res.data.payload.data.id);
-      history.push("/onboard/step3");
+      history.push("/onboard/step2");
     } catch (error) {
       toast.error(error.response.data.payload.data.errors.name[0]);
       setLoading(false);

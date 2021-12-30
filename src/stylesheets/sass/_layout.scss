@@ -84,3 +84,12 @@
     zoom: 1;
   }
 }
+.custom-select-input {
+  div {
+    div {
+      div:nth-child(2) {
+        padding: 7px;
+      }
+    }
+  }
+}

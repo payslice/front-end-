@@ -9,7 +9,7 @@ import { ErrorMessage } from "../../components/Message/Message";
 
 const CompanyPolicy = () => {
   const [formData, setFormData] = useState({
-    company_id: "",
+    company_id: "df18a916-9006-4a64-aff0-0ffc1386518e",
     salary_date: "",
     salary_withdrawal_percentage: "",
     payroll_size: "",
@@ -29,8 +29,8 @@ const CompanyPolicy = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const companyId = "3898829ccaty89";
-    const payload = { ...formData, company_id: companyId };
+    // const companyId = sessionStorage.getItem("P_Slice_CID");
+    const payload = { ...formData };
     setLoading(true);
     try {
       await companyPolicy(payload);

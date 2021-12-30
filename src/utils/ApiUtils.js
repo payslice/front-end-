@@ -18,6 +18,10 @@ export const setTokenToStorage = (token) => {
   return localStorage.setItem(constant.tokenName, token);
 };
 
+export const setuserDataToStorage = (userData) => {
+  return localStorage.setItem(constant.userDatakey, JSON.stringify(userData));
+};
+
 export const setExpiryTimeToStorage = (date) => {
   return localStorage.setItem(constant.expiryName, date);
 };
@@ -28,6 +32,10 @@ export const storageContainsToken = () => {
 
 export const getTokenFromStorage = () => {
   return localStorage.getItem(constant.tokenName);
+};
+
+export const getUserDataFromStorage = () => {
+  return JSON.parse(localStorage.getItem(constant.userDatakey));
 };
 
 export const getExpiryTimeFromStorage = () => {

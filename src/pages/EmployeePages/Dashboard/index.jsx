@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../../../components/Button/Button";
 import { CustomTag } from "../../../components/CustomTag";
+import { getAvailableWithdrawFunds } from "../../../utils/ApiRequests";
+import { useHistory } from "react-router-dom";
 
 const UserDashboard = () => {
+  const [availableFunds, setAvailableFunds] = useState();
+  const history = useHistory();
+  useEffect(() => {
+    const fetchWithdrawalAmount = async () => {
+      try {
+        const res = await getAvailableWithdrawFunds();
+        setAvailableFunds(res.data.payload.data);
+      } catch (error) {
+        console.log("error", error.response);
+      }
+    };
+    fetchWithdrawalAmount();
+  }, []);
+
   return (
     <div className="user-dashboard-wrapper">
       <div className="flex justify-between mb-20">
@@ -14,11 +30,19 @@ const UserDashboard = () => {
         <div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-1/2">
           <div className="my-auto">
             <div className="text-normal">Total Earned</div>
-            <h3 className="text-xl text-white mb-0">NGN 10,000</h3>
+            <h3 className="text-xl text-white mb-0">
+              NGN{" "}
+              {parseInt(
+                availableFunds?.amount_avaliable_to_withdraw
+              ).toLocaleString()}{" "}
+            </h3>
           </div>
           <div className="border flex justify-center ml-10 items-center border-white rounded-full h-16 w-16">
             {" "}
-            <p className="mb-0">
+            <p
+              className="mb-0 cursor-pointer"
+              onClick={() => history.push("/user/withdrawals/withdraw")}
+            >
               Get <br />
               Paid
             </p>
@@ -30,7 +54,12 @@ const UserDashboard = () => {
         >
           <div className="my-auto">
             <div className="text-normal">Total withdrawn </div>
-            <h3 className="text-xl  mb-0">NGN 10,000</h3>
+            <h3 className="text-xl  mb-0">
+              NGN{" "}
+              {parseInt(
+                availableFunds?.total_amount_avaliable_to_withdraw
+              ).toLocaleString()}{" "}
+            </h3>
           </div>
 
           <button

@@ -9,15 +9,35 @@ import { BsFilter } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
 import { EmployeeTab } from "../../components/EmployeeTab";
 import { EmployeeCard } from "../../components/EmployeeCard";
+import { toast } from "react-toastify";
 
 export const Employees = () => {
+  const [employees, setEmployees] = useState();
+  const [fetchingData, setFetchingData] = useState(true);
+
   useEffect(() => {
     const fetchAllEmployees = async () => {
       try {
         const res = await getAllEmployees();
-        console.log("res", res.data);
+        const restructuredData = res.data.payload.data?.map((data, i) => {
+          return {
+            key: i,
+            id: data.id,
+            name: `${data.first_name} ${data.last_name}`,
+            email: data.email,
+            phone: data.phone_number,
+            bankDetails: data.bankDetails.bank_name,
+            salary: parseInt(data.workDetails.staff_salary).toLocaleString(
+              "en-NG"
+            ),
+            balance: "30,000",
+          };
+        });
+        setEmployees(restructuredData);
+        setFetchingData(false);
       } catch (error) {
-        console.log("error", error.response);
+        toast.error("An error occured.");
+        setFetchingData(false);
       }
     };
     fetchAllEmployees();
@@ -32,6 +52,14 @@ export const Employees = () => {
     {
       title: "Phone & email",
       dataIndex: "phoneEmail",
+      render: (text, record) => {
+        return (
+          <div>
+            <div className="text-normal">{record.phone}</div>
+            <div className="text-normal">{record.email}</div>
+          </div>
+        );
+      },
     },
     {
       title: "Bank Details",
@@ -49,7 +77,7 @@ export const Employees = () => {
       title: "Action",
       dataIndex: "action",
       render: (text, record) => {
-        return <OptionsMenu options={tableOptions} param={record.key} />;
+        return <OptionsMenu options={tableOptions} param={record.id} />;
       },
     },
   ];
@@ -168,6 +196,7 @@ export const Employees = () => {
             type: "checkbox",
             ...rowSelection,
           }}
+          loading={fetchingData}
           className="cursor-pointer"
           // onRow={(record, i) => {
           //   return {
@@ -178,7 +207,7 @@ export const Employees = () => {
           //   };
           // }}
           columns={columns}
-          dataSource={data}
+          dataSource={employees}
         />
       </div>
       <div className="mobiles:block hidden">

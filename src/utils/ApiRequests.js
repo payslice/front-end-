@@ -1,6 +1,10 @@
 import axios from "axios";
 import { constant } from "./ApiConstants";
-import { storageContainsToken, getTokenFromStorage } from "./ApiUtils";
+import {
+  storageContainsToken,
+  getTokenFromStorage,
+  getUserDataFromStorage,
+} from "./ApiUtils";
 
 // Resusable requests template
 export const ApiRequest = () => {
@@ -17,6 +21,11 @@ export const ApiRequestWithToken = () => {
   }
   const instance = axios.create(config);
   return instance;
+};
+
+const userData = getUserDataFromStorage();
+const companyId = {
+  company_id: userData.company_id,
 };
 
 const ApiRequestMultiPart = () => {
@@ -47,8 +56,11 @@ export const employerRegister = (formData) => {
 };
 
 export const employerLogin = (formData) => {
-  console.log("api url", constant.apiBaseUrl);
   return ApiRequest().post("/employer_auth/login", formData);
+};
+
+export const employeeLogin = (formData) => {
+  return ApiRequest().post("/employee_auth/login", formData);
 };
 
 export const companyInfoOnboarding = (formData) => {
@@ -60,5 +72,20 @@ export const companyPolicy = (formData) => {
 };
 
 export const getAllEmployees = () => {
-  return ApiRequestWithToken().get("/employer/total_number_of_employees");
+  return ApiRequestWithToken().get("/employee/all");
+};
+
+export const saveEmployee = (formData) => {
+  return ApiRequestWithToken().post("/employee/save", {
+    ...formData,
+    ...companyId,
+  });
+};
+
+export const deleteEmployee = (employeeId) => {
+  return ApiRequestWithToken().delete(`/employee/delete/${employeeId}`);
+};
+
+export const getAvailableWithdrawFunds = () => {
+  return ApiRequestWithToken().get("/employee/amount_avaliable_for_withdrawal");
 };
