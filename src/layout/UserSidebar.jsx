@@ -17,7 +17,7 @@ const UserSidebar = () => {
   });
 
   return (
-    <section className="h-screen max-h-screen sidebar sidebar_bg pt-8 overflow-y-auto overflow-x-hidden">
+    <section className="h-screen max-h-screen sidebar sidebar_bg pt-8 overflow-y-auto overflow-x-hidden mobiles:hidden">
       <h1 className="mb-3 mobiles:px-1 mobiles:w-full pl-8">
         <img
           src={require("../assets/svgs/payslice-logo.svg").default}

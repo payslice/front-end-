@@ -4,7 +4,7 @@ import { GreyButton } from "../../components/Button/GreyButton";
 import { Table } from "antd";
 import { useHistory } from "react-router-dom";
 import OptionsMenu from "../../components/TableOptionMenu";
-import { getAllEmployees } from "../../utils/ApiRequests";
+import { deleteEmployee, getAllEmployees } from "../../utils/ApiRequests";
 import { BsFilter } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
 import { EmployeeTab } from "../../components/EmployeeTab";
@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 export const Employees = () => {
   const [employees, setEmployees] = useState();
   const [fetchingData, setFetchingData] = useState(true);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     const fetchAllEmployees = async () => {
@@ -134,6 +135,18 @@ export const Employees = () => {
   const handleClick = (param) => {
     console.log("param", param);
   };
+
+  const handleDelete = async (id) => {
+    setDeleting(true);
+    try {
+      const res = await deleteEmployee(id);
+      console.log("delete res", res);
+      setDeleting(false);
+    } catch (error) {
+      toast.error("can't delete, an error occured");
+      setDeleting(false);
+    }
+  };
   const handleViewDetails = (id) => {
     history.push(`/employee/${id}`);
   };
@@ -145,7 +158,7 @@ export const Employees = () => {
     },
     {
       name: "Deactivate",
-      onClick: handleClick,
+      onClick: handleDelete,
     },
     {
       name: "View Details",

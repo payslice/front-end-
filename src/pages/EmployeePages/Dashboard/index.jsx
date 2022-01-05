@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../../../components/Button/Button";
 import { CustomTag } from "../../../components/CustomTag";
-import { getAvailableWithdrawFunds } from "../../../utils/ApiRequests";
+import { clockIn, getAvailableWithdrawFunds } from "../../../utils/ApiRequests";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const UserDashboard = () => {
   const [availableFunds, setAvailableFunds] = useState();
+  const [latLng, setLatLng] = useState();
+  const [checkInSuccess, setCheckInSuccess] = useState(false);
+  const [checkLoading, setCheckLoading] = useState(false);
   const history = useHistory();
+
   useEffect(() => {
     const fetchWithdrawalAmount = async () => {
       try {
@@ -19,11 +24,58 @@ const UserDashboard = () => {
     fetchWithdrawalAmount();
   }, []);
 
+  function handleError(error) {
+    let errorStr;
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        errorStr = "User denied the request for Geolocation.";
+        break;
+      case error.POSITION_UNAVAILABLE:
+        errorStr = "Location information is unavailable.";
+        break;
+      case error.TIMEOUT:
+        errorStr = "The request to get user location timed out.";
+        break;
+      case error.UNKNOWN_ERROR:
+        errorStr = "An unknown error occurred.";
+        break;
+      default:
+        errorStr = "An unknown error occurred.";
+    }
+    console.error("Error occurred: " + errorStr);
+  }
+
+  function showPosition(position) {
+    setLatLng({
+      lat: position.coords.latitude,
+      long: position.coords.longitude,
+    });
+  }
+  if (window.navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition, handleError);
+  }
+  const submitClockIn = async () => {
+    setCheckLoading(true);
+    try {
+      const res = await clockIn({ location: latLng });
+      setCheckInSuccess(true);
+      console.log("res", res);
+      setCheckLoading(false);
+    } catch (error) {
+      toast.error(error.response.data.payload.data);
+      setCheckLoading(false);
+    }
+  };
+
   return (
     <div className="user-dashboard-wrapper">
       <div className="flex justify-between mb-20">
         <div className="text-gray-400">Welcome to Payslice , Peter Brown</div>
-        <Button buttonText="Employee checkin" />
+        <Button
+          buttonText={!checkInSuccess ? "Employee checkin" : "Checked In"}
+          loading={checkLoading}
+          onClick={submitClockIn}
+        />
       </div>
 
       <div className="flex w-full justify-between">
@@ -65,6 +117,7 @@ const UserDashboard = () => {
           <button
             style={{ background: "#CA7652" }}
             className="h-max py-2 my-auto px-4 rounded text-white"
+            onClick={() => history.push("/user/withdrawals")}
           >
             History
           </button>

@@ -58,6 +58,10 @@ export const removeTokenFromStorage = () => {
   localStorage.removeItem(constant.tokenName);
 };
 
+export const removeUserDataFromStorage = () => {
+  localStorage.removeItem(constant.userDatakey);
+};
+
 export const removeExpiryDateFromStorage = () => {
   localStorage.removeItem(constant.expiryName);
 };

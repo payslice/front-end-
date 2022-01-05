@@ -3,7 +3,7 @@ import { RiMenuLine } from "react-icons/ri";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { FaFolder } from "react-icons/fa";
 import { HiBriefcase } from "react-icons/hi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { AiFillHome, AiFillSetting } from "react-icons/ai";
 import { MdAnalytics } from "react-icons/md";
@@ -15,6 +15,9 @@ export const DahboardMobileNav = () => {
   useClickOutside(tdc, () => {
     setShowMenu(false);
   });
+
+  const location = useLocation();
+  const isEmployee = location?.pathname?.includes("user");
 
   const menuItems = [
     {
@@ -48,6 +51,32 @@ export const DahboardMobileNav = () => {
       name: "Settings",
     },
   ];
+
+  const userMenuList = [
+    {
+      path: "/user/dashboard",
+      Icon: AiFillHome,
+      name: "Dashboard",
+    },
+    {
+      path: "/user/withdrawals",
+      Icon: MdAnalytics,
+      name: "Withdrawals",
+    },
+    {
+      path: "/user/attendance",
+      Icon: HiBriefcase,
+      name: "Withdrawals",
+    },
+    {
+      path: "/user/settings",
+      Icon: AiFillSetting,
+      name: "Settings",
+    },
+  ];
+
+  const activeMenuList = isEmployee ? userMenuList : menuItems;
+
   return (
     <div
       ref={tdc}
@@ -73,7 +102,7 @@ export const DahboardMobileNav = () => {
               alt=""
             />
           </div>
-          {menuItems?.map((item) => {
+          {activeMenuList?.map((item) => {
             return (
               <div className="mb__menu-item my-2 ">
                 <NavLink

@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
 import { CustomTag } from "../../components/CustomTag";
 
 import OptionsMenu from "../../components/TableOptionMenu";
 import { EmployeeTab } from "../../components/EmployeeTab";
 import { AcceptedEmployeeCard } from "../../components/EmployeeCard";
+import { getTotalNoAcceptedEmployees } from "../../utils/ApiRequests";
 
 export const AcceptedEmployees = () => {
+  useEffect(() => {
+    const fetAcceptedEmployees = async () => {
+      try {
+        const res = await getTotalNoAcceptedEmployees();
+        console.log("res", res.data);
+      } catch (error) {
+        console.log("accepted err", error.response);
+      }
+    };
+    fetAcceptedEmployees();
+  }, []);
+
   const columns = [
     {
       title: "Full Name ",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Button } from "../../components/Button/Button";
 import { CustomTag } from "../../components/CustomTag";
@@ -6,8 +6,43 @@ import { EmployeeInfo } from "../../components/EmployeeInfo";
 import { Table } from "antd";
 import { EmployeeTab } from "../../components/EmployeeTab";
 import { BackButton } from "../../components/BackButton";
+import { getClockInTime, getOneEmployee } from "../../utils/ApiRequests";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const EmployeeDetails = () => {
+  const { id } = useParams();
+  const [employeeData, setEmployeeData] = useState();
+  const [clockInData, setClockInData] = useState();
+  useEffect(() => {
+    const getEmployeeInfo = async () => {
+      try {
+        const res = await getOneEmployee(id);
+        console.log("info", res.data.payload.data);
+        setEmployeeData(res.data.payload.data);
+      } catch (error) {
+        toast.error("An error occured");
+      }
+    };
+
+    getEmployeeInfo();
+  }, [id]);
+
+  useEffect(() => {
+    const getCheckInTime = async () => {
+      try {
+        const res = await getClockInTime(employeeData?.employee_id);
+        console.log("clock in res", res.data.payload.data);
+        setClockInData(res.data.payload.data);
+      } catch (error) {
+        toast.error("an error occured");
+      }
+    };
+    if (employeeData) {
+      getCheckInTime();
+    }
+  }, [employeeData]);
+
   const columns = [
     {
       title: "S/N",
@@ -57,6 +92,7 @@ const EmployeeDetails = () => {
     },
   ];
 
+  console.log("the data", employeeData);
   const data = [
     {
       key: "1",
@@ -101,13 +137,14 @@ const EmployeeDetails = () => {
       <div className="text-2xl">Employee Details </div>
       <div className="bg-gray-100 flex flex-wrap mobiles:w-full justify-between px-3 py-3 mt-8 w-max">
         <div className="mobiles:w-1/2 px-3 mobiles:px-1">
-          Date Joined : 2/10/2010
+          Date Joined :{" "}
+          {new Date(employeeData?.workDetails.created_at).toLocaleDateString()}
         </div>
         <div className="mobiles:w-1/2 px-3 mobiles:px-1">
-          Location: DxB- Dubia
+          Location: {employeeData?.workDetails?.location}
         </div>
         <div className="mobiles:w-full px-3 mobiles:px-1">
-          Employee ID: ARMXPPXCOD
+          Employee ID: {employeeData?.employee_id}
         </div>
       </div>
       <div className="mt-12">
@@ -120,27 +157,44 @@ const EmployeeDetails = () => {
           </div>
           <div className="content w-full flex mobiles:block">
             <div className="w-1/3 p-5 mobiles:w-full">
-              <EmployeeInfo title="First Name" value="Peter" />
-              <EmployeeInfo title="Last Name" value="Brown" />
-              <EmployeeInfo title="Gender" value="Male" />
               <EmployeeInfo
-                title="Email Address"
-                value="Peterbrown@payslice.com"
+                title="First Name"
+                value={employeeData?.first_name}
               />
-              <EmployeeInfo title="Phone Number" value="08000000332" />
+              <EmployeeInfo title="Last Name" value={employeeData?.last_name} />
+              <EmployeeInfo title="Gender" value={employeeData?.gender} />
+              <EmployeeInfo title="Email Address" value={employeeData?.email} />
+              <EmployeeInfo
+                title="Phone Number"
+                value={employeeData?.phone_number}
+              />
             </div>
             <div className="w-1/3 p-5 mobiles:w-full">
-              <EmployeeInfo title="Bank Name" value="Stanbic IBTC" />
-              <EmployeeInfo title="Account Name" value="Peter Brown" />
-              <EmployeeInfo title="Account Number" value=" 002394949" />
+              <EmployeeInfo
+                title="Bank Name"
+                value={employeeData?.bankDetails.bank_name}
+              />
+              <EmployeeInfo
+                title="Account Name"
+                value={employeeData?.bankDetails.account_name}
+              />
+              <EmployeeInfo
+                title="Account Number"
+                value={employeeData?.bankDetails.account_number}
+              />
             </div>
             <div className="w-1/3 p-5 mobiles:w-full">
               <EmployeeInfo
                 title="Salary Breakdown:"
-                value="Basic salary - NGN 180,000"
+                value={`Basic salary - NGN ${parseInt(
+                  employeeData?.workDetails.staff_salary
+                ).toLocaleString()}`}
               />
-              <EmployeeInfo title="Employement Type:" value="Full-time" />
-              <EmployeeInfo title="Employers ID:" value="Male" />
+              <EmployeeInfo
+                title="Employement Type:"
+                value={employeeData?.workDetails.employment_type}
+              />
+              <EmployeeInfo title="Employers ID:" value="----" />
             </div>
           </div>
           <div className="my-5 mx-5">
@@ -150,7 +204,7 @@ const EmployeeDetails = () => {
             />
           </div>
           <div className="employee-table mb-16 mt-4 mx-5">
-            <Table columns={columns} dataSource={data} />
+            <Table columns={columns} dataSource={clockInData} />
           </div>
         </div>
       </div>

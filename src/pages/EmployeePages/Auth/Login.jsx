@@ -73,6 +73,9 @@ export const UserLogin = () => {
         <div className="mt-16">
           Don't have an account? <a href="/user/register">Sign Up now</a>
         </div>
+        <div className="mt-2">
+          Forgot password? <a href="/reset-password">Click here</a>
+        </div>
       </div>
     </>
   );

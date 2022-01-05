@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BiCalendarEvent } from "react-icons/bi";
 import { Table } from "antd";
+import {
+  companyTransactionHistory,
+  getTotalTransactions,
+} from "../../utils/ApiRequests";
+import { toast } from "react-toastify";
 
 const TotalTransactions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  useEffect(() => {
+    const getAllTransaction = async () => {
+      try {
+        const res = await companyTransactionHistory();
+        console.log("trnx rex", res);
+      } catch (error) {
+        toast.error("An error occured");
+      }
+    };
+    getAllTransaction();
+  }, []);
   const columns = [
     {
       title: "Full Name ",

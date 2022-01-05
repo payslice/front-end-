@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Table } from "antd";
+import { companyPaymentHistories } from "../../utils/ApiRequests";
+import { toast } from "react-toastify";
 
 const PaymentHistory = () => {
+  useEffect(() => {
+    const getPaymentHistory = async () => {
+      try {
+        const res = await companyPaymentHistories();
+        console.log("res", res.data);
+      } catch (error) {
+        toast.error("an error occured");
+      }
+    };
+    getPaymentHistory();
+  }, []);
+
   const columns = [
     {
       title: "Payment ID",
@@ -50,7 +64,7 @@ const PaymentHistory = () => {
       paymentID: "SOP4854885859",
       name: "John Brown",
       amount: 19000,
-      date: "j21st July 2021",
+      date: "21st July 2021",
       paymentType: "Transfer",
       status: "Pending",
     },
@@ -59,7 +73,7 @@ const PaymentHistory = () => {
       name: "John Brown",
       paymentID: "SOP4854885859",
       amount: 19000,
-      date: "j21st July 2021",
+      date: "21st July 2021",
       paymentType: "Transfer",
       status: "Active",
     },
@@ -68,7 +82,7 @@ const PaymentHistory = () => {
       paymentID: "SOP4854885859",
       name: "John Brown",
       amount: 19000,
-      date: "j21st July 2021",
+      date: "21st July 2021",
       paymentType: "Transfer",
       status: "Pending",
     },

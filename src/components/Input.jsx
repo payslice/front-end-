@@ -12,6 +12,7 @@ export const InputField = ({
   label,
   minLength,
   maxLength,
+  disabled,
 }) => {
   return (
     <div className="w-full mt-5 mr-5">
@@ -21,9 +22,12 @@ export const InputField = ({
       <input
         className="border-transparent bg-gray-100 mb-5 mt-2 w-full border-gray-400 py-3 px-5 rounded"
         type={type}
+        disabled={disabled}
         placeholder={placeholder}
         name={name}
         id={id}
+        min={minLength}
+        max={maxLength}
         minLength={minLength}
         maxLength={maxLength}
         onChange={onChange}

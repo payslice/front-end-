@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BiCalendarEvent } from "react-icons/bi";
 import { Table } from "antd";
 import { CustomTag } from "../../../components/CustomTag";
 import OptionsMenu from "../../../components/TableOptionMenu";
+import { getTotalTransactions } from "../../../utils/ApiRequests";
+import { toast } from "react-toastify";
 
 const Withdrawals = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -10,6 +12,18 @@ const Withdrawals = () => {
   const handleClick = (param) => {
     console.log("param", param);
   };
+
+  useEffect(() => {
+    const getTransactions = async () => {
+      try {
+        const res = await getTotalTransactions();
+        console.log("trnx res", res);
+      } catch (error) {
+        toast.error("An error occured");
+      }
+    };
+    getTransactions();
+  }, []);
 
   const tableOptions = [
     {
@@ -79,7 +93,7 @@ const Withdrawals = () => {
   return (
     <div>
       <div className="flex justify-between">
-        <h2 className="text-2xl">Transactions Histroy </h2>
+        <h2 className="text-2xl">Transactions History </h2>
         <div className="flex justify-between">
           <div className="tab flex rounded bg-gray-100 mr-5">
             <div
