@@ -33,7 +33,7 @@ export const ResetPassword = () => {
     <>
       {!resetSuccess ? (
         <div className="p-10 flex flex-col h-full justify-center w-3/4">
-          <h1 className="text-3xl font-bold  uppercase">enter email</h1>
+          <h1 className="text-3xl font-bold  uppercase">reset password</h1>
 
           <form onSubmit={submitForm}>
             <div className="mt_10">

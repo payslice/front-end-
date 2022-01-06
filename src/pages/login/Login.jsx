@@ -60,10 +60,10 @@ export const Login = () => {
               placeholder="e.g Kelly@farfill.com"
             />
             <PasswordInput
-              required
-              name="password"
-              onChange={handleChange}
               label="Enter password"
+              name="password"
+              required
+              onChange={handleChange}
               placeholder="Enter password"
             />
           </div>
