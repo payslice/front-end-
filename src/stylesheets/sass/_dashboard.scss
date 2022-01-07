@@ -1,0 +1,47 @@
+.transaction-timeline {
+  .description {
+    width: 90%;
+  }
+  .node-wrapper {
+    // margin: auto 32px auto 22px;
+    width: 10%;
+    position: relative;
+    .node {
+      height: 30px;
+      width: 30px;
+      position: absolute;
+      margin: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 50%;
+      // background-color: #ffc107;
+      &.--green-node {
+        background-color: #0080005e;
+        img {
+          background: #aed0aa;
+        }
+      }
+      &.--red-node {
+        background-color: #ff000047;
+        img {
+          background: #ffc3c0;
+        }
+      }
+      img {
+        height: 30px;
+        width: 20px;
+        margin: auto;
+        border-radius: 50%;
+      }
+    }
+    .line {
+      width: 1px;
+      position: absolute;
+      left: 14px;
+      top: 5px;
+      background-color: #d2d2d2;
+      z-index: -1;
+      height: -webkit-fill-available;
+    }
+  }
+}

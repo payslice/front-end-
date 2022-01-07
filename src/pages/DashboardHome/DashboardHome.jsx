@@ -193,7 +193,70 @@ const DashboardHome = () => {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="w-1/3 mobiles:w-full rounded-lg border h-40 border-gray"></div>
+          <div className="w-1/3 mobiles:w-full rounded-lg border  border-gray">
+            <div className="text-2xl border-b border-gray-300 py-4 px-4">
+              Recent transactions
+            </div>
+            <div className="transaction-timeline p-4">
+              <div className="transaction flex w-full justify-between">
+                <div className="node-wrapper">
+                  <div className="node --red-node">
+                    <img
+                      src={
+                        require("../../assets/svgs/withdraw-icon.svg").default
+                      }
+                      className=" "
+                      alt=""
+                    />
+                  </div>
+                  <div className="line"></div>
+                </div>
+                <div className="description px-3 pb-6">
+                  <div className="text-xl">₦30,000 has been withdrawn</div>
+                  <p className="text-gray-400 text-normal">
+                    wed,24 may by <span style={{ color: "#1c6af4" }}>Uche</span>
+                  </p>
+                  <div className="border rounded-xl border-gray-200  flex ">
+                    <div className="px-6 py-4 border-r ">
+                      <div className="text-normal">Amount</div>
+                      <div className="font-bold">₦18,000</div>
+                    </div>
+
+                    <div className="px-6 py-4">
+                      <div className="text-normal">Service Charge</div>
+                      <div className="font-bold">₦1,000</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="transaction flex w-full justify-between">
+                <div className="node-wrapper ">
+                  <div className="node --green-node">
+                    <img
+                      src={
+                        require("../../assets/svgs/credited.icon.svg").default
+                      }
+                      className=" "
+                      alt=""
+                    />
+                  </div>
+                  <div className="line"></div>
+                </div>
+                <div className="description px-3">
+                  <div className="text-xl">
+                    ₦12,000 has been Repaid from your debit card
+                  </div>
+                  <p className="text-gray-400 text-normal">
+                    wed,24 may by <span style={{ color: "#1c6af4" }}>Uche</span>
+                  </p>
+                  <div className="border rounded-xl border-gray-200 p-3">
+                    <div className="text-normal">Balance</div>
+                    <div className="font-bold">₦18,000</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

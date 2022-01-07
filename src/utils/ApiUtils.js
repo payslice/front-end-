@@ -18,6 +18,13 @@ export const setTokenToStorage = (token) => {
   return localStorage.setItem(constant.tokenName, token);
 };
 
+// export const setEmployerTokenToStorage = (token) => {
+//   return localStorage.setItem(constant.employerTokenName, token);
+// };
+// export const setEmployeeTokenToStorage = (token) => {
+//   return localStorage.setItem(constant.employeeTokenName, token);
+// };
+
 export const setuserDataToStorage = (userData) => {
   return localStorage.setItem(constant.userDatakey, JSON.stringify(userData));
 };
