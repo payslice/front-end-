@@ -38,7 +38,7 @@ export const EmployerRoutesList = [
   { path: "/admins", component: AdminList, exact: true },
   { path: "/payments/history", component: PaymentHistory, exact: true },
   { path: "/admin/add", component: AddStaff, exact: true },
-  { path: "/account-info", component: AccountInfo, exact: true },
+  { path: "/payments/account-info/:id", component: AccountInfo, exact: true },
   { path: "/withdrawals", component: TotalTransactions, exact: true },
 ];
 

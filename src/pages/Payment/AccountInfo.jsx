@@ -1,12 +1,14 @@
 import React from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { BackButton } from "../../components/BackButton";
 
 const AccountInfo = () => {
   return (
     <>
-      <div className="text-2xl">Account Information</div>
+      <BackButton />
+      <div className="text-2xl mb-10">Account Information</div>
 
-      <div className="bg-gray-100 flex justify-between rounded px-5 py-2">
+      <div className="bg-gray-100 flex justify-between w-max rounded px-5 py-2">
         <div className="mr-5">Payments ID : SOP28393938h</div>
         <div className="mr-5">Month: Ocotober 2o21</div>
         <div className="mr-5">Amount: NGN 500,000</div>

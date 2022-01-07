@@ -3,8 +3,10 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { Table } from "antd";
 import { CustomTag } from "../../components/CustomTag";
 import { RiWalletFill } from "react-icons/ri";
+import { useHistory } from "react-router-dom";
 
 const PaymentSummary = () => {
+  const history = useHistory();
   const columns = [
     {
       title: "Payment Id",
@@ -38,13 +40,16 @@ const PaymentSummary = () => {
     {
       title: "Pay",
       dataIndex: "pay",
-      render: (pay) => (
+      render: (text, record) => (
         <div
           className="flex rounded px-3 py-1 cursor-pointer"
           style={{
             color: "white",
             background: "#1C6AF4",
             width: "100px",
+          }}
+          onClick={() => {
+            history.push(`/payments/account-info/${record.key}`);
           }}
         >
           <RiWalletFill className="my-auto mr-1" /> Pay Now
