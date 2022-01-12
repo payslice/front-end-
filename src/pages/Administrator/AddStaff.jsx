@@ -1,10 +1,13 @@
 import React from "react";
+import { BackButton } from "../../components/BackButton";
 import { Button } from "../../components/Button/Button";
 import { InputField } from "../../components/Input";
 
 const AddStaff = () => {
   return (
     <div className="w-2/4 justify-center m-auto">
+      <BackButton />
+
       <div className="header">
         <h2 className="text-2xl">Add staff </h2>
         <p>you can c-level staff </p>

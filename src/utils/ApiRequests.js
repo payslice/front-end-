@@ -355,3 +355,7 @@ export const validateOTP = (otp) => {
 export const getClockIn = (employee_id) => {
   return ApiRequestWithToken().get(`/attendance/get_clock_in/${employee_id}`);
 };
+
+export const generatePaymentCode = () => {
+  return ApiRequestWithToken().get(`/transaction/generate_code`);
+};

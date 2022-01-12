@@ -41,7 +41,7 @@ export const DahboardMobileNav = () => {
       name: "Payments",
     },
     {
-      path: "/support",
+      path: "/legal-info",
       Icon: FaCommentDots,
       name: "Support",
     },

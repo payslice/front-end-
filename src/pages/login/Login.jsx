@@ -33,7 +33,7 @@ export const Login = () => {
     } catch (error) {
       // toast.error(error.response.data.payload.data);
       setLoading(false);
-      // console.log("error", error.response.data.payload.data);
+      console.log("error", error);
       setError(true);
     }
   };

@@ -22,9 +22,10 @@ const AppLayout = ({ children, navTab }) => {
         <Navbar />
         {navTab && (
           <div className="bg-gray-100 w-full flex py-5 px-8 mobiles:hidden">
-            {navTab?.map((nav) => {
+            {navTab?.map((nav, i) => {
               return (
                 <Link
+                  key={i}
                   to={nav.link}
                   className=" nav-tab text-gray-600 mr-5 cursor-pointer"
                 >

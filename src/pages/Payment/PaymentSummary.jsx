@@ -72,7 +72,7 @@ const PaymentSummary = () => {
       status: "Unpaid",
     },
     {
-      key: "1",
+      key: "2",
       paymemtID: "SOP 2039999",
       totalPayable: "NGN  19,000",
       totalPay: "NGN  19,000",
@@ -80,7 +80,7 @@ const PaymentSummary = () => {
       status: "Paid",
     },
     {
-      key: "1",
+      key: "3",
       paymemtID: "SOP 2039999",
       totalPayable: "NGN  19,000",
       totalPay: "NGN  19,000",

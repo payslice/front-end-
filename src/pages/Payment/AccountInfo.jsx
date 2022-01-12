@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { BackButton } from "../../components/BackButton";
+import { generatePaymentCode } from "../../utils/ApiRequests";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 const AccountInfo = () => {
+  const [paymentCode, setPaymentCode] = useState();
+  useEffect(() => {
+    const getPaymentCode = async () => {
+      try {
+        const res = await generatePaymentCode();
+        setPaymentCode(res.data.payload.data);
+      } catch (error) {
+        console.log("error", error);
+        toast.error("Cannot get transaction narration code");
+      }
+    };
+    getPaymentCode();
+  }, []);
+
+  const accountInfo = {
+    accountName: "Sterling Bank",
+    bankName: "Payslice Limited",
+    accountNumber: "0086269848",
+  };
+
   return (
     <>
       <BackButton />
@@ -20,19 +43,37 @@ const AccountInfo = () => {
           <div className="text-2xl">Your payslice wallet</div>
           <MdKeyboardArrowDown className="my-auto" />
         </div>
-        <div className="content p-8">
-          <div className="font-normal">
-            Kindly Transfer into the account Below
+        <div className="content p-8 flex justify-between">
+          <div>
+            <div className="font-normal">
+              Kindly Transfer into the account Below
+            </div>
+            <div className="info">
+              <span className="font-bold ">Bank Name: </span>
+              {accountInfo.bankName}
+            </div>
+            <div className="info">
+              <span className="font-bold ">Account Name: </span>
+              {accountInfo.accountName}
+            </div>
+            <div className="info">
+              <span className="font-bold ">Account Number: </span>
+              {accountInfo.accountNumber}
+              <CopyToClipboard
+                text={accountInfo.accountNumber}
+                onCopy={() => toast.success("copied")}
+              >
+                <span className="bg-gray-100 p-1 cursor-pointer mx-3 rounded">
+                  Copy{" "}
+                </span>
+              </CopyToClipboard>
+            </div>
           </div>
-          <div className="info">
-            <span className="font-bold ">Bank Name: </span>Access Bank
-          </div>
-          <div className="info">
-            <span className="font-bold ">Account Name: </span>Payslice
-            Limited/company name
-          </div>
-          <div className="info">
-            <span className="font-bold ">Account Number: </span>10241838383
+          <div className="w-1/2">
+            <div className="font-normal text-red-500 mb-3">
+              N.B use code as your narration during transfer
+            </div>
+            <div className="border px-4 py-2 rounded w-max">{paymentCode}</div>
           </div>
         </div>
       </div>

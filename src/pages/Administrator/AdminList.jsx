@@ -3,8 +3,10 @@ import { Button } from "../../components/Button/Button";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { CustomTag } from "../../components/CustomTag";
 import { Table } from "antd";
+import { useHistory } from "react-router-dom";
 
 const AdminList = () => {
+  const history = useHistory();
   const columns = [
     {
       title: "Full Name ",
@@ -83,7 +85,10 @@ const AdminList = () => {
     <div className="__admin-listing">
       <div className="flex w-full justify-between">
         <h3 className="text-2xl">Adminstrators List</h3>
-        <Button buttonText="Add new adminstrator" />
+        <Button
+          buttonText="Add new adminstrator"
+          onClick={() => history.push("/support/admin/add")}
+        />
       </div>
       <div className="my-16">
         <Table
