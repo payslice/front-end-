@@ -4,7 +4,11 @@ import { GreyButton } from "../../components/Button/GreyButton";
 import { Table } from "antd";
 import { useHistory } from "react-router-dom";
 import OptionsMenu from "../../components/TableOptionMenu";
-import { deleteEmployee, getAllEmployees } from "../../utils/ApiRequests";
+import {
+  deleteEmployee,
+  getAllEmployees,
+  getEmployeeInfoList,
+} from "../../utils/ApiRequests";
 import { BsFilter } from "react-icons/bs";
 import { AiOutlineSearch } from "react-icons/ai";
 import { EmployeeTab } from "../../components/EmployeeTab";
@@ -19,19 +23,21 @@ export const Employees = () => {
   useEffect(() => {
     const fetchAllEmployees = async () => {
       try {
-        const res = await getAllEmployees();
+        const res = await getEmployeeInfoList();
+
+        console.log("res", res.data);
         const restructuredData = res.data.payload.data?.map((data, i) => {
           return {
             key: i,
-            id: data.id,
-            name: `${data.first_name} ${data.last_name}`,
-            email: data.email,
-            phone: data.phone_number,
-            bankDetails: data.bankDetails.bank_name,
-            salary: parseInt(data.workDetails.staff_salary).toLocaleString(
+            id: data.employee_id,
+            name: `${data.fullname}`,
+            // email: data.email,
+            // phone: data.phone_number,
+            // bankDetails: data.bankDetails.bank_name,
+            salary: `NGN ${parseInt(data.salary).toLocaleString("en-NG")}`,
+            balance: `NGN ${parseInt(data.salary_balance).toLocaleString(
               "en-NG"
-            ),
-            balance: "30,000",
+            )}`,
           };
         });
         setEmployees(restructuredData);
@@ -39,6 +45,7 @@ export const Employees = () => {
       } catch (error) {
         toast.error("An error occured.");
         setFetchingData(false);
+        console.log("error", error);
       }
     };
     fetchAllEmployees();
@@ -50,22 +57,22 @@ export const Employees = () => {
       title: "Full Name ",
       dataIndex: "name",
     },
-    {
-      title: "Phone & email",
-      dataIndex: "phoneEmail",
-      render: (text, record) => {
-        return (
-          <div>
-            <div className="text-normal">{record.phone}</div>
-            <div className="text-normal">{record.email}</div>
-          </div>
-        );
-      },
-    },
-    {
-      title: "Bank Details",
-      dataIndex: "bankDetails",
-    },
+    // {
+    //   title: "Phone & email",
+    //   dataIndex: "phoneEmail",
+    //   render: (text, record) => {
+    //     return (
+    //       <div>
+    //         <div className="text-normal">{record.phone}</div>
+    //         <div className="text-normal">{record.email}</div>
+    //       </div>
+    //     );
+    //   },
+    // },
+    // {
+    //   title: "Bank Details",
+    //   dataIndex: "bankDetails",
+    // },
     {
       title: "Salary ",
       dataIndex: "salary",
@@ -97,7 +104,7 @@ export const Employees = () => {
     history.push("/employee/1");
   };
 
-  const data = [
+  const mockData = [
     {
       key: "1",
       name: "John Brown",

@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { getUserDataFromStorage } from "../utils/ApiUtils";
+import { useClickOutside } from "../hooks/useClickOutside";
+import {
+  getUserDataFromStorage,
+  removeTokenFromStorage,
+  removeUserDataFromStorage,
+} from "../utils/ApiUtils";
+import { useHistory } from "react-router";
 
 const Navbar = () => {
+  const [show, setShow] = useState(false);
   const userData = getUserDataFromStorage();
+
+  const tdc = useRef();
+  useClickOutside(tdc, () => {
+    setShow(false);
+  });
+
+  const history = useHistory();
+
+  const handleLogout = () => {
+    history.push("/login");
+    removeTokenFromStorage();
+    removeUserDataFromStorage();
+  };
   return (
-    <nav className="flex justify-between bg-white p-6 shadow items-center sticky mobiles:hidden">
+    <nav
+      ref={tdc}
+      className="flex justify-between bg-white p-6 shadow items-center sticky mobiles:hidden"
+    >
       <div>
         <input type="text" placeholder="Type in to search" className="" />
       </div>
@@ -22,7 +45,23 @@ const Navbar = () => {
             {userData.section} account
           </p>
         </div>
-        <MdKeyboardArrowDown className="my-auto ml-3" />
+        <MdKeyboardArrowDown
+          className="my-auto ml-3"
+          onClick={() => setShow(true)}
+        />
+        {show && (
+          <div
+            style={{ top: "80%", right: "0", textAlign: "left" }}
+            className="bg-white z-10 w-44 border mr-6 border-gray-200 text-left rounded text-xs absolute "
+          >
+            <div
+              className="hover:bg-gray-100  py-3 px-4 border-gray-200 cursor-pointer text-base"
+              onClick={handleLogout}
+            >
+              Logout
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

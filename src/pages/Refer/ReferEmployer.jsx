@@ -51,6 +51,9 @@ export const ReferEmployer = () => {
             <Button type="submit" buttonText="Next" />
           </div>
         </form>
+        <div className="mt-3">
+          Already have an account <a href="/user/login">Login</a>{" "}
+        </div>
       </div>
     </>
   );

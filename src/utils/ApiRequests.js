@@ -359,3 +359,17 @@ export const getClockIn = (employee_id) => {
 export const generatePaymentCode = () => {
   return ApiRequestWithToken().get(`/transaction/generate_code`);
 };
+
+/*
+ * Endpoint to fetch employee withdrawal request
+ */
+
+export const getWithdrawalRequest = () => {
+  return ApiRequestWithToken().get(
+    `/employee/withdrawal_requests/${userData.id}`
+  );
+};
+
+export const getEmployeeInfoList = () => {
+  return ApiRequestWithToken().get(`/employee/get_employees_salary_balance `);
+};

@@ -3,11 +3,16 @@ import { BiCalendarEvent } from "react-icons/bi";
 import { Table } from "antd";
 import { CustomTag } from "../../../components/CustomTag";
 import OptionsMenu from "../../../components/TableOptionMenu";
-import { getTotalTransactions } from "../../../utils/ApiRequests";
+import {
+  getTotalTransactions,
+  getWithdrawalRequest,
+} from "../../../utils/ApiRequests";
 import { toast } from "react-toastify";
+import { truncateString } from "../../../utils/helpers";
 
 const Withdrawals = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [transactionData, setTransactionData] = useState();
 
   const handleClick = (param) => {
     console.log("param", param);
@@ -16,8 +21,18 @@ const Withdrawals = () => {
   useEffect(() => {
     const getTransactions = async () => {
       try {
-        const res = await getTotalTransactions();
-        console.log("trnx res", res);
+        const res = await getWithdrawalRequest();
+        const resetData = res.data.payload.data?.map((withdrawal, i) => {
+          return {
+            key: i,
+            transactionID: truncateString(withdrawal.request_code, 9),
+            amount: withdrawal.amount,
+            charges: withdrawal.service_charge,
+            date: new Date(withdrawal.updated_at).toDateString(),
+            status: withdrawal.status,
+          };
+        });
+        setTransactionData(resetData);
       } catch (error) {
         toast.error("An error occured");
       }
@@ -56,8 +71,9 @@ const Withdrawals = () => {
         <span>
           <CustomTag
             text={status}
-            isDanger={status === "Pending"}
-            isSuccess={status === "Successful"}
+            isDanger={status === "declined"}
+            isSuccess={status === "approved"}
+            isWarning={status === "pending"}
           />
         </span>
       ),
@@ -129,7 +145,7 @@ const Withdrawals = () => {
       </div>
 
       <div className=" my-16">
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={transactionData} />
       </div>
     </div>
   );

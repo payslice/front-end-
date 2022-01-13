@@ -4,6 +4,7 @@ export const CustomTag = ({
   text,
   isDanger,
   isSuccess,
+  isWarning,
   isTeal,
   customClass,
 }) => {
@@ -11,7 +12,9 @@ export const CustomTag = ({
     <div
       className={`tag__custom px-3 py-2 rounded ${customClass} ${
         isDanger ? "__color-danger" : ""
-      } ${isSuccess ? "__color-success" : ""} ${isTeal ? "__teal-color" : ""}`}
+      } ${isSuccess ? "__color-success" : ""} ${isTeal ? "__teal-color" : ""} ${
+        isWarning ? "bg-yellow-50 text-yellow-500" : ""
+      } `}
     >
       {text}
     </div>

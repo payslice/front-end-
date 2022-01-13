@@ -27,7 +27,7 @@ const OptionsMenu = ({ options, param, customClass }) => {
       />
       {show && (
         <ul
-          style={{ top: "120%", left: "", textAlign: "left" }}
+          style={{ top: "80%", left: "", textAlign: "left" }}
           className="bg-white z-10 w-32 border border-gray-200 text-left rounded text-xs absolute "
         >
           {options?.map((option, i) => {
