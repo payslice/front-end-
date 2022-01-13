@@ -12,6 +12,7 @@ import { truncateString } from "../../../utils/helpers";
 
 const Withdrawals = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [fetchingData, setFetchingData] = useState(true);
   const [transactionData, setTransactionData] = useState();
 
   const handleClick = (param) => {
@@ -33,8 +34,10 @@ const Withdrawals = () => {
           };
         });
         setTransactionData(resetData);
+        setFetchingData(false);
       } catch (error) {
         toast.error("An error occured");
+        setFetchingData(false);
       }
     };
     getTransactions();
@@ -87,25 +90,6 @@ const Withdrawals = () => {
     },
   ];
 
-  const data = [
-    {
-      key: "1",
-      transactionID: "SOP4854885859",
-      amount: "NGN 20,000",
-      charges: "NGN 1000",
-      date: new Date().toDateString(),
-      status: "Pending",
-    },
-    {
-      key: "2",
-      transactionID: "SOP4854885859",
-      amount: "NGN 20,000",
-      charges: "NGN 500",
-      date: new Date().toDateString(),
-      status: "Successful",
-    },
-  ];
-
   return (
     <div>
       <div className="flex justify-between">
@@ -145,7 +129,11 @@ const Withdrawals = () => {
       </div>
 
       <div className=" my-16">
-        <Table columns={columns} dataSource={transactionData} />
+        <Table
+          columns={columns}
+          dataSource={transactionData}
+          loading={fetchingData}
+        />
       </div>
     </div>
   );
