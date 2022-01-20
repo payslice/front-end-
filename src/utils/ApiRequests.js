@@ -196,8 +196,9 @@ export const requestWithdrawal = (formData) => {
 /*
  * Description: Endpoint to import employees via csv file
  */
-export const importEmployees = (csvfile) => {
-  return ApiRequestWithToken().post(`/employee/import_users`, csvfile);
+export const importEmployees = (payload) => {
+  console.log("payload", payload);
+  return ApiRequestWithToken().post(`/employee/import_users`, payload);
 };
 
 /*
@@ -328,7 +329,11 @@ export const generateTransactionCode = () => {
  * Description: Endpoint to save transaction : employer
  */
 export const saveTransaction = (formData) => {
-  return ApiRequestWithToken().post(`/transaction/save`, formData);
+  return ApiRequestWithToken().post(`/transaction/save`, {
+    company_id: userData.company_id,
+    employer_id: userData.id,
+    ...formData,
+  });
 };
 
 /*
@@ -365,6 +370,7 @@ export const generatePaymentCode = () => {
  */
 
 export const getWithdrawalRequest = () => {
+  console.log("user data", userData);
   return ApiRequestWithToken().get(
     `/employee/withdrawal_requests/${userData.id}`
   );
@@ -372,4 +378,27 @@ export const getWithdrawalRequest = () => {
 
 export const getEmployeeInfoList = () => {
   return ApiRequestWithToken().get(`/employee/get_employees_salary_balance `);
+};
+
+/*
+ * Endpoint to display employers payment histories for both completed and not completed.
+ */
+export const getPaymentLogs = () => {
+  return ApiRequestWithToken().get(`/transaction/payment_log`);
+};
+
+export const getEmployeeWithdrawalRequests = () => {
+  return ApiRequestWithToken().get(
+    `/withdrawal_request/company/${userData.company_id}`
+  );
+};
+
+export const getEmployeeWithdrawalWithParams = (status) => {
+  return ApiRequestWithToken().get(
+    `/withdrawal_request/company/${userData.company_id}/${status}`
+  );
+};
+
+export const withdrawalRequest = (status) => {
+  return ApiRequestWithToken().get(`/withdrawal_request/get`);
 };

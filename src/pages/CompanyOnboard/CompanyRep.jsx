@@ -18,7 +18,7 @@ const CompanyRepresentative = () => {
     }
   }, [state, history]);
 
-  console.log("state", state);
+  // console.log("state", state);
   return (
     <div>
       <div className="text-2xl mb-10">Company Representative</div>
@@ -32,7 +32,7 @@ const CompanyRepresentative = () => {
           message="Company representative registration successfull."
         />
       )}
-      {state.errors && (
+      {state.errors.length > 0 && (
         <ErrorMessage
           title="Error"
           message="An error occured while trying to complete your submission, please try again."

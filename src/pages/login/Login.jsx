@@ -29,7 +29,9 @@ export const Login = () => {
       setTokenToStorage(res.data.payload.data.token);
       setuserDataToStorage(res.data.payload.data);
       setLoading(false);
-      history.push("/onboard/step1");
+      res.data.payload.data.company
+        ? history.push("/dashboard")
+        : history.push("/onboard/step1");
     } catch (error) {
       // toast.error(error.response.data.payload.data);
       setLoading(false);

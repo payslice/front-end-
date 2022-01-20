@@ -9,6 +9,7 @@ const LinkWithMono = () => {
   const handleMono = useMono({
     public_key: `${process.env.REACT_APP_MONO_PUBLIC_KEY}`,
   });
+
   return (
     <div>
       {!linked ? (
@@ -34,6 +35,9 @@ const LinkWithMono = () => {
                 });
               }}
             />
+          </div>
+          <div className="my-8 cursor-pointer " onClick={() => setLinked(true)}>
+            {`Skip this process`}
           </div>
         </>
       ) : (

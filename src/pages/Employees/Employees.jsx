@@ -25,7 +25,6 @@ export const Employees = () => {
       try {
         const res = await getEmployeeInfoList();
 
-        console.log("res", res.data);
         const restructuredData = res.data.payload.data?.map((data, i) => {
           return {
             key: i,
@@ -204,8 +203,14 @@ export const Employees = () => {
       <div className="table-actions flex">
         <div className="mr-5">
           <GreyButton
-            buttonText="create single staff +"
+            buttonText="Create single staff +"
             onClick={() => history.push("/employee/create")}
+          />
+        </div>
+        <div className="mr-5">
+          <GreyButton
+            buttonText="Create bulk staff "
+            onClick={() => history.push("/employee/upload")}
           />
         </div>
       </div>

@@ -4,3 +4,7 @@ export function truncateString(str, num) {
   }
   return str.slice(0, num) + "...";
 }
+
+export function toCurrency(amount) {
+  return `NGN ${parseInt(amount).toLocaleString()}`;
+}

@@ -3,25 +3,36 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { Button } from "../../components/Button/Button";
 import { CustomTag } from "../../components/CustomTag";
 import { EmployeeInfo } from "../../components/EmployeeInfo";
-import { Table } from "antd";
+import { Spin, Table } from "antd";
 import { EmployeeTab } from "../../components/EmployeeTab";
 import { BackButton } from "../../components/BackButton";
-import { getClockInTime, getOneEmployee } from "../../utils/ApiRequests";
+import {
+  getClockInTime,
+  getClockOut,
+  getOneEmployee,
+} from "../../utils/ApiRequests";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EmployeeDetails = () => {
   const { id } = useParams();
   const [employeeData, setEmployeeData] = useState();
+  const [fetchingEmpData, setFetchingEmpData] = useState();
   const [clockInData, setClockInData] = useState();
+  const [clockOutData, setClockOutData] = useState();
+  const [activeTab, setActiveTab] = useState(0);
+
   useEffect(() => {
+    setFetchingEmpData(true);
     const getEmployeeInfo = async () => {
       try {
         const res = await getOneEmployee(id);
         console.log("info", res.data.payload.data);
         setEmployeeData(res.data.payload.data);
+        setFetchingEmpData(false);
       } catch (error) {
         toast.error("An error occured");
+        setFetchingEmpData(false);
       }
     };
 
@@ -31,17 +42,44 @@ const EmployeeDetails = () => {
   useEffect(() => {
     const getCheckInTime = async () => {
       try {
-        const res = await getClockInTime(employeeData?.employee_id);
-        console.log("clock in res", res.data.payload.data);
-        setClockInData(res.data.payload.data);
+        const res = await getClockInTime(id);
+        const resetData = res.data.payload.data?.map((resData, index) => {
+          return {
+            key: index,
+            date: "----",
+            timeIn: new Date(resData.clock_in_time).toLocaleTimeString(),
+            location: "----",
+            checkInStatus: "-----",
+          };
+        });
+        setClockInData(resetData);
       } catch (error) {
         toast.error("an error occured");
       }
     };
-    if (employeeData) {
+
+    const getCheckOutTime = async () => {
+      try {
+        const res = await getClockOut(id);
+        const resetData = res.data.payload.data?.map((resData, index) => {
+          return {
+            key: index,
+            date: "----",
+            timeOut: new Date(resData.clock_out_time).toLocaleTimeString(),
+            location: "----",
+            checkInStatus: "-----",
+          };
+        });
+        setClockOutData(resetData);
+      } catch (error) {
+        toast.error("an error occured");
+      }
+    };
+    if (id) {
       getCheckInTime();
+      getCheckOutTime();
     }
-  }, [employeeData]);
+  }, [id]);
 
   const columns = [
     {
@@ -73,26 +111,40 @@ const EmployeeDetails = () => {
       title: "Location",
       dataIndex: "location",
     },
+  ];
+
+  const columns2 = [
+    {
+      title: "S/N",
+      dataIndex: "key",
+    },
+    {
+      title: "Dates",
+      dataIndex: "date",
+    },
     {
       title: "Time out",
       dataIndex: "timeOut",
     },
     {
-      title: "User",
-      dataIndex: "user",
-      render: (user) => (
+      title: "Checkin status",
+      dataIndex: "checkInStatus",
+      render: (status) => (
         <span>
           <CustomTag
-            text={user}
-            isDanger={user === "Pending"}
-            isSuccess={user === "Committed"}
+            text={status}
+            isDanger={status === "Pending"}
+            isSuccess={status === "Committed"}
           />
         </span>
       ),
     },
+    {
+      title: "Location",
+      dataIndex: "location",
+    },
   ];
 
-  console.log("the data", employeeData);
   const data = [
     {
       key: "1",
@@ -138,13 +190,15 @@ const EmployeeDetails = () => {
       <div className="bg-gray-100 flex flex-wrap mobiles:w-full justify-between px-3 py-3 mt-8 w-max">
         <div className="mobiles:w-1/2 px-3 mobiles:px-1">
           Date Joined :{" "}
-          {new Date(employeeData?.workDetails.created_at).toLocaleDateString()}
+          {new Date(
+            employeeData?.workDetails.created_at
+          ).toLocaleDateString() || "..."}
         </div>
         <div className="mobiles:w-1/2 px-3 mobiles:px-1">
-          Location: {employeeData?.workDetails?.location}
+          Location: {employeeData?.workDetails?.location || "..."}
         </div>
         <div className="mobiles:w-full px-3 mobiles:px-1">
-          Employee ID: {employeeData?.employee_id}
+          Employee ID: {employeeData?.employee_id || "..."}
         </div>
       </div>
       <div className="mt-12">
@@ -155,56 +209,87 @@ const EmployeeDetails = () => {
               <BsThreeDotsVertical className="my-auto" />
             </div>
           </div>
-          <div className="content w-full flex mobiles:block">
-            <div className="w-1/3 p-5 mobiles:w-full">
-              <EmployeeInfo
-                title="First Name"
-                value={employeeData?.first_name}
-              />
-              <EmployeeInfo title="Last Name" value={employeeData?.last_name} />
-              <EmployeeInfo title="Gender" value={employeeData?.gender} />
-              <EmployeeInfo title="Email Address" value={employeeData?.email} />
-              <EmployeeInfo
-                title="Phone Number"
-                value={employeeData?.phone_number}
-              />
+
+          {fetchingEmpData ? (
+            <div
+              className="flex justify-center items-center p-10"
+              style={{ height: "inherit" }}
+            >
+              <Spin />
             </div>
-            <div className="w-1/3 p-5 mobiles:w-full">
-              <EmployeeInfo
-                title="Bank Name"
-                value={employeeData?.bankDetails.bank_name}
-              />
-              <EmployeeInfo
-                title="Account Name"
-                value={employeeData?.bankDetails.account_name}
-              />
-              <EmployeeInfo
-                title="Account Number"
-                value={employeeData?.bankDetails.account_number}
-              />
+          ) : (
+            <div className="content w-full flex mobiles:block">
+              <div className="w-1/3 p-5 mobiles:w-full">
+                <EmployeeInfo
+                  title="First Name"
+                  value={employeeData?.first_name}
+                />
+                <EmployeeInfo
+                  title="Last Name"
+                  value={employeeData?.last_name}
+                />
+                <EmployeeInfo title="Gender" value={employeeData?.gender} />
+                <EmployeeInfo
+                  title="Email Address"
+                  value={employeeData?.email}
+                />
+                <EmployeeInfo
+                  title="Phone Number"
+                  value={employeeData?.phone_number}
+                />
+              </div>
+              <div className="w-1/3 p-5 mobiles:w-full">
+                <EmployeeInfo
+                  title="Bank Name"
+                  value={employeeData?.bankDetails.bank_name}
+                />
+                <EmployeeInfo
+                  title="Account Name"
+                  value={employeeData?.bankDetails.account_name}
+                />
+                <EmployeeInfo
+                  title="Account Number"
+                  value={employeeData?.bankDetails.account_number}
+                />
+              </div>
+              <div className="w-1/3 p-5 mobiles:w-full">
+                <EmployeeInfo
+                  title="Salary Breakdown:"
+                  value={`Basic salary - NGN ${parseInt(
+                    employeeData?.workDetails.staff_salary
+                  ).toLocaleString()}`}
+                />
+                <EmployeeInfo
+                  title="Employement Type:"
+                  value={employeeData?.workDetails.employment_type}
+                />
+                <EmployeeInfo title="Employers ID:" value="----" />
+              </div>
             </div>
-            <div className="w-1/3 p-5 mobiles:w-full">
-              <EmployeeInfo
-                title="Salary Breakdown:"
-                value={`Basic salary - NGN ${parseInt(
-                  employeeData?.workDetails.staff_salary
-                ).toLocaleString()}`}
-              />
-              <EmployeeInfo
-                title="Employement Type:"
-                value={employeeData?.workDetails.employment_type}
-              />
-              <EmployeeInfo title="Employers ID:" value="----" />
+          )}
+          <div className="my-5 flex">
+            <div
+              className={`px-8 py-3 ${
+                activeTab === 0 ? " bg-blue-600 text-white" : "bg-gray-100"
+              } cursor-pointer mx-5 rounded`}
+              onClick={() => setActiveTab(0)}
+            >
+              Time-in
             </div>
-          </div>
-          <div className="my-5 mx-5">
-            <Button
-              buttonText="Time Attendance "
-              className="mobiles:py-2 mobiles:px-3"
-            />
+            <div
+              className={`px-8 py-3 ${
+                activeTab === 1 ? "bg-blue-600 text-white" : " bg-gray-100"
+              } cursor-pointer rounded`}
+              onClick={() => setActiveTab(1)}
+            >
+              Time-out
+            </div>
           </div>
           <div className="employee-table mb-16 mt-4 mx-5">
-            <Table columns={columns} dataSource={clockInData} />
+            <Table
+              columns={activeTab === 0 ? columns : columns2}
+              dataSource={activeTab === 0 ? clockInData : clockOutData}
+            />
           </div>
         </div>
       </div>

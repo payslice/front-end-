@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../../../components/Button/Button";
 import { CustomTag } from "../../../components/CustomTag";
-import { clockIn, getAvailableWithdrawFunds } from "../../../utils/ApiRequests";
+import {
+  clockIn,
+  getAvailableWithdrawFunds,
+  clockOut,
+} from "../../../utils/ApiRequests";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 

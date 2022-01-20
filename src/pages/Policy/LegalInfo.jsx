@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "../../components/Button/Button";
 import { InputField } from "../../components/Input";
 import { CustomSelect } from "../../components/Select";
+import { getAllCompanyPolicy, getCompanyPolicy } from "../../utils/ApiRequests";
 
 const LegalInfo = () => {
+  useEffect(() => {
+    const getPolicy = async () => {
+      try {
+        const res = await getAllCompanyPolicy();
+        console.log("res", res);
+      } catch (error) {
+        console.log("err", error);
+      }
+    };
+    getPolicy();
+  }, []);
+
   return (
     <div className="my-5">
       <h2 className="text-2xl">Company legal infomation</h2>

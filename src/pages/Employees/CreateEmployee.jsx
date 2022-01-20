@@ -25,7 +25,8 @@ const CreateEmployee = () => {
     account_name: "",
     account_number: "",
     bank_name: "",
-    bvn: "22323123219",
+    bank_code: "",
+    // bvn: "22323123219",
   };
   const [formData, setFormData] = useState(initForm);
   const [fetchingBanks, setFetchingBanks] = useState(true);
@@ -63,7 +64,7 @@ const CreateEmployee = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await saveEmployee(formData);
+      const res = await saveEmployee({ ...formData });
       console.log("response", res);
       setLoading(false);
       setSuccess(true);
@@ -181,14 +182,19 @@ const CreateEmployee = () => {
                 className="bg-gray-100 mt-2 custom-select-input"
                 placeholder={formData.bank_name || "Select bank"}
                 onChange={(val) => {
-                  const { label } = val;
+                  const { label, value } = val;
                   const e = {
                     target: {
                       name: "bank_name",
                       value: label,
                     },
                   };
-                  handleChange(e);
+                  setFormData({
+                    ...formData,
+                    bank_name: label,
+                    bank_code: value,
+                  });
+                  // handleChange(e);
                 }}
               />
             </div>
@@ -283,19 +289,22 @@ const CreateEmployee = () => {
               />
             </div>
           </div>
-          <div className="flex w-full mobiles:block">
-            <div className="w-1/3 mr-5 mobiles:w-full">
-              <InputField
-                label="Contract length (in months)"
-                required
-                placeholder="Enter contract length"
-                type="number"
-                name="contract_length"
-                value={formData.contract_length}
-                onChange={handleChange}
-              />
+          {formData.employment_type === "contract" && (
+            <div className="flex w-full mobiles:block">
+              <div className="w-1/3 mr-5 mobiles:w-full">
+                <InputField
+                  label="Contract length (in months)"
+                  required
+                  placeholder="Enter contract length"
+                  type="number"
+                  name="contract_length"
+                  value={formData.contract_length}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
-          </div>
+          )}
+
           <div className="mt-5">
             {loading ? (
               <MiniLoader />

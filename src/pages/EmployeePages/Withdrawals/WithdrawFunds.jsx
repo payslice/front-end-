@@ -20,10 +20,12 @@ const WithdrawFunds = () => {
       setAmount("");
     } catch (error) {
       setSubmitting(false);
+      console.log("object", error.response);
       error &&
         toast.error(
           error.response.data.payload?.data?.errors?.amount[0] ||
-            error.response.data.payload.data.message
+            error.response.data.payload.data.message ||
+            error.response.data.payload.data
         );
 
       setSuccess(false);
@@ -41,6 +43,7 @@ const WithdrawFunds = () => {
         <form onSubmit={submitRequest}>
           <InputField
             type="text"
+            label="Amount"
             onChange={(e) => setAmount(e.target.value)}
             value={amount}
             placeholder="Enter amount"

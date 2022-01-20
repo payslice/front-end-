@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BiCalendarEvent } from "react-icons/bi";
 import { BsArrowUp, BsArrowDown } from "react-icons/bs";
+import { toast } from "react-toastify";
 import {
   AreaChart,
   Area,
@@ -10,10 +11,86 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import {
+  getAllCompanyPolicy,
+  getEmployeeWithdrawalRequests,
+  getEmployeeWithdrawalWithParams,
+  getTotalNoOfAcceptedEmployees,
+  getTotalNoOfEmployees,
+} from "../../utils/ApiRequests";
+import { getUserDataFromStorage } from "../../utils/ApiUtils";
+import { toCurrency } from "../../utils/helpers";
+import { Spin } from "antd";
+import { useHistory } from "react-router-dom";
 // import Navbar from "../../components/Navbar";
 
 const DashboardHome = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [policyResponse, setPolicyResponse] = useState();
+  const [acceptedEmployees, setAcceptedEmployees] = useState();
+  const [graphData, setGraphData] = useState();
+  const [allWithdrawals, setAllWithdrawals] = useState();
+  const [notificationLoading, setNotificationLoading] = useState(false);
+
+  const userData = getUserDataFromStorage();
+
+  const history = useHistory();
+
+  useEffect(() => {
+    console.log("userData", userData);
+    setNotificationLoading(true);
+    const fetchPolicy = async () => {
+      try {
+        const res = await getAllCompanyPolicy();
+        res.data.payload.data.length > 0 &&
+          setPolicyResponse(res.data.payload.data[0]);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    const fetchAcceptedEmployees = async () => {
+      try {
+        const res = await getTotalNoOfEmployees();
+        setAcceptedEmployees(res.data.payload.data?.numberOfEmployees);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    const getApprovedTransaction = async () => {
+      try {
+        const response = await getEmployeeWithdrawalWithParams("approved");
+        const dataRes = response.data.payload.data
+          .slice(0, 7)
+          .map((data, index) => {
+            return {
+              name: new Date(data.created_at).toLocaleDateString(),
+              uv: 40000,
+              pv: parseInt(data.amount),
+              amt: parseInt(data.amount),
+            };
+          });
+
+        setGraphData(dataRes);
+      } catch (error) {
+        console.log("approved error", error);
+      }
+    };
+    const getWithdrawals = async () => {
+      try {
+        const res = await getEmployeeWithdrawalRequests();
+        setAllWithdrawals(res.data.payload.data.slice(0, 4));
+        setNotificationLoading(false);
+      } catch (error) {
+        toast.error("Can't get employee withdrawals");
+        setNotificationLoading(false);
+      }
+    };
+    fetchPolicy();
+    fetchAcceptedEmployees();
+    getApprovedTransaction();
+    getWithdrawals();
+  }, []);
   const data = [
     {
       name: "01 Apr",
@@ -106,7 +183,12 @@ const DashboardHome = () => {
           <div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
             <p className="font-bold">Payroll Size</p>
             <p className="font-normal flex mobiles:flex mobiles:justify-between">
-              December 2020{" "}
+              {`${new Date(policyResponse?.updated_at).toLocaleString(
+                "default",
+                {
+                  month: "long",
+                }
+              )} ${new Date(policyResponse?.updated_at).getFullYear()} `}
               <span
                 className="flex ml-5 font-bold"
                 style={{ color: "#0B9B36" }}
@@ -115,7 +197,7 @@ const DashboardHome = () => {
               </span>
             </p>
             <h4 className="text-lg font-bold mobiles:flex mobiles:justify-between">
-              20,000{" "}
+              {policyResponse?.payroll_size || "N/A"}
               <span className="ml-2 text-gray-400 text-sm font-light">
                 Veiw more{" "}
               </span>
@@ -123,13 +205,22 @@ const DashboardHome = () => {
           </div>
           <div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
             <p className="font-bold">Credit limit</p>
-            <p className="font-light flex">December 2020</p>
-            <h4 className="text-lg font-bold">NGN 20,000 </h4>
+            <p className="font-light flex">{`${new Date(
+              policyResponse?.updated_at
+            ).toLocaleString("default", {
+              month: "long",
+            })} ${new Date(policyResponse?.updated_at).getFullYear()} `}</p>
+            <h4 className="text-lg font-bold">0 </h4>
           </div>
           <div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
             <p className="font-bold">Total accepted Employee</p>
             <p className="font-normal flex mobiles:flex mobiles:justify-between">
-              December 2020{" "}
+              {`${new Date(policyResponse?.updated_at).toLocaleString(
+                "default",
+                {
+                  month: "long",
+                }
+              )} ${new Date(policyResponse?.updated_at).getFullYear()} `}
               <span
                 className="flex ml-5 font-bold"
                 style={{ color: "#0B9B36" }}
@@ -138,8 +229,11 @@ const DashboardHome = () => {
               </span>
             </p>
             <h4 className="text-lg font-bold mobiles:flex mobiles:justify-between">
-              135{" "}
-              <span className="ml-2 text-gray-400 text-sm font-light">
+              {acceptedEmployees || "N/A"}
+              <span
+                className="ml-2 text-gray-400 text-sm font-light cursor-pointer"
+                onClick={() => history.push("/employee")}
+              >
                 Veiw more{" "}
               </span>
             </h4>
@@ -157,7 +251,10 @@ const DashboardHome = () => {
             </p>
             <h4 className="text-lg font-bold mobiles:flex mobiles:justify-between">
               135{" "}
-              <span className="ml-2 text-gray-400 text-sm font-light">
+              <span
+                className="ml-2 text-gray-400 text-sm font-light cursor-pointer"
+                onClick={() => history.push("/payments")}
+              >
                 Repay now
               </span>
             </h4>
@@ -168,37 +265,100 @@ const DashboardHome = () => {
         <div className="w-full flex mobiles:block">
           <div className="graph-container p-6 mobiles:p-0 mr-8 w-2/3 mobiles:w-full mobiles:my-4 border border-gray-100 rounded-lg">
             <h3 className="text-2xl py-4 px-2">Active Withdrawal</h3>
-            <ResponsiveContainer width="100%" height={350}>
-              <AreaChart
-                width={500}
-                height={500}
-                data={data}
-                margin={{
-                  top: 10,
-                  right: 30,
-                  left: 0,
-                  bottom: 0,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Area
-                  type="monotone"
-                  dataKey="uv"
-                  stroke="#8884d8"
-                  fill="#1C64F2"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+            {graphData && (
+              <ResponsiveContainer width="100%" height={350}>
+                <AreaChart
+                  width={500}
+                  height={500}
+                  data={graphData}
+                  margin={{
+                    top: 10,
+                    right: 30,
+                    left: 0,
+                    bottom: 0,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis dataKey="uv" />
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    dataKey="pv"
+                    stroke="#8884d8"
+                    fill="#1C64F2"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            )}
           </div>
           <div className="w-1/3 mobiles:w-full rounded-lg border  border-gray">
             <div className="text-2xl border-b border-gray-300 py-4 px-4">
               Recent transactions
             </div>
-            <div className="transaction-timeline p-4">
-              <div className="transaction flex w-full justify-between">
+            <div
+              className="transaction-timeline p-4 overflow-scroll"
+              style={{ height: "350px" }}
+            >
+              {notificationLoading && (
+                <div
+                  className="flex justify-center items-center"
+                  style={{ height: "inherit" }}
+                >
+                  <Spin />
+                </div>
+              )}
+              {allWithdrawals?.map((withdrawal) => {
+                return (
+                  <div className="transaction flex w-full justify-between">
+                    <div className="node-wrapper">
+                      <div className="node --red-node">
+                        <img
+                          src={
+                            require("../../assets/svgs/withdraw-icon.svg")
+                              .default
+                          }
+                          className=" "
+                          alt=""
+                        />
+                      </div>
+                      <div className="line"></div>
+                    </div>
+                    <div className="description px-3 pb-6">
+                      <div className="text-xl">
+                        {`${toCurrency(
+                          parseInt(withdrawal.amount) +
+                            parseInt(withdrawal.service_charge)
+                        )}`}{" "}
+                        has been withdrawn
+                      </div>
+                      <p className="text-gray-400 text-normal">
+                        {new Date(withdrawal.created_at).toLocaleDateString()}{" "}
+                        by{" "}
+                        <span style={{ color: "#1c6af4" }}>
+                          {withdrawal.employee.first_name}
+                        </span>
+                      </p>
+                      <div className="border rounded-xl border-gray-200  flex ">
+                        <div className="px-6 py-4 border-r ">
+                          <div className="text-normal">Amount sent</div>
+                          <div className="font-bold">
+                            {toCurrency(withdrawal.amount)}
+                          </div>
+                        </div>
+
+                        <div className="px-6 py-4">
+                          <div className="text-normal">Service Charge</div>
+                          <div className="font-bold">
+                            {toCurrency(withdrawal.service_charge)}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              {/* <div className="transaction flex w-full justify-between">
                 <div className="node-wrapper">
                   <div className="node --red-node">
                     <img
@@ -228,8 +388,8 @@ const DashboardHome = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="transaction flex w-full justify-between">
+              </div> */}
+              {/* <div className="transaction flex w-full justify-between">
                 <div className="node-wrapper ">
                   <div className="node --green-node">
                     <img
@@ -254,7 +414,7 @@ const DashboardHome = () => {
                     <div className="font-bold">₦18,000</div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
