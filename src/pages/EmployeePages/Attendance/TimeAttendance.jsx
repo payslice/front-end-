@@ -13,8 +13,6 @@ const TimeAttendance = () => {
 
   const userData = getUserDataFromStorage();
 
-  console.log("user data", userData);
-
   useEffect(() => {
     const getClockInData = async () => {
       try {

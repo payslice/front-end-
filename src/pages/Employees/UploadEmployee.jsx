@@ -15,13 +15,13 @@ const UploadEmployee = () => {
     bodyFormData.append("file", csvFile);
     // bodyFormData.append("status", "true");
     setUploading(true);
-    console.log("body form data", bodyFormData);
+    // console.log("body form data", bodyFormData);
     try {
       const res = await importEmployees(csvFile);
-      console.log("response", res);
+      // console.log("response", res);
       setUploading(false);
     } catch (error) {
-      console.log("error", error.response);
+      // console.log("error", error.response);
       setUploading(false);
     }
   };

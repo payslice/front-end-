@@ -20,7 +20,7 @@ const WithdrawFunds = () => {
       setAmount("");
     } catch (error) {
       setSubmitting(false);
-      console.log("object", error.response);
+
       error &&
         toast.error(
           error.response.data.payload?.data?.errors?.amount[0] ||

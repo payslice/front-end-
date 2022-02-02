@@ -65,7 +65,7 @@ const CreateEmployee = () => {
     setLoading(true);
     try {
       const res = await saveEmployee({ ...formData });
-      console.log("response", res);
+      // console.log("response", res);
       setLoading(false);
       setSuccess(true);
       setFormData(initForm);

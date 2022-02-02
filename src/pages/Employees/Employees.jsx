@@ -44,7 +44,6 @@ export const Employees = () => {
       } catch (error) {
         toast.error("An error occured.");
         setFetchingData(false);
-        console.log("error", error);
       }
     };
     fetchAllEmployees();
@@ -91,11 +90,11 @@ export const Employees = () => {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+      // console.log(
+      //   `selectedRowKeys: ${selectedRowKeys}`,
+      //   "selectedRows: ",
+      //   selectedRows
+      // );
     },
   };
 
@@ -146,7 +145,7 @@ export const Employees = () => {
     setDeleting(true);
     try {
       const res = await deleteEmployee(id);
-      console.log("delete res", res);
+
       setDeleting(false);
     } catch (error) {
       toast.error("can't delete, an error occured");

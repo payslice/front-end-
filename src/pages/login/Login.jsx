@@ -38,9 +38,9 @@ export const Login = () => {
         ? history.push("/dashboard")
         : history.push("/onboard/step1");
     } catch (error) {
-      // toast.error(error.response.data.payload.data);
+      toast.error("An error occured, please try again");
       setLoading(false);
-      console.log("error", error);
+      // console.log("error", error);
       setError(true);
     }
   };

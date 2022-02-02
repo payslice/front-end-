@@ -41,18 +41,13 @@ const UserDashboard = () => {
 
     if (localStorage.getItem(constant.clockInKeyName)) {
       setClockedIn(true);
-
-      console.log(
-        "clock in data is available in storage",
-        localStorage.getItem(constant.clockInKeyName)
-      );
     }
     const fetchWithdrawalAmount = async () => {
       try {
         const res = await getAvailableWithdrawFunds();
         setAvailableFunds(res.data.payload.data);
       } catch (error) {
-        console.log("error", error.response);
+        toast.error("An error occured");
       }
     };
     const getTotalWithdrawn = async () => {
@@ -61,7 +56,7 @@ const UserDashboard = () => {
         setTotalWithdrawn(res.data.payload.data);
         setFetchingWithdrawnAmount(false);
       } catch (error) {
-        console.log("error", error.response);
+        toast.error("An error occured");
         setFetchingWithdrawnAmount(false);
       }
     };
@@ -139,7 +134,7 @@ const UserDashboard = () => {
     try {
       const res = await clockOut({ location: latLng });
       setCheckOutSuccess(true);
-      console.log("res", res);
+
       setCheckLoading(false);
       removeClockInFromStorage();
     } catch (error) {

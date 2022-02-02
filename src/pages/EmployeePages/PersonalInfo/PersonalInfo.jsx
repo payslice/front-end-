@@ -70,10 +70,10 @@ const PersonalInfo = () => {
     setUploading(true);
     try {
       const res = await uploadFile(bodyFormData);
-      console.log("response", res);
+
       setUploading(false);
     } catch (error) {
-      console.log("error", error.response);
+      toast.error("An error occured, please try again");
       setUploading(false);
     }
   };
@@ -116,10 +116,9 @@ const PersonalInfo = () => {
       setSubmitting(false);
       window.location.reload();
     } catch (error) {
-      console.log("error", error);
+      toast.error("An error occured, please try again");
       setSubmitting(false);
     }
-    console.log("form data", formData);
   };
 
   return (

@@ -12,7 +12,6 @@ export const AcceptedEmployees = () => {
     const fetAcceptedEmployees = async () => {
       try {
         const res = await getTotalNoAcceptedEmployees();
-        console.log("res", res.data);
       } catch (error) {
         console.log("accepted err", error.response);
       }
@@ -61,11 +60,11 @@ export const AcceptedEmployees = () => {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+      // console.log(
+      //   `selectedRowKeys: ${selectedRowKeys}`,
+      //   "selectedRows: ",
+      //   selectedRows
+      // );
     },
   };
 

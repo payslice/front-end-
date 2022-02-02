@@ -25,7 +25,7 @@ const getLocation = async (lat, long) => {
     "&outFormat=json&thumbMaps=false";
   try {
     const res = await axios.get(url);
-    console.log("res", res);
+    // console.log("res", res);
   } catch (error) {}
 };
 
@@ -42,7 +42,7 @@ const EmployeeDetails = () => {
     const getEmployeeInfo = async () => {
       try {
         const res = await getOneEmployee(id);
-        console.log("info", res.data.payload.data);
+
         setEmployeeData(res.data.payload.data);
         setFetchingEmpData(false);
       } catch (error) {
@@ -91,7 +91,6 @@ const EmployeeDetails = () => {
       }
     };
     if (id) {
-      console.log("emp id", id);
       getCheckInTime(id);
       getCheckOutTime(id);
     }

@@ -15,9 +15,7 @@ const Withdrawals = () => {
   const [fetchingData, setFetchingData] = useState(true);
   const [transactionData, setTransactionData] = useState();
 
-  const handleClick = (param) => {
-    console.log("param", param);
-  };
+  const handleClick = (param) => {};
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -44,10 +42,10 @@ const Withdrawals = () => {
   }, []);
 
   const tableOptions = [
-    {
-      name: "Download Payslip",
-      onClick: handleClick,
-    },
+    // {
+    //   name: "Download Payslip",
+    //   onClick: handleClick,
+    // },
   ];
 
   const columns = [
@@ -121,10 +119,10 @@ const Withdrawals = () => {
               Month
             </div>
           </div>
-          <div className="tab flex rounded bg-gray-100 px-5 py-2">
+          {/* <div className="tab flex rounded bg-gray-100 px-5 py-2">
             <BiCalendarEvent size="20" className="my-auto" />
             <div className="px-3 my-auto">Jan, 2019 - Dec, 2019</div>
-          </div>
+          </div> */}
         </div>
       </div>
 

@@ -29,7 +29,7 @@ const LinkWithMono = () => {
                 handleMono({
                   onClose: () => null,
                   onSuccess: (response) => {
-                    console.log(response.code);
+                    // console.log(response.code);
                     setLinked(true);
                   },
                 });

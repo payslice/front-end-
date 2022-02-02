@@ -27,10 +27,7 @@ const LegalInfo = () => {
     const getPolicy = async () => {
       try {
         const res = await getAllCompanyPolicy();
-        console.log("res", res);
-      } catch (error) {
-        console.log("err", error);
-      }
+      } catch (error) {}
     };
     getPolicy();
   }, []);

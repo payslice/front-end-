@@ -14,7 +14,6 @@ export const ResetPassword = () => {
   });
 
   const handleChange = (e) => {
-    console.log("eee", e);
     const { name, value } = e.target;
     const newFormData = { [name]: value };
     setFormData({ ...formData, ...newFormData });
@@ -24,7 +23,6 @@ export const ResetPassword = () => {
     e.preventDefault();
     try {
       const res = await resetPassword(formData);
-      console.log("res", res);
     } catch (error) {
       toast.error("An error occured");
     }

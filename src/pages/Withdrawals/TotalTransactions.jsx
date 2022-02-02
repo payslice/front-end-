@@ -48,9 +48,8 @@ const TotalTransactions = () => {
     const getApprovedTransaction = async () => {
       try {
         const response = await getEmployeeWithdrawalWithParams("approved");
-        console.log("response", response.data);
       } catch (error) {
-        console.log("approved error", error);
+        toast.error("An error occured, please try again");
       }
     };
     getAllTransaction();
@@ -117,11 +116,11 @@ const TotalTransactions = () => {
   }
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+      // console.log(
+      //   `selectedRowKeys: ${selectedRowKeys}`,
+      //   "selectedRows: ",
+      //   selectedRows
+      // );
     },
   };
 
@@ -156,12 +155,12 @@ const TotalTransactions = () => {
               Month
             </div>
           </div>
-          <div className="tab flex rounded bg-gray-100 px-5 py-2 mobiles:w-1/2 mobiles:text-xs mobiles:px-2">
+          {/* <div className="tab flex rounded bg-gray-100 px-5 py-2 mobiles:w-1/2 mobiles:text-xs mobiles:px-2">
             <BiCalendarEvent size="20" className="my-auto" />
             <div className="px-3 my-auto mobiles:px-2">
               Jan, 2019 - Dec, 2019
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

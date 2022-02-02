@@ -33,11 +33,10 @@ export const SignUp = () => {
     setLoading(true);
     try {
       const res = await employerRegister(formData);
-      console.log("response", res);
+
       setLoading(false);
       setSuccess(true);
     } catch (error) {
-      console.log("error", error.response);
       setLoading(false);
       setError(true);
       setErrMessage("An error occured, please try again later.");

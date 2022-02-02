@@ -200,7 +200,6 @@ export const requestWithdrawal = (formData) => {
  * Description: Endpoint to import employees via csv file
  */
 export const importEmployees = (payload) => {
-  console.log("payload", payload);
   return ApiRequestWithToken().post(`/employee/import_users`, payload);
 };
 
@@ -375,7 +374,6 @@ export const generatePaymentCode = () => {
  */
 
 export const getWithdrawalRequest = () => {
-  console.log("user data", userData);
   return ApiRequestWithToken().get(
     `/employee/withdrawal_requests/${userData.id}`
   );

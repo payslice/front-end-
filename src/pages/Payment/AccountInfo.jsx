@@ -26,7 +26,6 @@ const AccountInfo = () => {
         const res = await generatePaymentCode();
         setPaymentCode(res.data.payload.data);
       } catch (error) {
-        console.log("error", error);
         toast.error("Cannot get transaction narration code");
       }
     };
@@ -34,7 +33,7 @@ const AccountInfo = () => {
     const getPaymentinfo = async () => {
       try {
         const response = await getSinglePayment(params.id);
-        console.log("response", response.data.payload.paymentLogs);
+
         setPaymentInfo(response.data.payload.paymentLogs);
       } catch (error) {
         toast.error("Can't get payment info");
@@ -55,7 +54,7 @@ const AccountInfo = () => {
     };
     try {
       const res = await saveTransaction(payload);
-      console.log("response to payment", res);
+
       setSubmitting(false);
     } catch (error) {
       toast.error("An error occured while logging payment");

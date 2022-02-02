@@ -28,7 +28,7 @@ const PaymentHistory = () => {
         setFetchingData(false);
       } catch (error) {
         toast.error("an error occured");
-        console.log("error", error.response);
+
         setFetchingData(false);
       }
     };
@@ -71,11 +71,11 @@ const PaymentHistory = () => {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+      // console.log(
+      //   `selectedRowKeys: ${selectedRowKeys}`,
+      //   "selectedRows: ",
+      //   selectedRows
+      // );
     },
   };
 

@@ -67,7 +67,8 @@ const DashboardHome = () => {
         res.data.payload.data.length > 0 &&
           setPolicyResponse(res.data.payload.data[0]);
       } catch (error) {
-        console.log("error", error);
+        // console.log("error", error);
+        toast.error("An error occured");
       }
     };
 
@@ -90,7 +91,8 @@ const DashboardHome = () => {
 
         setGraphData(dataRes);
       } catch (error) {
-        console.log("approved error", error);
+        // console.log("approved error", error);
+        toast.error("An error occured");
       }
     };
 
@@ -160,7 +162,7 @@ const DashboardHome = () => {
     <div>
       <div className="flex justify-between mobiles:block ">
         <h2 className="text-2xl font-light mobiles:mb-6 mobiles:mt-3 capitalize">
-          Welcome to Payslice ,{`${userData.first_name} ${userData.last_name}`}
+          Welcome to Payslice, {`${userData.first_name} ${userData.last_name}`}
         </h2>
         <div className="flex justify-between">
           <div className="tab flex rounded bg-gray-100 mr-5 mobiles:mr-0">
@@ -189,12 +191,12 @@ const DashboardHome = () => {
               Month
             </div>
           </div>
-          <div className="tab flex rounded bg-gray-100 px-5 py-2 mobiles:w-1/2 mobiles:text-xs mobiles:px-2">
+          {/* <div className="tab flex rounded bg-gray-100 px-5 py-2 mobiles:w-1/2 mobiles:text-xs mobiles:px-2">
             <BiCalendarEvent size="20" className="my-auto" />
             <div className="px-3 my-auto mobiles:px-2">
               Jan, 2019 - Dec, 2019
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -261,7 +263,7 @@ const DashboardHome = () => {
           <div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
             <p className="font-bold">Upcoming payments</p>
             <p className="font-normal flex mobiles:flex mobiles:justify-between">
-              January 2021{" "}
+              {/* January 2021{" "} */}
               <span
                 className="flex ml-5 font-bold"
                 style={{ color: "#D0000C" }}

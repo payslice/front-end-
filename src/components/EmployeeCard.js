@@ -31,7 +31,7 @@ export const EmployeeCard = ({ gotoDetailsPage }) => {
 
 export const AcceptedEmployeeCard = () => {
   const handleClick = () => {
-    console.log("clicked");
+    // console.log("clicked");
   };
   const tableOptions = [
     {
