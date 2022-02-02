@@ -4,19 +4,49 @@ import { CustomTag } from "../../../components/CustomTag";
 import {
   clockIn,
   getAvailableWithdrawFunds,
+  getAmountWithdrawn,
   clockOut,
+  getWithdrawalRequest,
 } from "../../../utils/ApiRequests";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import { toCurrency, truncateString } from "../../../utils/helpers";
+import { Spin } from "antd";
+import { DotLoader } from "../../../components/Loaders/DotLoader";
+import {
+  getUserDataFromStorage,
+  removeClockInFromStorage,
+  setClockInTimeToStorage,
+} from "../../../utils/ApiUtils";
+import { constant } from "../../../utils/ApiConstants";
 
 const UserDashboard = () => {
   const [availableFunds, setAvailableFunds] = useState();
   const [latLng, setLatLng] = useState();
   const [checkInSuccess, setCheckInSuccess] = useState(false);
+  const [checkOutSuccess, setCheckOutSuccess] = useState(false);
   const [checkLoading, setCheckLoading] = useState(false);
+  const [totalWithdrawn, setTotalWithdrawn] = useState();
+  const [transactionData, setTransactionData] = useState();
+  const [fetchingData, setFetchingData] = useState(false);
+  const [clockedIn, setClockedIn] = useState(false);
+  const [fetchingWithdrawnAmount, setFetchingWithdrawnAmount] = useState(false);
   const history = useHistory();
 
+  const userData = getUserDataFromStorage();
+
   useEffect(() => {
+    setFetchingData(true);
+    setFetchingWithdrawnAmount(true);
+
+    if (localStorage.getItem(constant.clockInKeyName)) {
+      setClockedIn(true);
+
+      console.log(
+        "clock in data is available in storage",
+        localStorage.getItem(constant.clockInKeyName)
+      );
+    }
     const fetchWithdrawalAmount = async () => {
       try {
         const res = await getAvailableWithdrawFunds();
@@ -25,7 +55,40 @@ const UserDashboard = () => {
         console.log("error", error.response);
       }
     };
+    const getTotalWithdrawn = async () => {
+      try {
+        const res = await getAmountWithdrawn();
+        setTotalWithdrawn(res.data.payload.data);
+        setFetchingWithdrawnAmount(false);
+      } catch (error) {
+        console.log("error", error.response);
+        setFetchingWithdrawnAmount(false);
+      }
+    };
+
+    const getTransactions = async () => {
+      try {
+        const res = await getWithdrawalRequest();
+        const resetData = res.data.payload.data?.map((withdrawal, i) => {
+          return {
+            key: i,
+            transactionID: truncateString(withdrawal.request_code, 9),
+            amount: toCurrency(withdrawal.amount),
+            charges: withdrawal.service_charge,
+            date: new Date(withdrawal.updated_at).toDateString(),
+            status: withdrawal.status,
+          };
+        });
+        setTransactionData(resetData);
+        setFetchingData(false);
+      } catch (error) {
+        toast.error("An error occured");
+        setFetchingData(false);
+      }
+    };
+    getTotalWithdrawn();
     fetchWithdrawalAmount();
+    getTransactions();
   }, []);
 
   function handleError(error) {
@@ -60,11 +123,25 @@ const UserDashboard = () => {
   }
   const submitClockIn = async () => {
     setCheckLoading(true);
+    setClockInTimeToStorage();
     try {
-      const res = await clockIn({ location: latLng });
+      await clockIn({ location: latLng });
       setCheckInSuccess(true);
+      setCheckLoading(false);
+    } catch (error) {
+      toast.error(error.response.data.payload.data);
+      setCheckLoading(false);
+    }
+  };
+
+  const submitClockOut = async () => {
+    setCheckLoading(true);
+    try {
+      const res = await clockOut({ location: latLng });
+      setCheckOutSuccess(true);
       console.log("res", res);
       setCheckLoading(false);
+      removeClockInFromStorage();
     } catch (error) {
       toast.error(error.response.data.payload.data);
       setCheckLoading(false);
@@ -74,12 +151,23 @@ const UserDashboard = () => {
   return (
     <div className="user-dashboard-wrapper">
       <div className="flex justify-between mb-20">
-        <div className="text-gray-400">Welcome to Payslice , Peter Brown</div>
-        <Button
-          buttonText={!checkInSuccess ? "Employee checkin" : "Checked In"}
-          loading={checkLoading}
-          onClick={submitClockIn}
-        />
+        <div className="text-gray-400 capitalize">
+          Welcome to Payslice , {`${userData.first_name} ${userData.last_name}`}
+        </div>
+
+        {clockedIn || checkInSuccess ? (
+          <Button
+            buttonText="Employee CheckOut"
+            loading={checkLoading}
+            onClick={submitClockOut}
+          />
+        ) : (
+          <Button
+            buttonText="Employee CheckIn"
+            loading={checkLoading}
+            onClick={submitClockIn}
+          />
+        )}
       </div>
 
       <div className="flex w-full justify-between">
@@ -111,10 +199,14 @@ const UserDashboard = () => {
           <div className="my-auto">
             <div className="text-normal">Total withdrawn </div>
             <h3 className="text-xl  mb-0">
-              NGN{" "}
-              {parseInt(
-                availableFunds?.total_amount_avaliable_to_withdraw
-              ).toLocaleString()}{" "}
+              {fetchingWithdrawnAmount ? (
+                <>
+                  {" "}
+                  <DotLoader />{" "}
+                </>
+              ) : (
+                <> NGN {parseInt(totalWithdrawn).toLocaleString()} </>
+              )}
             </h3>
           </div>
 
@@ -130,46 +222,54 @@ const UserDashboard = () => {
       <div className="mt-10 border border-gray-200 rounded ">
         <div className="flex justify-between border-b pt-4 pb-2 px-8">
           <h2 className="text-xl">Recent Transaction</h2>
-          <div className="text-blue-400">Show more</div>
+          <div
+            className="text-blue-400"
+            onClick={() => history.push("/user/withdrawals")}
+          >
+            Show more
+          </div>
         </div>
-        <div className="flex justify-between border-b pt-4 pb-2 px-8">
-          <div>
-            <p className="text-normal">Direct Transfer</p>
-            <div>Transation ID 059595959</div>
+        {fetchingData && (
+          <div className="p-10 flex justify-center items-center ">
+            <Spin />
           </div>
-          <div className="font-bold text-normal">20,000</div>
-          <div>
-            <p>Service charge</p>
-            <p>1,000</p>
+        )}
+        {!fetchingData && transactionData?.length === 0 && (
+          <div className="p-10 flex justify-center items-center ">
+            <p>No available transaction</p>
           </div>
-          <div className="w-max my-auto">
-            <CustomTag text="Successfull" isSuccess={true} />
-          </div>
+        )}
+        {transactionData?.slice(0, 4).map((data, index) => {
+          return (
+            <div
+              key={index}
+              className="flex justify-between border-b pt-4 pb-2 px-8"
+            >
+              <div>
+                <p className="text-normal">Direct Transfer</p>
+                <div>Transation ID {data.transactionID}</div>
+              </div>
+              <div className="font-bold text-normal">{data.amount}</div>
+              <div>
+                <p>Service charge</p>
+                <p>{toCurrency(data.charges)}</p>
+              </div>
+              <div className="w-max my-auto">
+                <CustomTag
+                  text={data.status}
+                  isDanger={data.status === "declined"}
+                  isSuccess={data.status === "approved"}
+                  isWarning={data.status === "pending"}
+                />
+              </div>
 
-          <div>
-            <p>Time stamp</p>
-            <p>10:34</p>
-          </div>
-        </div>
-        <div className="flex justify-between pt-4 pb-2 px-8">
-          <div>
-            <p className="text-normal">Direct Transfer</p>
-            <div>Transation ID 059595959</div>
-          </div>
-          <div className="font-bold text-normal">20,000</div>
-          <div>
-            <p>Service charge</p>
-            <p>1,000</p>
-          </div>
-          <div className="w-max my-auto">
-            <CustomTag text="Successfull" isSuccess={true} />
-          </div>
-
-          <div>
-            <p>Time stamp</p>
-            <p>10:34</p>
-          </div>
-        </div>
+              <div>
+                <p>Time stamp</p>
+                <p> {data.date} </p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

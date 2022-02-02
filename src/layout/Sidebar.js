@@ -60,12 +60,12 @@ const Sidebar = () => {
             caption="Payments"
           />
           <div className="border-white border-b-2 w-10"></div>
-          <SidebarItem
+          {/* <SidebarItem
             currentPath={currentLocation}
             Icon={FaCommentDots}
             path="/support"
             caption="Support"
-          />
+          /> */}
           <SidebarItem
             currentPath={currentLocation}
             Icon={AiFillSetting}

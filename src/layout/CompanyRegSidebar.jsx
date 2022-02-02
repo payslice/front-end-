@@ -22,7 +22,7 @@ const CompanyRegSidebar = () => {
         <h1 className="mb-3  mobiles:px-1 mobiles:w-full ">
           <img
             src={require("../assets/svgs/payslice-logo.svg").default}
-            className="w-52 mobiles:w-full mt-7"
+            className="w-44 mobiles:w-full mt-7"
             alt=""
           />
         </h1>

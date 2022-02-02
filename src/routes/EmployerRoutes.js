@@ -14,7 +14,7 @@ import PaymentHistory from "../pages/Payment/PaymenHistory";
 import AddStaff from "../pages/Administrator/AddStaff";
 import AccountInfo from "../pages/Payment/AccountInfo";
 import TotalTransactions from "../pages/Withdrawals/TotalTransactions";
-import { checkLogin } from "../utils/ApiUtils";
+import { checkLogin, checkTokenValidity } from "../utils/ApiUtils";
 import DashboardHome from "../pages/DashboardHome/DashboardHome";
 
 export const EmployerRoutesList = [
@@ -34,10 +34,10 @@ export const EmployerRoutesList = [
   { path: "/employee/confirm-pay", component: ConfirmPayday, exact: true },
   { path: "/employee/:id", component: EmployeeDetails, exact: true },
   { path: "/payments", component: PaymentSummary, exact: true },
-  { path: "/support", component: LegalInfo, exact: true },
-  { path: "/support/admins", component: AdminList, exact: true },
+  { path: "/settings", component: LegalInfo, exact: true },
+  { path: "/settings/admins", component: AdminList, exact: true },
   { path: "/payments/history", component: PaymentHistory, exact: true },
-  { path: "/support/admin/add", component: AddStaff, exact: true },
+  { path: "/settings/admin/add", component: AddStaff, exact: true },
   { path: "/payments/account-info/:id", component: AccountInfo, exact: true },
   { path: "/withdrawals", component: TotalTransactions, exact: true },
 ];
@@ -47,7 +47,11 @@ const EmployerRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        checkLogin() ? <Component {...props} /> : <Redirect to="/login" />
+        checkLogin() && checkTokenValidity() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
       }
     />
   );
@@ -63,15 +67,15 @@ const employeeNavTab = [
     link: "/employee/accepted-employee",
   },
 ];
-const supportNavTab = [
+const settingsNavTab = [
   {
     name: "Legal & Policy",
-    link: "/support",
+    link: "/settings",
   },
-  {
-    name: "Administrators",
-    link: "/support/admins",
-  },
+  // {
+  //   name: "Administrators",
+  //   link: "/settings/admins",
+  // },
 ];
 const paymentNavTab = [
   {
@@ -108,8 +112,8 @@ const EmployerRoutes = () => {
     if (location.pathname.startsWith("/user/settings")) {
       return userInfoNavTab;
     }
-    if (location.pathname.startsWith("/support")) {
-      return supportNavTab;
+    if (location.pathname.startsWith("/settings")) {
+      return settingsNavTab;
     }
   };
 

@@ -87,7 +87,7 @@ const AdminList = () => {
         <h3 className="text-2xl">Adminstrators List</h3>
         <Button
           buttonText="Add new adminstrator"
-          onClick={() => history.push("/support/admin/add")}
+          onClick={() => history.push("/settings/admin/add")}
         />
       </div>
       <div className="my-16">

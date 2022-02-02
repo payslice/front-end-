@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { BiCalendarEvent } from "react-icons/bi";
-import { Table } from "antd";
+import { Select, Table } from "antd";
 import {
   getEmployeeWithdrawalRequests,
   getEmployeeWithdrawalWithParams,
 } from "../../utils/ApiRequests";
 import { toast } from "react-toastify";
 import { toCurrency } from "../../utils/helpers";
+import { CustomTag } from "../../components/CustomTag";
+import { DotLoader } from "../../components/Loaders/DotLoader";
 
 const TotalTransactions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [totalTransactions, setTotalTransactions] = useState();
+  const [permData, setPermData] = useState();
 
+  const { Option } = Select;
   useEffect(() => {
     const getAllTransaction = async () => {
       try {
         const res = await getEmployeeWithdrawalRequests();
 
         const resData = res.data.payload.data?.map((data, i) => {
+          const date = new Date(data.created_at);
           return {
             key: i,
             name: `${data.employee.first_name} ${data.employee.last_name}`,
@@ -26,9 +31,14 @@ const TotalTransactions = () => {
             totalWithdrawn: toCurrency(data.amount),
             amount: parseInt(data.amount),
             timeOfLastWithdrawal: new Date(data.created_at).toDateString(),
+            status: data.status,
+            dateYear: `${date.toLocaleString("default", {
+              month: "long",
+            })} ${date.getFullYear()}`,
           };
         });
         setTotalTransactions(resData);
+        setPermData(resData);
         setLoading(false);
       } catch (error) {
         toast.error("An error occured");
@@ -52,10 +62,15 @@ const TotalTransactions = () => {
     //     );
   }, []);
 
-  const totalSalaryWithdrawn = totalTransactions?.reduce(
+  const totalSalaryWithdrawn = permData?.reduce(
     (acc, data) => acc + data.amount,
     0
   );
+
+  const totalApprovedWithdrawals = permData
+    ?.filter((data) => data.status === "approved")
+    ?.reduce((acc, data) => acc + data.amount, 0);
+
   const columns = [
     {
       title: "Full Name ",
@@ -74,8 +89,32 @@ const TotalTransactions = () => {
       title: "Time of last withdrawal",
       dataIndex: "timeOfLastWithdrawal",
     },
+    {
+      title: "Status",
+      dataIndex: "status",
+      render: (status) => (
+        <span>
+          <CustomTag
+            text={status}
+            isDanger={status === "declined"}
+            isSuccess={status === "approved"}
+            isWarning={status === "pending"}
+          />
+        </span>
+      ),
+    },
   ];
+  function handleChange(selectedOption) {
+    const filteredData = permData?.filter((data) => {
+      if (selectedOption.value === "all") {
+        return totalTransactions;
+      } else {
+        return data.status === selectedOption.value;
+      }
+    });
 
+    setTotalTransactions(filteredData);
+  }
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       console.log(
@@ -134,27 +173,47 @@ const TotalTransactions = () => {
           <div className="w-1/4  mr-5 h-40 bg-gray-100 p-8 mobiles:px-4 mobiles:w-40">
             <p className="font-normal">Total salary withdrawn</p>
             <h4 className="text-xl font-semibold">
-              {toCurrency(totalSalaryWithdrawn)}
+              {loading ? (
+                <DotLoader />
+              ) : (
+                <>{toCurrency(totalSalaryWithdrawn)}</>
+              )}
             </h4>
-            <p>
-              For <span style={{ color: "#1C6AF4" }}>October</span>{" "}
-            </p>
+            {/* <p>
+              For{" "}
+              <span style={{ color: "#1C6AF4" }}>
+                {" "}
+                {permData && permData[0]?.dateYear}{" "}
+              </span>{" "}
+            </p> */}
           </div>
           <div className="w-1/4  mr-5 h-40 bg-gray-100 p-8 mobiles:px-4 mobiles:w-40">
             <p className="font-normal">Number of withdrawal</p>
             <h4 className="text-xl font-semibold">
-              {`0${totalTransactions?.length}`}
+              {loading ? <DotLoader /> : <>{`0${totalTransactions?.length}`}</>}
             </h4>
-            <p>
-              For <span style={{ color: "#1C6AF4" }}>October</span>{" "}
-            </p>
+            {/* <p>
+              For{" "}
+              <span style={{ color: "#1C6AF4" }}>
+                {permData && permData[0]?.dateYear}{" "}
+              </span>{" "}
+            </p> */}
           </div>
           <div className="w-1/4  mr-0 h-40 bg-gray-100 p-8 mobiles:px-4 mobiles:w-40">
             <p className="font-normal">Approved Withdrawals</p>
-            <h4 className="text-xl font-semibold">NGN 420,000</h4>
-            <p>
-              For <span style={{ color: "#1C6AF4" }}>October</span>{" "}
-            </p>
+            <h4 className="text-xl font-semibold">
+              {loading ? (
+                <DotLoader />
+              ) : (
+                <>{toCurrency(totalApprovedWithdrawals)} </>
+              )}
+            </h4>
+            {/* <p>
+              For{" "}
+              <span style={{ color: "#1C6AF4" }}>
+                {permData && permData[0]?.dateYear}{" "}
+              </span>{" "}
+            </p> */}
           </div>
         </div>
 
@@ -177,7 +236,7 @@ const TotalTransactions = () => {
                 <p className="font-normal">Number of withdrawal</p>
                 <h4 className="text-xl font-semibold">
                   {" "}
-                  {`0${totalTransactions?.length}`}
+                  {`0${permData?.length}`}
                 </h4>
                 <p className="mb-0">
                   For <span style={{ color: "#1C6AF4" }}>October</span>{" "}
@@ -197,6 +256,20 @@ const TotalTransactions = () => {
         </div>
       </div>
       <div className=" my-16">
+        <div className="my-3 flex justify-end">
+          <h3 className="my-auto pr-3">Filter By: </h3>
+          <Select
+            labelInValue
+            defaultValue={{ value: "all" }}
+            style={{ width: 120 }}
+            onChange={handleChange}
+          >
+            <Option value="all">ALL</Option>
+            <Option value="pending">PENDING</Option>
+            <Option value="approved">APPROVED</Option>
+            <Option value="declined">DECLINED</Option>
+          </Select>
+        </div>
         <Table
           rowSelection={{
             type: "checkbox",

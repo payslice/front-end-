@@ -3,7 +3,11 @@ import { useHistory } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { InputField, PasswordInput } from "../../components/Input";
 import { employerLogin } from "../../utils/ApiRequests";
-import { setTokenToStorage, setuserDataToStorage } from "../../utils/ApiUtils";
+import {
+  setExpiryTimeToStorage,
+  setTokenToStorage,
+  setuserDataToStorage,
+} from "../../utils/ApiUtils";
 import { toast } from "react-toastify";
 import MiniLoader from "../../components/Loaders/MiniLoader";
 import { ErrorMessage } from "../../components/Message/Message";
@@ -26,8 +30,9 @@ export const Login = () => {
     setLoading(true);
     try {
       const res = await employerLogin(loginForm);
-      setTokenToStorage(res.data.payload.data.token);
       setuserDataToStorage(res.data.payload.data);
+      setTokenToStorage(res.data.payload.data.token);
+      setExpiryTimeToStorage(new Date());
       setLoading(false);
       res.data.payload.data.company
         ? history.push("/dashboard")

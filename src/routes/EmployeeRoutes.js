@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
-import { checkLogin } from "../utils/ApiUtils";
+import { checkLogin, checkTokenValidity } from "../utils/ApiUtils";
 import UserDashboard from "../pages/EmployeePages/Dashboard";
 import Withdrawals from "../pages/EmployeePages/Withdrawals/Withdrawals";
 import WithdrawFunds from "../pages/EmployeePages/Withdrawals/WithdrawFunds";
@@ -26,17 +26,6 @@ export const EmployeeRoutesList = [
   { path: "/user/settings/banking", component: BankingInfo, exact: true },
 ];
 
-const EmployeeRoute = ({ component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        checkLogin() ? <Component {...props} /> : <Redirect to="/user/login" />
-      }
-    />
-  );
-};
-
 const userInfoNavTab = [
   {
     name: "Personal Infomation",
@@ -47,6 +36,21 @@ const userInfoNavTab = [
     link: "/user/settings/banking",
   },
 ];
+
+const PrivateEmployeeRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        checkLogin() && checkTokenValidity() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/user/login" />
+        )
+      }
+    />
+  );
+};
 
 const EmployeeRoutes = () => {
   const location = useLocation();
@@ -64,14 +68,14 @@ const EmployeeRoutes = () => {
     <AppLayout navTab={useNavTab()}>
       <Switch>
         {EmployeeRoutesList.map((r) => (
-          //   <EmployeeRoute
-          //     path={r.path}
-          //     exact={true}
-          //     component={r.component}
-          //     key={r.path}
-          //     navTab={r.navTab}
-          //   />
-          <Route component={r.component} path={r.path} exact={r.exact} />
+          <PrivateEmployeeRoute
+            path={r.path}
+            exact={true}
+            component={r.component}
+            key={r.path}
+            navTab={r.navTab}
+          />
+          // <Route component={r.component} path={r.path} exact={r.exact} />
         ))}
       </Switch>
     </AppLayout>

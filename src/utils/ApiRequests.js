@@ -137,7 +137,10 @@ export const getClockOut = () => {
  * Description: Store employee clockout in storage
  */
 export const clockOut = (formData) => {
-  return ApiRequestWithToken().post(`/attendance/clock_out`, formData);
+  return ApiRequestWithToken().post(`/attendance/clock_out`, {
+    ...formData,
+    user_id: userData.id,
+  });
 };
 
 /*
@@ -268,8 +271,10 @@ export const getTimeOflastWithdrawal = (employee_id) => {
 /*
  * Description: Endpoint to get total number of employees
  */
-export const getTotalNoOfEmployees = () => {
-  return ApiRequestWithToken().get(`/employer/total_number_of_employees`);
+export const getTotalNoOfEmployees = (day, month, year) => {
+  return ApiRequestWithToken().get(
+    `/employer/total_number_of_employees?day=${day}&month=${month}&year=${year}`
+  );
 };
 
 /*
@@ -277,7 +282,7 @@ export const getTotalNoOfEmployees = () => {
  */
 export const getTotalNoOfAcceptedEmployees = () => {
   return ApiRequestWithToken().get(
-    `/employer/total_number_of_accepted_employees`
+    `/employer/total_number_of_accepted_employees?day=1&month=01&year=2022`
   );
 };
 
@@ -347,7 +352,7 @@ export const resetPassword = (formData) => {
  * Description: Endpoint to change password
  */
 export const changePassword = (formData) => {
-  return ApiRequest().post(`/change_password`, formData);
+  return ApiRequestWithToken().post(`/change_password`, formData);
 };
 
 /*
@@ -386,10 +391,21 @@ export const getEmployeeInfoList = () => {
 export const getPaymentLogs = () => {
   return ApiRequestWithToken().get(`/transaction/payment_log`);
 };
+export const getSinglePayment = (paymentId) => {
+  return ApiRequestWithToken().get(`/transaction/payment_log/${paymentId}`);
+};
 
 export const getEmployeeWithdrawalRequests = () => {
   return ApiRequestWithToken().get(
     `/withdrawal_request/company/${userData.company_id}`
+  );
+};
+export const getDashboardWithdrawalRequests = (company_id) => {
+  return ApiRequestWithToken().get(`/withdrawal_request/company/${company_id}`);
+};
+export const getDashboardWithdrawalWithParams = (company_id, status) => {
+  return ApiRequestWithToken().get(
+    `/withdrawal_request/company/${company_id}/${status}`
   );
 };
 

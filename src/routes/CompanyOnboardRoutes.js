@@ -5,7 +5,7 @@ import CompanyRegLayout from "../layout/CompanyFormLayout";
 import CompanyPolicy from "../pages/CompanyOnboard/CompanyPolicy";
 import CompanyRepresentative from "../pages/CompanyOnboard/CompanyRep";
 import LinkWithMono from "../pages/CompanyOnboard/LinkWithMono";
-import { checkLogin } from "../utils/ApiUtils";
+import { checkLogin, checkTokenValidity } from "../utils/ApiUtils";
 
 export const CompanyOnboardRoutesList = [
   { path: "/onboard/step1", component: CompanyOnboard, exact: true },
@@ -19,7 +19,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        checkLogin() ? <Component {...props} /> : <Redirect to="/login" />
+        checkLogin() && checkTokenValidity() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
       }
     />
   );

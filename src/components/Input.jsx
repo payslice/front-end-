@@ -13,6 +13,7 @@ export const InputField = ({
   minLength,
   maxLength,
   disabled,
+  readOnly,
 }) => {
   return (
     <div className="w-full mt-5 mr-5">
@@ -26,6 +27,7 @@ export const InputField = ({
         placeholder={placeholder}
         name={name}
         id={id}
+        readOnly={readOnly}
         min={minLength}
         max={maxLength}
         minLength={minLength}

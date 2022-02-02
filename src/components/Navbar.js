@@ -6,7 +6,7 @@ import {
   removeTokenFromStorage,
   removeUserDataFromStorage,
 } from "../utils/ApiUtils";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -18,20 +18,26 @@ const Navbar = () => {
   });
 
   const history = useHistory();
+  const location = useLocation();
 
   const handleLogout = () => {
-    history.push("/login");
+    if (location.pathname.startsWith("/user")) {
+      history.push("/user/login");
+    } else {
+      history.push("/login");
+    }
+
     removeTokenFromStorage();
     removeUserDataFromStorage();
   };
   return (
     <nav
       ref={tdc}
-      className="flex justify-between bg-white p-6 shadow items-center sticky mobiles:hidden"
+      className="flex justify-end bg-white p-6 shadow items-center sticky mobiles:hidden"
     >
-      <div>
+      {/* <div>
         <input type="text" placeholder="Type in to search" className="" />
-      </div>
+      </div> */}
 
       <div className="flex items-center bg-gray-100 px-6 py-2 rounded">
         <img

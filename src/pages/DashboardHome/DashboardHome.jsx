@@ -13,13 +13,18 @@ import {
 } from "recharts";
 import {
   getAllCompanyPolicy,
-  getEmployeeWithdrawalRequests,
+  getDashboardWithdrawalRequests,
   getEmployeeWithdrawalWithParams,
+  getPaymentLogs,
+  getDashboardWithdrawalWithParams,
   getTotalNoOfAcceptedEmployees,
   getTotalNoOfEmployees,
 } from "../../utils/ApiRequests";
-import { getUserDataFromStorage } from "../../utils/ApiUtils";
-import { toCurrency } from "../../utils/helpers";
+import {
+  getTokenFromStorage,
+  getUserDataFromStorage,
+} from "../../utils/ApiUtils";
+import { toCurrency, truncateString } from "../../utils/helpers";
 import { Spin } from "antd";
 import { useHistory } from "react-router-dom";
 // import Navbar from "../../components/Navbar";
@@ -31,14 +36,31 @@ const DashboardHome = () => {
   const [graphData, setGraphData] = useState();
   const [allWithdrawals, setAllWithdrawals] = useState();
   const [notificationLoading, setNotificationLoading] = useState(false);
+  const [paymentLogs, setPaymentLogs] = useState();
+  const [profile, setProfile] = useState(getUserDataFromStorage());
 
   const userData = getUserDataFromStorage();
+  const token = getTokenFromStorage();
 
   const history = useHistory();
 
+  // useEffect(() => {
+  //   const fetchAcceptedEmployees = async (filterParams) => {
+  //     try {
+  //       const res = await getTotalNoOfEmployees();
+  //       setAcceptedEmployees(res.data.payload.data?.numberOfEmployees);
+  //     } catch (error) {
+  //       console.log("error", error);
+  //     }
+  //   };
+  //   fetchAcceptedEmployees();
+  // }, []);
+
   useEffect(() => {
-    console.log("userData", userData);
     setNotificationLoading(true);
+    function handleChangeStorage() {
+      setProfile(getUserDataFromStorage());
+    }
     const fetchPolicy = async () => {
       try {
         const res = await getAllCompanyPolicy();
@@ -48,18 +70,13 @@ const DashboardHome = () => {
         console.log("error", error);
       }
     };
-    const fetchAcceptedEmployees = async () => {
-      try {
-        const res = await getTotalNoOfEmployees();
-        setAcceptedEmployees(res.data.payload.data?.numberOfEmployees);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
 
     const getApprovedTransaction = async () => {
       try {
-        const response = await getEmployeeWithdrawalWithParams("approved");
+        const response = await getDashboardWithdrawalWithParams(
+          profile.company_id,
+          "approved"
+        );
         const dataRes = response.data.payload.data
           .slice(0, 7)
           .map((data, index) => {
@@ -76,9 +93,13 @@ const DashboardHome = () => {
         console.log("approved error", error);
       }
     };
+
     const getWithdrawals = async () => {
       try {
-        const res = await getEmployeeWithdrawalRequests();
+        const res = await getDashboardWithdrawalWithParams(
+          profile.company_id,
+          "approved"
+        );
         setAllWithdrawals(res.data.payload.data.slice(0, 4));
         setNotificationLoading(false);
       } catch (error) {
@@ -86,61 +107,60 @@ const DashboardHome = () => {
         setNotificationLoading(false);
       }
     };
-    fetchPolicy();
-    fetchAcceptedEmployees();
-    getApprovedTransaction();
-    getWithdrawals();
-  }, []);
-  const data = [
-    {
-      name: "01 Apr",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "02 Apr",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "03 Apr",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "04 Apr",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "05 Apr",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "06 Apr",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "07 Apr",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+
+    const fetchPaymentLogs = async () => {
+      try {
+        const response = await getPaymentLogs();
+        const resetData = response.data.payload.paymentLogs?.map(
+          (resData, i) => {
+            const date = new Date(resData.created_at);
+            return {
+              key: i,
+              id: resData.id,
+              paymemtID: truncateString(resData.id, 8),
+              amount: parseInt(resData.amount),
+              totalPayable: toCurrency(resData.amount),
+              totalPay:
+                resData.amount_remaining === null
+                  ? toCurrency(resData.amount)
+                  : toCurrency(
+                      parseInt(resData.amount) -
+                        parseInt(resData.amount_remaining)
+                    ),
+              month: date.toLocaleString("default", { month: "long" }),
+              status: resData.completed === "no" ? "Unpaid" : "Paid",
+              dateYear: `${date.toLocaleString("default", {
+                month: "long",
+              })} ${date.getFullYear()}`,
+              amount_remaining: resData.amount_remaining,
+            };
+          }
+        );
+        setPaymentLogs(resetData);
+        // setFetchingData(false);
+      } catch (error) {
+        toast.error("Something went wrong");
+      }
+    };
+    if (profile) {
+      fetchPolicy();
+      getApprovedTransaction();
+      getWithdrawals();
+      fetchPaymentLogs();
+    }
+    window.addEventListener("storage", handleChangeStorage);
+    return () => window.removeEventListener("storage", handleChangeStorage);
+  }, [profile]);
+
+  const totalDue = paymentLogs
+    ?.filter((data) => typeof data.amount_remaining == "string")
+    .reduce((acc, num) => parseInt(acc) + parseInt(num.amount_remaining), 0);
 
   return (
     <div>
       <div className="flex justify-between mobiles:block ">
-        <h2 className="text-2xl font-light mobiles:mb-6 mobiles:mt-3">
-          Welcome to Payslice , Peter Brown
+        <h2 className="text-2xl font-light mobiles:mb-6 mobiles:mt-3 capitalize">
+          Welcome to Payslice ,{`${userData.first_name} ${userData.last_name}`}
         </h2>
         <div className="flex justify-between">
           <div className="tab flex rounded bg-gray-100 mr-5 mobiles:mr-0">
@@ -241,7 +261,7 @@ const DashboardHome = () => {
           <div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
             <p className="font-bold">Upcoming payments</p>
             <p className="font-normal flex mobiles:flex mobiles:justify-between">
-              December 2020{" "}
+              January 2021{" "}
               <span
                 className="flex ml-5 font-bold"
                 style={{ color: "#D0000C" }}
@@ -250,7 +270,7 @@ const DashboardHome = () => {
               </span>
             </p>
             <h4 className="text-lg font-bold mobiles:flex mobiles:justify-between">
-              135{" "}
+              {toCurrency(totalDue)}
               <span
                 className="ml-2 text-gray-400 text-sm font-light cursor-pointer"
                 onClick={() => history.push("/payments")}

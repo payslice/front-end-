@@ -5,6 +5,7 @@ import { Button } from "../../../components/Button/Button";
 import {
   updateEmployee,
   uploadFile,
+  changePassword,
   // userData,
 } from "../../../utils/ApiRequests";
 import {
@@ -12,12 +13,18 @@ import {
   setuserDataToStorage,
   getUserDataFromStorage,
 } from "../../../utils/ApiUtils";
+import { toast } from "react-toastify";
 
 const PersonalInfo = () => {
+  const initPasswordForm = {
+    email: "",
+    new_password: "",
+    confirm_password: "",
+  };
+
   const [imgFile, setImgFile] = useState();
   const userData = getUserDataFromStorage();
 
-  console.log("user data", userData);
   const {
     first_name,
     last_name,
@@ -49,8 +56,11 @@ const PersonalInfo = () => {
     gender: "male",
     employee_id: id,
   });
+
+  const [passwordForm, setPasswordForm] = useState(initPasswordForm);
   const [uploading, setUploading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [changingPassword, setPasswordChanging] = useState(false);
 
   const uploadProfileIcon = async () => {
     let bodyFormData = new FormData();
@@ -75,6 +85,27 @@ const PersonalInfo = () => {
     setFormData(newFormData);
   };
 
+  const handlePasswordChange = (type, e) => {
+    const { name, value } = e.target;
+    const newFormData = { ...passwordForm };
+    type ? (newFormData[type][name] = value) : (newFormData[name] = value);
+    setPasswordForm(newFormData);
+  };
+
+  const submitPasswordChange = async (e) => {
+    e.preventDefault();
+    setPasswordChanging(true);
+
+    try {
+      await changePassword(passwordForm);
+      setPasswordChanging(false);
+      toast.success("Password changed successfull");
+      setPasswordForm(initPasswordForm);
+    } catch (error) {
+      toast.error("An error occured");
+    }
+  };
+
   const updateUserInfo = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -96,8 +127,8 @@ const PersonalInfo = () => {
       <div className="text-2xl my-4">Personal Information</div>
 
       <form onSubmit={updateUserInfo}>
-        <div className="w-full flex">
-          <div className="w-1/3 mr-5">
+        <div className="w-full flex mobiles:block">
+          <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
               label="Full name"
@@ -106,7 +137,7 @@ const PersonalInfo = () => {
               type="text"
             />
           </div>
-          <div className="w-1/3 mr-5">
+          <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
               label="Email Address"
@@ -115,7 +146,7 @@ const PersonalInfo = () => {
               type="email"
             />
           </div>
-          <div className="w-1/3 mr-5">
+          <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
               label="Phone Number"
@@ -127,8 +158,8 @@ const PersonalInfo = () => {
           </div>
         </div>
 
-        <div className="w-full flex">
-          <div className="w-1/3 mr-5">
+        <div className="w-full flex mobiles:block">
+          <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField required label="Employees ID" type="text" />
           </div>
           <div className="w-1/3 mr-5">
@@ -143,7 +174,7 @@ const PersonalInfo = () => {
               // maxLength="11"
             />
           </div>
-          <div className="w-1/3 mr-5">
+          <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
               label="Location "
@@ -154,7 +185,7 @@ const PersonalInfo = () => {
             />
           </div>
         </div>
-        <div className="w-full flex">
+        <div className="w-full flex mobiles:block">
           <div className="w-1/3 mr-5 flex">
             {imgFile ? (
               <img
@@ -205,6 +236,48 @@ const PersonalInfo = () => {
           <Button buttonText="Upload Details" loading={submitting} />
         </div>
       </form>
+
+      <div className="my-8">
+        <div className="text-2xl my-4">Change Password</div>
+
+        <form onSubmit={submitPasswordChange}>
+          <div className="w-full flex mobiles:block">
+            <div className="w-1/3 mr-5 mobiles:w-full">
+              <InputField
+                required
+                label="Your email"
+                value={passwordForm.email}
+                type="email"
+                name="email"
+                onChange={(e) => handlePasswordChange(null, e)}
+              />
+            </div>
+            <div className="w-1/3 mr-5 mobiles:w-full">
+              <InputField
+                required
+                label="New Password"
+                value={passwordForm.new_password}
+                type="password"
+                name="new_password"
+                onChange={(e) => handlePasswordChange(null, e)}
+              />
+            </div>
+            <div className="w-1/3 mr-5 mobiles:w-full">
+              <InputField
+                required
+                label="Confirm Password"
+                value={passwordForm.confirm_password}
+                type="password"
+                name="confirm_password"
+                onChange={(e) => handlePasswordChange(null, e)}
+              />
+            </div>
+          </div>
+          <div className="mt-3">
+            <Button loading={changingPassword} buttonText="Change Password" />
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

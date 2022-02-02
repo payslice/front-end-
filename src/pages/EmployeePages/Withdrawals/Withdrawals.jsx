@@ -8,7 +8,7 @@ import {
   getWithdrawalRequest,
 } from "../../../utils/ApiRequests";
 import { toast } from "react-toastify";
-import { truncateString } from "../../../utils/helpers";
+import { truncateString, toCurrency } from "../../../utils/helpers";
 
 const Withdrawals = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -27,7 +27,7 @@ const Withdrawals = () => {
           return {
             key: i,
             transactionID: truncateString(withdrawal.request_code, 9),
-            amount: withdrawal.amount,
+            amount: toCurrency(withdrawal.amount),
             charges: withdrawal.service_charge,
             date: new Date(withdrawal.updated_at).toDateString(),
             status: withdrawal.status,

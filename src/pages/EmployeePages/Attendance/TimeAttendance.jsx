@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 
 const TimeAttendance = () => {
   const [clockInData, setClockInData] = useState();
+  const [clockOutData, setClockOutData] = useState();
+  const [activeTab, setActiveTab] = useState(0);
 
   const userData = getUserDataFromStorage();
 
@@ -17,21 +19,41 @@ const TimeAttendance = () => {
     const getClockInData = async () => {
       try {
         const res = await getClockIn(userData.id);
-        setClockInData(res.data.payload.data);
+        const resetData = res.data.payload.data?.map((resData, index) => {
+          return {
+            key: index,
+            date: new Date(resData.clock_in_time).toLocaleDateString(),
+            timeIn: new Date(resData.clock_in_time).toLocaleTimeString(),
+            location: `Lat: ${resData.location.lat} Long: ${resData.location.long}`,
+            checkInStatus: "-----",
+          };
+        });
+        setClockInData(resetData);
       } catch (error) {
-        toast.error("Can't fetch data. An error occured");
+        toast.error("an error occured");
       }
     };
 
     const getClockOutData = async () => {
       try {
-        const res = await getClockOut();
-        console.log(res.data.payload.data);
-      } catch (error) {}
+        const res = await getClockOut(userData.id);
+        const resetData = res.data.payload.data?.map((resData, index) => {
+          return {
+            key: index,
+            date: new Date(resData.clock_out_time).toLocaleDateString(),
+            timeOut: new Date(resData.clock_out_time).toLocaleTimeString(),
+            location: `Lat: ${resData.location.lat} Long: ${resData.location.long}`,
+            checkInStatus: "-----",
+          };
+        });
+        setClockOutData(resetData);
+      } catch (error) {
+        toast.error("an error occured");
+      }
     };
     getClockInData();
     getClockOutData();
-  }, []);
+  }, [userData.id]);
 
   const columns = [
     {
@@ -39,7 +61,7 @@ const TimeAttendance = () => {
       dataIndex: "key",
     },
     {
-      title: "Date",
+      title: "Dates",
       dataIndex: "date",
     },
     {
@@ -53,7 +75,6 @@ const TimeAttendance = () => {
         <span>
           <CustomTag
             text={status}
-            isTeal={status === "None"}
             isDanger={status === "Pending"}
             isSuccess={status === "Committed"}
           />
@@ -64,24 +85,37 @@ const TimeAttendance = () => {
       title: "Location",
       dataIndex: "location",
     },
+  ];
+
+  const columns2 = [
     {
-      title: "Time Out",
+      title: "S/N",
+      dataIndex: "key",
+    },
+    {
+      title: "Dates",
+      dataIndex: "date",
+    },
+    {
+      title: "Time out",
       dataIndex: "timeOut",
     },
-
     {
-      title: "User",
-      dataIndex: "user",
+      title: "Checkin status",
+      dataIndex: "checkInStatus",
       render: (status) => (
         <span>
           <CustomTag
             text={status}
-            isTeal={status === "None"}
             isDanger={status === "Pending"}
             isSuccess={status === "Committed"}
           />
         </span>
       ),
+    },
+    {
+      title: "Location",
+      dataIndex: "location",
     },
   ];
 
@@ -109,9 +143,29 @@ const TimeAttendance = () => {
   return (
     <div>
       <div className="page-header capitalize">time attendence history</div>
-
+      <div className="my-5 flex">
+        <div
+          className={`px-8 py-3 ${
+            activeTab === 0 ? " bg-blue-600 text-white" : "bg-gray-100"
+          } cursor-pointer mx-5 rounded`}
+          onClick={() => setActiveTab(0)}
+        >
+          Time-in
+        </div>
+        <div
+          className={`px-8 py-3 ${
+            activeTab === 1 ? "bg-blue-600 text-white" : " bg-gray-100"
+          } cursor-pointer rounded`}
+          onClick={() => setActiveTab(1)}
+        >
+          Time-out
+        </div>
+      </div>
       <div className=" my-16">
-        <Table columns={columns} dataSource={data} />
+        <Table
+          columns={activeTab === 0 ? columns : columns2}
+          dataSource={activeTab === 0 ? clockInData : clockOutData}
+        />
       </div>
     </div>
   );

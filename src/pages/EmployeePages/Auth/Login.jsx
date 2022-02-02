@@ -5,6 +5,7 @@ import { InputField, PasswordInput } from "../../../components/Input";
 import MiniLoader from "../../../components/Loaders/MiniLoader";
 import { employeeLogin } from "../../../utils/ApiRequests";
 import {
+  setExpiryTimeToStorage,
   setTokenToStorage,
   setuserDataToStorage,
 } from "../../../utils/ApiUtils";
@@ -28,8 +29,9 @@ export const UserLogin = () => {
     setLoading(true);
     try {
       const res = await employeeLogin(loginForm);
-      setTokenToStorage(res.data.payload.data.token);
       setuserDataToStorage(res.data.payload.data);
+      setTokenToStorage(res.data.payload.data.token);
+      setExpiryTimeToStorage(new Date());
       setLoading(false);
       history.push("/user/dashboard");
     } catch (error) {
@@ -71,7 +73,7 @@ export const UserLogin = () => {
           </div>
         </form>
         <div className="mt-16">
-          Don't have an account? <a href="/user/register">Sign Up now</a>
+          Don't have an account? <a href="/invite">Refer your employer</a>
         </div>
         <div className="mt-2">
           Forgot password? <a href="/reset-password">Click here</a>

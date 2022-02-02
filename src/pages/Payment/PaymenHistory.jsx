@@ -13,8 +13,7 @@ const PaymentHistory = () => {
     const getPaymentHistory = async () => {
       try {
         const res = await companyPaymentHistories();
-        const resData = res.data.payload.data;
-        console.log("resetData", resData);
+        // const resData = res.data.payload.data;
         const resetData = res.data.payload.data?.map((data, i) => {
           return {
             key: i,

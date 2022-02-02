@@ -9,10 +9,25 @@ import { BackButton } from "../../components/BackButton";
 import {
   getClockInTime,
   getClockOut,
+  getEmployeeClockOut,
   getOneEmployee,
 } from "../../utils/ApiRequests";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import axios from "axios";
+
+const getLocation = async (lat, long) => {
+  var url =
+    "https://www.mapquestapi.com/geocoding/v1/reverse?key=API-Key&location=" +
+    lat +
+    "%2C" +
+    long +
+    "&outFormat=json&thumbMaps=false";
+  try {
+    const res = await axios.get(url);
+    console.log("res", res);
+  } catch (error) {}
+};
 
 const EmployeeDetails = () => {
   const { id } = useParams();
@@ -40,15 +55,15 @@ const EmployeeDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    const getCheckInTime = async () => {
+    const getCheckInTime = async (userId) => {
       try {
-        const res = await getClockInTime(id);
+        const res = await getClockInTime(userId);
         const resetData = res.data.payload.data?.map((resData, index) => {
           return {
             key: index,
-            date: "----",
+            date: new Date(resData.clock_in_time).toLocaleDateString(),
             timeIn: new Date(resData.clock_in_time).toLocaleTimeString(),
-            location: "----",
+            location: `Lat: ${resData.location.lat} Long: ${resData.location.long}`,
             checkInStatus: "-----",
           };
         });
@@ -58,15 +73,15 @@ const EmployeeDetails = () => {
       }
     };
 
-    const getCheckOutTime = async () => {
+    const getCheckOutTime = async (userId) => {
       try {
-        const res = await getClockOut(id);
+        const res = await getEmployeeClockOut(userId);
         const resetData = res.data.payload.data?.map((resData, index) => {
           return {
             key: index,
-            date: "----",
+            date: new Date(resData.clock_out_time).toLocaleDateString(),
             timeOut: new Date(resData.clock_out_time).toLocaleTimeString(),
-            location: "----",
+            location: `Lat: ${resData.location.lat} Long: ${resData.location.long}`,
             checkInStatus: "-----",
           };
         });
@@ -76,8 +91,9 @@ const EmployeeDetails = () => {
       }
     };
     if (id) {
-      getCheckInTime();
-      getCheckOutTime();
+      console.log("emp id", id);
+      getCheckInTime(id);
+      getCheckOutTime(id);
     }
   }, [id]);
 
@@ -145,41 +161,6 @@ const EmployeeDetails = () => {
     },
   ];
 
-  const data = [
-    {
-      key: "1",
-      date: new Date().toLocaleDateString(),
-      timeIn: "124:44:04",
-      checkInStatus: "Committed",
-      location: "Lagos",
-      timeOut: "124:44:04",
-      user: "Committed",
-    },
-    {
-      key: "2",
-      name: "John Brown",
-      phoneEmail: +2348012299289,
-      bankDetails: "GTBank",
-      salary: "80,000",
-      balance: "50,000",
-    },
-    {
-      key: "3",
-      name: "John Brown",
-      phoneEmail: +2348012299289,
-      bankDetails: "GTBank",
-      status: "On board",
-      balance: "50,000",
-    },
-    {
-      key: "4",
-      name: "John Brown",
-      phoneEmail: +2348012299289,
-      bankDetails: "GTBank",
-      salary: "80,000",
-      balance: "50,000",
-    },
-  ];
   return (
     <div>
       <EmployeeTab />

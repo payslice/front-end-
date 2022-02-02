@@ -207,12 +207,12 @@ export const Employees = () => {
             onClick={() => history.push("/employee/create")}
           />
         </div>
-        <div className="mr-5">
+        {/* <div className="mr-5">
           <GreyButton
             buttonText="Create bulk staff "
             onClick={() => history.push("/employee/upload")}
           />
-        </div>
+        </div> */}
       </div>
 
       <div className="employee-table my-16 mobiles:hidden">

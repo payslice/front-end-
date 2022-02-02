@@ -33,6 +33,10 @@ export const setExpiryTimeToStorage = (date) => {
   return localStorage.setItem(constant.expiryName, date);
 };
 
+export const setClockInTimeToStorage = () => {
+  return localStorage.setItem(constant.clockInKeyName, "CLOCK_IN_VALID");
+};
+
 export const storageContainsToken = () => {
   return !!localStorage.getItem(constant.tokenName);
 };
@@ -61,6 +65,16 @@ export const checkLogin = () => {
   }
 };
 
+export const checkTokenValidity = () => {
+  const diffTime = Math.abs(new Date() - new Date(getExpiryTimeFromStorage()));
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  if (diffDays <= 1) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export const removeTokenFromStorage = () => {
   localStorage.removeItem(constant.tokenName);
 };
@@ -75,6 +89,10 @@ export const removeExpiryDateFromStorage = () => {
 
 export const logout = () => {
   return removeExpiryDateFromStorage() && removeTokenFromStorage();
+};
+
+export const removeClockInFromStorage = () => {
+  localStorage.removeItem(constant.clockInKeyName);
 };
 
 export const Today = () => {
