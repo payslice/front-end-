@@ -7,6 +7,7 @@ import { saveEmployee } from "../../utils/ApiRequests";
 import axios from "axios";
 import Select from "react-select";
 import { CustomSelect } from "../../components/Select";
+import { getUserDataFromStorage } from "../../utils/ApiUtils";
 
 const CreateEmployee = () => {
   const initForm = {
@@ -14,7 +15,7 @@ const CreateEmployee = () => {
     last_name: "",
     phone_number: "",
     email: "",
-    employee_id: "AC/56",
+    employee_id: "",
     referral_link: "",
     gender: "",
     employment_type: "",
@@ -28,6 +29,8 @@ const CreateEmployee = () => {
     bank_code: "",
     // bvn: "22323123219",
   };
+
+  const [userData, setUserData] = useState(getUserDataFromStorage());
   const [formData, setFormData] = useState(initForm);
   const [fetchingBanks, setFetchingBanks] = useState(true);
   const [bankList, setBankList] = useState();
@@ -64,7 +67,10 @@ const CreateEmployee = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await saveEmployee({ ...formData });
+      const res = await saveEmployee({
+        ...formData,
+        company_id: userData?.company_id,
+      });
       // console.log("response", res);
       setLoading(false);
       setSuccess(true);
@@ -162,8 +168,9 @@ const CreateEmployee = () => {
               <InputField
                 label="Company Location"
                 required
-                placeholder="Staff full name "
+                placeholder="Company location"
                 type="text"
+                minLength="6"
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
@@ -215,7 +222,7 @@ const CreateEmployee = () => {
               <InputField
                 label="Staff Account Name  "
                 required
-                placeholder="Staff full name "
+                placeholder="Staff full name"
                 type="text"
                 name="account_name"
                 value={formData.account_name}
@@ -228,7 +235,7 @@ const CreateEmployee = () => {
               <InputField
                 label="Salary (amount)"
                 required
-                placeholder="Staff full name "
+                placeholder="Staff salary "
                 type="number"
                 name="staff_salary"
                 value={formData.staff_salary}

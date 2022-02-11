@@ -14,7 +14,6 @@ import {
 import {
   getAllCompanyPolicy,
   getDashboardWithdrawalRequests,
-  getEmployeeWithdrawalWithParams,
   getPaymentLogs,
   getDashboardWithdrawalWithParams,
   getTotalNoOfAcceptedEmployees,

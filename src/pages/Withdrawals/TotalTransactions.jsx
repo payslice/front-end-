@@ -9,18 +9,20 @@ import { toast } from "react-toastify";
 import { toCurrency } from "../../utils/helpers";
 import { CustomTag } from "../../components/CustomTag";
 import { DotLoader } from "../../components/Loaders/DotLoader";
+import { getUserDataFromStorage } from "../../utils/ApiUtils";
 
 const TotalTransactions = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [totalTransactions, setTotalTransactions] = useState();
   const [permData, setPermData] = useState();
+  const [userData, setUserData] = useState(getUserDataFromStorage());
 
   const { Option } = Select;
   useEffect(() => {
     const getAllTransaction = async () => {
       try {
-        const res = await getEmployeeWithdrawalRequests();
+        const res = await getEmployeeWithdrawalRequests(userData?.company_id);
 
         const resData = res.data.payload.data?.map((data, i) => {
           const date = new Date(data.created_at);
@@ -47,7 +49,10 @@ const TotalTransactions = () => {
     };
     const getApprovedTransaction = async () => {
       try {
-        const response = await getEmployeeWithdrawalWithParams("approved");
+        const response = await getEmployeeWithdrawalWithParams(
+          userData?.company_id,
+          "approved"
+        );
       } catch (error) {
         toast.error("An error occured, please try again");
       }

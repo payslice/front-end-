@@ -76,10 +76,7 @@ export const getAllEmployees = () => {
 };
 
 export const saveEmployee = (formData) => {
-  return ApiRequestWithToken().post("/employee/save", {
-    ...formData,
-    ...companyId,
-  });
+  return ApiRequestWithToken().post("/employee/save", formData);
 };
 
 export const getAvailableWithdrawFunds = () => {
@@ -185,7 +182,7 @@ export const getCompanyPolicy = (policy_id) => {
 export const updateCompanyPolicy = (policy_id, formData) => {
   return ApiRequestWithToken().patch(`/company_policy/update/${policy_id}`, {
     ...formData,
-    ...companyId,
+    ...userData?.company_id,
   });
 };
 
@@ -393,10 +390,8 @@ export const getSinglePayment = (paymentId) => {
   return ApiRequestWithToken().get(`/transaction/payment_log/${paymentId}`);
 };
 
-export const getEmployeeWithdrawalRequests = () => {
-  return ApiRequestWithToken().get(
-    `/withdrawal_request/company/${userData.company_id}`
-  );
+export const getEmployeeWithdrawalRequests = (companyID) => {
+  return ApiRequestWithToken().get(`/withdrawal_request/company/${companyID}`);
 };
 export const getDashboardWithdrawalRequests = (company_id) => {
   return ApiRequestWithToken().get(`/withdrawal_request/company/${company_id}`);
@@ -407,9 +402,9 @@ export const getDashboardWithdrawalWithParams = (company_id, status) => {
   );
 };
 
-export const getEmployeeWithdrawalWithParams = (status) => {
+export const getEmployeeWithdrawalWithParams = (companyID, status) => {
   return ApiRequestWithToken().get(
-    `/withdrawal_request/company/${userData.company_id}/${status}`
+    `/withdrawal_request/company/${companyID}/${status}`
   );
 };
 

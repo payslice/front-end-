@@ -35,7 +35,10 @@ const CompanyOnboard = () => {
       sessionStorage.setItem("P_Slice_CID", res.data.payload.data.id);
       history.push("/onboard/step2");
     } catch (error) {
-      toast.error(error.response.data.payload.data.errors.name[0]);
+      toast.error(
+        error?.response?.data?.payload?.data?.errors?.name[0] ||
+          "An error occured"
+      );
       setLoading(false);
     }
   };
@@ -95,6 +98,7 @@ const CompanyOnboard = () => {
               name="address"
               placeholder="Enter Business Address"
               type="text"
+              minLength="6"
               onChange={handleChange}
               required
             />
