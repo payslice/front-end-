@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const useClickOutside = (ref, callback) => {
 	const handleClick = (e) => {
@@ -7,9 +7,10 @@ export const useClickOutside = (ref, callback) => {
 		}
 	};
 	React.useEffect(() => {
-		document.addEventListener("click", handleClick);
+		document.addEventListener('click', handleClick);
 		return () => {
-			document.removeEventListener("click", handleClick);
+			document.removeEventListener('click', handleClick);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 };
