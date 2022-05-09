@@ -1,9 +1,7 @@
 import React from 'react';
 // import Directory from "./routes/Directory"
-import './stylesheets/css/tailwind-output.css';
-import './stylesheets/css/index.css';
 import './stylesheets/sass/index.sass';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ToastContainer } from 'react-toastify';
 import { BrowserRouter as Router } from 'react-router-dom';

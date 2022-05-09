@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -21,11 +22,11 @@ const AuthSidebar = () => {
 
 	useEffect(() => {
 		setCurrentLoacation(location.pathname);
-	}, [location.pathname]);
+	}, []);
 
 	return (
-		<section className="h-screen max-h-screen relative auth_sidebar auth_sidebar_bg  overflow-y-auto overflow-x-hidden mobiles:hidden">
-			<div className="pt-24 px-16">
+		<section className="relative auth_sidebar auth_sidebar_bg overflow-hidden mobiles:hidden">
+			<div className="pt-44 laptops:pt-14 px-24">
 				<h1 className="mb-3 mobiles:px-1 mobiles:w-full ">
 					<img src={require('../assets/svgs/payslice-logo.svg').default} className="w-52 mobiles:w-full" alt="" />
 				</h1>
@@ -33,18 +34,24 @@ const AuthSidebar = () => {
 					We are revolutionizing <br /> the way people are paid.
 				</h3>
 
-				<div className="px-6 py-3 text-xl font-bold w-min uppercase text-white mt-6 mb-10 sidebar-forever">forever</div>
+				<div className="px-6 py-3 text-3xl font-bold w-min uppercase text-white mt-6 mb-10 sidebar-forever">
+					forever
+				</div>
 
 				<div className="text-white text-base mt-12">
-					<p>
+					<p className="max-w-[448px] 2xl:max-w-[350px]">
 						Payslice allows employees to take a portion of their earned pay, via our app before the end of the month,
 						“It’s not a loan, it’s a new practical way on the old payments cycle”
 					</p>
 				</div>
 			</div>
 
-			<div className="absolute object-bottom" style={{ bottom: '0', left: '12px' }}>
-				<img src={require('../assets/svgs/payslice-bg.svg').default} className="w-64 mobiles:w-full" alt="" />
+			<div className="absolute object-bottom bottom-6 laptops:bottom-0 left-12">
+				<img
+					src={require('../assets/svgs/payslice-bg.svg').default}
+					className="w-64 transform scale-125 laptops:scale-110 mobiles:w-full"
+					alt=""
+				/>
 			</div>
 		</section>
 	);

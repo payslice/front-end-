@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react';
 
 const MiniLoader = () => {
-  return <div className="loading-spinner"></div>
-}
+	return <div className="loading-spinner"></div>;
+};
 
-export default MiniLoader
+export default MiniLoader;

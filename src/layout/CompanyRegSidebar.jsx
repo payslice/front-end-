@@ -18,10 +18,14 @@ const CompanyRegSidebar = () => {
 	}, []);
 
 	return (
-		<section className="h-screen max-h-screen relative onboarding_sidebar auth_sidebar_bg overflow-y-auto overflow-x-hidden mobiles:hidden">
+		<section className="h-screen max-h-screen relative onboarding_sidebar auth_sidebar_bg overflow-hidden laptops:overflow-y-auto overflow-x-hidden mobiles:hidden">
 			<div className="pt-16 px-16">
-				<h1 className="mb-3  mobiles:px-1 mobiles:w-full ">
-					<img src={require('../assets/svgs/payslice-logo.svg').default} className="w-44 mobiles:w-full mt-7" alt="" />
+				<h1 className="mb-3 mobiles:px-1 mobiles:w-full ">
+					<img
+						src={require('../assets/svgs/payslice-logo.svg').default}
+						className="w-44 mobiles:w-full mt-7 ml-10"
+						alt=""
+					/>
 				</h1>
 				<ul className="mt-24">
 					<SidebarItem
@@ -46,8 +50,17 @@ const CompanyRegSidebar = () => {
 				</ul>
 			</div>
 
-			<div className="absolute object-bottom" style={{ bottom: '0', left: '12px' }}>
-				<img src={require('../assets/svgs/payslice-bg.svg').default} className="w-64 mobiles:hidden" alt="" />
+			<div
+				className="absolute transform scale-125 object-bottom laptops:bottom-0"
+				style={{ left: '120px', bottom: '-25px' }}
+			>
+				<div className="relative left-20">
+					<img
+						src={require('../assets/svgs/payslice-bg.svg').default}
+						className="w-64 transform scale-125 laptops:scale-110 mobiles:w-full relative"
+						alt=""
+					/>
+				</div>
 			</div>
 		</section>
 	);

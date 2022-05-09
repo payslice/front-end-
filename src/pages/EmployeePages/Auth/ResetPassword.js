@@ -5,7 +5,7 @@ import { Button } from '../../../components/Button/Button';
 import { InputField, PasswordInput } from '../../../components/Input';
 import successIcon from '../../../assets/svgs/success.svg';
 import { resetPassword } from '../../../utils/ApiRequests';
-import { toast } from 'react-toastify';
+import { ErrorMessage } from '../../../components/Message/Message';
 
 export const ResetPassword = () => {
 	const [resetSuccess, setResetSuccess] = useState(false);
@@ -13,6 +13,8 @@ export const ResetPassword = () => {
 		email: '',
 		phone_number: '',
 	});
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -22,20 +24,26 @@ export const ResetPassword = () => {
 	const history = useHistory();
 	const submitForm = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 		try {
 			const res = await resetPassword(formData);
+			if (res) {
+				setLoading(false);
+			}
 		} catch (error) {
-			toast.error('An error occured');
+			setLoading(false);
+			setError('An error occured');
 		}
 	};
 	return (
 		<>
 			{!resetSuccess ? (
-				<div className="p-10 flex flex-col h-full justify-center w-3/4">
-					<h1 className="text-3xl font-bold  uppercase">reset password</h1>
+				<div className="flex flex-col h-full justify-center auth_container mx-auto">
+					<h1 className="text-3xl font-bold uppercase">reset password</h1>
 
+					{error && <ErrorMessage title="Error" message={error} />}
 					<form onSubmit={submitForm}>
-						<div className="mt_10">
+						<div className={`${!error && 'mt-[46px]'}`}>
 							<InputField
 								label="Enter email"
 								required
@@ -58,7 +66,7 @@ export const ResetPassword = () => {
 							/>
 						</div>
 						<div className="signUp__submit-btn flex justify-end">
-							<Button type="submit" buttonText="Next" />
+							<Button type="submit" buttonText="Next" loading={loading} />
 						</div>
 					</form>
 				</div>

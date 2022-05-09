@@ -1,51 +1,96 @@
-import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
 import { InputField } from '../../components/Input';
-import { useForm } from '@formspree/react';
-import { ErrorMessage, SuccessMessage } from '../../components/Message/Message';
 import MiniLoader from '../../components/Loaders/MiniLoader';
+import { toast } from 'react-toastify';
 
 const CompanyRepresentative = () => {
-	const [state, handleSubmit] = useForm('myyozeez');
+	const [loading, setLoading] = useState(false);
+	const [formData, setFormData] = useState({
+		company_id: '',
+		user_id: '',
+		title: '',
+		address: '',
+		legal_name: '',
+		date_of_birth: '',
+		ownership_percentage: '',
+		id_type: [],
+		id_number: 0,
+	});
 	const history = useHistory();
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		const formEntry = { [name]: value };
+		setFormData({ ...formData, ...formEntry });
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		setLoading(true);
+		try {
+			// const res = await companyInfoOnboarding(formData);
+			setLoading(false);
+			// sessionStorage.setItem('P_Slice_CID', res.data.payload.data.id);
+			history.push('/onboard/step2');
+		} catch (error) {
+			toast.error(error?.response?.data?.payload?.data?.errors?.name[0] || 'An error occured');
+			setLoading(false);
+		}
+	};
+
 	// const handleSubmit = (e) => {
 	//   e.preventDefault();
 	// };
-	useEffect(() => {
-		if (state.succeeded) {
-			setTimeout(history.push('/onboard/step3'), 3000);
-		}
-	}, [state, history]);
+	// useEffect(() => {
+	// 	if (state.succeeded) {
+	// 		setTimeout(history.push('/onboard/step3'), 3000);
+	// 	}
+	// }, [state, history]);
 
 	// console.log("state", state);
 	return (
 		<div>
-			<div className="text-2xl mb-10">Company Representative</div>
-			<p>
+			<div className="text-2xl font-semibold">Company Representative</div>
+			<p className="max-w-md mt-2 text-gray-400">
 				Kindly complete the steps below to activate your account, once you have complete all the required section,
 				clicks on Request Activation
 			</p>
-			{state.succeeded && <SuccessMessage title="Success" message="Company representative registration successfull." />}
-			{state.errors.length > 0 && (
-				<ErrorMessage
-					title="Error"
-					message="An error occured while trying to complete your submission, please try again."
-				/>
-			)}
 
-			<form onSubmit={handleSubmit} className="mt-10">
+			<form onSubmit={handleSubmit} className="mt-5">
 				<div className="flex w-full mobiles:block">
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
-						<InputField label="Legal name" name="legal_name" placeholder="ABC Company" type="text" required />
+						<InputField
+							label="Legal name"
+							name="legal_name"
+							placeholder="ABC Company"
+							type="text"
+							required
+							onChange={handleChange}
+						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
-						<InputField label="Address" name="address" placeholder="ABC Company" type="text" required />
+						<InputField
+							label="Address"
+							name="address"
+							placeholder="ABC Company"
+							type="text"
+							required
+							onChange={handleChange}
+						/>
 					</div>
 				</div>
 				<div className="flex w-full mobiles:block">
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
-						<InputField label="Date of birth" name="RC Number" placeholder="ABC Company" type="date" required />
+						<InputField
+							label="Date of birth"
+							name="date_of_birth"
+							placeholder="ABC Company"
+							type="date"
+							required
+							onChange={handleChange}
+						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField label="ID Type" name="ID Type" placeholder="ABC Company" type="text" required />
@@ -53,15 +98,23 @@ const CompanyRepresentative = () => {
 				</div>
 				<div className="flex w-full mobiles:block">
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
-						<InputField label="ID number" name="ID number" placeholder="ABC Company" type="number" required />
+						<InputField
+							label="ID number"
+							name="id_number"
+							placeholder="ABC Company"
+							type="number"
+							required
+							onChange={handleChange}
+						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField
 							label="Ownership percentage"
-							name="Ownership percentage"
-							placeholder="+2349012345678"
+							name="ownership_percentage"
+							placeholder="10"
 							type="tel"
 							required
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
@@ -69,15 +122,16 @@ const CompanyRepresentative = () => {
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField
 							label="Title (if a senior manager)"
-							name="Payment Email"
+							name="title"
 							placeholder="ABC Company"
 							type="text"
 							required
+							onChange={handleChange}
 						/>
 					</div>
 				</div>
 				<div className="signUp__submit-btn flex justify-end">
-					{state.submitting ? <MiniLoader /> : <Button type="submit" buttonText="Save" />}
+					{loading ? <MiniLoader /> : <Button type="submit" buttonText="Save" />}
 				</div>
 			</form>
 		</div>

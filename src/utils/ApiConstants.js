@@ -1,7 +1,7 @@
 export const constant = {
-  tokenName: "PAYSL-ADTK",
-  expiryName: "PAYSL-EXP",
-  baseUrl: "https://payslices.com/api",
-  userDatakey: "PAYSL-UDATA",
-  clockInKeyName: "PAYSL-CLOCKIN",
+	tokenName: 'PAYSL-ADTK',
+	expiryName: 'PAYSL-EXP',
+	baseUrl: 'https://dev.api.payslices.com/',
+	userDatakey: 'PAYSL-UDATA',
+	clockInKeyName: 'PAYSL-CLOCKIN',
 };

@@ -39,6 +39,7 @@ const UserDashboard = () => {
 		if (localStorage.getItem(constant.clockInKeyName)) {
 			setClockedIn(true);
 		}
+
 		const fetchWithdrawalAmount = async () => {
 			try {
 				const res = await getAvailableWithdrawFunds();

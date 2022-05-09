@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
 import { InputField, PasswordInput } from '../../components/Input';
-import MiniLoader from '../../components/Loaders/MiniLoader';
 import { SuccessMessage, ErrorMessage } from '../../components/Message/Message';
 import { employerRegister } from '../../utils/ApiRequests';
 
@@ -45,12 +45,18 @@ export const SignUp = () => {
 	};
 
 	return (
-		<>
-			<div className="p-10 flex flex-col h-full justify-center w-3/4 mobiles:w-full mobiles:block mobiles:mt-28 mobiles:p-0 mobiles:h-0">
-				<h1 className="text-3xl font-bold  uppercase">sign up</h1>
-
+		<div className="pt-10 laptops:pt-3">
+			<div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-28 mobiles:p-0 mobiles:h-0 auth_container mx-auto">
+				<h1 className="text-3xl font-bold uppercase">sign up</h1>
+				{success && (
+					<SuccessMessage
+						title="Registration Complete"
+						message="Thank you for signing up, check your email to complete your registration."
+					/>
+				)}
+				{error && <ErrorMessage title="Error" message={errMessage} />}
 				<form onSubmit={submitForm}>
-					<div className="mt_10">
+					<div className={`${!error && 'mt-[46px]'}`}>
 						<InputField
 							label="First name"
 							name="first_name"
@@ -92,22 +98,16 @@ export const SignUp = () => {
 						/>
 					</div>
 					<div className="signUp__submit-btn flex justify-end">
-						{loading ? <MiniLoader /> : <Button type="submit" buttonText="Next" />}
+						<Button type="submit" buttonText="Next" loading={loading} />
 					</div>
 				</form>
 				<div className="mt-5 pb-10 ">
-					Already have an account? <a href="/login">Login</a>
+					Already have an account?{' '}
+					<Link to="/login" className="text-primary font-medium ml-1">
+						Login
+					</Link>
 				</div>
-
-				{success && (
-					<SuccessMessage
-						title="Registration Complete"
-						message="Thank you for sigining up, check your email to complete your
-registration."
-					/>
-				)}
-				{error && <ErrorMessage title="Error" message={errMessage} />}
 			</div>
-		</>
+		</div>
 	);
 };
