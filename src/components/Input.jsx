@@ -16,20 +16,20 @@ export const InputField = ({
 	readOnly,
 }) => {
 	return (
-		<div className="w-full mt-5 mr-5">
-			<label htmlFor="" className="text-normal font-medium relative">
+		<div className="w-full md:mt-5 mr-5">
+			<label htmlFor="" className="text-normal text-sm md:text-base font-medium relative">
 				{label}{' '}
 				{required && (
 					<span
 						style={{ color: 'red', width: '40px', marginLeft: '20px', marginTop: '-2px' }}
-						className="absolute text-5xl w-10 ml-5 -mt-0.5 text-rose-600"
+						className="absolute text-3xl md:text-5xl w-10 md:ml-5 -mt-0.5 text-rose-600"
 					>
 						*
 					</span>
 				)}
 			</label>
 			<input
-				className="border-transparent bg-gray-100 mb-5 mt-2 w-full border-gray-400 py-3 h-[61px] px-7 rounded outline-none input"
+				className="border-transparent bg-gray-100 mb-5 mt-2 w-full border-gray-400 py-3 h-[61px] px-7 rounded outline-none input text-sm md:text-base"
 				type={type}
 				disabled={disabled}
 				placeholder={placeholder}
@@ -52,12 +52,12 @@ export const InputField = ({
 export const PasswordInput = ({ placeholder, name, id, onChange, value, required, label }) => {
 	const [type, setType] = useState('password');
 	return (
-		<div className="mt-5">
-			<label htmlFor="" className="font-medium text-normal relative">
-				{label} {required && <span className="absolute text-5xl w-10 ml-5 -mt-0.5 text-rose-600">*</span>}
+		<div className="md:mt-5">
+			<label htmlFor="" className="font-medium text-normal relative text-sm md:text-base">
+				{label} {required && <span className="absolute text-3xl md:text-5xl w-10 ml-5 -mt-0.5 text-rose-600">*</span>}
 			</label>
 
-			<div className="mb-5 mt-2 w-full rounded bg-gray-100 overflow-hidden flex justify-between input">
+			<div className="mb-5 mt-2 w-full rounded bg-gray-100 overflow-hidden flex justify-between input text-sm md:text-base">
 				<input
 					className="py-5 pl-8 h-full bg-gray-100 w-full outline-none"
 					type={type}

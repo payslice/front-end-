@@ -35,8 +35,11 @@ export const SignUp = () => {
 		try {
 			const res = await employerRegister(formData);
 
-			setLoading(false);
-			setSuccess(true);
+			if (res?.status === 200) {
+				setError(false);
+				setLoading(false);
+				history.push('/verify-email');
+			}
 		} catch (error) {
 			setLoading(false);
 			setError(true);
@@ -46,8 +49,8 @@ export const SignUp = () => {
 
 	return (
 		<div className="pt-10 laptops:pt-3">
-			<div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-28 mobiles:p-0 mobiles:h-0 auth_container mx-auto">
-				<h1 className="text-3xl font-bold uppercase">sign up</h1>
+			<div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-20 mobiles:p-0 mobiles:h-0 auth_container mx-auto">
+				<h1 className="text-[21px] md:text-3xl font-bold uppercase">sign up</h1>
 				{success && (
 					<SuccessMessage
 						title="Registration Complete"
@@ -101,7 +104,7 @@ export const SignUp = () => {
 						<Button type="submit" buttonText="Next" loading={loading} />
 					</div>
 				</form>
-				<div className="mt-5 pb-10 ">
+				<div className="mt-5 pb-10 text-sm md:text-base">
 					Already have an account?{' '}
 					<Link to="/login" className="text-primary font-medium ml-1">
 						Login

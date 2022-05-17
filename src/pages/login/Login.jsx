@@ -39,8 +39,8 @@ export const Login = () => {
 
 	return (
 		<>
-			<div className="mobiles:p-0 flex flex-col mobiles:block mobiles:mt-28 mobiles:h-0 h-full justify-center mobiles:w-full auth_container mx-auto">
-				<h1 className="text-3xl font-bold uppercase">login</h1>
+			<div className="mobiles:p-0 flex flex-col mobiles:block mobiles:mt-20 mobiles:h-0 h-full justify-center mobiles:w-full auth_container mx-auto">
+				<h1 className="text-[21px] md:text-3xl font-bold uppercase">login</h1>
 				{error && (
 					<ErrorMessage title="Error" message="An error occured. Please ensure your email and password is correct." />
 				)}
@@ -62,7 +62,7 @@ export const Login = () => {
 							placeholder="Enter password"
 						/>
 					</div>
-					<div className="flex justify-between items-center">
+					<div className="flex justify-between items-center text-sm md:text-base">
 						<Link to="/reset-password" className="text-red-500">
 							Forgot password?
 						</Link>
@@ -72,7 +72,7 @@ export const Login = () => {
 					</div>
 				</form>
 
-				<div className="mt-16">
+				<div className="mt-16 text-sm md:text-base">
 					Don't have an account?{' '}
 					<Link to="/register" className="font-medium text-primary ml-1">
 						Sign Up now

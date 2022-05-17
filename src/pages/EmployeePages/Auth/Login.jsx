@@ -7,6 +7,8 @@ import MiniLoader from '../../../components/Loaders/MiniLoader';
 import { employeeLogin } from '../../../utils/ApiRequests';
 import { setExpiryTimeToStorage, setTokenToStorage, setuserDataToStorage } from '../../../utils/ApiUtils';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import { ErrorMessage } from '../../../components/Message/Message';
 
 export const UserLogin = () => {
 	const history = useHistory();
@@ -40,11 +42,13 @@ export const UserLogin = () => {
 	};
 	return (
 		<>
-			<div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-28 mobiles:p-0 mobiles:h-0 auth_container mx-auto">
-				<h1 className="text-3xl font-bold uppercase">login</h1>
-
+			<div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-20 mobiles:p-0 mobiles:h-0 auth_container mx-auto">
+				<h1 className="text-[21px] md:text-3xl font-bold uppercase">login</h1>
+				{error && (
+					<ErrorMessage title="Error" message="An error occured. Please ensure your email and password is correct." />
+				)}
 				<form onSubmit={submitForm}>
-					<div className="mt_10">
+					<div className={`${!error && 'mt-[46px]'}`}>
 						<InputField
 							label="Email Address or Employee ID"
 							required
@@ -62,14 +66,20 @@ export const UserLogin = () => {
 						/>
 					</div>
 					<div className="signUp__submit-btn flex justify-end">
-						{loading ? <MiniLoader /> : <Button type="submit" buttonText="Next" />}
+						<Button loading={loading} type="submit" buttonText="Next" />
 					</div>
 				</form>
-				<div className="mt-16">
-					Don't have an account? <a href="/invite">Refer your employer</a>
+				<div className="mt-16 text-sm md:text-base">
+					Don't have an account?{' '}
+					<Link to="/invite" className="font-medium text-primary ml-1">
+						Refer your employer
+					</Link>
 				</div>
-				<div className="mt-2">
-					Forgot password? <a href="/reset-password">Click here</a>
+				<div className="mt-2 text-sm md:text-base">
+					Forgot password?
+					<Link to="/reset-password" className="font-medium text-primary ml-1">
+						Click here
+					</Link>
 				</div>
 			</div>
 		</>

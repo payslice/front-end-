@@ -46,8 +46,8 @@ const CompanyPolicy = () => {
 	};
 	return (
 		<div>
-			<div className="text-2xl font-semibold">Company Policy</div>
-			<p className="max-w-md mt-2 text-gray-400">
+			<div className="text-xl md:text-2xl font-semibold">Company Policy</div>
+			<p className="max-w-md mt-2 text-gray-400 text-sm md:text-base">
 				Kindly complete the steps below to activate your account, once you have complete all the required section,
 				clicks on Request Activation
 			</p>

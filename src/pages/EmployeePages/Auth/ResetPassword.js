@@ -8,6 +8,7 @@ import { resetPassword } from '../../../utils/ApiRequests';
 import { ErrorMessage } from '../../../components/Message/Message';
 
 export const ResetPassword = () => {
+	const history = useHistory();
 	const [resetSuccess, setResetSuccess] = useState(false);
 	const [formData, setFormData] = useState({
 		email: '',
@@ -21,13 +22,14 @@ export const ResetPassword = () => {
 		const newFormData = { [name]: value };
 		setFormData({ ...formData, ...newFormData });
 	};
-	const history = useHistory();
+
 	const submitForm = async (e) => {
 		e.preventDefault();
 		setLoading(true);
 		try {
 			const res = await resetPassword(formData);
 			if (res) {
+				history.push('/password');
 				setLoading(false);
 			}
 		} catch (error) {
@@ -39,7 +41,7 @@ export const ResetPassword = () => {
 		<>
 			{!resetSuccess ? (
 				<div className="flex flex-col h-full justify-center auth_container mx-auto">
-					<h1 className="text-3xl font-bold uppercase">reset password</h1>
+					<h1 className="text-[21px] md:text-3xl font-bold uppercase">reset password</h1>
 
 					{error && <ErrorMessage title="Error" message={error} />}
 					<form onSubmit={submitForm}>
@@ -61,7 +63,7 @@ export const ResetPassword = () => {
 								name="phone_number"
 								value={formData.phone_number}
 								onChange={handleChange}
-								type="tel"
+								type="number"
 								placeholder="+2348012345678"
 							/>
 						</div>

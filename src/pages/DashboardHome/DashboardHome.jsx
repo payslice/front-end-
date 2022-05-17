@@ -18,11 +18,13 @@ import { Spin } from 'antd';
 import { useHistory } from 'react-router-dom';
 // import Navbar from "../../components/Navbar";
 
+import { chart_one } from '../../utils/data';
+
 const DashboardHome = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [policyResponse, setPolicyResponse] = useState();
 	const [acceptedEmployees, setAcceptedEmployees] = useState();
-	const [graphData, setGraphData] = useState();
+	const [graphData, setGraphData] = useState(chart_one);
 	const [allWithdrawals, setAllWithdrawals] = useState();
 	const [notificationLoading, setNotificationLoading] = useState(false);
 	const [paymentLogs, setPaymentLogs] = useState();
@@ -45,89 +47,89 @@ const DashboardHome = () => {
 	//   fetchAcceptedEmployees();
 	// }, []);
 
-	useEffect(() => {
-		setNotificationLoading(true);
-		function handleChangeStorage() {
-			setProfile(getUserDataFromStorage());
-		}
-		const fetchPolicy = async () => {
-			try {
-				const res = await getAllCompanyPolicy();
-				res.data.payload.data.length > 0 && setPolicyResponse(res.data.payload.data[0]);
-			} catch (error) {
-				// console.log("error", error);
-				toast.error('An error occured');
-			}
-		};
+	// useEffect(() => {
+	// 	setNotificationLoading(true);
+	// 	function handleChangeStorage() {
+	// 		setProfile(getUserDataFromStorage());
+	// 	}
+	// 	const fetchPolicy = async () => {
+	// 		try {
+	// 			const res = await getAllCompanyPolicy();
+	// 			res.data.payload.data.length > 0 && setPolicyResponse(res.data.payload.data[0]);
+	// 		} catch (error) {
+	// 			// console.log("error", error);
+	// 			toast.error('An error occured');
+	// 		}
+	// 	};
 
-		const getApprovedTransaction = async () => {
-			try {
-				const response = await getDashboardWithdrawalWithParams(profile.company_id, 'approved');
-				const dataRes = response.data.payload.data.slice(0, 7).map((data, index) => {
-					return {
-						name: new Date(data.created_at).toLocaleDateString(),
-						uv: 40000,
-						pv: parseInt(data.amount),
-						amt: parseInt(data.amount),
-					};
-				});
+	// 	const getApprovedTransaction = async () => {
+	// 		try {
+	// 			const response = await getDashboardWithdrawalWithParams(profile.company_id, 'approved');
+	// 			const dataRes = response.data.payload.data.slice(0, 7).map((data, index) => {
+	// 				return {
+	// 					name: new Date(data.created_at).toLocaleDateString(),
+	// 					uv: 40000,
+	// 					pv: parseInt(data.amount),
+	// 					amt: parseInt(data.amount),
+	// 				};
+	// 			});
 
-				setGraphData(dataRes);
-			} catch (error) {
-				// console.log("approved error", error);
-				toast.error('An error occured');
-			}
-		};
+	// 			setGraphData(dataRes);
+	// 		} catch (error) {
+	// 			// console.log("approved error", error);
+	// 			toast.error('An error occured');
+	// 		}
+	// 	};
 
-		const getWithdrawals = async () => {
-			try {
-				const res = await getDashboardWithdrawalWithParams(profile.company_id, 'approved');
-				setAllWithdrawals(res.data.payload.data.slice(0, 4));
-				setNotificationLoading(false);
-			} catch (error) {
-				toast.error("Can't get employee withdrawals");
-				setNotificationLoading(false);
-			}
-		};
+	// 	const getWithdrawals = async () => {
+	// 		try {
+	// 			const res = await getDashboardWithdrawalWithParams(profile.company_id, 'approved');
+	// 			setAllWithdrawals(res.data.payload.data.slice(0, 4));
+	// 			setNotificationLoading(false);
+	// 		} catch (error) {
+	// 			toast.error("Can't get employee withdrawals");
+	// 			setNotificationLoading(false);
+	// 		}
+	// 	};
 
-		const fetchPaymentLogs = async () => {
-			try {
-				const response = await getPaymentLogs();
-				const resetData = response.data.payload.paymentLogs?.map((resData, i) => {
-					const date = new Date(resData.created_at);
-					return {
-						key: i,
-						id: resData.id,
-						paymemtID: truncateString(resData.id, 8),
-						amount: parseInt(resData.amount),
-						totalPayable: toCurrency(resData.amount),
-						totalPay:
-							resData.amount_remaining === null
-								? toCurrency(resData.amount)
-								: toCurrency(parseInt(resData.amount) - parseInt(resData.amount_remaining)),
-						month: date.toLocaleString('default', { month: 'long' }),
-						status: resData.completed === 'no' ? 'Unpaid' : 'Paid',
-						dateYear: `${date.toLocaleString('default', {
-							month: 'long',
-						})} ${date.getFullYear()}`,
-						amount_remaining: resData.amount_remaining,
-					};
-				});
-				setPaymentLogs(resetData);
-				// setFetchingData(false);
-			} catch (error) {
-				toast.error('Something went wrong');
-			}
-		};
-		if (profile) {
-			fetchPolicy();
-			getApprovedTransaction();
-			getWithdrawals();
-			fetchPaymentLogs();
-		}
-		window.addEventListener('storage', handleChangeStorage);
-		return () => window.removeEventListener('storage', handleChangeStorage);
-	}, [profile]);
+	// 	const fetchPaymentLogs = async () => {
+	// 		try {
+	// 			const response = await getPaymentLogs();
+	// 			const resetData = response.data.payload.paymentLogs?.map((resData, i) => {
+	// 				const date = new Date(resData.created_at);
+	// 				return {
+	// 					key: i,
+	// 					id: resData.id,
+	// 					paymemtID: truncateString(resData.id, 8),
+	// 					amount: parseInt(resData.amount),
+	// 					totalPayable: toCurrency(resData.amount),
+	// 					totalPay:
+	// 						resData.amount_remaining === null
+	// 							? toCurrency(resData.amount)
+	// 							: toCurrency(parseInt(resData.amount) - parseInt(resData.amount_remaining)),
+	// 					month: date.toLocaleString('default', { month: 'long' }),
+	// 					status: resData.completed === 'no' ? 'Unpaid' : 'Paid',
+	// 					dateYear: `${date.toLocaleString('default', {
+	// 						month: 'long',
+	// 					})} ${date.getFullYear()}`,
+	// 					amount_remaining: resData.amount_remaining,
+	// 				};
+	// 			});
+	// 			setPaymentLogs(resetData);
+	// 			// setFetchingData(false);
+	// 		} catch (error) {
+	// 			toast.error('Something went wrong');
+	// 		}
+	// 	};
+	// 	if (profile) {
+	// 		fetchPolicy();
+	// 		getApprovedTransaction();
+	// 		getWithdrawals();
+	// 		fetchPaymentLogs();
+	// 	}
+	// 	window.addEventListener('storage', handleChangeStorage);
+	// 	return () => window.removeEventListener('storage', handleChangeStorage);
+	// }, [profile]);
 
 	const totalDue = paymentLogs
 		?.filter((data) => typeof data.amount_remaining == 'string')
@@ -136,13 +138,13 @@ const DashboardHome = () => {
 	return (
 		<div>
 			<div className="flex justify-between mobiles:block ">
-				<h2 className="text-2xl font-light mobiles:mb-6 mobiles:mt-3 capitalize">
+				<h2 className="text-xl font-semibold mobiles:mb-6 mobiles:mt-3 capitalize">
 					Welcome to Payslice, {`${userData.first_name} ${userData.last_name}`}
 				</h2>
 				<div className="flex justify-between">
-					<div className="tab flex rounded bg-gray-100 mr-5 mobiles:mr-0">
+					<div className="tab flex rounded-[5px] bg-gray-100 mr-5 mobiles:mr-0 h-[42px]">
 						<div
-							className={`px-5 rounded py-3 cursor-pointer mobiles:w-1/2 mobiles:px-3 mobiles:text-xs ${
+							className={`px-5 rounded flex items-center text-sm cursor-pointer mobiles:w-1/2 mobiles:px-3 mobiles:text-xs ${
 								activeIndex === 0 && '__tab-active'
 							}`}
 							onClick={() => setActiveIndex(0)}
@@ -150,7 +152,7 @@ const DashboardHome = () => {
 							Day
 						</div>
 						<div
-							className={`px-5 rounded py-3 cursor-pointer mobiles:px-3 mobiles:text-xs ${
+							className={`px-5 rounded flex items-center text-sm cursor-pointer mobiles:px-3 mobiles:text-xs ${
 								activeIndex === 1 && '__tab-active'
 							}`}
 							onClick={() => setActiveIndex(1)}
@@ -158,7 +160,7 @@ const DashboardHome = () => {
 							Week
 						</div>
 						<div
-							className={`px-5 rounded py-3 cursor-pointer mobiles:px-3 mobiles:text-xs ${
+							className={`px-5 rounded flex items-center text-sm cursor-pointer mobiles:px-3 mobiles:text-xs ${
 								activeIndex === 2 && '__tab-active'
 							}`}
 							onClick={() => setActiveIndex(2)}
@@ -177,60 +179,63 @@ const DashboardHome = () => {
 
 			<div className="cards mt-10">
 				<div className="flex mobiles:block">
-					<div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
-						<p className="font-bold">Payroll Size</p>
-						<p className="font-normal flex mobiles:flex mobiles:justify-between">
+					<div className="w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6">
+						<p className="font-bold text-lg text-gray-600">Payroll Size</p>
+						<p className="font-normal flex mobiles:flex mobiles:justify-between text-sm mt-2">
 							{`${new Date(policyResponse?.updated_at).toLocaleString('default', {
 								month: 'long',
 							})} ${new Date(policyResponse?.updated_at).getFullYear()} `}
-							<span className="flex ml-5 font-bold" style={{ color: '#0B9B36' }}>
+							<span className="flex ml-2 font-bold" style={{ color: '#0B9B36' }}>
 								+3% <BsArrowUp className="my-auto" />
 							</span>
 						</p>
-						<h4 className="text-lg font-bold mobiles:flex mobiles:justify-between">
+						<h4 className="text-[28px] font-bold flex justify-between items-center mt-1.5">
 							{policyResponse?.payroll_size || 'N/A'}
-							<span className="ml-2 text-gray-400 text-sm font-light">Veiw more </span>
+							<span className="ml-2 text-gray-500 text-sm font-bold">View more </span>
 						</h4>
 					</div>
-					<div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
-						<p className="font-bold">Credit limit</p>
-						<p className="font-light flex">{`${new Date(policyResponse?.updated_at).toLocaleString('default', {
-							month: 'long',
-						})} ${new Date(policyResponse?.updated_at).getFullYear()} `}</p>
-						<h4 className="text-lg font-bold">0 </h4>
+					<div className="w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6">
+						<p className="font-bold text-lg text-gray-600">Credit limit</p>
+						<p className="font-light flex mt-2 text-sm">{`${new Date(policyResponse?.updated_at).toLocaleString(
+							'default',
+							{
+								month: 'long',
+							}
+						)} ${new Date(policyResponse?.updated_at).getFullYear()} `}</p>
+						<h4 className="text-[28px] font-bold mt-1.5">0</h4>
 					</div>
-					<div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
-						<p className="font-bold">Total accepted Employee</p>
-						<p className="font-normal flex mobiles:flex mobiles:justify-between">
+					<div className="w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6">
+						<p className="font-bold text-lg text-gray-600">Wallet Balance</p>
+						<p className="font-normal flex mobiles:flex mobiles:justify-between text-sm mt-2">
 							{`${new Date(policyResponse?.updated_at).toLocaleString('default', {
 								month: 'long',
 							})} ${new Date(policyResponse?.updated_at).getFullYear()} `}
-							<span className="flex ml-5 font-bold" style={{ color: '#0B9B36' }}>
+							<span className="flex ml-2 font-bold" style={{ color: '#0B9B36' }}>
 								+3% <BsArrowUp className="my-auto" />
 							</span>
 						</p>
-						<h4 className="text-lg font-bold mobiles:flex mobiles:justify-between">
+						<h4 className="text-[28px] font-bold flex justify-between items-center mt-1.5">
 							{acceptedEmployees || 'N/A'}
 							<span
-								className="ml-2 text-gray-400 text-sm font-light cursor-pointer"
+								className="ml-2 text-gray-500 text-sm font-bold cursor-pointer"
 								onClick={() => history.push('/employee')}
 							>
-								Veiw more{' '}
+								Manage{' '}
 							</span>
 						</h4>
 					</div>
-					<div className="w-1/4 mobiles:w-full mobiles:my-4 mr-5 h-40 rounded-lg border border-gray-100 p-6">
-						<p className="font-bold">Upcoming payments</p>
-						<p className="font-normal flex mobiles:flex mobiles:justify-between">
-							{/* January 2021{" "} */}
-							<span className="flex ml-5 font-bold" style={{ color: '#D0000C' }}>
+					<div className="w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6">
+						<p className="font-bold text-lg text-gray-600">Upcoming payments</p>
+						<p className="font-normal flex mobiles:flex mobiles:justify-between text-sm mt-2">
+							January 2021{' '}
+							<span className="flex ml-2 font-bold" style={{ color: '#D0000C' }}>
 								+3% <BsArrowDown className="my-auto font-bold" />
 							</span>
 						</p>
-						<h4 className="text-lg font-bold mobiles:flex mobiles:justify-between">
+						<h4 className="text-[28px] font-bold flex justify-between items-center mt-1.5">
 							{toCurrency(totalDue)}
 							<span
-								className="ml-2 text-gray-400 text-sm font-light cursor-pointer"
+								className="ml-2 text-gray-500 text-sm font-bold cursor-pointer"
 								onClick={() => history.push('/payments')}
 							>
 								Repay now
@@ -239,33 +244,76 @@ const DashboardHome = () => {
 					</div>
 				</div>
 			</div>
+
 			<div className=" my-16">
 				<div className="w-full flex mobiles:block">
-					<div className="graph-container p-6 mobiles:p-0 mr-8 w-2/3 mobiles:w-full mobiles:my-4 border border-gray-100 rounded-lg">
-						<h3 className="text-2xl py-4 px-2">Active Withdrawal</h3>
-						{graphData && (
-							<ResponsiveContainer width="100%" height={350}>
-								<AreaChart
-									width={500}
-									height={500}
-									data={graphData}
-									margin={{
-										top: 10,
-										right: 30,
-										left: 0,
-										bottom: 0,
+					<div className="graph-container p-6 mobiles:p-0 mr-8 w-2/3 mobiles:w-full mobiles:my-4 border border-gray-200 rounded-[10px]">
+						<h3 className="text-xl font-semibold pt-5 mb-6 px-2">Active Withdrawal</h3>
+
+						<ResponsiveContainer width="100%" height="85%">
+							<AreaChart
+								data={graphData}
+								fontSize={14}
+								fontWeight={'semibold'}
+								margin={{
+									top: 10,
+									right: 10,
+									left: -12,
+									bottom: 0,
+								}}
+							>
+								<defs>
+									<linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+										<stop offset="50%" stopColor="#1C64F2" stopOpacity={0.6} />
+										<stop offset="100%" stopColor="#1C64F2" stopOpacity={0} />
+									</linearGradient>
+									<linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+										<stop offset="100%" stopColor="#82ca9d" stopOpacity={0.8} />
+										<stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+									</linearGradient>
+								</defs>
+								<XAxis dataKey="name" tick={{ fill: '#989898' }} />
+								<YAxis tick={{ fill: '#989898' }} orientation="left" />
+								<CartesianGrid x="0" vertical={false} strokeDasharray="3 3" strokeOpacity={0.3} />
+								<Tooltip
+									wrapperStyle={{
+										color: 'red',
+										backgroundColor: '#000 !important',
 									}}
-								>
-									<CartesianGrid strokeDasharray="3 3" />
-									<XAxis dataKey="name" />
-									<YAxis dataKey="uv" />
-									<Tooltip />
-									<Area type="monotone" dataKey="pv" stroke="#8884d8" fill="#1C64F2" />
-								</AreaChart>
-							</ResponsiveContainer>
-						)}
+									labelStyle={{ color: 'green' }}
+									itemStyle={{ color: '#000' }}
+									formatter={(value) => {
+										return [`${value}`, `Kwh`];
+									}}
+									labelFormatter={(value) => {
+										return 'Unit Purchased', value;
+									}}
+								/>
+								<Area
+									dataKey="pv"
+									type="monotone"
+									stroke="#1C64F2"
+									fillOpacity={0.5}
+									strokeWidth={3}
+									dot={{
+										r: 6,
+										stroke: '#1C64F2',
+										strokeWidth: 1,
+										fill: '#fff',
+										fillOpacity: 2,
+									}}
+									activeDot={{
+										r: 5,
+										stroke: '#1C64F2',
+										strokeWidth: 4,
+										fill: '#fff',
+									}}
+									fill="url(#colorUv)"
+								/>
+							</AreaChart>
+						</ResponsiveContainer>
 					</div>
-					<div className="w-1/3 mobiles:w-full rounded-lg border  border-gray">
+					<div className="w-1/3 mobiles:w-full rounded-[10px] border  border-gray">
 						<div className="text-2xl border-b border-gray-300 py-4 px-4">Recent transactions</div>
 						<div className="transaction-timeline p-4 overflow-scroll" style={{ height: '350px' }}>
 							{notificationLoading && (

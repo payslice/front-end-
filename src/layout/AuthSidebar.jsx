@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 // import Balances from "../assets/svgs/balances.js";
 // import Analytics from "../assets/svgs/Analytics";
@@ -28,7 +29,9 @@ const AuthSidebar = () => {
 		<section className="relative auth_sidebar auth_sidebar_bg overflow-hidden mobiles:hidden">
 			<div className="pt-44 laptops:pt-14 px-24">
 				<h1 className="mb-3 mobiles:px-1 mobiles:w-full ">
-					<img src={require('../assets/svgs/payslice-logo.svg').default} className="w-52 mobiles:w-full" alt="" />
+					<Link to="/">
+						<img src={require('../assets/svgs/payslice-logo.svg').default} className="w-52 mobiles:w-full" alt="" />
+					</Link>
 				</h1>
 				<h3 className="text-3xl mt-16 font-bold text-white">
 					We are revolutionizing <br /> the way people are paid.

@@ -42,8 +42,8 @@ const CompanyOnboard = () => {
 
 	return (
 		<div>
-			<div className="text-2xl font-semibold">Company onboarding process</div>
-			<p className="max-w-md mt-2 text-gray-400">
+			<div className="text-xl md:text-2xl font-semibold">Company onboarding process</div>
+			<p className="max-w-md mt-2 text-gray-400 text-sm md:text-base">
 				Kindly complete the steps below to activate your account, once you have complete all the required section,
 				clicks on Request Activation
 			</p>
@@ -72,7 +72,7 @@ const CompanyOnboard = () => {
 							label="Tax Identification Number"
 							name="tax_identification_number"
 							placeholder="Enter Tax ID Number"
-							type="text"
+							type="number"
 							required
 							onChange={handleChange}
 						/>
