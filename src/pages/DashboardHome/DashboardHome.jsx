@@ -47,89 +47,89 @@ const DashboardHome = () => {
 	//   fetchAcceptedEmployees();
 	// }, []);
 
-	// useEffect(() => {
-	// 	setNotificationLoading(true);
-	// 	function handleChangeStorage() {
-	// 		setProfile(getUserDataFromStorage());
-	// 	}
-	// 	const fetchPolicy = async () => {
-	// 		try {
-	// 			const res = await getAllCompanyPolicy();
-	// 			res.data.payload.data.length > 0 && setPolicyResponse(res.data.payload.data[0]);
-	// 		} catch (error) {
-	// 			// console.log("error", error);
-	// 			toast.error('An error occured');
-	// 		}
-	// 	};
+	useEffect(() => {
+		setNotificationLoading(true);
+		function handleChangeStorage() {
+			setProfile(getUserDataFromStorage());
+		}
+		const fetchPolicy = async () => {
+			try {
+				const res = await getAllCompanyPolicy();
+				res.data.payload.data.length > 0 && setPolicyResponse(res.data.payload.data[0]);
+			} catch (error) {
+				// console.log("error", error);
+				toast.error('An error occured');
+			}
+		};
 
-	// 	const getApprovedTransaction = async () => {
-	// 		try {
-	// 			const response = await getDashboardWithdrawalWithParams(profile.company_id, 'approved');
-	// 			const dataRes = response.data.payload.data.slice(0, 7).map((data, index) => {
-	// 				return {
-	// 					name: new Date(data.created_at).toLocaleDateString(),
-	// 					uv: 40000,
-	// 					pv: parseInt(data.amount),
-	// 					amt: parseInt(data.amount),
-	// 				};
-	// 			});
+		const getApprovedTransaction = async () => {
+			try {
+				const response = await getDashboardWithdrawalWithParams(profile.company_id, 'approved');
+				const dataRes = response.data.payload.data.slice(0, 7).map((data, index) => {
+					return {
+						name: new Date(data.created_at).toLocaleDateString(),
+						uv: 40000,
+						pv: parseInt(data.amount),
+						amt: parseInt(data.amount),
+					};
+				});
 
-	// 			setGraphData(dataRes);
-	// 		} catch (error) {
-	// 			// console.log("approved error", error);
-	// 			toast.error('An error occured');
-	// 		}
-	// 	};
+				setGraphData(dataRes);
+			} catch (error) {
+				// console.log("approved error", error);
+				toast.error('An error occured');
+			}
+		};
 
-	// 	const getWithdrawals = async () => {
-	// 		try {
-	// 			const res = await getDashboardWithdrawalWithParams(profile.company_id, 'approved');
-	// 			setAllWithdrawals(res.data.payload.data.slice(0, 4));
-	// 			setNotificationLoading(false);
-	// 		} catch (error) {
-	// 			toast.error("Can't get employee withdrawals");
-	// 			setNotificationLoading(false);
-	// 		}
-	// 	};
+		const getWithdrawals = async () => {
+			try {
+				const res = await getDashboardWithdrawalWithParams(profile.company_id, 'approved');
+				setAllWithdrawals(res.data.payload.data.slice(0, 4));
+				setNotificationLoading(false);
+			} catch (error) {
+				toast.error("Can't get employee withdrawals");
+				setNotificationLoading(false);
+			}
+		};
 
-	// 	const fetchPaymentLogs = async () => {
-	// 		try {
-	// 			const response = await getPaymentLogs();
-	// 			const resetData = response.data.payload.paymentLogs?.map((resData, i) => {
-	// 				const date = new Date(resData.created_at);
-	// 				return {
-	// 					key: i,
-	// 					id: resData.id,
-	// 					paymemtID: truncateString(resData.id, 8),
-	// 					amount: parseInt(resData.amount),
-	// 					totalPayable: toCurrency(resData.amount),
-	// 					totalPay:
-	// 						resData.amount_remaining === null
-	// 							? toCurrency(resData.amount)
-	// 							: toCurrency(parseInt(resData.amount) - parseInt(resData.amount_remaining)),
-	// 					month: date.toLocaleString('default', { month: 'long' }),
-	// 					status: resData.completed === 'no' ? 'Unpaid' : 'Paid',
-	// 					dateYear: `${date.toLocaleString('default', {
-	// 						month: 'long',
-	// 					})} ${date.getFullYear()}`,
-	// 					amount_remaining: resData.amount_remaining,
-	// 				};
-	// 			});
-	// 			setPaymentLogs(resetData);
-	// 			// setFetchingData(false);
-	// 		} catch (error) {
-	// 			toast.error('Something went wrong');
-	// 		}
-	// 	};
-	// 	if (profile) {
-	// 		fetchPolicy();
-	// 		getApprovedTransaction();
-	// 		getWithdrawals();
-	// 		fetchPaymentLogs();
-	// 	}
-	// 	window.addEventListener('storage', handleChangeStorage);
-	// 	return () => window.removeEventListener('storage', handleChangeStorage);
-	// }, [profile]);
+		const fetchPaymentLogs = async () => {
+			try {
+				const response = await getPaymentLogs();
+				const resetData = response.data.payload.paymentLogs?.map((resData, i) => {
+					const date = new Date(resData.created_at);
+					return {
+						key: i,
+						id: resData.id,
+						paymemtID: truncateString(resData.id, 8),
+						amount: parseInt(resData.amount),
+						totalPayable: toCurrency(resData.amount),
+						totalPay:
+							resData.amount_remaining === null
+								? toCurrency(resData.amount)
+								: toCurrency(parseInt(resData.amount) - parseInt(resData.amount_remaining)),
+						month: date.toLocaleString('default', { month: 'long' }),
+						status: resData.completed === 'no' ? 'Unpaid' : 'Paid',
+						dateYear: `${date.toLocaleString('default', {
+							month: 'long',
+						})} ${date.getFullYear()}`,
+						amount_remaining: resData.amount_remaining,
+					};
+				});
+				setPaymentLogs(resetData);
+				// setFetchingData(false);
+			} catch (error) {
+				toast.error('Something went wrong');
+			}
+		};
+		if (profile) {
+			fetchPolicy();
+			getApprovedTransaction();
+			getWithdrawals();
+			fetchPaymentLogs();
+		}
+		window.addEventListener('storage', handleChangeStorage);
+		return () => window.removeEventListener('storage', handleChangeStorage);
+	}, [profile]);
 
 	const totalDue = paymentLogs
 		?.filter((data) => typeof data.amount_remaining == 'string')
@@ -286,7 +286,7 @@ const DashboardHome = () => {
 										return [`${value}`, `Kwh`];
 									}}
 									labelFormatter={(value) => {
-										return 'Unit Purchased', value;
+										return `'Unit Purchased', ${value}`;
 									}}
 								/>
 								<Area
