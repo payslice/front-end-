@@ -61,11 +61,11 @@ export const employeeLogin = (formData) => {
 };
 
 export const companyInfoOnboarding = (formData) => {
-	return ApiRequestWithToken().post('/company_rep/save', formData);
+	return ApiRequestWithToken().post('/company/save', formData);
 };
 
 export const companyRepOnboarding = (formData) => {
-	return ApiRequestWithToken().post('/company/save', formData);
+	return ApiRequestWithToken().post('/company_rep/save', formData);
 };
 
 export const companyPolicy = (formData) => {

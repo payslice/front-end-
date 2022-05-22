@@ -43,9 +43,9 @@ const CompanyOnboard = () => {
 				<div className="flex w-full mobiles:block">
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField
-							label="Registered Business Name"
+							label="Full Name"
 							name="name"
-							placeholder="ABC Company"
+							placeholder="John Doe"
 							type="text"
 							errors={errors.name ?? false}
 							{...register('name', { required: true, minLength: 4 })}
@@ -53,24 +53,24 @@ const CompanyOnboard = () => {
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField
-							label="Tax Identification Number"
-							name="tax_identification_number"
-							placeholder="Enter Tax ID Number"
-							type="number"
-							errors={errors.tax_identification_number ?? false}
-							{...register('tax_identification_number', { required: true, minLength: 4 })}
+							label="Registered Business Name"
+							name="registered_business_name"
+							placeholder="ABC Company"
+							type="text"
+							errors={errors.registered_business_name ?? false}
+							{...register('registered_business_name', { required: true, minLength: 4 })}
 						/>
 					</div>
 				</div>
 				<div className="flex w-full mobiles:block">
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField
-							label="RC Number"
-							name="rc_number"
-							placeholder="Enter RC Number"
-							type="text"
-							errors={errors.rc_number ?? false}
-							{...register('rc_number', { required: true, minLength: 4 })}
+							label="Business Phone Number"
+							name="phone_number"
+							placeholder="+2349012345678"
+							type="tel"
+							errors={errors.phone_number ?? false}
+							{...register('phone_number', { required: true, minLength: 9 })}
 						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
@@ -87,6 +87,28 @@ const CompanyOnboard = () => {
 				<div className="flex w-full mobiles:block">
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField
+							label="RC Number"
+							name="rc_number"
+							placeholder="Enter RC Number"
+							type="text"
+							errors={errors.rc_number ?? false}
+							{...register('rc_number', { required: true, minLength: 4 })}
+						/>
+					</div>
+					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
+						<InputField
+							label="Tax Identification Number"
+							name="tax_identification_number"
+							placeholder="Enter Tax ID Number"
+							type="number"
+							errors={errors.tax_identification_number ?? false}
+							{...register('tax_identification_number', { required: true, minLength: 4 })}
+						/>
+					</div>
+				</div>
+				<div className="flex w-full mobiles:block">
+					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
+						<InputField
 							label="Industry"
 							name="industry"
 							placeholder="Enter Industry"
@@ -95,18 +117,6 @@ const CompanyOnboard = () => {
 							{...register('industry', { required: true, minLength: 2 })}
 						/>
 					</div>
-					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
-						<InputField
-							label="Business Phone Number"
-							name="phone_number"
-							placeholder="+2349012345678"
-							type="tel"
-							errors={errors.phone_number ?? false}
-							{...register('phone_number', { required: true, minLength: 9 })}
-						/>
-					</div>
-				</div>
-				<div className="flex w-full mobiles:block">
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField
 							label="Payment Email"
