@@ -2,41 +2,36 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
 import { InputField } from '../../components/Input';
-import MiniLoader from '../../components/Loaders/MiniLoader';
 import { toast } from 'react-toastify';
+import { useForm } from 'react-hook-form';
+import { companyInfoOnboarding } from '../../utils/ApiRequests';
 
 const CompanyRepresentative = () => {
-	const [loading, setLoading] = useState(false);
-	const [formData, setFormData] = useState({
-		company_id: '',
-		user_id: '',
-		title: '',
-		address: '',
-		legal_name: '',
-		date_of_birth: '',
-		ownership_percentage: '',
-		id_type: [],
-		id_number: 0,
-	});
 	const history = useHistory();
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm();
+	const [loading, setLoading] = useState(false);
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		const formEntry = { [name]: value };
-		setFormData({ ...formData, ...formEntry });
-	};
+	const onSubmit = async (formData) => {
+		if (formData) {
+			setLoading(true);
+			try {
+				const res = await companyInfoOnboarding(formData);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		setLoading(true);
-		try {
-			// const res = await companyInfoOnboarding(formData);
-			setLoading(false);
-			// sessionStorage.setItem('P_Slice_CID', res.data.payload.data.id);
-			history.push('/onboard/step2');
-		} catch (error) {
-			toast.error(error?.response?.data?.payload?.data?.errors?.name[0] || 'An error occured');
-			setLoading(false);
+				if (res.status === 200 && res.data) {
+					setLoading(false);
+					reset();
+					sessionStorage.setItem('P_Slice_CID', res.data.payload.data.id);
+					history.push('/onboard/step2');
+				}
+			} catch (error) {
+				toast.error(error?.response?.data?.payload?.data?.errors?.name[0] || 'An error occured');
+				setLoading(false);
+			}
 		}
 	};
 
@@ -48,7 +43,7 @@ const CompanyRepresentative = () => {
 				clicks on Request Activation
 			</p>
 
-			<form onSubmit={handleSubmit} className="mt-5">
+			<form onSubmit={handleSubmit(onSubmit)} className="mt-5">
 				<div className="flex w-full mobiles:block">
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField
@@ -56,8 +51,8 @@ const CompanyRepresentative = () => {
 							name="legal_name"
 							placeholder="ABC Company"
 							type="text"
-							required
-							onChange={handleChange}
+							errors={errors.legal_name ?? false}
+							{...register('legal_name', { required: true })}
 						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
@@ -66,8 +61,8 @@ const CompanyRepresentative = () => {
 							name="address"
 							placeholder="ABC Company"
 							type="text"
-							required
-							onChange={handleChange}
+							errors={errors.address ?? false}
+							{...register('address', { required: true })}
 						/>
 					</div>
 				</div>
@@ -78,12 +73,19 @@ const CompanyRepresentative = () => {
 							name="date_of_birth"
 							placeholder="ABC Company"
 							type="date"
-							required
-							onChange={handleChange}
+							errors={errors.date_of_birth ?? false}
+							{...register('date_of_birth', { required: true })}
 						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
-						<InputField label="ID Type" name="ID Type" placeholder="ABC Company" type="text" required />
+						<InputField
+							label="ID Type"
+							name="id_type"
+							placeholder="ABC Company"
+							type="text"
+							errors={errors.id_type ?? false}
+							{...register('id_type', { required: true })}
+						/>
 					</div>
 				</div>
 				<div className="flex w-full mobiles:block">
@@ -93,8 +95,8 @@ const CompanyRepresentative = () => {
 							name="id_number"
 							placeholder="ABC Company"
 							type="number"
-							required
-							onChange={handleChange}
+							errors={errors.id_number ?? false}
+							{...register('id_number', { required: true })}
 						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
@@ -103,8 +105,8 @@ const CompanyRepresentative = () => {
 							name="ownership_percentage"
 							placeholder="10"
 							type="tel"
-							required
-							onChange={handleChange}
+							errors={errors.ownership_percentage ?? false}
+							{...register('ownership_percentage', { required: true })}
 						/>
 					</div>
 				</div>
@@ -115,13 +117,13 @@ const CompanyRepresentative = () => {
 							name="title"
 							placeholder="ABC Company"
 							type="text"
-							required
-							onChange={handleChange}
+							errors={errors.title ?? false}
+							{...register('title', { required: true })}
 						/>
 					</div>
 				</div>
 				<div className="signUp__submit-btn flex justify-end">
-					{loading ? <MiniLoader /> : <Button type="submit" buttonText="Save" />}
+					<Button type="submit" buttonText="Save" loading={loading} />
 				</div>
 			</form>
 		</div>

@@ -19,8 +19,8 @@ const CompanyRegSidebar = () => {
 	}, []);
 
 	return (
-		<section className="h-screen max-h-screen relative onboarding_sidebar auth_sidebar_bg overflow-hidden laptops:overflow-y-auto overflow-x-hidden mobiles:hidden">
-			<div className="pt-16 px-16">
+		<section className="min-h-screen relative onboarding_sidebar auth_sidebar_bg overflow-hidden overflow-x-hidden mobiles:hidden z-30">
+			<div className="pt-[123px] px-16">
 				<div className="mb-3 mobiles:px-1 mobiles:w-full ">
 					<Link to="/">
 						<img
@@ -54,13 +54,13 @@ const CompanyRegSidebar = () => {
 			</div>
 
 			<div
-				className="absolute transform scale-125 object-bottom laptops:bottom-0"
+				className="absolute transform scale-125 object-bottom laptops:bottom-0 -z-20"
 				style={{ left: '120px', bottom: '-25px' }}
 			>
 				<div className="relative left-20">
 					<img
 						src={require('../assets/svgs/payslice-bg.svg').default}
-						className="w-64 transform scale-125 laptops:scale-110 mobiles:w-full relative"
+						className="w-64 transform scale-125 laptops:scale-110 mobiles:w-full relative -z-20"
 						alt=""
 					/>
 				</div>

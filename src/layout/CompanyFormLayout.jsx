@@ -4,7 +4,7 @@ import { OnboardMobileNav } from './OnboardMobileNav';
 
 const CompanyRegLayout = ({ children }) => {
 	return (
-		<div style={{ maxWidth: '100vw' }} className="h-screen max-h-screen overflow-x-hidden w-screen flex mobiles:block">
+		<div className="overflow-x-hidden w-screen flex mobiles:block">
 			<CompanyRegSidebar />
 			<OnboardMobileNav />
 			<main className="min-h-screen mobiles:p-6 max-w-full w-full overscroll-x-hidden mt-7 max-h-screen px-32 py-16  flex-1 overflow-y-auto mobiles:mt-20">

@@ -7,7 +7,23 @@ import { InputField, PasswordInput } from '../../components/Input';
 
 export const ReferEmployer = () => {
 	const history = useHistory();
+	const [formData, setFormData] = useState({
+		first_name: '',
+		last_name: '',
+		phone_number: '',
+		email: '',
+		password: '',
+		gender: 'male',
+	});
 	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [success, setSuccess] = useState(false);
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		const newFormData = { [name]: value };
+		setFormData({ ...formData, ...newFormData });
+	};
 
 	const submitForm = (e) => {
 		e.preventDefault();
@@ -22,14 +38,38 @@ export const ReferEmployer = () => {
 
 				<form onSubmit={submitForm}>
 					<div className={`${!error && 'mt-[46px]'}`}>
-						<InputField label="Your Companies Name" required type="text" placeholder="e.g Kelly Now " />
-						<InputField label="Contact person Email" required type="email" placeholder="e.g Kelly@farfill.com" />
-						<InputField label="Your Email" required type="email" placeholder="e.g Kelly@farfill.com" />
-						<InputField label="Your Phone Number" required type="number" placeholder="+2348012345678" />
+						<InputField
+							onChange={handleChange}
+							label="Your Companies Name"
+							required
+							type="text"
+							placeholder="e.g Kelly Now "
+						/>
+						<InputField
+							onChange={handleChange}
+							label="Contact person Email"
+							required
+							type="email"
+							placeholder="e.g Kelly@farfill.com"
+						/>
+						<InputField
+							onChange={handleChange}
+							label="Your Email"
+							required
+							type="email"
+							placeholder="e.g Kelly@farfill.com"
+						/>
+						<InputField
+							onChange={handleChange}
+							label="Your Phone Number"
+							required
+							type="number"
+							placeholder="+2348012345678"
+						/>
 						<PasswordInput required label="Enter password" placeholder="Enter password" />
 					</div>
 					<div className="signUp__submit-btn flex justify-end">
-						<Button type="submit" buttonText="Next" />
+						<Button type="submit" buttonText="Next" loading={loading} />
 					</div>
 				</form>
 				<div className="mt-5 pb-10 ">

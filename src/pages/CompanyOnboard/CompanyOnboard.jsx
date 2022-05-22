@@ -4,39 +4,30 @@ import { Button } from '../../components/Button/Button';
 import { InputField } from '../../components/Input';
 import { companyInfoOnboarding } from '../../utils/ApiRequests';
 import { toast } from 'react-toastify';
-import MiniLoader from '../../components/Loaders/MiniLoader';
+import { useForm } from 'react-hook-form';
+import isEmail from 'is-email';
 
 const CompanyOnboard = () => {
-	const [formData, setFormData] = useState({
-		name: '',
-		email: '',
-		industry: '',
-		tax_identification_number: '',
-		rc_number: '',
-		address: '',
-		phone_number: '',
-		registered_business_name: '',
-	});
+	const history = useHistory();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 	const [loading, setLoading] = useState(false);
 
-	const history = useHistory();
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		const formEntry = { [name]: value };
-		setFormData({ ...formData, ...formEntry });
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		setLoading(true);
-		try {
-			const res = await companyInfoOnboarding(formData);
-			setLoading(false);
-			sessionStorage.setItem('P_Slice_CID', res.data.payload.data.id);
-			history.push('/onboard/step2');
-		} catch (error) {
-			toast.error(error?.response?.data?.payload?.data?.errors?.name[0] || 'An error occured');
-			setLoading(false);
+	const onSubmit = async (formData) => {
+		if (formData) {
+			setLoading(true);
+			try {
+				const res = await companyInfoOnboarding(formData);
+				setLoading(false);
+				sessionStorage.setItem('P_Slice_CID', res.data.payload.data.id);
+				history.push('/onboard/step2');
+			} catch (error) {
+				toast.error(error?.response?.data?.payload?.data?.errors?.name[0] || 'An error occured');
+				setLoading(false);
+			}
 		}
 	};
 
@@ -48,23 +39,16 @@ const CompanyOnboard = () => {
 				clicks on Request Activation
 			</p>
 
-			<form onSubmit={handleSubmit} className="mt-5">
+			<form onSubmit={handleSubmit(onSubmit)} className="mt-5">
 				<div className="flex w-full mobiles:block">
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField
 							label="Registered Business Name"
-							name="registered_business_name"
+							name="name"
 							placeholder="ABC Company"
 							type="text"
-							required
-							onChange={(e) => {
-								const { value } = e.target;
-								setFormData({
-									...formData,
-									name: value,
-									registered_business_name: value,
-								});
-							}}
+							errors={errors.name ?? false}
+							{...register('name', { required: true, minLength: 4 })}
 						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
@@ -73,8 +57,8 @@ const CompanyOnboard = () => {
 							name="tax_identification_number"
 							placeholder="Enter Tax ID Number"
 							type="number"
-							required
-							onChange={handleChange}
+							errors={errors.tax_identification_number ?? false}
+							{...register('tax_identification_number', { required: true, minLength: 4 })}
 						/>
 					</div>
 				</div>
@@ -85,8 +69,8 @@ const CompanyOnboard = () => {
 							name="rc_number"
 							placeholder="Enter RC Number"
 							type="text"
-							onChange={handleChange}
-							required
+							errors={errors.rc_number ?? false}
+							{...register('rc_number', { required: true, minLength: 4 })}
 						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
@@ -95,9 +79,8 @@ const CompanyOnboard = () => {
 							name="address"
 							placeholder="Enter Business Address"
 							type="text"
-							minLength="6"
-							onChange={handleChange}
-							required
+							errors={errors.address ?? false}
+							{...register('address', { required: true, minLength: 6 })}
 						/>
 					</div>
 				</div>
@@ -108,8 +91,8 @@ const CompanyOnboard = () => {
 							name="industry"
 							placeholder="Enter Industry"
 							type="text"
-							onChange={handleChange}
-							required
+							errors={errors.industry ?? false}
+							{...register('industry', { required: true, minLength: 2 })}
 						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
@@ -117,9 +100,9 @@ const CompanyOnboard = () => {
 							label="Business Phone Number"
 							name="phone_number"
 							placeholder="+2349012345678"
-							onChange={handleChange}
 							type="tel"
-							required
+							errors={errors.phone_number ?? false}
+							{...register('phone_number', { required: true, minLength: 9 })}
 						/>
 					</div>
 				</div>
@@ -129,14 +112,16 @@ const CompanyOnboard = () => {
 							label="Payment Email"
 							name="email"
 							placeholder="abc@xyz.com"
-							onChange={handleChange}
-							type="email"
-							required
+							errors={errors.email ?? false}
+							{...register('email', {
+								required: true,
+								validate: (value) => isEmail(value) || 'Please provide a valid email',
+							})}
 						/>
 					</div>
 				</div>
 				<div className="signUp__submit-btn flex justify-end">
-					{loading ? <MiniLoader /> : <Button type="submit" buttonText="Save" />}
+					<Button type="submit" buttonText="Save" loading={loading} />
 				</div>
 			</form>
 		</div>

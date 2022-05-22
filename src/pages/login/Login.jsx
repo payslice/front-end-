@@ -6,34 +6,34 @@ import { employerLogin } from '../../utils/ApiRequests';
 import { setExpiryTimeToStorage, setTokenToStorage, setuserDataToStorage } from '../../utils/ApiUtils';
 import { ErrorMessage } from '../../components/Message/Message';
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import isEmail from 'is-email';
 
 export const Login = () => {
-	const [loginForm, setLoginForm] = useState({});
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 	const history = useHistory();
 
-	const handleChange = (e) => {
-		const name = e.target.name;
-		const value = e.target.value;
-		const newEntry = { [name]: value };
-		setLoginForm({ ...loginForm, ...newEntry });
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		setLoading(true);
-		try {
-			const res = await employerLogin(loginForm);
-			setuserDataToStorage(res.data.payload.data);
-			setTokenToStorage(res.data.payload.data.token);
-			setExpiryTimeToStorage(new Date());
-			setLoading(false);
-			res.data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
-		} catch (error) {
-			setLoading(false);
-			// console.log("error", error);
-			setError(true);
+	const onSubmit = async (formData) => {
+		if (formData) {
+			setLoading(true);
+			try {
+				const res = await employerLogin(formData);
+				setuserDataToStorage(res.data.payload.data);
+				setTokenToStorage(res.data.payload.data.token);
+				setExpiryTimeToStorage(new Date());
+				setLoading(false);
+				res.data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
+			} catch (error) {
+				setLoading(false);
+				// console.log("error", error);
+				setError(true);
+			}
 		}
 	};
 
@@ -42,24 +42,27 @@ export const Login = () => {
 			<div className="mobiles:p-0 flex flex-col mobiles:block mobiles:mt-20 mobiles:h-0 h-full justify-center mobiles:w-full auth_container mx-auto">
 				<h1 className="text-[21px] md:text-3xl font-bold uppercase">login</h1>
 				{error && (
-					<ErrorMessage title="Error" message="An error occured. Please ensure your email and password is correct." />
+					<ErrorMessage title="Error" message="An error occurred. Please ensure your email and password is correct." />
 				)}
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className={`${!error && 'mt-[46px]'}`}>
 						<InputField
 							label="Business Email Address"
-							required
 							type="email"
 							name="email"
-							onChange={handleChange}
 							placeholder="e.g Kelly@farfill.com"
+							errors={errors?.email ?? false}
+							{...register('email', {
+								required: true,
+								validate: (value) => isEmail(value) || 'Please enter a valid email address',
+							})}
 						/>
 						<PasswordInput
 							label="Enter password"
 							name="password"
-							required
-							onChange={handleChange}
 							placeholder="Enter password"
+							errors={errors?.password ?? false}
+							{...register('password', { required: true, minLength: 6 })}
 						/>
 					</div>
 					<div className="flex justify-between items-center text-sm md:text-base">

@@ -1,21 +1,20 @@
 /* eslint-disable no-unused-vars */
+import isEmail from 'is-email';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
 import { InputField, PasswordInput } from '../../components/Input';
-import { SuccessMessage, ErrorMessage } from '../../components/Message/Message';
+import { ErrorMessage } from '../../components/Message/Message';
 import { employerRegister } from '../../utils/ApiRequests';
 
 export const SignUp = () => {
-	const [formData, setFormData] = useState({
-		first_name: '',
-		last_name: '',
-		phone_number: '',
-		email: '',
-		password: '',
-		gender: 'male',
-	});
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState(false);
@@ -23,27 +22,22 @@ export const SignUp = () => {
 
 	const history = useHistory();
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		const newFormData = { [name]: value };
-		setFormData({ ...formData, ...newFormData });
-	};
+	const onSubmit = async (formData) => {
+		if (formData) {
+			setLoading(true);
+			try {
+				const res = await employerRegister(formData);
 
-	const submitForm = async (e) => {
-		e.preventDefault();
-		setLoading(true);
-		try {
-			const res = await employerRegister(formData);
-
-			if (res?.status === 200) {
-				setError(false);
+				if (res?.status === 200) {
+					setError(false);
+					setLoading(false);
+					history.push('/verify-email');
+				}
+			} catch (error) {
 				setLoading(false);
-				history.push('/verify-email');
+				setError(true);
+				setErrMessage('An error occured, please try again later.');
 			}
-		} catch (error) {
-			setLoading(false);
-			setError(true);
-			setErrMessage('An error occured, please try again later.');
 		}
 	};
 
@@ -51,53 +45,60 @@ export const SignUp = () => {
 		<div className="pt-10 laptops:pt-3">
 			<div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-20 mobiles:p-0 mobiles:h-0 auth_container mx-auto">
 				<h1 className="text-[21px] md:text-3xl font-bold uppercase">sign up</h1>
-				{success && (
-					<SuccessMessage
-						title="Registration Complete"
-						message="Thank you for signing up, check your email to complete your registration."
-					/>
-				)}
 				{error && <ErrorMessage title="Error" message={errMessage} />}
-				<form onSubmit={submitForm}>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className={`${!error && 'mt-[46px]'}`}>
 						<InputField
 							label="First name"
 							name="first_name"
-							required
-							onChange={handleChange}
 							type="text"
-							placeholder="e.g Kelly Now "
+							placeholder="e.g Kelly Now"
+							errors={errors?.first_name ?? false}
+							{...register('first_name', { required: true, minLengthL: 3 })}
 						/>
+						{/* Todo add select dropdown here */}
+						<InputField
+							label="Gender"
+							name="gender"
+							type="text"
+							placeholder="Male or Female"
+							errors={errors?.last_name ?? false}
+							{...register('gender', { required: true })}
+						/>
+
 						<InputField
 							label="Last name"
 							name="last_name"
-							required
 							type="text"
-							onChange={handleChange}
-							placeholder="e.g Kelly Now "
+							placeholder="e.g Kelly Now"
+							errors={errors?.last_name ?? false}
+							{...register('last_name', { required: true, minLength: 3 })}
 						/>
 						<InputField
 							label="Business Email Address"
-							required
 							name="email"
 							type="email"
-							onChange={handleChange}
 							placeholder="e.g Kelly@farfill.com"
+							errors={errors?.email ?? false}
+							{...register('email', {
+								required: true,
+								validate: (value) => isEmail(value) || 'Please enter a valid email address',
+							})}
 						/>
 						<InputField
 							label="Phone Number"
-							required
 							name="phone_number"
 							type="phone"
-							onChange={handleChange}
 							placeholder="+2348012345678"
+							errors={errors?.phone_number ?? false}
+							{...register('phone_number', { required: true })}
 						/>
 						<PasswordInput
-							required
 							name="password"
 							label="Enter password"
-							onChange={handleChange}
 							placeholder="Enter password"
+							errors={errors?.password ?? false}
+							{...register('password', { required: true })}
 						/>
 					</div>
 					<div className="signUp__submit-btn flex justify-end">
