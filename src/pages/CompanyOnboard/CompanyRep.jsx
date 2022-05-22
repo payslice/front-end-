@@ -5,6 +5,7 @@ import { InputField } from '../../components/Input';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { companyInfoOnboarding } from '../../utils/ApiRequests';
+import { Link } from 'react-router-dom';
 
 const CompanyRepresentative = () => {
 	const history = useHistory();
@@ -122,7 +123,10 @@ const CompanyRepresentative = () => {
 						/>
 					</div>
 				</div>
-				<div className="signUp__submit-btn flex justify-end">
+				<div className="signUp__submit-btn flex justify-between mt-10">
+					<Link to="/onboard/step1">
+						<button className="bg-gray-100 px-7 py-3 rounded-md font-semibold text-sm md:text-base">Go back</button>
+					</Link>
 					<Button type="submit" buttonText="Save" loading={loading} />
 				</div>
 			</form>

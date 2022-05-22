@@ -37,7 +37,7 @@ export const InputField = forwardRef(
 				<input
 					className={`${
 						errors ? 'border border-red-500' : 'border-gray-400 border-transparent'
-					} bg-gray-100 mb-5 mt-2 w-full  py-3 h-[61px] px-7 rounded outline-none input text-sm md:text-base`}
+					} bg-gray-100 mb-5 mt-2 w-full  py-3.5 h-[61px] px-7 rounded outline-none input text-sm md:text-base`}
 					type={type}
 					disabled={disabled}
 					placeholder={placeholder}

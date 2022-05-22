@@ -120,7 +120,7 @@ const CompanyOnboard = () => {
 						/>
 					</div>
 				</div>
-				<div className="signUp__submit-btn flex justify-end">
+				<div className="signUp__submit-btn flex justify-end mt-10">
 					<Button type="submit" buttonText="Save" loading={loading} />
 				</div>
 			</form>

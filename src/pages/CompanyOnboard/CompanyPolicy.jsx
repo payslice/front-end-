@@ -4,46 +4,40 @@ import { Button } from '../../components/Button/Button';
 import { InputField } from '../../components/Input';
 import { companyPolicy } from '../../utils/ApiRequests';
 import { toast } from 'react-toastify';
-import MiniLoader from '../../components/Loaders/MiniLoader';
 import { ErrorMessage } from '../../components/Message/Message';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 const CompanyPolicy = () => {
-	const [formData, setFormData] = useState({
-		// company_id: "df18a916-9006-4a64-aff0-0ffc1386518e",
-		salary_date: '',
-		salary_withdrawal_percentage: 50,
-		payroll_size: '',
-	});
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 	const [errMessage, setErrMessage] = useState('');
 	const history = useHistory();
 
-	const handleChange = (e) => {
-		const { value, name } = e.target;
-		const newFormData = { [name]: value };
-		setFormData({ ...formData, ...newFormData });
-		setErrMessage('');
-		setError(false);
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const companyId = sessionStorage.getItem('P_Slice_CID');
-		const payload = { ...formData, company_id: companyId };
-		setLoading(true);
-		try {
-			await companyPolicy(payload);
-			setLoading(false);
-			history.push('/onboard/step4');
-		} catch (error) {
-			toast.error('An error occured');
-			setError(true);
-			// console.log(error.response.data.payload.data);
-			setLoading(false);
-			setErrMessage(error.response.data.payload.data);
+	const onSubmit = async (formData) => {
+		if (formData) {
+			const companyId = sessionStorage.getItem('P_Slice_CID');
+			const payload = { ...formData, company_id: companyId };
+			setLoading(true);
+			try {
+				await companyPolicy(payload);
+				setLoading(false);
+				history.push('/onboard/step4');
+			} catch (error) {
+				toast.error('An error occured');
+				setError(true);
+				// console.log(error.response.data.payload.data);
+				setLoading(false);
+				setErrMessage(error.response.data.payload.data);
+			}
 		}
 	};
+
 	return (
 		<div>
 			<div className="text-xl md:text-2xl font-semibold">Company Policy</div>
@@ -53,7 +47,7 @@ const CompanyPolicy = () => {
 			</p>
 
 			{error && <ErrorMessage title="Error" message={errMessage} />}
-			<form onSubmit={handleSubmit} className="mt-5">
+			<form onSubmit={handleSubmit(onSubmit)} className="mt-5">
 				<div className="flex w-full mobiles:block">
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<InputField
@@ -61,19 +55,15 @@ const CompanyPolicy = () => {
 							name="payroll_size"
 							placeholder="Enter payroll size"
 							type="text"
-							onChange={handleChange}
-							required
+							errors={errors.payroll_size ?? false}
+							{...register('payroll_size', { required: true })}
 						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
 						<div className="mt-5">
 							<label>Salary date (every month)</label>
 							<div className="select-pay mb-5 mt-2">
-								<select
-									onChange={handleChange}
-									name="salary_date"
-									className="bg-gray-100 input px-5 py-3 w-full rounded "
-								>
+								<select name="salary_date" className="bg-gray-100 input px-5 py-3 w-full rounded ">
 									<option value="">Select option</option>
 									<option value="first_week">First Week</option>
 									<option value="second_week">Second Week</option>
@@ -92,14 +82,16 @@ const CompanyPolicy = () => {
 							placeholder="20"
 							type="number"
 							value="50"
-							readOnly
-							onChange={handleChange}
-							required
+							errors={errors.salary_withdrawal_percentage ?? false}
+							{...register('salary_withdrawal_percentage', { required: true })}
 						/>
 					</div>
 				</div>
-				<div className="signUp__submit-btn flex justify-end">
-					{loading ? <MiniLoader /> : <Button type="submit" buttonText="Save" />}
+				<div className="signUp__submit-btn flex justify-between mt-10">
+					<Link to="/onboard/step2">
+						<button className="bg-gray-100 px-7 py-3 rounded-md font-semibold text-sm md:text-base">Go back</button>
+					</Link>
+					<Button type="submit" buttonText="Save" loading={loading} />
 				</div>
 			</form>
 		</div>
