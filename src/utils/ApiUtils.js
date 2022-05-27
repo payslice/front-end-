@@ -1,4 +1,5 @@
 import { constant } from './ApiConstants';
+import Cookies from 'js-cookie';
 
 export const parseErrorToArray = (error) => {
 	const arr = [];
@@ -38,11 +39,11 @@ export const setClockInTimeToStorage = () => {
 };
 
 export const storageContainsToken = () => {
-	return !!localStorage.getItem(constant.tokenName);
+	return !!Cookies.get(constant.tokenName);
 };
 
 export const getTokenFromStorage = () => {
-	return localStorage.getItem(constant.tokenName);
+	return Cookies.get(constant.tokenName);
 };
 
 export const getUserDataFromStorage = () => {

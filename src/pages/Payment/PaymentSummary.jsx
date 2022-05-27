@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { Table } from 'antd';
+// import { Table } from 'antd';
 import { CustomTag } from '../../components/CustomTag';
 import { RiWalletFill } from 'react-icons/ri';
 import { useHistory } from 'react-router-dom';
@@ -124,29 +124,86 @@ const PaymentSummary = () => {
 	return (
 		<div className="__wrapper">
 			<div className="header">
-				<h2 className="text-2xl">Payments summary </h2>
-			</div>
-
-			<div className="box__wrapper flex w-full mobiles:block">
-				<div className="border border-gray-100 p-5 mr-5 my-3 rounded-xl w-1/4 mobiles:w-full">
-					<h2 className="text-2xl">Total withdrawals </h2>
-					<p className="text-normal"> {paymentList && paymentList[0]?.dateYear}</p>
-					<h2 className="text-2xl font-semibold">{toCurrency(totalWithdrawals)}</h2>
-				</div>
-				<div className="border border-gray-100 p-5 mr-5 my-3 rounded-xl w-1/4 mobiles:w-full">
-					<h2 className="text-2xl">Payment Due </h2>
-					<p className="text-normal">{paymentList && paymentList[0]?.dateYear}</p>
-					<h2 className="text-2xl font-semibold">{toCurrency(totalDue)}</h2>
-				</div>
-				<div className="border border-gray-100 p-5 mr-5 my-3 rounded-xl w-1/4 mobiles:w-full">
-					<h2 className="text-2xl">Due Date </h2>
-					<p className="text-normal">{salaryDate || 'N/A'}</p>
+				<div className="text-xl text-black font-semibold capitalize my-auto mobiles:mt-3 mobiles:hidden">
+					Payments summary{' '}
 				</div>
 			</div>
+			<div className="cards mt-10">
+				<div className="box__wrapper flex w-full mobiles:block">
+					<div className="w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6">
+						<p className="font-bold text-lg text-gray-600">Total withdrawals </p>
+						<p className="text-sm my-1.5">{paymentList?.length ? paymentList[0]?.dateYear : 'N/A'}</p>
+						<h2 className="text-[28px] font-bold flex justify-between items-center">{toCurrency(totalWithdrawals)}</h2>
+					</div>
+					<div className="w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6">
+						<p className="font-bold text-lg text-gray-600">Payment Due </p>
+						<p className="text-sm my-1.5">{paymentList?.length ? paymentList[0]?.dateYear : 'N/A'}</p>
+						<h2 className="text-[28px] font-bold flex justify-between items-center">{toCurrency(totalDue)}</h2>
+					</div>
+					<div className="w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6">
+						<p className="font-bold text-lg text-gray-600">Due Date</p>
+						<p className="text-[28px] font-bold flex justify-between items-center mt-8">{salaryDate || 'N/A'}</p>
+					</div>
+				</div>
 
-			<div className="text-2xl mt-16 mb-3">Withdrawal Payments</div>
-			<div className="employee-table my-8">
-				<Table columns={columns} dataSource={paymentList} loading={fetchingData} />
+				<div className="text-xl text-black font-semibold capitalize my-auto mt-16 mb-3 mobiles:hidden">
+					Withdrawal Payments
+				</div>
+				<div className="employee-table my-8">
+					<div className="relative mt-6">
+						<table className="w-full text-sm text-left border text-gray-500">
+							<thead className="text-xs text-gray-700 uppercase bg-gray-50">
+								<tr className="border-b">
+									<th scope="col" className="p-6">
+										<div className="flex items-center">
+											<input
+												id="checkbox-all"
+												type="checkbox"
+												className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+											/>
+											<label for="checkbox-all" className="sr-only">
+												checkbox
+											</label>
+										</div>
+									</th>
+									{columns.map(({ title }, i) => (
+										<th key={i} scope="col" className="px-6 py-3">
+											{title}
+										</th>
+									))}
+								</tr>
+							</thead>
+							<tbody>
+								{paymentList?.map(({ id, name, salary, balance }) => {
+									return (
+										<tr key={id} className="bg-white border-b last:border-none hover:bg-gray-50">
+											<td className="w-4 p-6">
+												<div className="flex items-center">
+													<input
+														id="checkbox-table-1"
+														type="checkbox"
+														className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+													/>
+													<label for="checkbox-table-1" className="sr-only">
+														checkbox
+													</label>
+												</div>
+											</td>
+											<td className="px-6 py-4">{name}</td>
+											<td className="px-6 py-4">{salary}</td>
+											<td className="px-6 py-4">{balance}</td>
+											<td className="px-6 py-4">
+												{/* <div className="flex items-center">
+													<OptionsMenu options={tableOptions} param={id} />
+												</div> */}
+											</td>
+										</tr>
+									);
+								})}
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

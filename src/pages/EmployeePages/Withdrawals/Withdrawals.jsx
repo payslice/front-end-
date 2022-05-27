@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { BiCalendarEvent } from 'react-icons/bi';
-import { Table } from 'antd';
+// import { Table } from 'antd';
 import { CustomTag } from '../../../components/CustomTag';
 import OptionsMenu from '../../../components/TableOptionMenu';
 import { getTotalTransactions, getWithdrawalRequest } from '../../../utils/ApiRequests';
@@ -119,7 +119,7 @@ const Withdrawals = () => {
 			</div>
 
 			<div className=" my-16">
-				<Table columns={columns} dataSource={transactionData} loading={fetchingData} />
+				{/* <Table columns={columns} dataSource={transactionData} loading={fetchingData} /> */}
 			</div>
 		</div>
 	);

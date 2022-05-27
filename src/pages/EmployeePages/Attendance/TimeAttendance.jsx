@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 // import { Button } from "../../../components/Button/Button";
 import { CustomTag } from '../../../components/CustomTag';
-import { Table } from 'antd';
+// import { Table } from 'antd';
 import { getClockIn, getClockOut } from '../../../utils/ApiRequests';
 import { getUserDataFromStorage } from '../../../utils/ApiUtils';
 import { toast } from 'react-toastify';
@@ -151,10 +151,10 @@ const TimeAttendance = () => {
 				</div>
 			</div>
 			<div className=" my-16">
-				<Table
+				{/* <Table
 					columns={activeTab === 0 ? columns : columns2}
 					dataSource={activeTab === 0 ? clockInData : clockOutData}
-				/>
+				/> */}
 			</div>
 		</div>
 	);

@@ -1,18 +1,16 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import { BsChevronLeft } from "react-icons/bs";
+import React from 'react';
+import { FaChevronLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
-export const BackButton = () => {
-  const history = useHistory();
-  return (
-    <>
-      <div
-        className="flex my-4 cursor-pointer"
-        onClick={() => history.goBack()}
-      >
-        <BsChevronLeft size="16px" className="my-auto mr-2 font-bold" />
-        <div className="text-normal">Go back</div>
-      </div>
-    </>
-  );
+export const BackButton = ({ url = '/' }) => {
+	return (
+		<Link to={url}>
+			<div className="flex my-4 cursor-pointer">
+				<div className="flex items-center">
+					<FaChevronLeft className="w-3 h-3" />
+					<span className="ml-1 font-semibold text-xs">Go Back</span>
+				</div>
+			</div>
+		</Link>
+	);
 };

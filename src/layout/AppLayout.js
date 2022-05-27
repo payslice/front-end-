@@ -18,7 +18,7 @@ const AppLayout = ({ children, navTab }) => {
 			<main className="h-screen mobiles:p-6 max-w-full w-full overscroll-x-hidden max-h-screen flex-1 overflow-y-auto mobiles:mt-20">
 				<Navbar />
 				{navTab && (
-					<div className="bg-gray-100 w-full flex py-5 px-8 mobiles:hidden">
+					<div className="bg-gray-100 w-full flex py-5 px-10 2xl:px-[76px] mobiles:hidden">
 						{navTab?.map((nav, i) => {
 							return (
 								<Link key={i} to={nav.link} className=" nav-tab text-gray-600 mr-5 cursor-pointer">

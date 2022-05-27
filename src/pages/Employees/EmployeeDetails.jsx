@@ -4,7 +4,6 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Button } from '../../components/Button/Button';
 import { CustomTag } from '../../components/CustomTag';
 import { EmployeeInfo } from '../../components/EmployeeInfo';
-import { Spin, Table } from 'antd';
 import { EmployeeTab } from '../../components/EmployeeTab';
 import { BackButton } from '../../components/BackButton';
 import { getClockInTime, getClockOut, getEmployeeClockOut, getOneEmployee } from '../../utils/ApiRequests';
@@ -149,23 +148,25 @@ const EmployeeDetails = () => {
 	];
 
 	return (
-		<div>
+		<div className="-mt-2 pb-16">
 			<EmployeeTab />
-			<div className="mt-8">
-				<BackButton />
-			</div>
-			<div className="text-2xl">Employee Details </div>
-			<div className="bg-gray-100 flex flex-wrap mobiles:w-full justify-between px-3 py-3 mt-8 w-max">
-				<div className="mobiles:w-1/2 px-3 mobiles:px-1">
+			<BackButton url="/employee" />
+			<div className="text-xl text-black font-semibold mt-10">Employee Details </div>
+			<div className="bg-[#F9F9F9] flex flex-wrap items-center mobiles:w-full px-[34px] py-3 mt-8 max-w-[807px] rounded-[5px] h-[50px]">
+				<div className="mobiles:w-1/2 text-sm font-semibold mobiles:px-1">
 					Date Joined : {new Date(employeeData?.workDetails.created_at).toLocaleDateString() || '...'}
 				</div>
-				<div className="mobiles:w-1/2 px-3 mobiles:px-1">Location: {employeeData?.workDetails?.location || '...'}</div>
-				<div className="mobiles:w-full px-3 mobiles:px-1">Employee ID: {employeeData?.employee_id || '...'}</div>
+				<div className="mobiles:w-1/2 mx-11 text-sm font-semibold mobiles:px-1">
+					Location: {employeeData?.workDetails?.location || '...'}
+				</div>
+				<div className="mobiles:w-full text-sm font-semibold mobiles:px-1">
+					Employee ID: {employeeData?.employee_id || '...'}
+				</div>
 			</div>
 			<div className="mt-12">
 				<div className="border border-gray-200 rounded-md">
-					<div className="flex py-8 px-5 justify-between border-b-2">
-						<div className="col-1 text-xl">Employee Details</div>
+					<div className="flex py-6 px-[37px] justify-between border-b-2">
+						<div className="col-1 text-xl font-semibold">Employee Details</div>
 						<div className="actn-col my-auto">
 							<BsThreeDotsVertical className="my-auto" />
 						</div>
@@ -173,23 +174,23 @@ const EmployeeDetails = () => {
 
 					{fetchingEmpData ? (
 						<div className="flex justify-center items-center p-10" style={{ height: 'inherit' }}>
-							<Spin />
+							{/* <Spin /> */}
 						</div>
 					) : (
 						<div className="content w-full flex mobiles:block">
-							<div className="w-1/3 p-5 mobiles:w-full">
+							<div className="w-1/3 px-[60px] py-7 mobiles:w-full">
 								<EmployeeInfo title="First Name" value={employeeData?.first_name} />
 								<EmployeeInfo title="Last Name" value={employeeData?.last_name} />
 								<EmployeeInfo title="Gender" value={employeeData?.gender} />
 								<EmployeeInfo title="Email Address" value={employeeData?.email} />
 								<EmployeeInfo title="Phone Number" value={employeeData?.phone_number} />
 							</div>
-							<div className="w-1/3 p-5 mobiles:w-full">
+							<div className="w-1/3 py-7 mobiles:w-full">
 								<EmployeeInfo title="Bank Name" value={employeeData?.bankDetails.bank_name} />
 								<EmployeeInfo title="Account Name" value={employeeData?.bankDetails.account_name} />
 								<EmployeeInfo title="Account Number" value={employeeData?.bankDetails.account_number} />
 							</div>
-							<div className="w-1/3 p-5 mobiles:w-full">
+							<div className="w-1/3 py-7 mobiles:w-full">
 								<EmployeeInfo
 									title="Salary Breakdown:"
 									value={`Basic salary - NGN ${parseInt(employeeData?.workDetails.staff_salary).toLocaleString()}`}
@@ -199,29 +200,115 @@ const EmployeeDetails = () => {
 							</div>
 						</div>
 					)}
-					<div className="my-5 flex">
-						<div
-							className={`px-8 py-3 ${
-								activeTab === 0 ? ' bg-blue-600 text-white' : 'bg-gray-100'
-							} cursor-pointer mx-5 rounded`}
-							onClick={() => setActiveTab(0)}
-						>
-							Time-in
-						</div>
-						<div
-							className={`px-8 py-3 ${
-								activeTab === 1 ? 'bg-blue-600 text-white' : ' bg-gray-100'
-							} cursor-pointer rounded`}
-							onClick={() => setActiveTab(1)}
-						>
-							Time-out
+					<div className="my-5 px-[60px]">
+						<div className="flex w-[209px] bg-gray-100 rounded-[5px] overflow-hidden">
+							<div
+								className={`px-6 py-3 ${
+									activeTab === 0 ? ' bg-blue-600 rounded-[5px] text-white' : 'bg-gray-100'
+								} cursor-pointer font-semibold text-sm`}
+								onClick={() => setActiveTab(0)}
+							>
+								Time-in
+							</div>
+							<div
+								className={`px-6 py-3 ${
+									activeTab === 1 ? 'bg-blue-600 rounded-[5px] text-white' : ' bg-gray-100'
+								} cursor-pointer  font-semibold text-sm`}
+								onClick={() => setActiveTab(1)}
+							>
+								Time-out
+							</div>
 						</div>
 					</div>
-					<div className="employee-table mb-16 mt-4 mx-5">
-						<Table
-							columns={activeTab === 0 ? columns : columns2}
-							dataSource={activeTab === 0 ? clockInData : clockOutData}
-						/>
+					<div className="employee-table mb-16 mt-16 px-[60px]">
+						<div className="relative">
+							<table className="w-full text-sm text-left border text-gray-500">
+								<thead className="text-xs text-gray-700 uppercase bg-gray-50">
+									<tr className="border-b">
+										<th scope="col" className="p-6">
+											<div className="flex items-center">
+												<input
+													id="checkbox-all"
+													type="checkbox"
+													className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+												/>
+												<label for="checkbox-all" className="sr-only">
+													checkbox
+												</label>
+											</div>
+										</th>
+										{activeTab === 0 &&
+											columns.map(({ title }, i) => (
+												<th key={i} scope="col" className="px-6 py-3">
+													{title}
+												</th>
+											))}
+										{activeTab === 1 &&
+											columns2.map(({ title }, i) => (
+												<th key={i} scope="col" className="px-6 py-3">
+													{title}
+												</th>
+											))}
+									</tr>
+								</thead>
+								<tbody>
+									{activeTab === 0 &&
+										clockInData?.map(({ id, name, salary, balance }) => {
+											return (
+												<tr className="bg-white border-b last:border-none hover:bg-gray-50">
+													<td className="w-4 p-6">
+														<div className="flex items-center">
+															<input
+																id="checkbox-table-1"
+																type="checkbox"
+																className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+															/>
+															<label for="checkbox-table-1" className="sr-only">
+																checkbox
+															</label>
+														</div>
+													</td>
+													{/* <td className="px-6 py-4">{name}</td>
+												<td className="px-6 py-4">{salary}</td>
+												<td className="px-6 py-4">{balance}</td> */}
+													<td className="px-6 py-4">
+														<div className="flex items-center">
+															{/* <OptionsMenu options={tableOptions} param={id} /> */}
+														</div>
+													</td>
+												</tr>
+											);
+										})}
+									{activeTab === 1 &&
+										clockOutData?.map(({ id, name, salary, balance }) => {
+											return (
+												<tr className="bg-white border-b last:border-none hover:bg-gray-50">
+													<td className="w-4 p-6">
+														<div className="flex items-center">
+															<input
+																id="checkbox-table-1"
+																type="checkbox"
+																className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+															/>
+															<label for="checkbox-table-1" className="sr-only">
+																checkbox
+															</label>
+														</div>
+													</td>
+													{/* <td className="px-6 py-4">{name}</td>
+												<td className="px-6 py-4">{salary}</td>
+												<td className="px-6 py-4">{balance}</td> */}
+													<td className="px-6 py-4">
+														<div className="flex items-center">
+															{/* <OptionsMenu options={tableOptions} param={id} /> */}
+														</div>
+													</td>
+												</tr>
+											);
+										})}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

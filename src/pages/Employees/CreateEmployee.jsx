@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Button } from '../../components/Button/Button';
-import { InputField } from '../../components/Input';
+import { InputField, SelectInput } from '../../components/Input';
 import MiniLoader from '../../components/Loaders/MiniLoader';
 import { ErrorMessage, SuccessMessage } from '../../components/Message/Message';
 import { saveEmployee } from '../../utils/ApiRequests';
@@ -9,44 +9,53 @@ import axios from 'axios';
 import Select from 'react-select';
 import { CustomSelect } from '../../components/Select';
 import { getUserDataFromStorage } from '../../utils/ApiUtils';
+import { FaChevronLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { persistSelector } from '../../slices/persist';
+import isEmail from 'is-email';
+import { BackButton } from '../../components/BackButton';
 
 const CreateEmployee = () => {
-	const initForm = {
-		first_name: '',
-		last_name: '',
-		phone_number: '',
-		email: '',
-		employee_id: '',
-		referral_link: '',
-		gender: '',
-		employment_type: '',
-		contract_length: '',
-		staff_salary: '',
-		currency: '',
-		location: '',
-		account_name: '',
-		account_number: '',
-		bank_name: '',
-		bank_code: '',
-		// bvn: "22323123219",
-	};
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm();
 
-	const [userData, setUserData] = useState(getUserDataFromStorage());
-	const [formData, setFormData] = useState(initForm);
+	const { user } = useSelector(persistSelector);
+
+	const genderTypes = [
+		{ name: 'Male', value: 'male' },
+		{ name: 'Female', value: 'female' },
+	];
+
+	const employmentTypes = [
+		{ name: 'Full time', value: 'full time' },
+		{ name: 'Contract', value: 'contract' },
+		{ name: 'Part time', value: 'part time' },
+		{ name: 'Intern', value: 'intern' },
+	];
+
+	const currencyTypes = [
+		{ name: 'NGN', value: 'NGN' },
+		{ name: 'USD', value: 'USD' },
+		{ name: 'GBP', value: 'GBP' },
+		{ name: 'EUR', value: 'EUR' },
+	];
+
 	const [fetchingBanks, setFetchingBanks] = useState(true);
 	const [bankList, setBankList] = useState();
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState(false);
+	const [gender, setGender] = useState(genderTypes[0]);
+	const [employmentType, setEmploymentType] = useState(employmentTypes[0]);
+	const [currency, setCurrency] = useState(currencyTypes[0]);
+	const [bank, setBank] = useState(bankList ? bankList[0] : null);
 	const [errMessage, setErrMessage] = useState();
-
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		const newFormData = { [name]: value };
-		setFormData({ ...formData, ...newFormData });
-		setError(false);
-		setSuccess(false);
-	};
 
 	useEffect(() => {
 		const fetchBanks = async () => {
@@ -64,168 +73,141 @@ const CreateEmployee = () => {
 		fetchBanks();
 	}, []);
 
-	const submitForm = async (e) => {
-		e.preventDefault();
-		setLoading(true);
-		try {
-			const res = await saveEmployee({
-				...formData,
-				company_id: userData?.company_id,
-			});
-			// console.log("response", res);
-			setLoading(false);
-			setSuccess(true);
-			setFormData(initForm);
-		} catch (error) {
-			setLoading(false);
-			setError(true);
-			setErrMessage('An error occured, please try again later.');
+	const onSubmit = async (formData) => {
+		if (formData) {
+			setLoading(true);
+			try {
+				const res = await saveEmployee({
+					...formData,
+					gender: gender.value,
+					currency: currency.value,
+					bank_name: bank?.label,
+					bank_code: bank?.value,
+					employment_type: employmentType?.value,
+					company_id: user?.company?.id,
+				});
+				setLoading(false);
+				reset();
+			} catch (error) {
+				setLoading(false);
+				setError(true);
+				setErrMessage('An error occured, please try again later.');
+			}
 		}
 	};
 
 	return (
-		<div>
-			<div className="header">
-				<h3 className="text-2xl mt-5">Create New Staff</h3>
-				<p>We need some information about your staff to process your request.</p>
+		<div className="-mt-2 pb-16">
+			<BackButton url="/employee" />
+			<div className="header mt-10">
+				<h3 className="text-xl text-black font-semibold">Create New Staff</h3>
+				<p className="text-sm mt-1">We need some information about your staff to process your request.</p>
 			</div>
+
+			{success && (
+				<SuccessMessage
+					title="Registration Complete"
+					message="Employee account has been created successfully and an invite has been sent to their email."
+				/>
+			)}
+			{error && <ErrorMessage title="Error" message={errMessage} />}
+
 			<div className="mt-5">
-				<form onSubmit={submitForm}>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className="flex w-full mobiles:block">
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
 								label="Staff first name"
-								required
 								name="first_name"
 								placeholder="Staff first name "
 								type="text"
-								value={formData.first_name}
-								onChange={handleChange}
+								errors={errors?.first_name ?? false}
+								{...register('first_name', { required: true, minLength: 3 })}
 							/>
 						</div>
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
 								label="Staff last name"
-								required
 								name="last_name"
 								placeholder="Staff last name "
 								type="text"
-								value={formData.last_name}
-								onChange={handleChange}
+								errors={errors?.last_name ?? false}
+								{...register('last_name', { required: true, minLength: 3 })}
 							/>
 						</div>
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
 								label="Email Address"
-								required
 								placeholder="Enter email address"
 								type="email"
 								name="email"
-								value={formData.email}
-								onChange={handleChange}
+								errors={errors?.email ?? false}
+								{...register('email', { required: true, validate: (value) => isEmail(value) })}
 							/>
 						</div>
 					</div>
 					<div className="flex w-full mobiles:block">
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
-								label="Phone Number "
-								required
+								label="Phone Number"
 								placeholder="Staff full name "
 								type="tel"
 								name="phone_number"
-								onChange={handleChange}
-								value={formData.phone_number}
+								errors={errors?.phone_number ?? false}
+								{...register('phone_number', { required: true })}
 							/>
 						</div>
-						<div className="w-1/3 mr-5 mt-5 mobiles:w-full">
-							<label htmlFor="" className="font-light text-normal">
-								Staff Gender
-							</label>
-							<Select
+						<div className="w-1/3 mr-5 mobiles:w-full">
+							<SelectInput
 								name="gender"
-								options={[
-									{ label: 'Male', value: 'male' },
-									{ label: 'Female', value: 'female' },
-								]}
-								className="bg-gray-100 mt-2 custom-select-input"
-								placeholder={formData.gender || 'Select gender'}
-								onChange={(val) => {
-									const { value } = val;
-									const e = {
-										target: {
-											name: 'gender',
-											value: value,
-										},
-									};
-									handleChange(e);
-								}}
+								label="Gender"
+								selectedValue={gender}
+								setSelectedValue={setGender}
+								options={genderTypes}
 							/>
 						</div>
 
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
 								label="Company Location"
-								required
 								placeholder="Company location"
 								type="text"
-								minLength="6"
 								name="location"
-								value={formData.location}
-								onChange={handleChange}
+								errors={errors?.location ?? false}
+								{...register('location', { required: true })}
 							/>
 						</div>
 					</div>
 					<div className="flex w-full mobiles:block">
-						<div className="w-1/3 mr-5 mt-5 mobiles:w-full">
-							<label htmlFor="" className="font-light text-normal">
-								Staff Bank Name
-							</label>
-							<Select
+						<div className="w-1/3 mr-5 mobiles:w-full">
+							<SelectInput
 								name="bank_name"
-								isLoading={fetchingBanks}
+								label="Select bank"
 								options={bankList}
-								className="bg-gray-100 mt-2 custom-select-input"
-								placeholder={formData.bank_name || 'Select bank'}
-								onChange={(val) => {
-									const { label, value } = val;
-									const e = {
-										target: {
-											name: 'bank_name',
-											value: label,
-										},
-									};
-									setFormData({
-										...formData,
-										bank_name: label,
-										bank_code: value,
-									});
-									// handleChange(e);
-								}}
+								selectedValue={bank}
+								setSelectedValue={setBank}
 							/>
 						</div>
 
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
-								label="Account Number "
-								required
+								label="Account Number"
 								placeholder="Enter account number"
 								type="number"
-								value={formData.account_number}
 								name="account_number"
-								onChange={handleChange}
+								errors={errors?.account_number ?? false}
+								{...register('account_number', { required: true })}
 							/>
 						</div>
 
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
 								label="Staff Account Name  "
-								required
 								placeholder="Staff full name"
 								type="text"
 								name="account_name"
-								value={formData.account_name}
-								onChange={handleChange}
+								errors={errors?.account_name ?? false}
+								{...register('account_name', { required: true })}
 							/>
 						</div>
 					</div>
@@ -233,99 +215,50 @@ const CreateEmployee = () => {
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
 								label="Salary (amount)"
-								required
 								placeholder="Staff salary "
 								type="number"
 								name="staff_salary"
-								value={formData.staff_salary}
-								onChange={handleChange}
+								errors={errors?.staff_salary ?? false}
+								{...register('staff_salary', { required: true })}
 							/>
 						</div>
-						<div className="w-1/3 mr-5 mt-5 mobiles:w-full">
-							<label htmlFor="" className="font-light text-normal">
-								Currency
-							</label>
-							<Select
-								name="currency"
-								options={[
-									{ label: 'NGN', value: 'NGN' },
-									{ label: 'USD', value: 'USD' },
-									{ label: 'GBP', value: 'GBP' },
-									{ label: 'EUR', value: 'EUR' },
-								]}
-								className="bg-gray-100 mt-2 custom-select-input"
-								placeholder={formData.currency || 'Select currency'}
-								onChange={(val) => {
-									const { value } = val;
-									const e = {
-										target: {
-											name: 'currency',
-											value: value,
-										},
-									};
-									handleChange(e);
-								}}
+						<div className="w-1/3 mr-5 mobiles:w-full">
+							<SelectInput
+								label="Currency"
+								options={currencyTypes}
+								selectedValue={currency}
+								setSelectedValue={setCurrency}
 							/>
 						</div>
 
-						<div className="w-1/3 mr-5 mt-5 mobiles:w-full">
-							<label htmlFor="" className="font-light text-normal">
-								Employment type
-							</label>
-							<Select
-								name="employment_type"
-								options={[
-									{ label: 'Full time', value: 'full time' },
-									{ label: 'Contract', value: 'contract' },
-									{ label: 'Part time', value: 'part time' },
-									{ label: 'Intern', value: 'intern' },
-								]}
-								className="bg-gray-100 mt-2 custom-select-input"
-								placeholder={formData.employment_type || 'Select type'}
-								onChange={(val) => {
-									const { value } = val;
-									const e = {
-										target: {
-											name: 'employment_type',
-											value: value,
-										},
-									};
-									handleChange(e);
-								}}
+						<div className="w-1/3 mr-5 mobiles:w-full">
+							<SelectInput
+								options={employmentTypes}
+								label="Select type"
+								selectedValue={employmentType}
+								setSelectedValue={setEmploymentType}
 							/>
 						</div>
 					</div>
-					{formData.employment_type === 'contract' && (
+					{employmentType?.value === 'contract' && (
 						<div className="flex w-full mobiles:block">
 							<div className="w-1/3 mr-5 mobiles:w-full">
 								<InputField
 									label="Contract length (in months)"
-									required
 									placeholder="Enter contract length"
 									type="number"
 									name="contract_length"
-									value={formData.contract_length}
-									onChange={handleChange}
+									errors={errors?.contract_length ?? false}
+									{...register('contract_length', { required: true })}
 								/>
 							</div>
 						</div>
 					)}
 
 					<div className="mt-5">
-						{loading ? (
-							<MiniLoader />
-						) : (
-							<Button type="submit" className="mobiles:w-full" buttonText="Send invitation" />
-						)}
+						<Button type="submit" className="mobiles:w-full" buttonText="Send invitation" loading={loading} base />
 					</div>
 				</form>
-				{success && (
-					<SuccessMessage
-						title="Registration Complete"
-						message="Employee account has been created successfully and an invite has been sent to their email."
-					/>
-				)}
-				{error && <ErrorMessage title="Error" message={errMessage} />}
 			</div>
 		</div>
 	);

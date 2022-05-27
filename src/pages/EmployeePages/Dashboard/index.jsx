@@ -12,7 +12,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { toCurrency, truncateString } from '../../../utils/helpers';
-import { Spin } from 'antd';
+// import { Spin } from 'antd';
 import { DotLoader } from '../../../components/Loaders/DotLoader';
 import { getUserDataFromStorage, removeClockInFromStorage, setClockInTimeToStorage } from '../../../utils/ApiUtils';
 import { constant } from '../../../utils/ApiConstants';
@@ -202,11 +202,7 @@ const UserDashboard = () => {
 						Show more
 					</div>
 				</div>
-				{fetchingData && (
-					<div className="p-10 flex justify-center items-center ">
-						<Spin />
-					</div>
-				)}
+				{fetchingData && <div className="p-10 flex justify-center items-center ">{/* <Spin /> */}</div>}
 				{!fetchingData && transactionData?.length === 0 && (
 					<div className="p-10 flex justify-center items-center ">
 						<p>No available transaction</p>

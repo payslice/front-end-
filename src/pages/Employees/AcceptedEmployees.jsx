@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
-import { Table } from 'antd';
 import { CustomTag } from '../../components/CustomTag';
 
 import OptionsMenu from '../../components/TableOptionMenu';
@@ -55,16 +54,6 @@ export const AcceptedEmployees = () => {
 		},
 	];
 
-	const rowSelection = {
-		onChange: (selectedRowKeys, selectedRows) => {
-			// console.log(
-			//   `selectedRowKeys: ${selectedRowKeys}`,
-			//   "selectedRows: ",
-			//   selectedRows
-			// );
-		},
-	};
-
 	const data = [
 		{
 			key: '1',
@@ -115,6 +104,8 @@ export const AcceptedEmployees = () => {
 		},
 	];
 
+	console.log(data);
+
 	return (
 		<div>
 			<div className="table-header flex w-full justify-between mobiles:block">
@@ -123,14 +114,89 @@ export const AcceptedEmployees = () => {
 			</div>
 
 			<div className="employee-table my-16 mobiles:hidden">
-				<Table
+				{/* <Table
 					rowSelection={{
 						type: 'checkbox',
 						...rowSelection,
 					}}
 					columns={columns}
 					dataSource={data}
-				/>
+				/> */}
+				<div className="relative mt-6">
+					<table className="w-full text-sm text-left border text-gray-500">
+						<thead className="text-xs text-gray-700 uppercase bg-gray-50">
+							<tr className="border-b">
+								<th scope="col" className="p-6">
+									<div className="flex items-center">
+										<input
+											id="checkbox-all"
+											type="checkbox"
+											className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+										/>
+										<label for="checkbox-all" className="sr-only">
+											checkbox
+										</label>
+									</div>
+								</th>
+								{columns.map(({ title }, i) => (
+									<th key={i} scope="col" className="px-6 py-3">
+										{title}
+									</th>
+								))}
+							</tr>
+						</thead>
+						<tbody>
+							{data?.map(({ id, key, name, phoneEmail, status, date }) => {
+								return (
+									<tr key={key} className="bg-white border-b last:border-none hover:bg-gray-50">
+										<td className="w-4 p-6">
+											<div className="flex items-center">
+												<input
+													id="checkbox-table-1"
+													type="checkbox"
+													className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+												/>
+												<label for="checkbox-table-1" className="sr-only">
+													checkbox
+												</label>
+											</div>
+										</td>
+										<td className="px-6 py-4">{name ?? 'XXXX'}</td>
+										<td className="px-6 py-4">{phoneEmail ?? 'XXXX'}</td>
+										<td className="px-6 py-4">{key ?? 'XXXX'}</td>
+										<td className="px-6 py-4">
+											{status ? (
+												status === 'Pending' ? (
+													<div
+														className="bg-green-200 py-1.5 text-center font-semibold rounded-md text-green-700 w-28 text-sm
+												"
+													>
+														Pending
+													</div>
+												) : (
+													<div
+														className="bg-red-200 py-1.5 text-center font-semibold rounded-md text-red-700 w-28 text-sm
+												"
+													>
+														{status}
+													</div>
+												)
+											) : (
+												'XXXX'
+											)}
+										</td>
+										<td className="px-6 py-4">{date ?? 'XXXX'}</td>
+										<td className="px-6 py-4">
+											<div className="flex items-center">
+												<OptionsMenu options={tableOptions} param={key} />
+											</div>
+										</td>
+									</tr>
+								);
+							})}
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div className="mobiles:block hidden">
 				<AcceptedEmployeeCard />

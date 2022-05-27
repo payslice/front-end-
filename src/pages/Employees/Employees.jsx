@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '../../components/Button/Button';
 import { GreyButton } from '../../components/Button/GreyButton';
-import { Table } from 'antd';
+// import { Table } from 'antd';
 import { useHistory } from 'react-router-dom';
 import OptionsMenu from '../../components/TableOptionMenu';
 import { deleteEmployee, getAllEmployees, getEmployeeInfoList } from '../../utils/ApiRequests';
@@ -77,60 +77,12 @@ export const Employees = () => {
 		{
 			title: 'Action',
 			dataIndex: 'action',
-			render: (text, record) => {
-				return <OptionsMenu options={tableOptions} param={record.id} />;
-			},
 		},
 	];
-
-	const rowSelection = {
-		onChange: (selectedRowKeys, selectedRows) => {
-			// console.log(
-			//   `selectedRowKeys: ${selectedRowKeys}`,
-			//   "selectedRows: ",
-			//   selectedRows
-			// );
-		},
-	};
 
 	const gotoDetailsPage = () => {
 		history.push('/employee/1');
 	};
-
-	const mockData = [
-		{
-			key: '1',
-			name: 'John Brown',
-			phoneEmail: +2348012299289,
-			bankDetails: 'GTBank',
-			salary: '80,000',
-			balance: '50,000',
-		},
-		{
-			key: '2',
-			name: 'John Brown',
-			phoneEmail: +2348012299289,
-			bankDetails: 'GTBank',
-			salary: '80,000',
-			balance: '50,000',
-		},
-		{
-			key: '3',
-			name: 'John Brown',
-			phoneEmail: +2348012299289,
-			bankDetails: 'GTBank',
-			salary: '80,000',
-			balance: '50,000',
-		},
-		{
-			key: '4',
-			name: 'John Brown',
-			phoneEmail: +2348012299289,
-			bankDetails: 'GTBank',
-			salary: '80,000',
-			balance: '50,000',
-		},
-	];
 
 	const handleClick = (param) => {
 		console.log('param', param);
@@ -140,7 +92,6 @@ export const Employees = () => {
 		setDeleting(true);
 		try {
 			const res = await deleteEmployee(id);
-
 			setDeleting(false);
 		} catch (error) {
 			toast.error("can't delete, an error occured");
@@ -165,13 +116,16 @@ export const Employees = () => {
 			onClick: handleViewDetails,
 		},
 	];
+
 	return (
 		<div>
-			<div className="table-header flex w-full justify-between mobiles:block">
+			<div className="table-header flex w-full justify-between mobiles:block -mt-2">
 				<EmployeeTab />
-				<div className="text-xl my-auto mobiles:mt-3 mobiles:hidden">Employees payroll Report</div>
-				<div className="my-auto mobiles:flex mobiles:justify-end mobiles:mb-4">
-					<Button buttonText="Pay Full Payroll" className="mobiles:px-3 mobiles:py-2" />
+				<div className="flex items-center justify-between w-full">
+					<div className="text-xl text-black font-semibold capitalize my-auto mobiles:mt-3 mobiles:hidden">
+						Employees payroll Report
+					</div>
+					<Button buttonText="Pay Full Payroll" base />
 				</div>
 				<div className="mobiles:flex hidden justify-between mb-3 mt-5">
 					<div className="text-normal my-auto ">Employees payroll Report</div>
@@ -192,26 +146,59 @@ export const Employees = () => {
           />
         </div> */}
 			</div>
-
-			<div className="employee-table my-16 mobiles:hidden">
-				<Table
-					rowSelection={{
-						type: 'checkbox',
-						...rowSelection,
-					}}
-					loading={fetchingData}
-					className="cursor-pointer"
-					// onRow={(record, i) => {
-					//   return {
-					//     onClick: (event) => {
-					//       console.log("record", record);
-					//       history.push("/employee/1");
-					//     },
-					//   };
-					// }}
-					columns={columns}
-					dataSource={employees}
-				/>
+			​
+			<div className="relative mt-6">
+				<table className="w-full text-sm text-left border text-gray-500">
+					<thead className="text-xs text-gray-700 uppercase bg-gray-50">
+						<tr className="border-b">
+							<th scope="col" className="p-6">
+								<div className="flex items-center">
+									<input
+										id="checkbox-all"
+										type="checkbox"
+										className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+									/>
+									<label for="checkbox-all" className="sr-only">
+										checkbox
+									</label>
+								</div>
+							</th>
+							{columns.map(({ title }, i) => (
+								<th key={i} scope="col" className="px-6 py-3">
+									{title}
+								</th>
+							))}
+						</tr>
+					</thead>
+					<tbody>
+						{employees?.map(({ id, name, salary, balance }) => {
+							return (
+								<tr key={id} className="bg-white border-b last:border-none hover:bg-gray-50">
+									<td className="w-4 p-6">
+										<div className="flex items-center">
+											<input
+												id="checkbox-table-1"
+												type="checkbox"
+												className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+											/>
+											<label for="checkbox-table-1" className="sr-only">
+												checkbox
+											</label>
+										</div>
+									</td>
+									<td className="px-6 py-4">{name}</td>
+									<td className="px-6 py-4">{salary}</td>
+									<td className="px-6 py-4">{balance}</td>
+									<td className="px-6 py-4">
+										<div className="flex items-center">
+											<OptionsMenu options={tableOptions} param={id} />
+										</div>
+									</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
 			</div>
 			<div className="mobiles:block hidden">
 				<EmployeeCard gotoDetailsPage={gotoDetailsPage} />

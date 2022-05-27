@@ -11,8 +11,11 @@ import {
 } from '../../../utils/ApiRequests';
 import { removeUserDataFromStorage, setuserDataToStorage, getUserDataFromStorage } from '../../../utils/ApiUtils';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { persistSelector } from '../../../slices/persist';
 
 const PersonalInfo = () => {
+	const { user } = useSelector(persistSelector);
 	const initPasswordForm = {
 		email: '',
 		new_password: '',
@@ -20,12 +23,11 @@ const PersonalInfo = () => {
 	};
 
 	const [imgFile, setImgFile] = useState();
-	const userData = getUserDataFromStorage();
 
-	const { first_name, last_name, email, phone_number, bankDetails, id, workDetails } = userData;
+	const { first_name, last_name, email, phone_number, bankDetails, id, workDetails } = user;
 
 	const [formData, setFormData] = useState({
-		...userData,
+		...user,
 		first_name: first_name,
 		last_name: last_name,
 		phone_number: phone_number,
@@ -55,7 +57,7 @@ const PersonalInfo = () => {
 		let bodyFormData = new FormData();
 		bodyFormData.append('file', imgFile);
 		bodyFormData.append('section', 'employee');
-		bodyFormData.append('section_id', userData.id);
+		bodyFormData.append('section_id', user?.id);
 		setUploading(true);
 		try {
 			const res = await uploadFile(bodyFormData);

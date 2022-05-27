@@ -1,27 +1,46 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
-import { InputField } from '../../components/Input';
+import { InputField, SelectInput } from '../../components/Input';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { companyInfoOnboarding } from '../../utils/ApiRequests';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { persistSelector } from '../../slices/persist';
 
 const CompanyRepresentative = () => {
 	const history = useHistory();
+	const { user } = useSelector(persistSelector);
+	const idTypes = [
+		{ id: 0, name: 'Passport', value: 'international passport' },
+		{ id: 1, name: 'NIN', value: 'nin' },
+		{ id: 2, name: 'Voters Card', value: 'permanent voters card' },
+	];
+
 	const {
 		register,
 		handleSubmit,
 		reset,
 		formState: { errors },
 	} = useForm();
+	const [selectedValue, setSelectedValue] = useState(idTypes[0]);
 	const [loading, setLoading] = useState(false);
 
 	const onSubmit = async (formData) => {
 		if (formData) {
 			setLoading(true);
 			try {
-				const res = await companyInfoOnboarding(formData);
+				const res = await companyInfoOnboarding({
+					company_id: user?.company?.id,
+					user_id: user?.id,
+					id_type: [
+						{
+							in: [selectedValue?.value],
+						},
+					],
+					...formData,
+				});
 
 				if (res.status === 200 && res.data) {
 					setLoading(false);
@@ -79,13 +98,12 @@ const CompanyRepresentative = () => {
 						/>
 					</div>
 					<div className="w-1/2 pr-5 mobiles:w-full mobiles:p-0">
-						<InputField
+						<SelectInput
 							label="ID Type"
-							name="id_type"
-							placeholder="ABC Company"
-							type="text"
-							errors={errors.id_type ?? false}
-							{...register('id_type', { required: true })}
+							required
+							options={idTypes}
+							selectedValue={selectedValue}
+							setSelectedValue={setSelectedValue}
 						/>
 					</div>
 				</div>
@@ -119,7 +137,7 @@ const CompanyRepresentative = () => {
 							placeholder="ABC Company"
 							type="text"
 							errors={errors.title ?? false}
-							{...register('title', { required: true })}
+							{...register('title', { required: true, minLength: 2 })}
 						/>
 					</div>
 				</div>

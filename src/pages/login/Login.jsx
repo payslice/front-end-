@@ -3,13 +3,21 @@ import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
 import { InputField, PasswordInput } from '../../components/Input';
 import { employerLogin } from '../../utils/ApiRequests';
-import { setExpiryTimeToStorage, setTokenToStorage, setuserDataToStorage } from '../../utils/ApiUtils';
+import { setExpiryTimeToStorage } from '../../utils/ApiUtils';
 import { ErrorMessage } from '../../components/Message/Message';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import isEmail from 'is-email';
+import Cookies from 'js-cookie';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser, persistSelector } from '../../slices/persist';
 
 export const Login = () => {
+	const dispatch = useDispatch();
+	const data = useSelector(persistSelector);
+
+	console.log(data);
+
 	const {
 		register,
 		handleSubmit,
@@ -24,8 +32,8 @@ export const Login = () => {
 			setLoading(true);
 			try {
 				const res = await employerLogin(formData);
-				setuserDataToStorage(res.data.payload.data);
-				setTokenToStorage(res.data.payload.data.token);
+				dispatch(setUser(res.data.payload.data));
+				Cookies.set('PAYSL-ADTK', res.data.payload.data.token);
 				setExpiryTimeToStorage(new Date());
 				setLoading(false);
 				res.data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
