@@ -29,7 +29,7 @@ const TimeAttendance = () => {
 				});
 				setClockInData(resetData);
 			} catch (error) {
-				toast.error('an error occured');
+				toast.error('an error occurred');
 			}
 		};
 
@@ -47,7 +47,7 @@ const TimeAttendance = () => {
 				});
 				setClockOutData(resetData);
 			} catch (error) {
-				toast.error('an error occured');
+				toast.error('an error occurred');
 			}
 		};
 		getClockInData();

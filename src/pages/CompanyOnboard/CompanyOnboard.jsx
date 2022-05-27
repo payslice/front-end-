@@ -25,7 +25,7 @@ const CompanyOnboard = () => {
 				sessionStorage.setItem('P_Slice_CID', res.data.payload.data.id);
 				history.push('/onboard/step2');
 			} catch (error) {
-				toast.error(error?.response?.data?.payload?.data?.errors?.name[0] || 'An error occured');
+				toast.error(error?.response?.data?.payload?.data?.errors?.name[0] || 'An error occurred');
 				setLoading(false);
 			}
 		}

@@ -41,7 +41,7 @@ const EmployeeDetails = () => {
 				setEmployeeData(res.data.payload.data);
 				setFetchingEmpData(false);
 			} catch (error) {
-				toast.error('An error occured');
+				toast.error('An error occurred');
 				setFetchingEmpData(false);
 			}
 		};
@@ -64,7 +64,7 @@ const EmployeeDetails = () => {
 				});
 				setClockInData(resetData);
 			} catch (error) {
-				toast.error('an error occured');
+				toast.error('an error occurred');
 			}
 		};
 
@@ -82,7 +82,7 @@ const EmployeeDetails = () => {
 				});
 				setClockOutData(resetData);
 			} catch (error) {
-				toast.error('an error occured');
+				toast.error('an error occurred');
 			}
 		};
 		if (id) {

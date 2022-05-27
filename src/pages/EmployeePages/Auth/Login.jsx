@@ -34,7 +34,7 @@ export const UserLogin = () => {
 			setLoading(false);
 			history.push('/user/dashboard');
 		} catch (error) {
-			toast.error('An error occured, ensure details are correct');
+			toast.error('An error occurred, ensure details are correct');
 			setLoading(false);
 			// console.log("error", error.response.data.payload.data);
 			setError(true);
@@ -45,7 +45,7 @@ export const UserLogin = () => {
 			<div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-20 mobiles:p-0 mobiles:h-0 auth_container mx-auto">
 				<h1 className="text-[21px] md:text-3xl font-bold uppercase">login</h1>
 				{error && (
-					<ErrorMessage title="Error" message="An error occured. Please ensure your email and password is correct." />
+					<ErrorMessage title="Error" message="An error occurred. Please ensure your email and password is correct." />
 				)}
 				<form onSubmit={submitForm}>
 					<div className={`${!error && 'mt-[46px]'}`}>

@@ -28,7 +28,7 @@ const PaymentHistory = () => {
 				setPaymentData(resetData);
 				setFetchingData(false);
 			} catch (error) {
-				toast.error('an error occured');
+				toast.error('an error occurred');
 
 				setFetchingData(false);
 			}

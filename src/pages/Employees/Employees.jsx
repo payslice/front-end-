@@ -37,7 +37,7 @@ export const Employees = () => {
 				setEmployees(restructuredData);
 				setFetchingData(false);
 			} catch (error) {
-				toast.error('An error occured.');
+				toast.error('An error occurred.');
 				setFetchingData(false);
 			}
 		};
@@ -94,7 +94,7 @@ export const Employees = () => {
 			const res = await deleteEmployee(id);
 			setDeleting(false);
 		} catch (error) {
-			toast.error("can't delete, an error occured");
+			toast.error("can't delete, an error occurred");
 			setDeleting(false);
 		}
 	};

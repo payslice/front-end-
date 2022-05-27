@@ -59,7 +59,7 @@ const DashboardHome = () => {
 				res.data.payload.data.length > 0 && setPolicyResponse(res?.data?.payload?.data[0]);
 			} catch (error) {
 				// console.log("error", error);
-				toast.error('An error occured');
+				toast.error('An error occurred');
 			}
 		};
 
@@ -78,7 +78,7 @@ const DashboardHome = () => {
 				// setGraphData(dataRes);
 			} catch (error) {
 				// console.log("approved error", error);
-				toast.error('An error occured');
+				toast.error('An error occurred');
 			}
 		};
 

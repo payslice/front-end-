@@ -1,24 +1,33 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Button } from '../../components/Button/Button';
-import { InputField } from '../../components/Input';
+import { InputField, SelectInput } from '../../components/Input';
 import { CustomSelect } from '../../components/Select';
 import { changePassword, getAllCompanyPolicy, getCompanyPolicy } from '../../utils/ApiRequests';
 import { toast } from 'react-toastify';
 import { getUserDataFromStorage } from '../../utils/ApiUtils';
+import { useSelector } from 'react-redux';
+import { persistSelector } from '../../slices/persist';
 
 const LegalInfo = () => {
+	const { user } = useSelector(persistSelector);
 	const initPasswordForm = {
 		email: '',
 		new_password: '',
 		confirm_password: '',
 	};
 
+	const salaryDates = [
+		{ id: 0, name: 'First Week', value: 'first_week' },
+		{ id: 1, name: 'Second Week', value: 'second_week' },
+		{ id: 2, name: 'Last Week', value: 'last_week' },
+	];
+	const [selectedValue, setSelectedValue] = useState(salaryDates[0]);
+
 	const [changingPassword, setPasswordChanging] = useState(false);
 	const [passwordForm, setPasswordForm] = useState(initPasswordForm);
-	const userData = getUserDataFromStorage();
 
-	const { company } = userData;
+	const company = user?.company;
 
 	useEffect(() => {
 		const getPolicy = async () => {
@@ -43,16 +52,16 @@ const LegalInfo = () => {
 		try {
 			await changePassword(passwordForm);
 			setPasswordChanging(false);
-			toast.success('Password changed successfull');
+			toast.success('Password changed successful');
 			setPasswordForm(initPasswordForm);
 		} catch (error) {
-			toast.error('An error occured');
+			toast.error('An error occurred');
 		}
 	};
 
 	return (
-		<div className="my-5">
-			<h2 className="text-2xl">Company legal infomation</h2>
+		<div className="">
+			<div className="text-xl text-black font-semibold capitalize my-auto">Company legal information</div>
 
 			<div className="my-8">
 				<form>
@@ -118,7 +127,7 @@ const LegalInfo = () => {
 							/>
 						</div>
 					</div>
-					<Button type="submit" disabled buttonText="Update  changes" />
+					<Button type="submit" disabled buttonText="Update  changes" base />
 				</form>
 
 				<div className="text-xl mt-8">Policy Info</div>
@@ -127,19 +136,13 @@ const LegalInfo = () => {
 						<div className="flex mobiles:block">
 							<div className="w-1/3 mr-5  mobiles:w-full mobiles:mr-0">
 								<div className="mt-5">
-									<label>Salary date (every month)</label>
-									<div className="select-pay mb-5 mt-2">
-										<select
-											// onChange={handleChange}
-											name="salary_date"
-											className="bg-gray-200 px-5 py-3 w-full rounded "
-										>
-											<option value="">Select option</option>
-											<option value="first_week">First Week</option>
-											<option value="second_week">Second Week</option>
-											<option value="last_week"> Last Week</option>
-										</select>
-									</div>
+									<SelectInput
+										label="Salary date (every month)"
+										required
+										options={salaryDates}
+										selectedValue={selectedValue}
+										setSelectedValue={setSelectedValue}
+									/>
 								</div>
 							</div>
 							<div className="w-1/3 mr-5  mobiles:w-full mobiles:mr-0">
@@ -161,7 +164,7 @@ const LegalInfo = () => {
               </div> */}
 						</div>
 						<div className="mt-5">
-							<Button type="submit" buttonText="Update  changes" />
+							<Button type="submit" buttonText="Update  changes" base />
 						</div>
 					</form>
 				</div>
@@ -204,7 +207,7 @@ const LegalInfo = () => {
 						</div>
 					</div>
 					<div className="mt-3">
-						<Button loading={changingPassword} buttonText="Change Password" />
+						<Button loading={changingPassword} buttonText="Change Password" base />
 					</div>
 				</form>
 			</div>

@@ -49,7 +49,7 @@ const TotalTransactions = () => {
 				setPermData(resData);
 				setLoading(false);
 			} catch (error) {
-				toast.error('An error occured');
+				toast.error('An error occurred');
 				setLoading(false);
 			}
 		};
@@ -57,7 +57,7 @@ const TotalTransactions = () => {
 			try {
 				const response = await getEmployeeWithdrawalWithParams(user?.company_id, 'approved');
 			} catch (error) {
-				toast.error('An error occured, please try again');
+				toast.error('An error occurred, please try again');
 			}
 		};
 		getAllTransaction();

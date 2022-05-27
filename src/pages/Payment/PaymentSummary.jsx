@@ -48,7 +48,7 @@ const PaymentSummary = () => {
 				const res = await getAllCompanyPolicy();
 				res.data.payload.data.length > 0 && setPolicyResponse(res.data.payload.data[0]);
 			} catch (error) {
-				toast.error('An error occured, please try again');
+				toast.error('An error occurred, please try again');
 			}
 		};
 		fetchPaymentLogs();

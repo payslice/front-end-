@@ -37,7 +37,7 @@ const CompanyPolicy = () => {
 				setLoading(false);
 				history.push('/onboard/step4');
 			} catch (error) {
-				toast.error('An error occured');
+				toast.error('An error occurred');
 				setError(true);
 				// console.log(error.response.data.payload.data);
 				setLoading(false);

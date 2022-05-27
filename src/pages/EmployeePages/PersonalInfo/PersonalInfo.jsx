@@ -64,7 +64,7 @@ const PersonalInfo = () => {
 
 			setUploading(false);
 		} catch (error) {
-			toast.error('An error occured, please try again');
+			toast.error('An error occurred, please try again');
 			setUploading(false);
 		}
 	};
@@ -93,7 +93,7 @@ const PersonalInfo = () => {
 			toast.success('Password changed successfull');
 			setPasswordForm(initPasswordForm);
 		} catch (error) {
-			toast.error('An error occured');
+			toast.error('An error occurred');
 		}
 	};
 
@@ -107,7 +107,7 @@ const PersonalInfo = () => {
 			setSubmitting(false);
 			window.location.reload();
 		} catch (error) {
-			toast.error('An error occured, please try again');
+			toast.error('An error occurred, please try again');
 			setSubmitting(false);
 		}
 	};

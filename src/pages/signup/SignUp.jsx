@@ -36,7 +36,7 @@ export const SignUp = () => {
 			} catch (error) {
 				setLoading(false);
 				setError(true);
-				setErrMessage('An error occured, please try again later.');
+				setErrMessage('An error occurred, please try again later.');
 			}
 		}
 	};

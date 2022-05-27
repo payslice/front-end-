@@ -45,7 +45,7 @@ const UserDashboard = () => {
 				const res = await getAvailableWithdrawFunds();
 				setAvailableFunds(res.data.payload.data);
 			} catch (error) {
-				toast.error('An error occured');
+				toast.error('An error occurred');
 			}
 		};
 		const getTotalWithdrawn = async () => {
@@ -54,7 +54,7 @@ const UserDashboard = () => {
 				setTotalWithdrawn(res.data.payload.data);
 				setFetchingWithdrawnAmount(false);
 			} catch (error) {
-				toast.error('An error occured');
+				toast.error('An error occurred');
 				setFetchingWithdrawnAmount(false);
 			}
 		};
@@ -75,7 +75,7 @@ const UserDashboard = () => {
 				setTransactionData(resetData);
 				setFetchingData(false);
 			} catch (error) {
-				toast.error('An error occured');
+				toast.error('An error occurred');
 				setFetchingData(false);
 			}
 		};

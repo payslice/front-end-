@@ -34,7 +34,7 @@ export const ResetPassword = () => {
 			}
 		} catch (error) {
 			setLoading(false);
-			setError('An error occured');
+			setError('An error occurred');
 		}
 	};
 	return (

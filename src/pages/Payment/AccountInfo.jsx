@@ -54,7 +54,7 @@ const AccountInfo = () => {
 
 			setSubmitting(false);
 		} catch (error) {
-			toast.error('An error occured while logging payment');
+			toast.error('An error occurred while logging payment');
 			setSubmitting(false);
 		}
 	};

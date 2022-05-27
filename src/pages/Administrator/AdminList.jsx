@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from '../../components/Button/Button';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { CustomTag } from '../../components/CustomTag';
-// import { Table } from "antd";
 import { useHistory } from 'react-router-dom';
 
 const AdminList = () => {
@@ -40,16 +39,6 @@ const AdminList = () => {
 			render: () => <BsThreeDotsVertical />,
 		},
 	];
-
-	const rowSelection = {
-		onChange: (selectedRowKeys, selectedRows) => {
-			// console.log(
-			//   `selectedRowKeys: ${selectedRowKeys}`,
-			//   "selectedRows: ",
-			//   selectedRows
-			// );
-		},
-	};
 
 	const data = [
 		{

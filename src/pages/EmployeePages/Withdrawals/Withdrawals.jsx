@@ -32,7 +32,7 @@ const Withdrawals = () => {
 				setTransactionData(resetData);
 				setFetchingData(false);
 			} catch (error) {
-				toast.error('An error occured');
+				toast.error('An error occurred');
 				setFetchingData(false);
 			}
 		};
