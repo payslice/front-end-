@@ -130,7 +130,7 @@ const DashboardHome = () => {
 		}
 		window.addEventListener('storage', handleChangeStorage);
 		return () => window.removeEventListener('storage', handleChangeStorage);
-	}, [profile]);
+	}, [profile, user]);
 
 	const totalDue = paymentLogs
 		?.filter((data) => typeof data.amount_remaining == 'string')

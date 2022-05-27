@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useClickOutside } from '../hooks/useClickOutside';
-import { getUserDataFromStorage, removeTokenFromStorage, removeUserDataFromStorage } from '../utils/ApiUtils';
+import { removeTokenFromStorage, removeUserDataFromStorage } from '../utils/ApiUtils';
 import { useHistory, useLocation } from 'react-router';
 import { IoIosSearch } from 'react-icons/io';
 import { useSelector } from 'react-redux';

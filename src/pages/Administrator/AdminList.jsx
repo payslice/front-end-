@@ -84,14 +84,59 @@ const AdminList = () => {
 				<Button buttonText="Add new adminstrator" onClick={() => history.push('/settings/admin/add')} />
 			</div>
 			<div className="my-16">
-				{/* <Table
-					rowSelection={{
-						type: 'checkbox',
-						...rowSelection,
-					}}
-					columns={columns}
-					dataSource={data}
-				/> */}
+				<div className="relative mt-6">
+					<table className="w-full text-sm text-left border text-gray-500">
+						<thead className="text-xs text-gray-700 uppercase bg-gray-50">
+							<tr className="border-b">
+								<th scope="col" className="p-6">
+									<div className="flex items-center">
+										<input
+											id="checkbox-all"
+											type="checkbox"
+											className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+										/>
+										<label for="checkbox-all" className="sr-only">
+											checkbox
+										</label>
+									</div>
+								</th>
+								{columns.map(({ title }, i) => (
+									<th key={i} scope="col" className="px-6 py-3">
+										{title}
+									</th>
+								))}
+							</tr>
+						</thead>
+						<tbody>
+							{data?.map(({ id, name, salary, balance }) => {
+								return (
+									<tr key={id} className="bg-white border-b last:border-none hover:bg-gray-50">
+										<td className="w-4 p-6">
+											<div className="flex items-center">
+												<input
+													id="checkbox-table-1"
+													type="checkbox"
+													className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+												/>
+												<label for="checkbox-table-1" className="sr-only">
+													checkbox
+												</label>
+											</div>
+										</td>
+										<td className="px-6 py-4">{name}</td>
+										<td className="px-6 py-4">{salary}</td>
+										<td className="px-6 py-4">{balance}</td>
+										<td className="px-6 py-4">
+											{/* <div className="flex items-center">
+												<OptionsMenu options={tableOptions} param={id} />
+											</div> */}
+										</td>
+									</tr>
+								);
+							})}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	);
