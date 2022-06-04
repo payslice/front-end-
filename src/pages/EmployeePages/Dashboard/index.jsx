@@ -16,8 +16,11 @@ import { toCurrency, truncateString } from '../../../utils/helpers';
 import { DotLoader } from '../../../components/Loaders/DotLoader';
 import { getUserDataFromStorage, removeClockInFromStorage, setClockInTimeToStorage } from '../../../utils/ApiUtils';
 import { constant } from '../../../utils/ApiConstants';
+import { useSelector } from 'react-redux';
+import { persistSelector } from '../../../slices/persist';
 
 const UserDashboard = () => {
+	const { user } = useSelector(persistSelector);
 	const [availableFunds, setAvailableFunds] = useState();
 	const [latLng, setLatLng] = useState();
 	const [checkInSuccess, setCheckInSuccess] = useState(false);
@@ -30,7 +33,24 @@ const UserDashboard = () => {
 	const [fetchingWithdrawnAmount, setFetchingWithdrawnAmount] = useState(false);
 	const history = useHistory();
 
-	const userData = getUserDataFromStorage();
+	const columns = [
+		{
+			title: 'Monthly Pay',
+			dataIndex: 'name',
+		},
+		{
+			title: 'Salary',
+			dataIndex: 'salary',
+		},
+		{
+			title: 'Salary balance',
+			dataIndex: 'balance',
+		},
+		{
+			title: 'Action',
+			dataIndex: 'action',
+		},
+	];
 
 	useEffect(() => {
 		setFetchingData(true);
@@ -48,6 +68,7 @@ const UserDashboard = () => {
 				toast.error('An error occurred');
 			}
 		};
+
 		const getTotalWithdrawn = async () => {
 			try {
 				const res = await getAmountWithdrawn();
@@ -79,6 +100,7 @@ const UserDashboard = () => {
 				setFetchingData(false);
 			}
 		};
+
 		getTotalWithdrawn();
 		fetchWithdrawalAmount();
 		getTransactions();
@@ -111,9 +133,11 @@ const UserDashboard = () => {
 			long: position.coords.longitude,
 		});
 	}
+
 	if (window.navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showPosition, handleError);
 	}
+
 	const submitClockIn = async () => {
 		setCheckLoading(true);
 		setClockInTimeToStorage();
@@ -144,9 +168,7 @@ const UserDashboard = () => {
 	return (
 		<div className="user-dashboard-wrapper">
 			<div className="flex justify-between mb-20">
-				<div className="text-gray-400 capitalize">
-					Welcome to Payslice , {`${userData.first_name} ${userData.last_name}`}
-				</div>
+				<div className="text-gray-400 capitalize">Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
 
 				{clockedIn || checkInSuccess ? (
 					<Button buttonText="Employee CheckOut" loading={checkLoading} onClick={submitClockOut} />
@@ -165,10 +187,10 @@ const UserDashboard = () => {
 					</div>
 					<div className="border flex justify-center ml-10 items-center border-white rounded-full h-16 w-16">
 						{' '}
-						<p className="mb-0 cursor-pointer" onClick={() => history.push('/user/withdrawals/withdraw')}>
+						<button className="mb-0 cursor-pointer" onClick={() => history.push('/user/withdrawals/withdraw')}>
 							Get <br />
 							Paid
-						</p>
+						</button>
 					</div>
 				</div>
 				<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2" style={{ background: '#FBE5DC' }}>
@@ -208,7 +230,7 @@ const UserDashboard = () => {
 						<p>No available transaction</p>
 					</div>
 				)}
-				{transactionData?.slice(0, 4).map((data, index) => {
+				{/* {transactionData?.slice(0, 4).map((data, index) => {
 					return (
 						<div key={index} className="flex justify-between border-b pt-4 pb-2 px-8">
 							<div>
@@ -235,7 +257,67 @@ const UserDashboard = () => {
 							</div>
 						</div>
 					);
-				})}
+				})} */}
+
+				<div className="relative mt-6">
+					<table className="w-full text-sm text-left border text-gray-500">
+						<thead className="text-xs text-gray-700 uppercase bg-gray-50">
+							<tr className="border-b">
+								<th scope="col" className="p-6">
+									<div className="flex items-center">
+										<input
+											id="checkbox-all"
+											type="checkbox"
+											className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+										/>
+										<label for="checkbox-all" className="sr-only">
+											checkbox
+										</label>
+									</div>
+								</th>
+								{columns.map(({ title }, i) => (
+									<th key={i} scope="col" className="px-6 py-3">
+										{title}
+									</th>
+								))}
+							</tr>
+						</thead>
+						<tbody>
+							{transactionData?.map(({ status }, index) => {
+								return (
+									<tr key={index} className="bg-white border-b last:border-none hover:bg-gray-50">
+										<td className="w-4 p-6">
+											<div className="flex items-center">
+												<input
+													id="checkbox-table-1"
+													type="checkbox"
+													className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+												/>
+												<label for="checkbox-table-1" className="sr-only">
+													checkbox
+												</label>
+											</div>
+										</td>
+										<td className="px-6 py-4"></td>
+										<td className="px-6 py-4">
+											<CustomTag
+												text={status}
+												isDanger={status === 'declined'}
+												isSuccess={status === 'approved'}
+												isWarning={status === 'pending'}
+											/>
+										</td>
+										{/* <td className="px-6 py-4">
+											<div className="flex items-center">
+												<OptionsMenu options={tableOptions} param={id} />
+											</div>
+										</td> */}
+									</tr>
+								);
+							})}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	);

@@ -51,7 +51,7 @@ const Navbar = () => {
 					className="object-cover"
 				/>
 				<div className="text-gray-400 my-auto ml-2">
-					<h3 className="text-base font-semibold text-gray-400 mb-0">{`${user?.first_name} ${user?.last_name}`}</h3>
+					<h3 className="text-base font-semibold text-gray-400 mb-0 truncate w-20">{`${user?.first_name} ${user?.last_name}`}</h3>
 					<p className="font-light text-[10px] mb-0 capitalize">{user?.section} account</p>
 				</div>
 				<MdKeyboardArrowDown className="my-auto w-5 h-5 ml-3 text-[#737A91]" />

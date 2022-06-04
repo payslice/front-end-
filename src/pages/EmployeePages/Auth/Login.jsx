@@ -6,38 +6,44 @@ import { InputField, PasswordInput } from '../../../components/Input';
 import MiniLoader from '../../../components/Loaders/MiniLoader';
 import { employeeLogin } from '../../../utils/ApiRequests';
 import { setExpiryTimeToStorage, setTokenToStorage, setuserDataToStorage } from '../../../utils/ApiUtils';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { ErrorMessage } from '../../../components/Message/Message';
+import isEmail from 'is-email';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../../slices/persist';
+import Cookies from 'js-cookie';
 
 export const UserLogin = () => {
-	const history = useHistory();
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 
-	const [loginForm, setLoginForm] = useState({});
+	const history = useHistory();
+	const dispatch = useDispatch();
+
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 
-	const handleChange = (e) => {
-		const name = e.target.name;
-		const value = e.target.value;
-		const newFormData = { [name]: value };
-		setLoginForm({ ...loginForm, ...newFormData });
-	};
-	const submitForm = async (e) => {
-		e.preventDefault();
-		setLoading(true);
-		try {
-			const res = await employeeLogin(loginForm);
-			setuserDataToStorage(res.data.payload.data);
-			setTokenToStorage(res.data.payload.data.token);
-			setExpiryTimeToStorage(new Date());
-			setLoading(false);
-			history.push('/user/dashboard');
-		} catch (error) {
-			toast.error('An error occurred, ensure details are correct');
-			setLoading(false);
-			// console.log("error", error.response.data.payload.data);
-			setError(true);
+	const onSubmit = async (formData) => {
+		if (formData) {
+			setLoading(true);
+			try {
+				const res = await employeeLogin(formData);
+				dispatch(setUser(res.data.payload.data));
+				Cookies.set('PAYSL-ADTK', res.data.payload.data.token);
+				setExpiryTimeToStorage(new Date());
+				setLoading(false);
+				history.push('/user/dashboard');
+			} catch (error) {
+				toast.error('An error occurred, ensure details are correct');
+				setLoading(false);
+				// console.log("error", error.response.data.payload.data);
+				setError(true);
+			}
 		}
 	};
 	return (
@@ -47,22 +53,22 @@ export const UserLogin = () => {
 				{error && (
 					<ErrorMessage title="Error" message="An error occurred. Please ensure your email and password is correct." />
 				)}
-				<form onSubmit={submitForm}>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className={`${!error && 'mt-[46px]'}`}>
 						<InputField
 							label="Email Address or Employee ID"
-							required
 							type="email"
-							onChange={handleChange}
 							name="email"
 							placeholder="e.g Kelly@farfill.com"
+							errors={errors?.email ?? false}
+							{...register('email', { required: true, validate: (value) => isEmail(value) })}
 						/>
 						<PasswordInput
-							required
 							label="Enter password"
 							placeholder="Enter password"
 							name="password"
-							onChange={handleChange}
+							errors={errors?.password ?? false}
+							{...register('password', { required: true })}
 						/>
 					</div>
 					<div className="signUp__submit-btn flex justify-end">
