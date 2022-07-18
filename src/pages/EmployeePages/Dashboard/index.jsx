@@ -101,6 +101,16 @@ const UserDashboard = () => {
 			}
 		};
 
+		// request to fetch all transactions
+		// fetch('https://dev.api.payslices.com/transaction/payment_log')
+		// .then(res => res.json())
+		// .then(data => 
+		// 	{ 
+		// 		console.log(data)
+		// 		console.log("this is the data coming")
+		// 	}
+		// )
+
 		getTotalWithdrawn();
 		fetchWithdrawalAmount();
 		getTransactions();
@@ -165,23 +175,25 @@ const UserDashboard = () => {
 		}
 	};
 
+	console.log(transactionData)
+
 	return (
 		<div className="user-dashboard-wrapper">
-			<div className="flex justify-between mb-20">
-				<div className="text-gray-400 capitalize">Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
+			<div className="flex justify-between mb-8 handle_user_homepage_responsive">
+				<div className="text-gray-400 capitalize font-semibold mt-3 handle_user_homepage_responsive_in" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
 
 				{clockedIn || checkInSuccess ? (
-					<Button buttonText="Employee CheckOut" loading={checkLoading} onClick={submitClockOut} />
+					<Button buttonText="Employee CheckOut" loading={checkLoading} onClick={submitClockOut} base />
 				) : (
-					<Button buttonText="Employee CheckIn" loading={checkLoading} onClick={submitClockIn} />
+					<Button buttonText="Employee CheckIn" loading={checkLoading} onClick={submitClockIn} base />
 				)}
 			</div>
 
-			<div className="flex w-full justify-between">
-				<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-1/2">
+			<div className="flex w-full justify-between handle_user_homepage_responsive">
+				<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-1/2 sm:w-full handle_user_homepage_responsive_in2">
 					<div className="my-auto">
 						<div className="text-normal">Total Earned</div>
-						<h3 className="text-xl text-white mb-0">
+						<h3 className="text-xl text-white mb-0 font-bold">
 							NGN {parseInt(availableFunds?.amount_avaliable_to_withdraw).toLocaleString()}{' '}
 						</h3>
 					</div>
@@ -193,10 +205,10 @@ const UserDashboard = () => {
 						</button>
 					</div>
 				</div>
-				<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2" style={{ background: '#FBE5DC' }}>
+				<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
 					<div className="my-auto">
 						<div className="text-normal">Total withdrawn </div>
-						<h3 className="text-xl  mb-0">
+						<h3 className="text-xl  mb-0 font-bold">
 							{fetchingWithdrawnAmount ? (
 								<>
 									{' '}
@@ -220,7 +232,7 @@ const UserDashboard = () => {
 			<div className="mt-10 border border-gray-200 rounded ">
 				<div className="flex justify-between border-b pt-4 pb-2 px-8">
 					<h2 className="text-xl">Recent Transaction</h2>
-					<div className="text-blue-400" onClick={() => history.push('/user/withdrawals')}>
+					<div className="text-blue-400 font-semibold" onClick={() => history.push('/user/withdrawals')} style={{color: "#1C6AF4"}} >
 						Show more
 					</div>
 				</div>
@@ -258,7 +270,9 @@ const UserDashboard = () => {
 						</div>
 					);
 				})} */}
-
+				
+				
+				{/*
 				<div className="relative mt-6">
 					<table className="w-full text-sm text-left border text-gray-500">
 						<thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -270,7 +284,7 @@ const UserDashboard = () => {
 											type="checkbox"
 											className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
 										/>
-										<label for="checkbox-all" className="sr-only">
+										<label htmlFor="checkbox-all" className="sr-only">
 											checkbox
 										</label>
 									</div>
@@ -293,7 +307,7 @@ const UserDashboard = () => {
 													type="checkbox"
 													className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
 												/>
-												<label for="checkbox-table-1" className="sr-only">
+												<label htmlFor="checkbox-table-1" className="sr-only">
 													checkbox
 												</label>
 											</div>
@@ -307,17 +321,18 @@ const UserDashboard = () => {
 												isWarning={status === 'pending'}
 											/>
 										</td>
-										{/* <td className="px-6 py-4">
+										<td className="px-6 py-4">
 											<div className="flex items-center">
 												<OptionsMenu options={tableOptions} param={id} />
 											</div>
-										</td> */}
+										</td>
 									</tr>
 								);
 							})}
 						</tbody>
 					</table>
 				</div>
+				*/}
 			</div>
 		</div>
 	);

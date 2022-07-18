@@ -84,7 +84,7 @@ const AdminList = () => {
 											type="checkbox"
 											className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
 										/>
-										<label for="checkbox-all" className="sr-only">
+										<label hmtlFor="checkbox-all" className="sr-only">
 											checkbox
 										</label>
 									</div>
@@ -107,7 +107,7 @@ const AdminList = () => {
 													type="checkbox"
 													className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
 												/>
-												<label for="checkbox-table-1" className="sr-only">
+												<label htmlFor="checkbox-table-1" className="sr-only">
 													checkbox
 												</label>
 											</div>

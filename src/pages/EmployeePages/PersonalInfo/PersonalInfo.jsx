@@ -170,7 +170,7 @@ const PersonalInfo = () => {
 					</div>
 				</div>
 				<div className="w-full flex mobiles:block">
-					<div className="w-1/3 mr-5 flex">
+					<div className="w-full lg:w-1/3 mr-5 flex">
 						{imgFile ? (
 							<img
 								src={URL.createObjectURL(imgFile)}
@@ -219,7 +219,9 @@ const PersonalInfo = () => {
 
 				<form onSubmit={submitPasswordChange}>
 					<div className="w-full flex mobiles:block">
+						{/*
 						<div className="w-1/3 mr-5 mobiles:w-full">
+							
 							<InputField
 								required
 								label="Your email"
@@ -228,7 +230,9 @@ const PersonalInfo = () => {
 								name="email"
 								onChange={(e) => handlePasswordChange(null, e)}
 							/>
+							
 						</div>
+						*/}
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
 								required

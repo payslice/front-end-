@@ -17,15 +17,12 @@ const Navbar = () => {
 	});
 
 	const history = useHistory();
-	const location = useLocation();
+	// const location = useLocation();
 
 	const handleLogout = () => {
-		if (location.pathname.startsWith('/user')) {
-			history.push('/user/login');
-		} else {
+		
+			history.push('/user/login')
 			history.push('/login');
-		}
-
 		removeTokenFromStorage();
 		removeUserDataFromStorage();
 	};

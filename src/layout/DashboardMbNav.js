@@ -66,7 +66,7 @@ export const DahboardMobileNav = () => {
 		{
 			path: '/user/attendance',
 			Icon: HiBriefcase,
-			name: 'Withdrawals',
+			name: 'attendance',
 		},
 		{
 			path: '/user/settings',
@@ -81,9 +81,15 @@ export const DahboardMobileNav = () => {
 		<div
 			ref={tdc}
 			//   style={{ position: "relative", left: "" }}
-			className={`w-3/5 relative z-10 my-auto hidden mobiles:block pt-8  pb-5  bg-white mobiles:fixed ${
+			className={` usernavbar_responsiveness w-3/5 relative z-10 my-auto hidden mobiles:block pt-8  pb-5  bg-white mobiles:fixed ${
 				!showMenu ? 'w-full px-6' : 'h-full sidebar_bg'
 			}`}
+			id="usernavbar_responsiveness"
+			// style={{
+			// 	display: "flex",
+			// 	width: "100%",
+			// 	justifyContent: "space-between"
+			// }}
 		>
 			<RiMenuLine
 				style={{ fontSize: '28px' }}
@@ -93,7 +99,10 @@ export const DahboardMobileNav = () => {
 				}}
 			/>
 
-			{showMenu && (
+			{
+				showMenu 
+				? 
+				(
 				<div className="relative h-full w-full px-4">
 					<div className="mt-10">
 						<img src={require('../assets/svgs/payslice-logo.svg').default} className="w-3/4 pb-12 " alt="" />
@@ -122,7 +131,16 @@ export const DahboardMobileNav = () => {
 						<div className="text-white my-auto ml-2">Collapse Panel</div>
 					</div>
 				</div>
-			)}
+				)
+				: 
+				(
+					<div>
+						<button className="text-white font-bold py-1 px-3 rounded" style={{background: "#D0000C"}}>
+							0
+						</button>
+					</div>
+				)
+			}
 		</div>
 	);
 };

@@ -29,7 +29,7 @@ const AppLayout = ({ children, navTab }) => {
 					</div>
 				)}
 
-				<div className="py-[70px] px-10 2xl:px-[76px] mobiles:p-0">{children}</div>
+				<div className="py-[60px] px-10 2xl:px-[76px] mobiles:p-0">{children}</div>
 			</main>
 		</div>
 	);
