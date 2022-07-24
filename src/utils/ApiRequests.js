@@ -357,7 +357,13 @@ export const generatePaymentCode = () => {
  */
 
 export const getWithdrawalRequest = () => {
-	return ApiRequestWithToken().get(`/employee/withdrawal_requests/${userData.id}`);
+	// console.log("ID")
+	// console.log(userData)
+	// console.log(JSON.parse(userData.persist))
+	const data = JSON.parse(userData.persist)
+	// console.log(data.user.id)
+	// console.log("userData")
+	return ApiRequestWithToken().get(`/employee/withdrawal_requests/${data.user.id}`);
 };
 
 export const getEmployeeInfoList = () => {
