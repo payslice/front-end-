@@ -7,11 +7,13 @@ import OptionsMenu from '../../../components/TableOptionMenu';
 import { getTotalTransactions, getWithdrawalRequest } from '../../../utils/ApiRequests';
 import { toast } from 'react-toastify';
 import { truncateString, toCurrency } from '../../../utils/helpers';
+import { useHistory } from 'react-router-dom'
 
 const Withdrawals = () => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [fetchingData, setFetchingData] = useState(true);
 	const [transactionData, setTransactionData] = useState();
+	const history = useHistory();
 
 	const handleClick = (param) => {};
 
@@ -22,7 +24,7 @@ const Withdrawals = () => {
 				const resetData = res.data.payload.data?.map((withdrawal, i) => {
 					return {
 						key: i,
-						transactionID: truncateString(withdrawal.request_code, 9),
+						transactionID: truncateString(withdrawal.request_code, 15),
 						amount: toCurrency(withdrawal.amount),
 						charges: withdrawal.service_charge,
 						date: new Date(withdrawal.updated_at).toDateString(),
@@ -89,7 +91,7 @@ const Withdrawals = () => {
 	return (
 		<div>
 			<div className="flex justify-between">
-				<h2 className="text-2xl">Transactions History </h2>
+				<h2 className="text-xl font-semibold">Transactions History </h2>
 				<div className="flex justify-between">
 					<div className="tab flex rounded bg-gray-100 mr-5">
 						<div
@@ -111,15 +113,77 @@ const Withdrawals = () => {
 							Month
 						</div>
 					</div>
-					{/* <div className="tab flex rounded bg-gray-100 px-5 py-2">
-            <BiCalendarEvent size="20" className="my-auto" />
-            <div className="px-3 my-auto">Jan, 2019 - Dec, 2019</div>
-          </div> */}
+					<div className="tab flex rounded bg-gray-100 px-5 py-2">
+						<BiCalendarEvent size="20" className="my-auto" />
+						<div className="px-3 my-auto">Jan, 2019 - Dec, 2019</div>
+					</div>
 				</div>
 			</div>
 
 			<div className=" my-16">
 				{/* <Table columns={columns} dataSource={transactionData} loading={fetchingData} /> */}
+				
+							<div className="mt-10 ">
+								<div className="flex justify-between pt-4 pb-4 mb-5 px-8 font-semibold" style={{background: "#F9F9F9"}}>
+									<div>
+										<h4>Transaction ID</h4>
+									</div>
+									<div>
+										<h4>Amount</h4>
+									</div>
+									<div>
+										<h4>Charges</h4>
+									</div>
+									<div>
+										<h4>Date</h4>
+									</div>
+									<div>
+										<h4>Status</h4>
+									</div>
+									<div>
+										<h4>Action</h4>
+									</div>
+								</div>
+								{transactionData?.slice(0, 4).map((data, index) => {
+									return (
+										<div key={index} className="flex justify-between border-b pt-4 pb-10 px-8 text-sm lg:text-base font-medium lg:font-light">
+											<div className="w-1/3 lg:w-1/5">
+												<div className="font-medium">{data.transactionID}</div>
+											</div>
+											<div className="block lg:hidden">
+												<div className="font-bold text-base text-normal">{data.amount}</div>
+												<p>{toCurrency(data.charges)}</p>
+											
+											</div>
+
+											<div className="font-bold text-normal hidden lg:block">{data.amount}</div>
+											<div className="hidden lg:block">
+												<p>{toCurrency(data.charges)}</p>
+											</div>
+											<div className="font-bold text-normal hidden lg:block">{data.date}</div>
+											<div className="w-max">
+												<CustomTag
+													text={data.status}
+													isDanger={data.status === 'declined'}
+													isSuccess={data.status === 'approved'}
+													isWarning={data.status === 'pending'}
+												/>
+											</div>
+				
+											<div className="hidden lg:block">
+												<div className="three_dot flex">
+													<ul>
+														<li></li>
+														<li></li>
+														<li></li>
+													</ul>
+													<span className="text-xs font-semibold"> Download Payslip</span>
+												</div>
+											</div>
+										</div>
+									);
+								})} 
+							</div>
 			</div>
 		</div>
 	);
