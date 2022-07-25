@@ -273,22 +273,22 @@ const UserDashboard = () => {
 						(
 							<div className="mt-10 border border-gray-200 rounded ">
 								<div className="flex justify-between border-b pt-4 pb-2 px-8">
-									<h2 className="text-xl">Recent Transaction</h2>
-									<div className="text-blue-400 font-semibold capitalize" onClick={() => history.push('/user/withdrawals')} style={{color: "#1C6AF4"}} >
+									<h2 className="font-semibold text-base lg:text-xl">Recent Transaction</h2>
+									<div className="text-blue-400 font-semibold capitalize text-sm lg:text-base" onClick={() => history.push('/user/withdrawals')} style={{color: "#1C6AF4"}} >
 										Show more
 									</div>
 								</div>
 								{transactionData?.slice(0, 4).map((data, index) => {
 									return (
-										<div key={index} className="flex justify-between border-b pt-4 pb-10 px-8 text-sm lg:text-base">
-											<div>
+										<div key={index} className="flex justify-between border-b pt-4 pb-10 px-8 text-sm lg:text-base font-medium lg:font-light">
+											<div className="w-1/3 lg:w-1/5">
 												<p className="text-normal pb-2 font-medium">Direct Transfer</p>
 												<div className="font-medium">Transation ID {data.transactionID}</div>
 											</div>
 											<div className="block lg:hidden">
-												<div className="font-bold text-normal">{data.amount}</div>
+												<div className="font-bold text-base text-normal">{data.amount}</div>
 
-												<p className="pb-2">Service charge</p>
+												<p className="pb-2 pt-1">Service charge:</p>
 												<p>{toCurrency(data.charges)}</p>
 											
 											</div>
@@ -298,7 +298,7 @@ const UserDashboard = () => {
 												<p className="pb-2">Service charge</p>
 												<p>{toCurrency(data.charges)}</p>
 											</div>
-											<div className="w-max my-auto">
+											<div className="w-max">
 												<CustomTag
 													text={data.status}
 													isDanger={data.status === 'declined'}
