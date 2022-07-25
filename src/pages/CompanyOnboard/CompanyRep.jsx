@@ -71,10 +71,10 @@ const CompanyRepresentative = () => {
                 }
             } catch (error) {
                 console.log(error?.response?.data?.payload);
-                // toast.error(
-                //     error?.response?.data?.payload?.data?.errors?.name[0] ||
-                //         "An error occurred"
-                // );
+                toast.error(
+                    error?.response?.data?.payload?.data?.errors?.name[0] ||
+                        "An error occurred"
+                );
                 setLoading(false);
             }
         }
