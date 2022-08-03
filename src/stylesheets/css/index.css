@@ -230,3 +230,57 @@ body {
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
 }
+
+.withdraww form div input{
+	text-transform: capitalize;
+	color: black;
+	padding-left: 45px;
+}
+.withdraww form div input::placeholder{
+	text-transform: capitalize;
+	color: black;
+}
+.withdraww form div input {
+	padding-left: 45px;
+}
+
+
+
+@media (max-width: 500px) {
+	
+	.handle_user_homepage_responsive {
+		display: block;
+	}
+	.handle_user_homepage_responsive_in {
+		margin-bottom: 1em;
+		font-size: 19px;
+	}
+	.handle_user_homepage_responsive_in2 {
+		width: 100%;
+		margin-left: 0;
+		margin-top: 20px;
+	    
+	}
+}
+
+@media (max-width: 500px) {
+	
+	#usernavbar_responsiveness {
+		display: flex !important;
+		width: 100% !important;
+		justify-content: space-between !important;
+		/* display: none; */
+	}
+}
+
+
+
+/* ADDITIONAL STYLES */
+
+.three_dot li {
+	height: 5px;
+	width: 5px;
+	background: rgba(17, 17, 17, 0.6);
+	margin: 4px;
+	border-radius: 50%;
+}
