@@ -31,7 +31,7 @@ const AuthRoutes = () => {
 		<AuthLayout>
 			<Switch>
 				{AuthRoutesList.map((r) => (
-					<Route component={r.component} path={r.path} exact={r.exact} />
+					<Route component={r.component} path={r.path} exact={r.exact} key="r" />
 				))}
 			</Switch>
 		</AuthLayout>

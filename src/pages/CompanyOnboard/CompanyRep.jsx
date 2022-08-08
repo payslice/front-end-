@@ -6,15 +6,18 @@ import { Button } from "../../components/Button/Button";
 import { InputField, SelectInput } from "../../components/Input";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import { companyRepOnboarding, uploadFile } from "../../utils/ApiRequests";
+import { companyRepOnboarding } from "../../utils/ApiRequests";
+// import { companyRepOnboarding, uploadFile } from "../../utils/ApiRequests";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setUser, persistSelector } from "../../slices/persist";
+import { useSelector } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
+import { persistSelector } from "../../slices/persist";
+// import { setUser, persistSelector } from "../../slices/persist";
 
 const CompanyRepresentative = () => {
     const history = useHistory();
     const { user } = useSelector(persistSelector);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const idTypes = [
         { id: 0, name: "Passport", value: "international passport" },
         { id: 1, name: "NIN", value: "nin" },

@@ -7,13 +7,15 @@ import { toast } from "react-toastify";
 import { ErrorMessage } from "../../components/Message/Message";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setUser, persistSelector } from "../../slices/persist";
+import { useSelector } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
+import { persistSelector } from "../../slices/persist";
+// import { setUser, persistSelector } from "../../slices/persist";
 
 const CompanyPolicy = () => {
     const history = useHistory();
     const { user } = useSelector(persistSelector);
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const {
         register,
         handleSubmit,

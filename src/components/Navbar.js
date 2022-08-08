@@ -5,7 +5,7 @@ import {
     removeTokenFromStorage,
     removeUserDataFromStorage,
 } from "../utils/ApiUtils";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { persistSelector } from "../slices/persist";
@@ -20,7 +20,6 @@ const Navbar = () => {
     });
 
 	const history = useHistory();
-	// const location = useLocation();
 
 	const handleLogout = () => {
 		
