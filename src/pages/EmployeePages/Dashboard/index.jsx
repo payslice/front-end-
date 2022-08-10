@@ -251,7 +251,7 @@ const UserDashboard = () => {
 				:
 
 				(
-					transactionData !== []   
+					transactionData === []   
 						?
 						(
 							
