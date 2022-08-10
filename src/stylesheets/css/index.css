@@ -246,7 +246,7 @@ body {
 
 
 
-@media (max-width: 500px) {
+@media (max-width: 1000px) {
 	
 	.handle_user_homepage_responsive {
 		display: block;
@@ -284,3 +284,30 @@ body {
 	margin: 4px;
 	border-radius: 50%;
 }
+
+
+/* NO TRANSACTION STYLE */
+.transactionContainer  {
+	overflow: hidden;
+}
+.transactionContainer svg {
+	height: 250px;
+	margin: auto;
+}
+.transactionContainer p {
+	font-size: 23px;
+	margin-bottom: -30px;
+	padding-top: 25px;
+}
+@media (max-width: 1000px ) {
+
+	.transactionContainer svg {
+		margin-left: -75px;
+	}
+}
+@media (max-width: 500px ) {
+
+	.transactionContainer svg {
+		margin-left: -125px;
+	}
+} 
