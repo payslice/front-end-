@@ -81,9 +81,7 @@ export const DahboardMobileNav = () => {
 		<div
 			ref={tdc}
 			//   style={{ position: "relative", left: "" }}
-			className={` usernavbar_responsiveness w-3/5 relative z-10 my-auto hidden mobiles:block pt-8  pb-5  bg-white mobiles:fixed ${
-				!showMenu ? 'w-full px-6' : 'h-full sidebar_bg'
-			}`}
+			className={` usernavbar_responsiveness w-3/5 relative z-10 my-auto hidden mobiles:block pt-8  pb-5  bg-white mobiles:fixed `}
 			id="usernavbar_responsiveness"
 			// style={{
 			// 	display: "flex",
@@ -91,56 +89,66 @@ export const DahboardMobileNav = () => {
 			// 	justifyContent: "space-between"
 			// }}
 		>
-			<RiMenuLine
-				style={{ fontSize: '28px' }}
-				className={!showMenu ? 'block' : 'hidden'}
-				onClick={() => {
-					setShowMenu(!showMenu);
-				}}
-			/>
+			<div className='w-full flex justify-between px-5'>
+				<RiMenuLine
+					style={{ fontSize: '28px' }}
+					// className={!showMenu ? 'block' : 'hidden'}
+					onClick={() => {
+						setShowMenu(!showMenu);
+					}}
+				/>
 
-			{
-				showMenu 
-				? 
-				(
-				<div className="relative h-full w-full px-4">
-					<div className="mt-10">
-						<img src={require('../assets/svgs/payslice-logo.svg').default} className="w-3/4 pb-12 " alt="" />
-					</div>
-					{activeMenuList?.map((item) => {
-						return (
-							<div className="mb__menu-item my-2 ">
-								<NavLink
-									to={item.path}
-									activeClassName="sidebar_active rounded"
-									className="flex p-2"
-									onClick={() => setShowMenu(false)}
-								>
-									<item.Icon fill="#FFFFFF" className="my-auto" />{' '}
-									<div className="text-white font-normal my-auto ml-3">{item.name}</div>
-								</NavLink>
-							</div>
-						);
-					})}
-					<div
-						className="absolute object-bottom flex"
-						style={{ bottom: '100px', left: '12px' }}
-						onClick={() => setShowMenu(false)}
-					>
-						<MdArrowBackIosNew fill="#FFFFFF" className="my-auto" />{' '}
-						<div className="text-white my-auto ml-2">Collapse Panel</div>
-					</div>
+				<div>
+					<button className="text-white font-bold py-1 px-3 rounded" style={{background: "#D0000C"}}>
+						0
+					</button>
 				</div>
-				)
-				: 
-				(
-					<div>
-						<button className="text-white font-bold py-1 px-3 rounded" style={{background: "#D0000C"}}>
-							0
-						</button>
+			
+			</div>
+			<div className=''>
+			
+				{
+					showMenu 
+					&&
+					(
+					<div className={`absolute h-full px-4 ${
+					!showMenu ? 'w-full px-6' : 'h-full sidebar_bg'
+				}`}
+					style={{
+						top: 0,
+						height: '100vh'
+					}}
+				>
+						<div className="mt-10">
+							<img src={require('../assets/svgs/payslice-logo.svg').default} className="w-3/4 pb-12 " alt="" />
+						</div>
+						{activeMenuList?.map((item) => {
+							return (
+								<div className="mb__menu-item my-2 ">
+									<NavLink
+										to={item.path}
+										activeClassName="sidebar_active rounded"
+										className="flex p-2"
+										onClick={() => setShowMenu(false)}
+									>
+										<item.Icon fill="#FFFFFF" className="my-auto" />{' '}
+										<div className="text-white font-normal my-auto ml-3">{item.name}</div>
+									</NavLink>
+								</div>
+							);
+						})}
+						<div
+							className="absolute object-bottom flex"
+							style={{ bottom: '100px', left: '12px' }}
+							onClick={() => setShowMenu(false)}
+						>
+							<MdArrowBackIosNew fill="#FFFFFF" className="my-auto" />{' '}
+							<div className="text-white my-auto ml-2">Collapse Panel</div>
+						</div>
 					</div>
-				)
-			}
+					)
+				}
+			</div>
 		</div>
 	);
 };

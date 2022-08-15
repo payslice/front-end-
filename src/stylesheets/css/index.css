@@ -266,9 +266,9 @@ body {
 @media (max-width: 500px) {
 	
 	#usernavbar_responsiveness {
-		display: flex !important;
+		/* display: flex !important; */
 		width: 100% !important;
-		justify-content: space-between !important;
+		/* justify-content: space-between !important; */
 		/* display: none; */
 	}
 }
