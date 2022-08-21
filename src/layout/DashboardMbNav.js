@@ -83,7 +83,7 @@ export const DahboardMobileNav = () => {
 			//   style={{ position: "relative", left: "" }}
 			className={` usernavbar_responsiveness w-3/5 relative z-10 my-auto hidden mobiles:block pt-8  pb-5  bg-white mobiles:fixed `}
 			id="usernavbar_responsiveness"
-			// style={{
+			// style={{npm 
 			// 	display: "flex",
 			// 	width: "100%",
 			// 	justifyContent: "space-between"
