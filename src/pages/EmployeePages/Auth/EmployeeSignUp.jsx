@@ -47,7 +47,7 @@ export const SignUp = () => {
       <div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-20 mobiles:p-0 mobiles:h-0 auth_container mx-auto">
         <h1 className="text-[21px] md:text-3xl font-bold uppercase">sign up</h1>
         {error && <ErrorMessage title="Error" message={errMessage} />}
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(data => console.log(data))}>
           <div className={`${!error && "mt-[46px]"}`}>
             <InputField
               label="Enter Email Address"

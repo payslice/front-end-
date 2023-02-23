@@ -59,6 +59,7 @@ const CreateEmployee = () => {
 
 	useEffect(() => {
 		const fetchBanks = async () => {
+
 			const res = await axios.get('https://api.paystack.co/bank');
 
 			const listBanks = res?.data.data?.map((bank) => {
@@ -74,6 +75,8 @@ const CreateEmployee = () => {
 	}, []);
 
 	const onSubmit = async (formData) => {
+		console.log("formData")
+		console.log(formData)
 		if (formData) {
 			setLoading(true);
 			try {
@@ -113,13 +116,13 @@ const CreateEmployee = () => {
 			{error && <ErrorMessage title="Error" message={errMessage} />}
 
 			<div className="mt-5">
-				<form onSubmit={handleSubmit(onSubmit)}>
+				<form onSubmit={handleSubmit((data) => {console.log(data)})}>
 					<div className="flex w-full mobiles:block">
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
 								label="Staff first name"
 								name="first_name"
-								placeholder="Staff first name "
+								placeholder="Staff first name"
 								type="text"
 								errors={errors?.first_name ?? false}
 								{...register('first_name', { required: true, minLength: 3 })}
@@ -150,7 +153,7 @@ const CreateEmployee = () => {
 						<div className="w-1/3 mr-5 mobiles:w-full">
 							<InputField
 								label="Phone Number"
-								placeholder="Staff full name "
+								placeholder="Staff full name"
 								type="tel"
 								name="phone_number"
 								errors={errors?.phone_number ?? false}
@@ -254,10 +257,9 @@ const CreateEmployee = () => {
 							</div>
 						</div>
 					)}
+					
+					<input type="submit" />
 
-					<div className="mt-5">
-						<Button type="submit" className="mobiles:w-full" buttonText="Send invitation" loading={loading} base />
-					</div>
 				</form>
 			</div>
 		</div>
