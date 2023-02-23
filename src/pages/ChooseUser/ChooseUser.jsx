@@ -15,7 +15,7 @@ export const ChooseUser = () => {
         history.push("/login");
         break;
       case 2:
-        history.push("/register");
+        history.push("/user/invite");
         break;
       default:
         history.push("/login");

@@ -28,7 +28,7 @@ export const UserOTPRequest = () => {
   const history = useHistory();
 
   const onSubmit = async (formData) => {
-    history.push("/login");
+    history.push("/register");
   };
   return (
     <>
@@ -45,7 +45,7 @@ export const UserOTPRequest = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={`${!error && "mt-[46px]"}`}>
             <InputField
-              label="Enter OTP"
+              label="Verify OTP"
               type="text"
               name="otp"
               placeholder="e.g 574661"
