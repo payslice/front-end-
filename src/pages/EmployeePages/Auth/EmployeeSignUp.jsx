@@ -39,7 +39,7 @@ export const SignUp = () => {
     //     setErrMessage("An error occurred, please try again later.");
     //   }
     // }
-    history.push("/user/invite");
+    history.push("/login");
   };
 
   return (

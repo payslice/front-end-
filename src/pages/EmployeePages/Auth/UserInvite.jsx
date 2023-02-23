@@ -60,7 +60,7 @@ export const UserInvite = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={`${!error && "mt-[46px]"}`}>
             <InputField
-              label="Enter Email"
+              label="Enter email for OTP request"
               type="email"
               name="email"
               placeholder="e.g Kelly@farfill.com"
