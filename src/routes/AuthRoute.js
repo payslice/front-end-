@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout";
 // import { SignUp } from "../pages/signup/SignUp";
@@ -14,6 +14,7 @@ import { PasswordChanged } from "../pages/EmployeePages/Auth/PasswordChanged";
 //added routes
 import { UserInvite } from "../pages/EmployeePages/Auth/UserInvite";
 import { UserOTPRequest } from "../pages/EmployeePages/Auth/UserOTPRequest";
+
 
 export const AuthRoutesList = [
   { path: "/login", component: Login, exact: true },
@@ -31,8 +32,15 @@ export const AuthRoutesList = [
   { path: "/user/request_otp", component: UserOTPRequest },
 ];
 
+export const emailContext = createContext('')
+
 const AuthRoutes = () => {
+
+  const [emailState, setEmailState] = useState('email')
+
   return (
+
+    <emailContext.Provider value={{emailState, setEmailState}}>
     <AuthLayout>
       <Switch>
         {AuthRoutesList.map((r) => (
@@ -40,6 +48,7 @@ const AuthRoutes = () => {
         ))}
       </Switch>
     </AuthLayout>
+    </emailContext.Provider>
   );
 };
 

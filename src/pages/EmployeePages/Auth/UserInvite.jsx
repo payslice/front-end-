@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput } from "../../../components/Input";
-import { employerLogin } from "../../../utils/ApiRequests";
+import { employerInvite, employerLogin } from "../../../utils/ApiRequests";
 import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
 import { ErrorMessage } from "../../../components/Message/Message";
 import { Link } from "react-router-dom";
@@ -11,10 +11,14 @@ import isEmail from "is-email";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, persistSelector } from "../../../slices/persist";
+import { getUserEmail } from "../../../slices/employee/employeeSlice";
+import { emailContext } from "../../../routes/AuthRoute";
 
 export const UserInvite = () => {
   const dispatch = useDispatch();
   const data = useSelector(persistSelector);
+
+  const {setEmailState} = useContext(emailContext)
 
   console.log(data);
 
@@ -28,22 +32,34 @@ export const UserInvite = () => {
   const history = useHistory();
 
   const onSubmit = async (formData) => {
+
     // if (formData) {
-    //   setLoading(true);
-    //   try {
-    //     const res = await employerLogin(formData);
-    //     dispatch(setUser(res.data.payload.data));
-    //     Cookies.set('PAYSL-ADTK', res.data.payload.data.token);
-    //     setExpiryTimeToStorage(new Date());
-    //     setLoading(false);
-    //     res.data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
-    //   } catch (error) {
-    //     setLoading(false);
-    //     // console.log("error", error);
-    //     setError(true);
-    //   }
+      setLoading(true);
+      try {
+        const res = await employerInvite({...formData, title: "email_verification"});
+        // dispatch(setUser(res.data.payload.data));
+        // Cookies.set('PAYSL-ADTK', res.data.payload.data.token);
+        // setExpiryTimeToStorage(new Date());
+        // res.data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
+        if(res.data.status) {
+          setEmailState(formData.email)
+          history.push('/user/request_otp')
+        }
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        // console.log("error", error);
+        setError(true);
+      }
+      finally {
+        setLoading(false)
+      }
     // }
-    history.push("/user/request_otp");
+
+    // dispatch(getUserEmail(formData))
+    console.log("formData")
+    console.log(formData)
+    // history.push("/user/request_otp");
   };
   return (
     <>
@@ -74,7 +90,7 @@ export const UserInvite = () => {
           </div>
           <div className="flex justify-between items-center text-sm md:text-base">
             <div className="signUp__submit-btn flex justify-end">
-              <Button type="submit" buttonText="Next" loading={loading} />
+              <Button type="submit" buttonText="Next" loading={loading}  />
             </div>
           </div>
         </form>

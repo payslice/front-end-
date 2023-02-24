@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput } from "../../../components/Input";
-import { employerLogin } from "../../../utils/ApiRequests";
+import { employerLogin, employerOTPRequest } from "../../../utils/ApiRequests";
 import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
 import { ErrorMessage } from "../../../components/Message/Message";
 import { Link } from "react-router-dom";
@@ -11,10 +11,18 @@ import isEmail from "is-email";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, persistSelector } from "../../../slices/persist";
+import { emailContext } from "../../../routes/AuthRoute";
+
+
 
 export const UserOTPRequest = () => {
   const dispatch = useDispatch();
   const data = useSelector(persistSelector);
+
+  const {emailState} = useContext(emailContext)
+
+  console.log("emailRecievedContext userotp")
+  console.log(emailState)
 
   console.log(data);
 
@@ -28,7 +36,25 @@ export const UserOTPRequest = () => {
   const history = useHistory();
 
   const onSubmit = async (formData) => {
-    history.push("/register");
+    
+    console.log("formData useFOrm")
+    console.log(formData)
+
+    try {
+          setLoading(true)
+          const {data} = await employerOTPRequest({...formData, email: emailState})
+
+          if (data.status) history.push("/register");
+          console.log(data)
+    }
+    catch(err) {
+      
+      setLoading(false)
+
+    }
+    finally {
+      setLoading(false)
+    }
   };
   return (
     <>
@@ -49,6 +75,9 @@ export const UserOTPRequest = () => {
               type="text"
               name="otp"
               placeholder="e.g 574661"
+              {...register('otp', {
+                required: true
+              })}
               required
             />
           </div>

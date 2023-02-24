@@ -1,13 +1,18 @@
 /* eslint-disable no-unused-vars */
 import isEmail from "is-email";
+import Cookies from "js-cookie";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput } from "../../../components/Input";
 import { ErrorMessage } from "../../../components/Message/Message";
+import { CustomSelect } from "../../../components/Select";
+import { persistSelector } from "../../../slices/persist";
 import { employeeRegister } from "../../../utils/ApiRequests";
+import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
 
 export const SignUp = () => {
   const {
@@ -22,24 +27,49 @@ export const SignUp = () => {
 
   const history = useHistory();
 
-  const onSubmit = async (formData) => {
-    // if (formData) {
-    //   setLoading(true);
-    //   try {
-    //     const res = await employeeRegister(formData);
+  // const employeeData = useSelector((state) => state.employeeData)
+  // const data = useSelector(persistSelector);
 
-    //     if (res?.status === 200) {
-    //       setError(false);
-    //       setLoading(false);
-    //       history.push("/verify-email");
-    //     }
-    //   } catch (error) {
-    //     setLoading(false);
-    //     setError(true);
-    //     setErrMessage("An error occurred, please try again later.");
-    //   }
-    // }
-    history.push("/login");
+  // console
+  // console.log(data)
+
+  const onSubmit = async (formData) => {
+
+      console.log("formData")
+      console.log(formData)
+      setLoading(true);
+      try {
+        const {data} = await employeeRegister(formData);
+
+        console.log(data)
+        
+        if (data.status) {
+          // setError(false);
+          // setLoading(false);
+          // history.push("/login");
+          Cookies.set('PAYSL-ADTK', data.token);
+          setExpiryTimeToStorage(new Date());
+          // data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
+          history.push('/user/dashboard')
+        }
+        
+          // setError(false);
+          // setLoading(false);
+          // history.push("/login");
+          // Cookies.set('PAYSL-ADTK', data.payload.data.token);
+          // setExpiryTimeToStorage(new Date());
+          // data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
+          
+        
+
+      } catch (error) {
+        console.log("error")
+        console.log(error)
+        setLoading(false);
+        setError(true);
+        setErrMessage("An error occurred, please try again later.");
+      }
+
   };
 
   return (
@@ -47,7 +77,7 @@ export const SignUp = () => {
       <div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-20 mobiles:p-0 mobiles:h-0 auth_container mx-auto">
         <h1 className="text-[21px] md:text-3xl font-bold uppercase">sign up</h1>
         {error && <ErrorMessage title="Error" message={errMessage} />}
-        <form onSubmit={handleSubmit(data => console.log(data))}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className={`${!error && "mt-[46px]"}`}>
             <InputField
               label="Enter Email Address"
@@ -88,16 +118,20 @@ export const SignUp = () => {
               errors={errors?.phone_number ?? false}
               {...register("phone_number", { required: true })}
             />
-            {/* Todo add select dropdown here */}
-            <InputField
-              label="Gender"
-              name="gender"
-              type="text"
-              placeholder="Male or Female"
-              errors={errors?.last_name ?? false}
-              {...register("gender", { required: true })}
-            />
-
+            <div>
+            <label>Gender</label>
+            <div className="select-pay mb-5 mt-2">
+              <select
+                {...register("gender", {required: true})}
+                name="gender"
+                className="bg-gray-100 px-5 py-4 w-full rounded"
+              >
+                <option value=""></option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </div>
             <PasswordInput
               name="password"
               label="Enter password"

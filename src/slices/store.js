@@ -16,7 +16,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 let store = configureStore({
 	reducer: persistedReducer,
-	employee: employeeSlice,
+	employeen: employeeSlice,
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: false,
