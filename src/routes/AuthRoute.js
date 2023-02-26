@@ -23,7 +23,7 @@ export const AuthRoutesList = [
   { path: "/register", component: SignUp, exact: true },
   { path: "/password", component: PasswordChanged, exact: true },
   { path: "/verify-email", component: VerifyEmail, exact: true },
-  // { path: "/user/register", component: SignUp, exact: true },
+  { path: "/user/register", component: SignUp, exact: true },
   { path: "/user/login", component: UserLogin, exact: true },
   { path: "/reset-otp", component: OTPReset, exact: true },
   { path: "/reset-password", component: ResetPassword, exact: true },

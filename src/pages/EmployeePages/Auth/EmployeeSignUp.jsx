@@ -1,20 +1,26 @@
 /* eslint-disable no-unused-vars */
 import isEmail from "is-email";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput } from "../../../components/Input";
 import { ErrorMessage } from "../../../components/Message/Message";
 import { CustomSelect } from "../../../components/Select";
-import { persistSelector } from "../../../slices/persist";
+import { emailContext } from "../../../routes/AuthRoute";
+import { persistSelector, setUser } from "../../../slices/persist";
 import { employeeRegister } from "../../../utils/ApiRequests";
 import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
 
+
+
 export const SignUp = () => {
+
+  const {emailState} = useContext(emailContext)
+
   const {
     register,
     handleSubmit,
@@ -24,6 +30,8 @@ export const SignUp = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errMessage, setErrMessage] = useState();
+
+  const dispatch = useDispatch()
 
   const history = useHistory();
 
@@ -47,8 +55,9 @@ export const SignUp = () => {
           // setError(false);
           // setLoading(false);
           // history.push("/login");
+          dispatch(setUser("chinonso"));
           Cookies.set('PAYSL-ADTK', data.token);
-          setExpiryTimeToStorage(new Date());
+          setExpiryTimeToStorage(new Date() * 60 * 60 * 24 * 7);
           // data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
           history.push('/user/dashboard')
         }
@@ -80,9 +89,11 @@ export const SignUp = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={`${!error && "mt-[46px]"}`}>
             <InputField
+              readOnly
               label="Enter Email Address"
               name="email"
               type="email"
+              value={emailState}
               placeholder="e.g Kelly@farfill.com"
               errors={errors?.email ?? false}
               {...register("email", {
