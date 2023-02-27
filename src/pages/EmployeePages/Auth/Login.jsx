@@ -33,12 +33,13 @@ export const UserLogin = () => {
   const [error, setError] = useState(false);
 
   const onSubmit = async (formData) => {
+
     if (formData) {
       setLoading(true);
       try {
         const res = await employeeLogin(formData);
-        dispatch(setUser(res.data.payload.data));
-        Cookies.set("PAYSL-ADTK", res.data.payload.data.token);
+        dispatch(setUser("chinonso"));
+        Cookies.set("PAYSL-ADTK", res.data.token);
         setExpiryTimeToStorage(new Date());
         setLoading(false);
         history.push("/user/dashboard");

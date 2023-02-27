@@ -10,7 +10,7 @@ import {
 // Resusable requests template
 export const ApiRequest = () => {
   const config = { baseURL: constant.baseUrl };
-  const instance = axios.create(config);
+  const instance = axios.create({...config,  headers: {'Content-Type': 'application/json','Accept': 'application/json'}});
   return instance;
 };
 

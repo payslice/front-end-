@@ -34,12 +34,12 @@ const PersonalInfo = () => {
 		email: email,
 		bankDetails: {
 			...bankDetails,
-			bvn: bankDetails.bvn,
+			// bvn: bankDetails.bvn,
 			bank_code: '058',
 		},
 		workDetails: {
 			...workDetails,
-			location: workDetails.location,
+			// location: workDetails.location,
 		},
 		company: {
 			employee_id: id,
@@ -153,7 +153,7 @@ const PersonalInfo = () => {
 							onChange={(e) => handleChange('bankDetails', e)}
 							type="number"
 							name="bvn"
-							value={formData.bankDetails?.bvn}
+							// value={formData.bankDetails?.bvn}
 							// minLength="11"
 							// maxLength="11"
 						/>
@@ -163,7 +163,7 @@ const PersonalInfo = () => {
 							required
 							label="Location "
 							name="location"
-							value={formData.workDetails.location}
+							value={formData.workDetails?.location}
 							onChange={(e) => handleChange('workDetails', e)}
 							type="text"
 						/>
