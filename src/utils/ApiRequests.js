@@ -57,13 +57,11 @@ export const employerRegister = (formData) => {
 };
 
 export const employerLogin = (formData) => {
-  //   return ApiRequest().post("/employer_auth/login", formData);
-  return ApiRequest().post("/api/employee/login", formData);
+    return ApiRequest().post("/employer_auth/login", formData);
 };
 
 export const employerInvite = (formData) => {
-  //   return ApiRequest().post("/employer_auth/login", formData);
-  return ApiRequest().post("api/employee/generate_otp", formData);
+    return ApiRequest().post("/employer_auth/login", formData);
 };
 
 export const employerOTPRequest = (formData) => {
@@ -73,7 +71,7 @@ export const employerOTPRequest = (formData) => {
 };
 
 export const employeeLogin = (formData) => {
-  return ApiRequest().post("/employee_auth/login", formData);
+  return ApiRequest().post("api/employee/login", formData);
 };
 
 export const employeeRegister = (formData) => {
