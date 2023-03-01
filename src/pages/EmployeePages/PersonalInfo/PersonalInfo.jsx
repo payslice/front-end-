@@ -13,14 +13,13 @@ import { removeUserDataFromStorage, setuserDataToStorage, getUserDataFromStorage
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { persistSelector } from '../../../slices/persist';
+import { useForm } from 'react-hook-form';
+import { PasswordChangeFormEmployee } from '../../../components/PasswordChangeFormEmployee';
 
 const PersonalInfo = () => {
 	const { user } = useSelector(persistSelector);
-	const initPasswordForm = {
-		email: '',
-		new_password: '',
-		confirm_password: '',
-	};
+
+	const {register, handleSubmit}  = useForm()
 
 	const [imgFile, setImgFile] = useState();
 
@@ -48,10 +47,8 @@ const PersonalInfo = () => {
 		employee_id: id,
 	});
 
-	const [passwordForm, setPasswordForm] = useState(initPasswordForm);
 	const [uploading, setUploading] = useState(false);
 	const [submitting, setSubmitting] = useState(false);
-	const [changingPassword, setPasswordChanging] = useState(false);
 
 	const uploadProfileIcon = async () => {
 		let bodyFormData = new FormData();
@@ -76,30 +73,16 @@ const PersonalInfo = () => {
 		setFormData(newFormData);
 	};
 
-	const handlePasswordChange = (type, e) => {
-		const { name, value } = e.target;
-		const newFormData = { ...passwordForm };
-		type ? (newFormData[type][name] = value) : (newFormData[name] = value);
-		setPasswordForm(newFormData);
-	};
-
-	const submitPasswordChange = async (e) => {
-		e.preventDefault();
-		setPasswordChanging(true);
-
-		try {
-			await changePassword(passwordForm);
-			setPasswordChanging(false);
-			toast.success('Password changed successfull');
-			setPasswordForm(initPasswordForm);
-		} catch (error) {
-			toast.error('An error occurred');
-		}
-	};
+	// const handlePasswordChange = (type, e) => {
+	// 	const { name, value } = e.target;
+	// 	const newFormData = { ...passwordForm };
+	// 	type ? (newFormData[type][name] = value) : (newFormData[name] = value);
+	// 	setPasswordForm(newFormData);
+	// };
 
 	const updateUserInfo = async (e) => {
 		e.preventDefault();
-		setSubmitting(true);
+		setSubmitting(true); 
 		try {
 			const res = await updateEmployee(id, formData);
 			removeUserDataFromStorage();
@@ -116,7 +99,7 @@ const PersonalInfo = () => {
 		<div className="px-8">
 			<div className="text-2xl my-4">Personal Information</div>
 
-			<form onSubmit={updateUserInfo}>
+			<form key={1}>
 				<div className="w-full flex mobiles:block">
 					<div className="w-1/3 mr-5 mobiles:w-full">
 						<InputField
@@ -216,48 +199,7 @@ const PersonalInfo = () => {
 
 			<div className="my-8">
 				<div className="text-2xl my-4">Change Password</div>
-
-				<form onSubmit={submitPasswordChange}>
-					<div className="w-full flex mobiles:block">
-						{/*
-						<div className="w-1/3 mr-5 mobiles:w-full">
-							
-							<InputField
-								required
-								label="Your email"
-								value={passwordForm.email}
-								type="email"
-								name="email"
-								onChange={(e) => handlePasswordChange(null, e)}
-							/>
-							
-						</div>
-						*/}
-						<div className="w-1/3 mr-5 mobiles:w-full">
-							<InputField
-								required
-								label="New Password"
-								value={passwordForm.new_password}
-								type="password"
-								name="new_password"
-								onChange={(e) => handlePasswordChange(null, e)}
-							/>
-						</div>
-						<div className="w-1/3 mr-5 mobiles:w-full">
-							<InputField
-								required
-								label="Confirm Password"
-								value={passwordForm.confirm_password}
-								type="password"
-								name="confirm_password"
-								onChange={(e) => handlePasswordChange(null, e)}
-							/>
-						</div>
-					</div>
-					<div className="mt-3">
-						<Button loading={changingPassword} buttonText="Change Password" />
-					</div>
-				</form>
+				<PasswordChangeFormEmployee />
 			</div>
 		</div>
 	);
