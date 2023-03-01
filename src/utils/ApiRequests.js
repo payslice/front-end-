@@ -247,6 +247,16 @@ export const saveNextOfKin = (formData) => {
 };
 
 /*
+ * Description: Endpoint to create employee KYC
+ */
+export const saveKyc = (formData) => {
+  return ApiRequestWithToken().post(
+    `/api/employee/save/kyc`,
+    formData
+  );
+};
+
+/*
  * Description: Endpoint to remove employee from the system
  */
 export const deleteEmployee = (employeeId) => {
