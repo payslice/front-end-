@@ -36,7 +36,7 @@ const UserSidebar = () => {
 						currentPath={currentLocation}
 						Icon={HiBriefcase}
 						path="/user/attendance"
-						caption="Time attendance"
+						caption="Wallet"
 					/>
 
 					<SidebarItem currentPath={currentLocation} Icon={AiFillSetting} path="/user/settings" caption="Settings" />
