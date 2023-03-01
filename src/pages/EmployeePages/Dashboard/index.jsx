@@ -8,6 +8,7 @@ import {
 	getAmountWithdrawn,
 	clockOut,
 	getWithdrawalRequest,
+	getWorkPlaceEmployee,
 } from '../../../utils/ApiRequests';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -18,7 +19,9 @@ import { getUserDataFromStorage, removeClockInFromStorage, setClockInTimeToStora
 import { constant } from '../../../utils/ApiConstants';
 import { useSelector } from 'react-redux';
 import { persistSelector } from '../../../slices/persist';
+import {AiOutlineArrowRight} from 'react-icons/ai'
 import MiniLoader from '../../../components/Loaders/MiniLoader';
+import { Link } from 'react-router-dom';
 
 const UserDashboard = () => {
 	const { user } = useSelector(persistSelector);
@@ -29,6 +32,7 @@ const UserDashboard = () => {
 	const [checkLoading, setCheckLoading] = useState(false);
 	const [totalWithdrawn, setTotalWithdrawn] = useState();
 	const [transactionData, setTransactionData] = useState([]);
+	const [workplaceInfoState, setWorkplaceInfoState] = useState([]);
 	const [loadingTransactionData, setLoadingTransactionData] = useState(true);
 	const [fetchingData, setFetchingData] = useState(false);
 	const [clockedIn, setClockedIn] = useState(false);
@@ -61,6 +65,17 @@ const UserDashboard = () => {
 		if (localStorage.getItem(constant.clockInKeyName)) {
 			setClockedIn(true);
 		}
+
+		const gettingWorkplaceInfo = async () => {
+			try {
+				const {data} = await getWorkPlaceEmployee();
+				if(data.status === true) {
+					setWorkplaceInfoState(data.data)
+				}
+			} catch (error) {
+				toast.error('An error occurred');
+			}
+		};
 
 		const fetchWithdrawalAmount = async () => {
 			try {
@@ -116,7 +131,7 @@ const UserDashboard = () => {
 		// 		console.log("this is the data coming")
 		// 	}
 		// )
-
+		gettingWorkplaceInfo();
 		getTotalWithdrawn();
 		fetchWithdrawalAmount();
 		getTransactions();
@@ -185,58 +200,99 @@ const UserDashboard = () => {
 
 	return (
 		<div className="user-dashboard-wrapper">
-			<div className="flex justify-between mb-8 handle_user_homepage_responsive">
+
 			
-				<div className="text-gray-400 capitalize font-semibold mt-3 handle_user_homepage_responsive_in" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
-				
-
-				{clockedIn || checkInSuccess ? (
-					<Button buttonText="Employee CheckOut" loading={checkLoading} onClick={submitClockOut} base />
-				) : (
-					<Button buttonText="Employee CheckIn" loading={checkLoading} onClick={submitClockIn} base />
-				)}
-			</div>
-
-			<div className="flex w-full justify-between handle_user_homepage_responsive">
-				<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-1/2 sm:w-full handle_user_homepage_responsive_in2">
-					<div className="my-auto">
-						<div className="text-normal">Total Earned</div>
-						<h3 className="text-xl text-white mb-0 font-bold">
-							NGN {parseInt(availableFunds?.amount_avaliable_to_withdraw).toLocaleString()}{' '}
-						</h3>
-					</div>
-					<div className="border flex justify-center ml-10 items-center border-white rounded-full h-16 w-16">
-						{' '}
-						<button className="mb-0 cursor-pointer" onClick={() => history.push('/user/withdrawals/withdraw')}>
-							Get <br />
-							Paid
-						</button>
-					</div>
-				</div>
-				<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
-					<div className="my-auto">
-						<div className="text-normal">Total withdrawn </div>
-						<h3 className="text-xl  mb-0 font-bold">
-							{fetchingWithdrawnAmount ? (
-								<>
-									{' '}
-									<DotLoader />{' '}
-								</>
+			{
+				workplaceInfoState  === []
+				?
+				(
+					<>
+						<div className="flex justify-between mb-8 handle_user_homepage_responsive">
+						
+							<div className="text-gray-400 capitalize font-semibold mt-3 handle_user_homepage_responsive_in" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
+							
+			
+							{clockedIn || checkInSuccess ? (
+								<Button buttonText="Employee CheckOut" loading={checkLoading} onClick={submitClockOut} base />
 							) : (
-								<> NGN {parseInt(totalWithdrawn).toLocaleString()} </>
+								<Button buttonText="Employee CheckIn" loading={checkLoading} onClick={submitClockIn} base />
 							)}
-						</h3>
-					</div>
+						</div>
+			
+						<div className="flex w-full justify-between handle_user_homepage_responsive">
+							<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-1/2 sm:w-full handle_user_homepage_responsive_in2">
+								<div className="my-auto">
+									<div className="text-normal">Total Earned</div>
+									<h3 className="text-xl text-white mb-0 font-bold">
+										NGN {parseInt(availableFunds?.amount_avaliable_to_withdraw).toLocaleString()}{' '}
+									</h3>
+								</div>
+								<div className="border flex justify-center ml-10 items-center border-white rounded-full h-16 w-16">
+									{' '}
+									<button className="mb-0 cursor-pointer" onClick={() => history.push('/user/withdrawals/withdraw')}>
+										Get <br />
+										Paid
+									</button>
+								</div>
+							</div>
+							<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
+								<div className="my-auto">
+									<div className="text-normal">Total withdrawn </div>
+									<h3 className="text-xl  mb-0 font-bold">
+										{fetchingWithdrawnAmount ? (
+											<>
+												{' '}
+												<DotLoader />{' '}
+											</>
+										) : (
+											<> NGN {parseInt(totalWithdrawn).toLocaleString()} </>
+										)}
+									</h3>
+								</div>
+			
+								<button
+									style={{ background: '#CA7652' }}
+									className="h-max py-2 my-auto px-4 rounded text-white"
+									onClick={() => history.push('/user/withdrawals')}
+								>
+									History
+								</button>
+							</div>
+						</div>
+					
+					</>
+				)
+				: 
+				(
+					<>
+					
+						<Link to="user/workplace/confirmemployee">
+							<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
+								<div className="my-auto">
+									<h3 className="text-xl  mb-0 font-bold">
+										Please Add Employee <AiOutlineArrowRight />
+									</h3>
+								</div>
+								
+								<button
+									style={{ background: '#CA7652' }}
+									className="h-max py-2 my-auto px-4 rounded text-white"
+									onClick={() => history.push('/user/withdrawals')}
+								>
+									<AiOutlineArrowRight />
+								</button>
+							</div>
+						</Link>
 
-					<button
-						style={{ background: '#CA7652' }}
-						className="h-max py-2 my-auto px-4 rounded text-white"
-						onClick={() => history.push('/user/withdrawals')}
-					>
-						History
-					</button>
-				</div>
-			</div>
+						<div>
+							please you are not having any employee id, please register
+						</div>
+					
+					</>
+				)
+
+			}
+
 
 
 			{

@@ -227,6 +227,13 @@ export const getOneEmployee = (employee_id) => {
 };
 
 /*
+ * Description: Endpoint to get employee workplace
+ */
+export const getWorkPlaceEmployee = () => {
+  return ApiRequestWithToken().get(`api/employee/workplace/info`);
+};
+
+/*
  * Description: Endpoint to update employee record
  */
 export const updateEmployee = (formData) => {
