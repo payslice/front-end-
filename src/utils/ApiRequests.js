@@ -9,9 +9,18 @@ import {
 
 // Resusable requests template
 export const ApiRequest = () => {
+<<<<<<< Updated upstream
     const config = { baseURL: constant.baseUrl };
     const instance = axios.create(config);
     return instance;
+=======
+  const config = { baseURL: constant.baseUrl };
+  const instance = axios.create({
+    ...config,
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+  });
+  return instance;
+>>>>>>> Stashed changes
 };
 
 export const ApiRequestWithToken = () => {
@@ -56,12 +65,35 @@ export const employerRegister = formData => {
     return ApiRequest().post("/employer_auth/register", formData);
 };
 
+<<<<<<< Updated upstream
 export const employerLogin = formData => {
     return ApiRequest().post("/employer_auth/login", formData);
 };
 
 export const employeeLogin = formData => {
     return ApiRequest().post("/employee_auth/login", formData);
+=======
+export const employerLogin = (formData) => {
+  return ApiRequest().post("/employer_auth/login", formData);
+};
+
+export const employerInvite = (formData) => {
+  return ApiRequest().post("/employer_auth/login", formData);
+};
+
+export const employerOTPRequest = (formData) => {
+  console.log("formData otp request");
+  console.log(formData);
+  return ApiRequest().post("api/employee/verify_otp", formData);
+};
+
+export const employeeLogin = (formData) => {
+  return ApiRequest().post("api/employee/login", formData);
+};
+
+export const employeeRegister = (formData) => {
+  return ApiRequest().post("api/employee/register", formData);
+>>>>>>> Stashed changes
 };
 
 export const companyInfoOnboarding = formData => {
@@ -360,8 +392,8 @@ export const resetPassword = formData => {
 /*
  * Description: Endpoint to change password
  */
-export const changePassword = formData => {
-    return ApiRequestWithToken().post(`/change_password`, formData);
+export const changePassword = (formData) => {
+  return ApiRequestWithToken().post(`/api/employee/change_password`, formData);
 };
 
 /*
