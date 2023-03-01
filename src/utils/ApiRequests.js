@@ -20,7 +20,7 @@ export const ApiRequestWithToken = () => {
     const token = getTokenFromStorage();
     config.headers = { Authorization: `Bearer ${token}` };
   }
-  const instance = axios.create(config);
+  const instance = axios.create({...config,  headers: {'Content-Type': 'application/json','Accept': 'application/json'}});
   return instance;
 };
 
@@ -232,6 +232,16 @@ export const getOneEmployee = (employee_id) => {
 export const updateEmployee = (employee_id, formData) => {
   return ApiRequestWithToken().patch(
     `/employee/update/${employee_id}`,
+    formData
+  );
+};
+
+/*
+ * Description: Endpoint to create employee nextOfKin
+ */
+export const saveNextOfKin = (formData) => {
+  return ApiRequestWithToken().post(
+    `/api/employee/save/next_of_kin`,
     formData
   );
 };
