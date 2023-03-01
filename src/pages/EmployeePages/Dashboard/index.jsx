@@ -169,32 +169,35 @@ const UserDashboard = () => {
 		navigator.geolocation.getCurrentPosition(showPosition, handleError);
 	}
 
-	const submitClockIn = async () => {
-		setCheckLoading(true);
-		setClockInTimeToStorage();
-		try {
-			await clockIn({ location: latLng });
-			setCheckInSuccess(true);
-			setCheckLoading(false);
-		} catch (error) {
-			toast.error(error.response.data.payload.data);
-			setCheckLoading(false);
-		}
-	};
+	const addEmployeeHandler = () => {
+		history.push('/user/workplace/confirmemployee')
+	}
+	// const submitClockIn = async () => {
+	// 	setCheckLoading(true);
+	// 	setClockInTimeToStorage();
+	// 	try {
+	// 		await clockIn({ location: latLng });
+	// 		setCheckInSuccess(true);
+	// 		setCheckLoading(false);
+	// 	} catch (error) {
+	// 		toast.error(error.response.data.payload.data);
+	// 		setCheckLoading(false);
+	// 	}
+	// };
 
-	const submitClockOut = async () => {
-		setCheckLoading(true);
-		try {
-			await clockOut({ location: latLng });
-			setCheckOutSuccess(true);
+	// const submitClockOut = async () => {
+	// 	setCheckLoading(true);
+	// 	try {
+	// 		await clockOut({ location: latLng });
+	// 		setCheckOutSuccess(true);
 
-			setCheckLoading(false);
-			removeClockInFromStorage();
-		} catch (error) {
-			toast.error(error.response.data.payload.data);
-			setCheckLoading(false);
-		}
-	};
+	// 		setCheckLoading(false);
+	// 		removeClockInFromStorage();
+	// 	} catch (error) {
+	// 		toast.error(error.response.data.payload.data);
+	// 		setCheckLoading(false);
+	// 	}
+	// };
 
 	console.log(transactionData)
 
@@ -212,11 +215,15 @@ const UserDashboard = () => {
 							<div className="text-gray-400 capitalize font-semibold mt-3 handle_user_homepage_responsive_in" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
 							
 			
-							{clockedIn || checkInSuccess ? (
-								<Button buttonText="Employee CheckOut" loading={checkLoading} onClick={submitClockOut} base />
-							) : (
-								<Button buttonText="Employee CheckIn" loading={checkLoading} onClick={submitClockIn} base />
-							)}
+							{/*
+								{clockedIn || checkInSuccess ? (
+									<Button buttonText="Employee CheckOut" loading={checkLoading} onClick={submitClockOut} base />
+								) : (
+									<Button buttonText="Employee CheckIn" loading={checkLoading} onClick={submitClockIn} base />
+								)}
+							*/}
+							
+							<Button buttonText="Add Employee" loading={checkLoading} onClick={addEmployeeHandler} base />
 						</div>
 			
 						<div className="flex w-full justify-between handle_user_homepage_responsive">
