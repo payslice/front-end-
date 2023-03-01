@@ -227,6 +227,20 @@ export const getOneEmployee = (employee_id) => {
 };
 
 /*
+ * Description: Endpoint to get an employee
+ */
+export const employeeAddWorkPlace = (formData) => {
+  return ApiRequestWithToken().post(`api/employee/workplace/add`, formData);
+};
+
+/*
+ * Description: Endpoint to confirmemployee an employee
+ */
+export const employeeConfirmEmployeeId = (employee_id) => {
+  return ApiRequestWithToken().post(`api/employee/workplace/confirm_employee`, employee_id);
+};
+
+/*
  * Description: Endpoint to get employee workplace
  */
 export const getWorkPlaceEmployee = () => {

@@ -5,9 +5,9 @@ import { useHistory } from 'react-router'
 import { Button } from '../../../../components/Button/Button'
 import { InputField } from '../../../../components/Input'
 import { ErrorMessage } from '../../../../components/Message/Message'
-import { emailContext } from '../../../../routes/AuthRoute'
+import { EmployeeIdContext } from '../../../../routes/EmployeeRoutes'
 import { persistSelector } from '../../../../slices/persist'
-import { employerOTPRequest } from '../../../../utils/ApiRequests'
+import { employeeAddWorkPlace } from '../../../../utils/ApiRequests'
 
 
 const AddWorkPlace = () => {
@@ -15,10 +15,10 @@ const AddWorkPlace = () => {
   const dispatch = useDispatch();
   const data = useSelector(persistSelector);
 
-  const {emailState} = useContext(emailContext)
+  const {employeeIdState} = useContext(EmployeeIdContext)
 
   console.log("emailRecievedContext userotp")
-  console.log(emailState)
+  console.log(employeeIdState)
 
   console.log(data);
 
@@ -38,9 +38,9 @@ const AddWorkPlace = () => {
 
     try {
           setLoading(true)
-          const {data} = await employerOTPRequest({...formData, email: emailState})
+          const {data} = await employeeAddWorkPlace({...formData, employee_id: employeeIdState})
 
-          if (data.status) history.push("/register");
+          if (data.status) history.push("/user/dashboard");
           console.log(data)
     }
     catch(err) {
@@ -68,10 +68,10 @@ const AddWorkPlace = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={`${!error && "mt-[46px]"}`}>
             <InputField
-              label="Verify Employee ID"
+              label="Enter OTP"
               type="text"
               name="employee_id"
-              placeholder="e.g mollitia"
+              placeholder="e.g sdf3e34"
               {...register('employee_id', {
                 required: true
               })}

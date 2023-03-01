@@ -6,16 +6,16 @@ import { useHistory } from 'react-router';
 import { Button } from '../../../../components/Button/Button';
 import { InputField } from '../../../../components/Input';
 import { ErrorMessage } from '../../../../components/Message/Message';
-import { emailContext } from '../../../../routes/AuthRoute';
+import { EmployeeIdContext } from '../../../../routes/EmployeeRoutes';
 import { persistSelector } from '../../../../slices/persist';
-import { employerInvite } from '../../../../utils/ApiRequests';
+import { employeeConfirmEmployeeId } from '../../../../utils/ApiRequests';
 
 const ConfirmEmployee = () => {
 
+  const {setEmployeeIdState} = useContext(EmployeeIdContext)
+
     const dispatch = useDispatch();
   const data = useSelector(persistSelector);
-
-  const {setEmailState} = useContext(emailContext)
 
   console.log(data);
 
@@ -32,10 +32,10 @@ const ConfirmEmployee = () => {
 
       setLoading(true);
       try {
-        const res = await employerInvite({...formData, title: "email_verification"});
-        if(res.data.status) {
-          setEmailState(formData.email)
-          history.push('/user/request_otp')
+        const {data} = await employeeConfirmEmployeeId({...formData});
+        if(data.status) {
+          setEmployeeIdState(formData.employee_id)
+          history.push('/user/workplace/addworkplace')
         }
         setLoading(false);
       } catch (error) {
@@ -69,11 +69,11 @@ const ConfirmEmployee = () => {
               type="text"
               name="employee_id"
               placeholder="e.g malign23"
-              errors={errors?.email ?? false}
+              // errors={errors?.email ?? false}
               {...register("employee_id", {
                 required: true,
-                validate: (value) =>
-                  isEmail(value) || "Please enter a valid employee id",
+                // validate: (value) =>
+                //   isEmail(value) || "Please enter a valid employee id",
               })}
             />
           </div>

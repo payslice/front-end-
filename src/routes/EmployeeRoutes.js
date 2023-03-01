@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import AppLayout from '../layout/AppLayout';
 import { checkLogin, checkTokenValidity } from '../utils/ApiUtils';
@@ -12,6 +12,8 @@ import Kyc from '../pages/EmployeePages/PersonalInfo/Kyc';
 import NextOfKin from '../pages/EmployeePages/PersonalInfo/NextOfKin';
 import ConfirmEmployee from '../pages/EmployeePages/Dashboard/AddWorkPlace/ConfirmEmployee';
 import AddWorkPlace from '../pages/EmployeePages/Dashboard/AddWorkPlace/AddWorkplace';
+
+export const EmployeeIdContext = createContext()
 
 export const EmployeeRoutesList = [
 	{ path: '/user/dashboard', component: UserDashboard, exact: true },
@@ -66,6 +68,9 @@ const PrivateEmployeeRoute = ({ component: Component, ...rest }) => {
 };
 
 const EmployeeRoutes = () => {
+
+	const [employeeIdState, setEmployeeIdState] = useState('')
+
 	const location = useLocation();
 
 	const useNavTab = () => {
@@ -75,6 +80,7 @@ const EmployeeRoutes = () => {
 	};
 
 	return (
+		<EmployeeIdContext.Provider value={{employeeIdState, setEmployeeIdState}}>
 		<AppLayout navTab={useNavTab()}>
 			<Switch>
 				{EmployeeRoutesList.map((r) => (
@@ -83,6 +89,7 @@ const EmployeeRoutes = () => {
 				))}
 			</Switch>
 		</AppLayout>
+		</EmployeeIdContext.Provider>
 	);
 };
 

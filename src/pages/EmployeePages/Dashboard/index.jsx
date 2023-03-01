@@ -266,7 +266,7 @@ const UserDashboard = () => {
 				(
 					<>
 					
-						<Link to="user/workplace/confirmemployee">
+						<Link to="workplace/comfirmemployee">
 							<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
 								<div className="my-auto">
 									<h3 className="text-xl  mb-0 font-bold">
