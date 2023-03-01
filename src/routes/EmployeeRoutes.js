@@ -10,9 +10,13 @@ import PersonalInfo from '../pages/EmployeePages/PersonalInfo/PersonalInfo';
 import BankingInfo from '../pages/EmployeePages/PersonalInfo/BankingInfo';
 import Kyc from '../pages/EmployeePages/PersonalInfo/Kyc';
 import NextOfKin from '../pages/EmployeePages/PersonalInfo/NextOfKin';
+import ConfirmEmployee from '../pages/EmployeePages/Dashboard/AddWorkPlace/ConfirmEmployee';
+import AddWorkPlace from '../pages/EmployeePages/Dashboard/AddWorkPlace/AddWorkplace';
 
 export const EmployeeRoutesList = [
 	{ path: '/user/dashboard', component: UserDashboard, exact: true },
+	{ path: '/user/workplace/comfirmemployee', component: ConfirmEmployee, exact: true },
+	{ path: '/user/workplace/addworkplace', component: AddWorkPlace, exact: true },
 	{
 		path: '/user/withdrawals',
 		component: Withdrawals,
@@ -47,6 +51,7 @@ const userInfoNavTab = [
 		name: 'Next Of Kin',
 		link: '/user/settings/nextofkin',
 	},
+	
 ];
 
 const PrivateEmployeeRoute = ({ component: Component, ...rest }) => {
