@@ -229,9 +229,9 @@ export const getOneEmployee = (employee_id) => {
 /*
  * Description: Endpoint to update employee record
  */
-export const updateEmployee = (employee_id, formData) => {
-  return ApiRequestWithToken().patch(
-    `/employee/update/${employee_id}`,
+export const updateEmployee = (formData) => {
+  return ApiRequestWithToken().post(
+    `api/employee/update_profile`,
     formData
   );
 };

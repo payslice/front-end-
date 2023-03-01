@@ -17,9 +17,17 @@ import { useForm } from 'react-hook-form';
 import { PasswordChangeFormEmployee } from '../../../components/PasswordChangeFormEmployee';
 
 const PersonalInfo = () => {
+
 	const { user } = useSelector(persistSelector);
 
-	const {register, handleSubmit}  = useForm()
+	const {register, handleSubmit}  = useForm({
+		defaultValues: {
+			first_name: '',
+			last_name: '',
+			phone_number: '',
+			gender: ''
+		}
+	})
 
 	const [imgFile, setImgFile] = useState();
 
@@ -48,7 +56,7 @@ const PersonalInfo = () => {
 	});
 
 	const [uploading, setUploading] = useState(false);
-	const [submitting, setSubmitting] = useState(false);
+	const [submittingLoader, setSubmittingLoader] = useState(false);
 
 	const uploadProfileIcon = async () => {
 		let bodyFormData = new FormData();
@@ -80,18 +88,20 @@ const PersonalInfo = () => {
 	// 	setPasswordForm(newFormData);
 	// };
 
-	const updateUserInfo = async (e) => {
-		e.preventDefault();
-		setSubmitting(true); 
+	const onSubmit = async (formData) => {
+		setSubmittingLoader(true) 
 		try {
-			const res = await updateEmployee(id, formData);
-			removeUserDataFromStorage();
-			setuserDataToStorage(res.data.payload.data);
-			setSubmitting(false);
-			window.location.reload();
+			const {data} = await updateEmployee(formData);
+			if(data.status === true) {
+				removeUserDataFromStorage();
+				setuserDataToStorage(data.data);
+				setSubmittingLoader(false);
+				window.location.reload();
+			}
+			console.log(data)
 		} catch (error) {
 			toast.error('An error occurred, please try again');
-			setSubmitting(false);
+			setSubmittingLoader(false);
 		}
 	};
 
@@ -99,55 +109,40 @@ const PersonalInfo = () => {
 		<div className="px-8">
 			<div className="text-2xl my-4">Personal Information</div>
 
-			<form key={1}>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="w-full flex mobiles:block">
 					<div className="w-1/3 mr-5 mobiles:w-full">
 						<InputField
 							required
-							label="Full name"
-							value={`${formData.first_name} ${formData.last_name}`}
-							disabled
+							label="First name"
+							{...register('first_name', {required: true})}
 							type="text"
 						/>
 					</div>
 					<div className="w-1/3 mr-5 mobiles:w-full">
-						<InputField required label="Email Address" value={formData.email} disabled type="email" />
-					</div>
-					<div className="w-1/3 mr-5 mobiles:w-full">
 						<InputField
 							required
-							label="Phone Number"
-							value={formData.phone_number}
-							type="tel"
-							name="phone_number"
-							onChange={(e) => handleChange(null, e)}
+							label="Last name"
+							{...register('last_name', {required: true})}
+							type="text"
 						/>
 					</div>
 				</div>
-
+				
 				<div className="w-full flex mobiles:block">
 					<div className="w-1/3 mr-5 mobiles:w-full">
-						<InputField required label="Employees ID" type="text" />
-					</div>
-					<div className="w-1/3 mr-5">
 						<InputField
-							required
-							label="BVN"
-							onChange={(e) => handleChange('bankDetails', e)}
-							type="number"
-							name="bvn"
-							// value={formData.bankDetails?.bvn}
-							// minLength="11"
-							// maxLength="11"
-						/>
+					 		required
+					 		label="Phone Number"
+					 		type="tel"
+							{...register('phone_number', {required: true})}
+					 	/>
 					</div>
 					<div className="w-1/3 mr-5 mobiles:w-full">
 						<InputField
 							required
-							label="Location "
-							name="location"
-							value={formData.workDetails?.location}
-							onChange={(e) => handleChange('workDetails', e)}
+							label="Gender"
+							{...register('gender', {required: true})}
 							type="text"
 						/>
 					</div>
@@ -193,7 +188,7 @@ const PersonalInfo = () => {
 					</div>
 				</div>
 				<div className="mt-5">
-					<Button buttonText="Upload Details" loading={submitting} />
+					<Button buttonText="Upload Details" loading={submittingLoader} />
 				</div>
 			</form>
 
