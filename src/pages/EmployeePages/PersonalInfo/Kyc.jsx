@@ -1,67 +1,149 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form';
 import { Button } from '../../../components/Button/Button';
-import { InputField, SelectInput } from '../../../components/Input';
-import { userData } from '../../../utils/ApiRequests';
+import { InputField } from '../../../components/Input'
+import { saveKyc, userData } from '../../../utils/ApiRequests';
+import { toast } from "react-toastify";
 
 
 
+const maritalStatusData = [
+    { id: 5543, name: "Single", value: "single" },
+    { id: 14477, name: "Married", value: "married" },
+    { id: 9654, name: "Divorced", value: "divorced" },
+    { id: 3241, name: "Widowed", value: "widowed" },
+    { id: 7769, name: "Separated", value: "separated" },
+  ];
 
+const idTypeData = [
+    { id: 1775, name: "NIN", value: "nin" },
+    { id: 5411, name: "PVC", value: "pvc" },
+    { id: 9766, name: "Passport", value: "passport" },
+  ];
 
 const Kyc = () => {
-    
     const { id, kycDetails } = userData;
-    const maritalStatus = [
-        { id: 0, name: "Single", value: "single" },
-        { id: 1, name: "Married", value: "married" },
-        { id: 2, name: "Divorced", value: "divorced" },
-        { id: 3, name: "Widowed", value: "widowed" },
-        { id: 4, name: "Separated", value: "separated" },
-      ];
 
-    const idType = [
-        { id: 0, name: "NIN", value: "nin" },
-        { id: 1, name: "PVC", value: "pvc" },
-        { id: 1, name: "Passport", value: "passport" },
-      ];
+    const {register, handleSubmit} = useForm()
+
+    const [loading, setLoading] = useState(false)
+
+    const [imgFile, setImgFile] = useState();
+
+    const onSubmit = async (onSubmit) => {
+
+            setLoading(true)
+            try {
+                const {data} = await saveKyc(onSubmit)
+                if(data.status === 200) toast.success("next of kin user saved")
+                setLoading(false)
+            }
+            catch(error) {
+                setLoading(false)
+                toast.error("data not created")
+            
+            }
+    }
+
 
   return (
     <div className="px-8">
-			<div className="text-2xl my-4">KYC</div>
-
-			<form>
-				<div className="w-full flex mobiles:block">
-					<div className="w-1/3 mr-5 mobiles:w-full">
-						{/* <InputField required label="Marital Status" value={kycDetails?.marital_status} type="text" /> */}
-                        <SelectInput
-                            label="Marital Status"
-                            required
-                            options={maritalStatus}
-                        />
-					</div>
-					<div className="w-1/3 mr-5 mobiles:w-full">
-						<InputField required label=" Address" value={kycDetails?.address} type="text" />
-					</div>
-					<div className="w-1/3 mr-5 mobiles:w-full">
-						{/* <InputField required label="ID Type" value={kycDetails?.id_type} type="text" /> */}
-                        <SelectInput 
-                            label= "ID Type"
-                            required
-                            options={idType}
-                        />
-					</div>
-				</div>
-
-                <div className="w-full flex mobiles:block">
-                    <div className="w-1/3 mr-5 mobiles:w-full">
-						<InputField required label="Upload ID" value={kycDetails?.file} type="file" />
-					</div>
-					<div className="w-1/3 mr-5 mobiles:w-full">
-						<InputField required label="Profile Picture" value={kycDetails?.profile_picture} type="file" />
-					</div>
+    <div className="text-2xl my-4">KYC</div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="w-full flex mobiles:block">
+         <div className="w-1/3 mr-5 mobiles:w-full">
+                <div>
+                    <label className="text-normal text-sm md:text-base font-medium relative">Marital Status
+                    <span
+                        style={{ color: 'red', width: '40px', marginLeft: '20px', marginTop: '-2px' }}
+                        className="absolute text-3xl md:text-5xl w-10 md:ml-5 -mt-0.5 text-rose-600"
+                    >
+                        *
+                    </span>
+                     </label>
+                    <div className="select-pay mb-5 mt-2">
+                        <select
+                            {...register('marital_status', {required: true})}
+                            name="marital_status"
+                            className="bg-gray-100 px-5 py-4 w-full rounded"
+                        >
+                            <option value=""></option>
+                            {maritalStatusData.map(({id, name, value}) => (
+                                <option value={value} key={id}>{name}</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
-				<Button buttonText="Update Details" />
-			</form>
-		</div>
+            </div>
+
+            <div className="w-1/3 mr-5 mobiles:w-full">
+                <InputField required label="Address" {...register('address', {required: true})} value={kycDetails?.address} type="text" />
+            </div>
+
+            <div className="w-1/3 mr-5 mobiles:w-full">
+                <div>
+                    <label className="text-normal text-sm md:text-base font-medium relative">ID Type
+                    <span
+                        style={{ color: 'red', width: '40px', marginLeft: '20px', marginTop: '-2px' }}
+                        className="absolute text-3xl md:text-5xl w-10 md:ml-5 -mt-0.5 text-rose-600"
+                    >
+                        *
+                    </span>
+                     </label>
+                    <div className="select-pay mb-5 mt-2">
+                        <select
+                            {...register('id_type', {required: true})}
+                            name="id_type"
+                            className="bg-gray-100 px-5 py-4 w-full rounded"
+                        >
+                            <option value=""></option>
+                            { idTypeData.map(({id, name, value}) => (
+                                <option value={value} key={id}>{name}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="w-full flex mobiles:block">
+            <div className="w-1/3 mr-5 mobiles:w-full">
+                <InputField required label="Upload ID" {...register('file', 
+                {required: true})} value={kycDetails?.file}
+                
+                id="file"
+								className="hidden"
+								onChange={(e) => {
+									const [file] = e.target.files;
+									setImgFile(file);
+								}}
+								type="file"
+								accept=".png, .jpeg, .jpg"
+                
+                />
+            </div>
+
+            <div className="w-1/3 mr-5 mobiles:w-full">
+                <InputField required label="Profile Picture" {...register('profile_picture', 
+                {required: true})} value={kycDetails?.profile_picture}
+                
+                id="profile_picture"
+								className="hidden"
+								onChange={(e) => {
+									const [file] = e.target.files;
+									setImgFile(file);
+								}}
+								type="file"
+								accept=".png, .jpeg, .jpg"
+                
+                />
+            </div>
+            
+           
+        </div>
+        <Button buttonText="Update Details" loading={loading}  />
+    </form>
+</div>
   )
 }
 
