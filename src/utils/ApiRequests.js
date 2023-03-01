@@ -384,10 +384,16 @@ export const resetPassword = (formData) => {
 };
 
 /*
- * Description: Endpoint to change password
+ * Description: Endpoint to change password for employer
  */
 export const changePassword = (formData) => {
   return ApiRequestWithToken().post(`/change_password`, formData);
+};
+/*
+ * Description: Endpoint to change password for employee
+ */
+export const changePasswordEmployee = (formData) => {
+  return ApiRequestWithToken().post(`api/employee/change_password`, formData);
 };
 
 /*
