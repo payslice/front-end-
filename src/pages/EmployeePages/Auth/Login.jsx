@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput } from "../../../components/Input";
@@ -38,8 +38,7 @@ export const UserLogin = () => {
       setLoading(true);
       try {
         const {data} = await employeeLogin(formData);
-        if(data.staus === true) {
-
+        if(data.status === true) {
           dispatch(setUser("chinonso"));
           Cookies.set("PAYSL-ADTK", data.token);
           setExpiryTimeToStorage(new Date());
@@ -58,7 +57,10 @@ export const UserLogin = () => {
       }
     }
   };
-  return (
+  // useEffect(() => {
+
+  // }, [staus])
+   return (
     <>
       <div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-20 mobiles:p-0 mobiles:h-0 auth_container mx-auto">
         <h1 className="text-[21px] md:text-3xl font-bold uppercase">login</h1>
