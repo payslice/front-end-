@@ -8,6 +8,8 @@ import WithdrawFunds from '../pages/EmployeePages/Withdrawals/WithdrawFunds';
 import TimeAttendance from '../pages/EmployeePages/Attendance/TimeAttendance';
 import PersonalInfo from '../pages/EmployeePages/PersonalInfo/PersonalInfo';
 import BankingInfo from '../pages/EmployeePages/PersonalInfo/BankingInfo';
+import Kyc from '../pages/EmployeePages/PersonalInfo/Kyc';
+import NextOfKin from '../pages/EmployeePages/PersonalInfo/NextOfKin';
 
 export const EmployeeRoutesList = [
 	{ path: '/user/dashboard', component: UserDashboard, exact: true },
@@ -24,6 +26,8 @@ export const EmployeeRoutesList = [
 	{ path: '/user/attendance', component: TimeAttendance, exact: true },
 	{ path: '/user/settings', component: PersonalInfo, exact: true },
 	{ path: '/user/settings/banking', component: BankingInfo, exact: true },
+	{ path: '/user/settings/kyc', component: Kyc, exact: true },
+	{ path: '/user/settings/nextofkin', component: NextOfKin, exact: true },
 ];
 
 const userInfoNavTab = [
@@ -34,6 +38,14 @@ const userInfoNavTab = [
 	{
 		name: 'Banking Information',
 		link: '/user/settings/banking',
+	},
+	{
+		name: 'KYC',
+		link: '/user/settings/kyc',
+	},
+	{
+		name: 'Next Of Kin',
+		link: '/user/settings/nextofkin',
 	},
 ];
 
