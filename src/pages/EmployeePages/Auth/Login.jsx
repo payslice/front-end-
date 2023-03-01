@@ -37,17 +37,24 @@ export const UserLogin = () => {
     if (formData) {
       setLoading(true);
       try {
-        const res = await employeeLogin(formData);
-        dispatch(setUser("chinonso"));
-        Cookies.set("PAYSL-ADTK", res.data.token);
-        setExpiryTimeToStorage(new Date());
-        setLoading(false);
-        history.push("/user/dashboard");
+        const {data} = await employeeLogin(formData);
+        if(data.staus === true) {
+
+          dispatch(setUser("chinonso"));
+          Cookies.set("PAYSL-ADTK", data.token);
+          setExpiryTimeToStorage(new Date());
+          setLoading(false);
+          history.push("/user/dashboard");
+        }
+        toast.error(data.message);
       } catch (error) {
         toast.error("An error occurred, ensure details are correct");
         setLoading(false);
         // console.log("error", error.response.data.payload.data);
         setError(true);
+      }
+      finally {
+        setLoading(false);
       }
     }
   };
