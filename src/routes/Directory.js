@@ -12,12 +12,13 @@ import { UserLogin } from "../pages/EmployeePages/Auth/Login";
 import { OTPReset } from "../pages/EmployeePages/Auth/OTPReset";
 import UserDashboard from "../pages/EmployeePages/Dashboard";
 import Withdrawals from "../pages/EmployeePages/Withdrawals/Withdrawals";
-import TimeAttendance from "../pages/EmployeePages/Attendance/TimeAttendance";
+// import TimeAttendance from "../pages/EmployeePages/Attendance/TimeAttendance";
 import PersonalInfo from "../pages/EmployeePages/PersonalInfo/PersonalInfo";
 import BankingInfo from "../pages/EmployeePages/PersonalInfo/BankingInfo";
 import WithdrawFunds from "../pages/EmployeePages/Withdrawals/WithdrawFunds";
 import CompanyOnboardRoutes from "./CompanyOnboardRoutes";
 import EmployerRoutes from "./EmployerRoutes";
+import { Wallets } from "../pages/EmployeePages/Withdrawals/Wallets";
 
 const DashboardLayout = ({ child, navTab }) => {
   return <AppLayout navTab={navTab}>{child()}</AppLayout>;
@@ -55,8 +56,8 @@ const Directory = () => {
           exact
         />
         <Route
-          path="/user/attendance"
-          render={() => <DashboardLayout child={TimeAttendance} />}
+          path="/user/wallets"
+          render={() => <DashboardLayout child={Wallets} />}
           exact
         />
         <Route

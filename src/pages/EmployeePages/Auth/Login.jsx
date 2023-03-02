@@ -38,7 +38,7 @@ export const UserLogin = () => {
       setLoading(true);
       try {
         const {data} = await employeeLogin(formData);
-        if(data.staus === true) {
+        if(data.status === true) {
 
           dispatch(setUser("chinonso"));
           Cookies.set("PAYSL-ADTK", data.token);
