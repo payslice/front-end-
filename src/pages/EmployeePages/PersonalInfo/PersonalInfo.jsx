@@ -22,10 +22,10 @@ const PersonalInfo = () => {
 
 	const {register, handleSubmit}  = useForm({
 		defaultValues: {
-			first_name: '',
-			last_name: '',
-			phone_number: '',
-			gender: ''
+			first_name: user.first_name,
+			last_name: user.last_name,
+			phone_number: user.phone_number,
+			gender: user.gender
 		}
 	})
 
