@@ -39,8 +39,7 @@ export const UserLogin = () => {
       try {
         const {data} = await employeeLogin(formData);
         if(data.status === true) {
-
-          dispatch(setUser("chinonso"));
+          dispatch(setUser(data.data));
           Cookies.set("PAYSL-ADTK", data.token);
           setExpiryTimeToStorage(new Date());
           setLoading(false);
@@ -95,8 +94,8 @@ export const UserLogin = () => {
         </form>
         <div className="mt-16 text-sm md:text-base">
           Don't have an account?{" "}
-          <Link to="/invite" className="font-medium text-primary ml-1">
-            Refer your employer
+          <Link to="/user/invite" className="font-medium text-primary ml-1">
+            Please register
           </Link>
         </div>
         <div className="mt-2 text-sm md:text-base">
