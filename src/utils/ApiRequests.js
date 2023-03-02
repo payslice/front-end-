@@ -10,7 +10,10 @@ import {
 // Resusable requests template
 export const ApiRequest = () => {
   const config = { baseURL: constant.baseUrl };
-  const instance = axios.create({...config,  headers: {'Content-Type': 'application/json','Accept': 'application/json'}});
+  const instance = axios.create({
+    ...config,
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+  });
   return instance;
 };
 
@@ -20,7 +23,10 @@ export const ApiRequestWithToken = () => {
     const token = getTokenFromStorage();
     config.headers = { Authorization: `Bearer ${token}` };
   }
-  const instance = axios.create({...config,  headers: {'Content-Type': 'application/json','Accept': 'application/json'}});
+  const instance = axios.create({
+    ...config,
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+  });
   return instance;
 };
 
@@ -57,16 +63,16 @@ export const employerRegister = (formData) => {
 };
 
 export const employerLogin = (formData) => {
-    return ApiRequest().post("/employer_auth/login", formData);
+  return ApiRequest().post("/employer_auth/login", formData);
 };
 
 export const employerInvite = (formData) => {
-    return ApiRequest().post("/employer_auth/login", formData);
+  return ApiRequest().post("/employer_auth/login", formData);
 };
 
 export const employerOTPRequest = (formData) => {
-  console.log("formData otp request")
-  console.log(formData)
+  console.log("formData otp request");
+  console.log(formData);
   return ApiRequest().post("api/employee/verify_otp", formData);
 };
 
@@ -261,20 +267,14 @@ export const updateEmployee = (formData) => {
  * Description: Endpoint to create employee nextOfKin
  */
 export const saveNextOfKin = (formData) => {
-  return ApiRequestWithToken().post(
-    `/api/employee/save/next_of_kin`,
-    formData
-  );
+  return ApiRequestWithToken().post(`/api/employee/save/next_of_kin`, formData);
 };
 
 /*
  * Description: Endpoint to create employee KYC
  */
 export const saveKyc = (formData) => {
-  return ApiRequestWithToken().post(
-    `/api/employee/save/kyc`,
-    formData
-  );
+  return ApiRequestWithToken().post(`/api/employee/save/kyc`, formData);
 };
 
 /*
@@ -417,6 +417,15 @@ export const changePasswordEmployee = (formData) => {
   return ApiRequestWithToken().post(`api/employee/change_password`, formData);
 };
 
+/*
+ * Description: Endpoint to update workplace for employee
+ */
+export const UpdateWorkplace = (formData) => {
+  return ApiRequestWithToken().post(
+    `api/employee/workplace/update_info`,
+    formData
+  );
+};
 /*
  * Description: Endpoint to validate OTP
  */
