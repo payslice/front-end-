@@ -44,8 +44,12 @@ export const UserLogin = () => {
           setExpiryTimeToStorage(new Date());
           setLoading(false);
           history.push("/user/dashboard");
+          toast.success(data.message);
         }
-        toast.error(data.message);
+        else {
+          toast.error(data.message);
+
+        }
       } catch (error) {
         toast.error("An error occurred, ensure details are correct");
         setLoading(false);
