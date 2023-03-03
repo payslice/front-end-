@@ -14,13 +14,13 @@ const BankingInfo = () => {
 			<form>
 				<div className="w-full flex">
 					<div className="w-1/3 mr-5">
-						<InputField required label="Bank Name" value={bankDetails.bank_name} type="text" />
+						<InputField required label="Bank Name" value={bankDetails?.bank_name} type="text" />
 					</div>
 					<div className="w-1/3 mr-5">
-						<InputField required label=" Account Number " value={bankDetails.account_number} type="text" />
+						<InputField required label=" Account Number " value={bankDetails?.account_number} type="text" />
 					</div>
 					<div className="w-1/3 mr-5">
-						<InputField required label=" Account Name " value={bankDetails.account_name} type="text" />
+						<InputField required label=" Account Name " value={bankDetails?.account_name} type="text" />
 					</div>
 				</div>
 				<Button buttonText="Update Details" />

@@ -75,9 +75,9 @@ export const DahboardMobileNav = () => {
 			name: 'Withdrawals',
 		},
 		{
-			path: '/user/attendance',
+			path: '/user/Wallets',
 			Icon: HiBriefcase,
-			name: 'attendance',
+			name: 'wallets',
 		},
 		{
 			path: '/user/settings',
