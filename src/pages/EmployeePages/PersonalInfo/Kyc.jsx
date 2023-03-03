@@ -122,7 +122,10 @@ const Kyc = () => {
           </div>
         </div>
 
-        <div className="w-full flex mobiles:block">
+        <div className="w-full flex mobiles:block">            
+          <div className="w-1/3 mr-5 mobiles:w-full">
+              <InputField required label="BVN" {...register('bvn', {required: true})} value={kycDetails?.bvn} type="text" />
+          </div>
           <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required

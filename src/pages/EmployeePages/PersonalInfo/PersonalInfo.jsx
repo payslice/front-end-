@@ -23,7 +23,16 @@ import { PasswordChangeFormEmployee } from "../../../components/PasswordChangeFo
 const PersonalInfo = () => {
   const { user } = useSelector(persistSelector);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      first_name: user.first_name,
+      last_name: user.last_name,
+      phone_number: user.phone_number,
+      gender: user.gender,
+
+
+    }
+  });
 
   const [imgFile, setImgFile] = useState();
 
@@ -92,13 +101,12 @@ const PersonalInfo = () => {
   // 	setPasswordForm(newFormData);
   // };
 
-  const updateUserInfo = async (e) => {
-    e.preventDefault();
+  const updateUserInfo = async (formData) => {
     setSubmitting(true);
     try {
-      const res = await updateEmployee(id, formData);
+      const {data} = await updateEmployee(formData);
       removeUserDataFromStorage();
-      setuserDataToStorage(res.data.payload.data);
+      setuserDataToStorage(data.data);
       setSubmitting(false);
       window.location.reload();
     } catch (error) {
@@ -111,65 +119,41 @@ const PersonalInfo = () => {
     <div className="px-8">
       <div className="text-2xl my-4">Personal Information</div>
 
-      <form key={1}>
+      <form onSubmit={handleSubmit(updateUserInfo)}>
         <div className="w-full flex mobiles:block">
           <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
-              label="Full name"
-              value={`${formData.first_name} ${formData.last_name}`}
-              disabled
-              type="text"
+              label="First Name"
+              {...register('first_name', {required: true})}
             />
           </div>
           <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
-              label="Email Address"
-              value={formData.email}
-              disabled
-              type="email"
+              label="First Name"
+              {...register('last_name', {required: true})}
             />
           </div>
+        </div>
+        <div className="w-full flex mobiles:block">
           <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
               label="Phone Number"
-              value={formData.phone_number}
-              type="tel"
-              name="phone_number"
-              onChange={(e) => handleChange(null, e)}
+              {...register('phone_number', {required: true})}
+            />
+          </div>
+          <div className="w-1/3 mr-5 mobiles:w-full">
+            <InputField
+              required
+              label="Gender"
+              {...register('gender', {required: true})}
             />
           </div>
         </div>
 
-        <div className="w-full flex mobiles:block">
-          <div className="w-1/3 mr-5 mobiles:w-full">
-            <InputField required label="Employees ID" type="text" />
-          </div>
-          <div className="w-1/3 mr-5">
-            <InputField
-              required
-              label="BVN"
-              onChange={(e) => handleChange("bankDetails", e)}
-              type="number"
-              name="bvn"
-              // value={formData.bankDetails?.bvn}
-              // minLength="11"
-              // maxLength="11"
-            />
-          </div>
-          <div className="w-1/3 mr-5 mobiles:w-full">
-            <InputField
-              required
-              label="Location "
-              name="location"
-              value={formData.workDetails?.location}
-              onChange={(e) => handleChange("workDetails", e)}
-              type="text"
-            />
-          </div>
-        </div>
+
         <div className="w-full flex mobiles:block">
           <div className="w-full lg:w-1/3 mr-5 flex">
             {imgFile ? (
