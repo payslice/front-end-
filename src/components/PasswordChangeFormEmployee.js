@@ -20,14 +20,22 @@ export const PasswordChangeFormEmployee = () => {
 		// console.log(JSON.stringify(formData))
 		setPasswordChangingLoading(true);
 		try {
-			await changePasswordEmployee(formData);
-			setPasswordChangingLoading(false);
-			toast.success('Password changed successfull');
+			const {data} = await changePasswordEmployee(formData);
+                        if(data.status === true) {
+                                setPasswordChangingLoading(false);
+                                toast.success(data.message);
+                        }
+                        else {
+                                toast.error(data.message);
+                        }
 		} catch (error) {
 			setPasswordChangingLoading(false);
 			toast.error('An error occurred');
                         console.log(error)
 		}
+                finally {
+			setPasswordChangingLoading(false);
+                }
 	};
 
         return (

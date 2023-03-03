@@ -105,13 +105,24 @@ const PersonalInfo = () => {
     setSubmitting(true);
     try {
       const {data} = await updateEmployee(formData);
-      removeUserDataFromStorage();
-      setuserDataToStorage(data.data);
-      setSubmitting(false);
-      window.location.reload();
+      if(data.status === true) {
+        
+        removeUserDataFromStorage();
+        setuserDataToStorage(data.data);
+        setSubmitting(false);
+        // window.location.reload();
+        toast.success(data.message)
+      }
+      else {
+        toast.error(data.message)
+      }
     } catch (error) {
       toast.error("An error occurred, please try again");
       setSubmitting(false);
+    }
+    finally {
+      setSubmitting(false);
+
     }
   };
 

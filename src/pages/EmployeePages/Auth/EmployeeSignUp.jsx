@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput } from "../../../components/Input";
 import { ErrorMessage } from "../../../components/Message/Message";
@@ -17,7 +18,7 @@ import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
 
 
 
-export const SignUp = () => {
+export const EmployeeSignUp = () => {
 
   const {emailState} = useContext(emailContext)
 
@@ -60,6 +61,12 @@ export const SignUp = () => {
           setExpiryTimeToStorage(new Date() * 60 * 60 * 24 * 7);
           // data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
           history.push('/user/dashboard')
+          toast.success(data.message)
+          setLoading(false);
+        }
+        else {
+          toast.error(data.message)
+          setLoading(false);
         }
         
           // setError(false);
@@ -75,8 +82,10 @@ export const SignUp = () => {
         console.log("error")
         console.log(error)
         setLoading(false);
-        setError(true);
         setErrMessage("An error occurred, please try again later.");
+      }
+      finally {
+        setLoading(false);
       }
 
   };

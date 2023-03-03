@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { Button } from '../../../components/Button/Button';
 import { InputField } from '../../../components/Input'
 import { userData } from '../../../utils/ApiRequests';
-import { saveNextOfKin } from '../../../utils/ApiRequests';
+import { saveNextOfKinEmployee } from '../../../utils/ApiRequests';
 
 
 const relationshipData = [
@@ -28,9 +29,15 @@ const NextOfKin = () => {
             console.log("onSubmit")
             setLoading(true)
             try {
-                const {data} = await saveNextOfKin(onSubmit)
-                if(data.status === 200) console.log("next of kin user saved")
-                setLoading(false)
+                const {data} = await saveNextOfKinEmployee(onSubmit)
+                if(data.status === 200) {
+                    toast.success(data.message)
+                    setLoading(false)
+                }
+                else {
+                    toast.error(data.message)
+                    setLoading(false)
+                }
             }
             catch(error) {
                 setLoading(false)

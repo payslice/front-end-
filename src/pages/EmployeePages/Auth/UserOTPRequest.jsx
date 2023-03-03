@@ -2,16 +2,15 @@ import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput } from "../../../components/Input";
-import { employerLogin, employerOTPRequest } from "../../../utils/ApiRequests";
-import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
+import { employeeOTPRequest } from "../../../utils/ApiRequests";
 import { ErrorMessage } from "../../../components/Message/Message";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import isEmail from "is-email";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, persistSelector } from "../../../slices/persist";
 import { emailContext } from "../../../routes/AuthRoute";
+import { toast } from "react-toastify";
 
 
 
@@ -42,9 +41,17 @@ export const UserOTPRequest = () => {
 
     try {
           setLoading(true)
-          const {data} = await employerOTPRequest({...formData, email: emailState})
+          const {data} = await employeeOTPRequest({...formData, email: emailState})
 
-          if (data.status) history.push("/register");
+          if (data.status) {
+            history.push("/user/register");
+            toast.error(data.message)
+            setLoading(false)
+          }
+          else {
+            toast.error(data.message)
+            setLoading(false)
+          }
           console.log(data)
     }
     catch(err) {

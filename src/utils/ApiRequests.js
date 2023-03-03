@@ -19,13 +19,18 @@ export const ApiRequest = () => {
 
 export const ApiRequestWithToken = () => {
   const config = { baseURL: constant.baseUrl };
+  console.log('entered api request token')
+  let token;
   if (storageContainsToken()) {
-    const token = getTokenFromStorage();
-    config.headers = { Authorization: `Bearer ${token}` };
+    token = getTokenFromStorage();
+    console.log('gotten token from storage');
+    console.log('token');
+    console.log(token)
+    config.headers = { Authorization: `Bearer ${token}`};
   }
   const instance = axios.create({
     ...config,
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json", "Accept": "application/json" },
   });
   return instance;
 };
@@ -155,6 +160,15 @@ export const getClockOut = () => {
   return ApiRequestWithToken().get(`/attendance/get_clock_out/${userData.id}`);
 };
 
+
+
+/*
+ * Description: Store employee clockout in storage
+ */
+export const employeeOTPRequest = (formData) => {
+  return ApiRequest().post("api/employee/verify_otp", formData);
+};
+
 /*
  * Description: Store employee clockout in storage
  */
@@ -266,7 +280,7 @@ export const updateEmployee = (formData) => {
 /*
  * Description: Endpoint to create employee nextOfKin
  */
-export const saveNextOfKin = (formData) => {
+export const saveNextOfKinEmployee = (formData) => {
   return ApiRequestWithToken().post(`/api/employee/save/next_of_kin`, formData);
 };
 
@@ -396,6 +410,14 @@ export const saveTransaction = (formData) => {
     ...formData,
   });
 };
+
+/*
+ * Description: Password reset endpoint
+ */
+export const employeeInvite = (formData) => {
+  return ApiRequest().post(`api/employee/generate_otp`, formData);
+};
+
 
 /*
  * Description: Password reset endpoint

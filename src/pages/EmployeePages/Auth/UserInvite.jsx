@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput } from "../../../components/Input";
-import { employerInvite, employerLogin } from "../../../utils/ApiRequests";
+import { employeeInvite } from "../../../utils/ApiRequests";
 import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
 import { ErrorMessage } from "../../../components/Message/Message";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, persistSelector } from "../../../slices/persist";
 import { getUserEmail } from "../../../slices/employee/employeeSlice";
 import { emailContext } from "../../../routes/AuthRoute";
+import { toast } from "react-toastify";
 
 export const UserInvite = () => {
   const dispatch = useDispatch();
@@ -36,16 +37,22 @@ export const UserInvite = () => {
     // if (formData) {
       setLoading(true);
       try {
-        const res = await employerInvite({...formData, title: "email_verification"});
+        const {data} = await employeeInvite({...formData, title: "email_verification"});
         // dispatch(setUser(res.data.payload.data));
         // Cookies.set('PAYSL-ADTK', res.data.payload.data.token);
         // setExpiryTimeToStorage(new Date());
         // res.data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
-        if(res.data.status) {
+        if(data.status) {
           setEmailState(formData.email)
           history.push('/user/request_otp')
+          toast.success(data.message)
+          setLoading(false);
         }
-        setLoading(false);
+        else {
+          toast.error(data.message)
+          setLoading(false);
+
+        }
       } catch (error) {
         setLoading(false);
         // console.log("error", error);
