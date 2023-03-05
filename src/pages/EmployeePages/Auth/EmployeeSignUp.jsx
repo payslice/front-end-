@@ -51,14 +51,14 @@ export const EmployeeSignUp = () => {
         const {data} = await employeeRegister(formData);
 
         console.log(data)
-        
+         
         if (data.status) {
           // setError(false);
           // setLoading(false);
           // history.push("/login");
-          dispatch(setUser("chinonso"));
+          dispatch(setUser(data.data));
           Cookies.set('PAYSL-ADTK', data.token);
-          setExpiryTimeToStorage(new Date() * 60 * 60 * 24 * 7);
+          setExpiryTimeToStorage(new Date());
           // data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
           history.push('/user/dashboard')
           toast.success(data.message)
@@ -75,8 +75,7 @@ export const EmployeeSignUp = () => {
           // Cookies.set('PAYSL-ADTK', data.payload.data.token);
           // setExpiryTimeToStorage(new Date());
           // data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
-          
-        
+      
 
       } catch (error) {
         console.log("error")

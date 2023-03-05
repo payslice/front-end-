@@ -11,6 +11,7 @@ import isEmail from "is-email";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, persistSelector } from "../../../slices/persist";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -31,14 +32,19 @@ export const Login = () => {
     if (formData) {
       setLoading(true);
       try {
-        const res = await employeeLogin(formData);
-        dispatch(setUser(res.data.payload.data));
-        Cookies.set("PAYSL-ADTK", res.data.payload.data.token);
-        setExpiryTimeToStorage(new Date());
-        setLoading(false);
-        res.data.payload.data.company
-          ? history.push("/dashboard")
-          : history.push("/onboard/step1");
+        const {data} = await employeeLogin(formData);
+
+        if(data.status){
+          dispatch(setUser(data.data));
+          Cookies.set("PAYSL-ADTK", data.token);
+          setExpiryTimeToStorage(new Date());
+          setLoading(false);
+          history.push("user/dashboard")
+          toast.success(data.message)
+        }
+        else {
+          toast.error(data.message)
+        }
       } catch (error) {
         setLoading(false);
         // console.log("error", error);

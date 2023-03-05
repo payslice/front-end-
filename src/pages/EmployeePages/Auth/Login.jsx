@@ -33,7 +33,6 @@ export const UserLogin = () => {
   const [error, setError] = useState(false);
 
   const onSubmit = async (formData) => {
-
     if (formData) {
       setLoading(true);
       try {

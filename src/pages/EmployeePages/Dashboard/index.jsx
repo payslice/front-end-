@@ -62,79 +62,72 @@ const UserDashboard = () => {
 		setFetchingData(true);
 		setFetchingWithdrawnAmount(true);
 
-		if (localStorage.getItem(constant.clockInKeyName)) {
-			setClockedIn(true);
-		}
+		// if (localStorage.getItem(constant.clockInKeyName)) {
+		// 	setClockedIn(true);
+		// }
 
-		const gettingWorkplaceInfo = async () => {
-			try {
-				const {data} = await getWorkPlaceEmployee();
-				if(data.status === true) {
-					setWorkplaceInfoState(data.data)
-				}
-			} catch (error) {
-				toast.error('An error occurred');
-			}
-		};
-
-		const fetchWithdrawalAmount = async () => {
-			try {
-				const res = await getAvailableWithdrawFunds();
-				setAvailableFunds(res.data.payload.data);
-			} catch (error) {
-				toast.error('An error occurred');
-			}
-		};
-
-		const getTotalWithdrawn = async () => {
-			try {
-				const res = await getAmountWithdrawn();
-				setTotalWithdrawn(res.data.payload.data);
-				setFetchingWithdrawnAmount(false);
-			} catch (error) {
-				toast.error('An error occurred');
-				setFetchingWithdrawnAmount(false);
-			}
-		};
-
-		const getTransactions = async () => {
-			try {
-				const res = await getWithdrawalRequest();
-				console.log(res.data.payload.data)
-				setLoadingTransactionData(true)
-				const resetData = res.data.payload.data?.map((withdrawal, i) => {
-					return {
-						key: i,
-						transactionID: truncateString(withdrawal.request_code, 9),
-						amount: toCurrency(withdrawal.amount),
-						charges: withdrawal.service_charge,
-						date: new Date(withdrawal.updated_at).toDateString(),
-						status: withdrawal.status,
-					};
-				});
-				
-				setLoadingTransactionData(false)
-				setTransactionData(resetData);
-				setFetchingData(false);
-			} catch (error) {
-				toast.error('An error occurred');
-				setFetchingData(false);
-			}
-		};
-
-		// request to fetch all transactions
-		// fetch('https://dev.api.payslices.com/transaction/payment_log')
-		// .then(res => res.json())
-		// .then(data => 
-		// 	{ 
-		// 		console.log(data)
-		// 		console.log("this is the data coming")
+		// const gettingWorkplaceInfo = async () => {
+		// 	try {
+		// 		const {data} = await getWorkPlaceEmployee();
+		// 		if(data.status === true) {
+		// 			setWorkplaceInfoState(data.data)
+		// 		}
+		// 	} catch (error) {
+		// 		toast.error('An error occurred');
 		// 	}
-		// )
-		gettingWorkplaceInfo();
-		getTotalWithdrawn();
-		fetchWithdrawalAmount();
-		getTransactions();
+		// };
+
+		// const fetchWithdrawalAmount = async () => {
+		// 	try {
+		// 		const res = await getAvailableWithdrawFunds();
+		// 		setAvailableFunds(res.data.payload.data);
+		// 	} catch (error) {
+		// 		toast.error('An error occurred');
+		// 	}
+		// };
+
+		// const getTotalWithdrawn = async () => {
+		// 	try {
+		// 		const res = await getAmountWithdrawn();
+		// 		setTotalWithdrawn(res.data.payload.data);
+		// 		setFetchingWithdrawnAmount(false);
+		// 	} catch (error) {
+		// 		toast.error('An error occurred');
+		// 		setFetchingWithdrawnAmount(false);
+		// 	}
+		// };
+
+		// const getTransactions = async () => {
+		// 	try {
+		// 		const res = await getWithdrawalRequest();
+		// 		console.log(res.data.payload.data)
+		// 		setLoadingTransactionData(true)
+		// 		const resetData = res.data.payload.data?.map((withdrawal, i) => {
+		// 			return {
+		// 				key: i,
+		// 				transactionID: truncateString(withdrawal.request_code, 9),
+		// 				amount: toCurrency(withdrawal.amount),
+		// 				charges: withdrawal.service_charge,
+		// 				date: new Date(withdrawal.updated_at).toDateString(),
+		// 				status: withdrawal.status,
+		// 			};
+		// 		});
+				
+		// 		setLoadingTransactionData(false)
+		// 		setTransactionData(resetData);
+		// 		setFetchingData(false);
+		// 	} catch (error) {
+		// 		toast.error('An error occurred');
+		// 		setFetchingData(false);
+		// 	}
+		// };
+
+
+
+		// gettingWorkplaceInfo();
+		// getTotalWithdrawn();
+		// fetchWithdrawalAmount();
+		// getTransactions();
 	}, []);
 
 	function handleError(error) {

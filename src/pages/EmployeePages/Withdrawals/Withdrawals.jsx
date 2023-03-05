@@ -18,27 +18,27 @@ const Withdrawals = () => {
 	const handleClick = (param) => {};
 
 	useEffect(() => {
-		const getTransactions = async () => {
-			try {
-				const res = await getWithdrawalRequest();
-				const resetData = res.data.payload.data?.map((withdrawal, i) => {
-					return {
-						key: i,
-						transactionID: truncateString(withdrawal.request_code, 15),
-						amount: toCurrency(withdrawal.amount),
-						charges: withdrawal.service_charge,
-						date: new Date(withdrawal.updated_at).toDateString(),
-						status: withdrawal.status,
-					};
-				});
-				setTransactionData(resetData);
-				setFetchingData(false);
-			} catch (error) {
-				toast.error('An error occurred');
-				setFetchingData(false);
-			}
-		};
-		getTransactions();
+		// const getTransactions = async () => {
+		// 	try {
+		// 		const res = await getWithdrawalRequest();
+		// 		const resetData = res.data.payload.data?.map((withdrawal, i) => {
+		// 			return {
+		// 				key: i,
+		// 				transactionID: truncateString(withdrawal.request_code, 15),
+		// 				amount: toCurrency(withdrawal.amount),
+		// 				charges: withdrawal.service_charge,
+		// 				date: new Date(withdrawal.updated_at).toDateString(),
+		// 				status: withdrawal.status,
+		// 			};
+		// 		});
+		// 		setTransactionData(resetData);
+		// 		setFetchingData(false);
+		// 	} catch (error) {
+		// 		toast.error('An error occurred');
+		// 		setFetchingData(false);
+		// 	}
+		// };
+		// getTransactions();
 	}, []);
 
 	const tableOptions = [

@@ -38,10 +38,6 @@ export const UserInvite = () => {
       setLoading(true);
       try {
         const {data} = await employeeInvite({...formData, title: "email_verification"});
-        // dispatch(setUser(res.data.payload.data));
-        // Cookies.set('PAYSL-ADTK', res.data.payload.data.token);
-        // setExpiryTimeToStorage(new Date());
-        // res.data.payload.data.company ? history.push('/dashboard') : history.push('/onboard/step1');
         if(data.status) {
           setEmailState(formData.email)
           history.push('/user/request_otp')
