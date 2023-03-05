@@ -37,6 +37,13 @@ const Routes = () => {
     window.scroll(0, 0);
   });
 
+  RouteList.map((r) => (
+    <>
+      console.log("r.path")
+      console.log(r.path)
+    </>
+  ))
+
   return (
     <Switch>
       {RouteList.map((r) => (
