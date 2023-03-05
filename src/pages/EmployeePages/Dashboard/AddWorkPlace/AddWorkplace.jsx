@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
+import { toast } from 'react-toastify'
 import { Button } from '../../../../components/Button/Button'
 import { InputField } from '../../../../components/Input'
 import { ErrorMessage } from '../../../../components/Message/Message'
@@ -38,9 +39,15 @@ const AddWorkPlace = () => {
 
     try {
           setLoading(true)
-          const {data} = await employeeAddWorkPlace({...formData, employee_id: employeeIdState})
+          const {data} = await employeeAddWorkPlace({...formData, employee_id: 'XJjywaOW'})
 
-          if (data.status) history.push("/user/dashboard");
+          if (data.status) {
+            history.push("/user/dashboard");
+            toast.success(data.message)
+          }
+          else {
+            toast.error(data.message)
+          }
           console.log(data)
     }
     catch(err) {
@@ -70,9 +77,9 @@ const AddWorkPlace = () => {
             <InputField
               label="Enter OTP"
               type="text"
-              name="employee_id"
+              name="otp"
               placeholder="e.g sdf3e34"
-              {...register('employee_id', {
+              {...register('otp', {
                 required: true
               })}
               required

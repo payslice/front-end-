@@ -15,20 +15,20 @@ import { toast } from 'react-toastify';
 import { toCurrency, truncateString } from '../../../utils/helpers';
 // import { Spin } from 'antd';
 import { DotLoader } from '../../../components/Loaders/DotLoader';
-import { getUserDataFromStorage, removeClockInFromStorage, setClockInTimeToStorage } from '../../../utils/ApiUtils';
+// import { getUserDataFromStorage, removeClockInFromStorage, setClockInTimeToStorage } from '../../../utils/ApiUtils';
 import { constant } from '../../../utils/ApiConstants';
 import { useSelector } from 'react-redux';
 import { persistSelector } from '../../../slices/persist';
 import {AiOutlineArrowRight} from 'react-icons/ai'
-import MiniLoader from '../../../components/Loaders/MiniLoader';
+// import MiniLoader from '../../../components/Loaders/MiniLoader';
 import { Link } from 'react-router-dom';
 
 const UserDashboard = () => {
 	const { user } = useSelector(persistSelector);
 	const [availableFunds, setAvailableFunds] = useState();
 	const [latLng, setLatLng] = useState();
-	const [checkInSuccess, setCheckInSuccess] = useState(false);
-	const [, setCheckOutSuccess] = useState(false);
+	// const [checkInSuccess, setCheckInSuccess] = useState(false);
+	// const [, setCheckOutSuccess] = useState(false);
 	const [checkLoading, setCheckLoading] = useState(false);
 	const [totalWithdrawn, setTotalWithdrawn] = useState();
 	const [transactionData, setTransactionData] = useState([]);
@@ -170,7 +170,7 @@ const UserDashboard = () => {
 	}
 
 	const addEmployeeHandler = () => {
-		history.push('/user/workplace/confirmemployee')
+		history.push('/user/dashboard/workplace/confirm_employee')
 	}
 	// const submitClockIn = async () => {
 	// 	setCheckLoading(true);
@@ -204,6 +204,8 @@ const UserDashboard = () => {
 	return (
 		<div className="user-dashboard-wrapper">
 
+		
+		<div className="text-gray-400 capitalize font-semibold mt-3 handle_user_homepage_responsive_in pb-5" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
 			
 			{
 				workplaceInfoState  === []
@@ -273,7 +275,7 @@ const UserDashboard = () => {
 				(
 					<>
 					
-						<Link to="workplace/comfirmemployee">
+						<Link to="/user/dashboard/workplace/confirm_employee">
 							<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
 								<div className="my-auto">
 									<h3 className="text-xl  mb-0 font-bold">

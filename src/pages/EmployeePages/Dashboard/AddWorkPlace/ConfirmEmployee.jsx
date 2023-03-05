@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { toast } from 'react-toastify';
 import { Button } from '../../../../components/Button/Button';
 import { InputField } from '../../../../components/Input';
 import { ErrorMessage } from '../../../../components/Message/Message';
@@ -35,10 +36,18 @@ const ConfirmEmployee = () => {
         const {data} = await employeeConfirmEmployeeId({...formData});
         if(data.status) {
           setEmployeeIdState(formData.employee_id)
-          history.push('/user/workplace/addworkplace')
+
+          history.push('/user/dashboard/workplace/add')
+          toast.success(data.message)
+          setLoading(false);
         }
-        setLoading(false);
+        else {
+          toast.error(data.message)
+          setLoading(false);
+        }
       } catch (error) {
+        console.log("error")
+        console.log(error)
         setLoading(false);
         setError(true);
       }
@@ -59,7 +68,7 @@ const ConfirmEmployee = () => {
                 {error && (
              <ErrorMessage
             title="Error"
-            message="An error occurred. Please ensure your email and password is correct."
+            message="An error occurred. Please ensure employee ID is correct"
           />
         )}
         <form onSubmit={handleSubmit(onSubmit)}>

@@ -19,14 +19,10 @@ export const ApiRequest = () => {
 
 export const ApiRequestWithToken = () => {
   const config = { baseURL: constant.baseUrl };
-  console.log('entered api request token')
   let token;
   if (storageContainsToken()) {
     token = getTokenFromStorage();
-    console.log('gotten token from storage');
-    console.log('token');
-    console.log(token)
-    config.headers = { Authorization: `Bearer ${token}`};
+    // console.log(token)
   }
   const instance = axios.create({
     ...config,
@@ -256,8 +252,8 @@ export const employeeAddWorkPlace = (formData) => {
 /*
  * Description: Endpoint to confirmemployee an employee
  */
-export const employeeConfirmEmployeeId = (employee_id) => {
-  return ApiRequestWithToken().post(`api/employee/workplace/confirm_employee`, employee_id);
+export const employeeConfirmEmployeeId = (formData) => {
+  return ApiRequestWithToken().post(`api/employee/workplace/confirm_employee`, formData);
 };
 
 /*

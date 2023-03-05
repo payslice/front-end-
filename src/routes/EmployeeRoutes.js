@@ -18,8 +18,8 @@ export const EmployeeIdContext = createContext('')
 
 export const EmployeeRoutesList = [
   { path: "/user/dashboard", component: UserDashboard, exact: true },
-  { path: "/user/workplace/add", component: AddWorkPlace, exact: true },
-  { path: "/user/workplace/confirm_employee", component:ConfirmEmployee , exact: true },
+  { path: "/user/dashboard/workplace/add", component: AddWorkPlace, exact: true },
+  { path: "/user/dashboard/workplace/confirm_employee", component:ConfirmEmployee , exact: true },
   { path: "/user/workplace/update", component: UpdateWorkplace, exact: true },
   {
     path: "/user/withdrawals",
