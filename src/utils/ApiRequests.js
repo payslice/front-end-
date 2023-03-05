@@ -9,12 +9,12 @@ import {
 
 // Resusable requests template
 export const ApiRequest = () => {
-  const config = { baseURL: constant.baseUrl };
-  const instance = axios.create({
-    ...config,
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-  });
-  return instance;
+    const config = { baseURL: constant.baseUrl };
+    const instance = axios.create({
+      ...config,
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+});
+    return instance;
 };
 
 export const ApiRequestWithToken = () => {
@@ -63,26 +63,15 @@ export const employerRegister = (formData) => {
   return ApiRequest().post("/employer_auth/register", formData);
 };
 
-export const employerLogin = (formData) => {
-  return ApiRequest().post("/employer_auth/login", formData);
+export const employerLogin = formData => {
+    return ApiRequest().post("/employer_auth/login", formData);
 };
 
-export const employerInvite = (formData) => {
-  return ApiRequest().post("/employer_auth/login", formData);
+export const employeeLogin = formData => {
+    return ApiRequest().post("api/employee/login", formData);
 };
-
-export const employerOTPRequest = (formData) => {
-  console.log("formData otp request");
-  console.log(formData);
-  return ApiRequest().post("api/employee/verify_otp", formData);
-};
-
-export const employeeLogin = (formData) => {
-  return ApiRequest().post("api/employee/login", formData);
-};
-
-export const employeeRegister = (formData) => {
-  return ApiRequest().post("api/employee/register", formData);
+export const employeeRegister = formData => {
+    return ApiRequest().post("/employee_auth/login", formData);
 };
 
 export const companyInfoOnboarding = (formData) => {
@@ -425,8 +414,8 @@ export const resetPassword = (formData) => {
 /*
  * Description: Endpoint to change password for employer
  */
-export const changePassword = (formData) => {
-  return ApiRequestWithToken().post(`/change_password`, formData);
+export const changePassword = formData => {
+    return ApiRequestWithToken().post(`/change_password`, formData);
 };
 /*
  * Description: Endpoint to change password for employee
