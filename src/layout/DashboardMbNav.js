@@ -209,9 +209,9 @@ export const DahboardMobileNav = () => {
 						<div className="mt-10">
 							<img src={require('../assets/svgs/payslice-logo.svg').default} className="w-3/4 pb-12 " alt="" />
 						</div>
-						{activeMenuList?.map((item) => {
+						{activeMenuList?.map((item, key) => {
 							return (
-								<div className="mb__menu-item my-2 ">
+								<div className="mb__menu-item my-2 " key={key}>
 									<NavLink
 										to={item.path}
 										activeClassName="sidebar_active rounded"
@@ -222,8 +222,8 @@ export const DahboardMobileNav = () => {
 										<div className="text-white font-normal my-auto ml-3">{item.name}</div>
 									</NavLink>
 									
-									{item.subMenuList.map((subItem) => (
-										<div>
+									{item.subMenuList.map((subItem, subkey ) => (
+										<div key={subkey}>
 											<NavLink
 												to={subItem.path}
 												// activeClassName="sidebar_active rounded"

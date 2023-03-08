@@ -39,7 +39,7 @@ const AddWorkPlace = () => {
 
     try {
           setLoading(true)
-          const {data} = await employeeAddWorkPlace({...formData, employee_id: 'XJjywaOW'})
+          const {data} = await employeeAddWorkPlace({...formData, employee_id: employeeIdState})
 
           if (data.status) {
             history.push("/user/dashboard");
@@ -51,9 +51,7 @@ const AddWorkPlace = () => {
           console.log(data)
     }
     catch(err) {
-      
       setLoading(false)
-
     }
     finally {
       setLoading(false)

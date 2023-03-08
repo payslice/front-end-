@@ -37,15 +37,15 @@ export const UserLogin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const token = getTokenFromStorage()
-  console.log("token")
-  console.log(token)
-  console.log("getExpiryTimeFromStorage")
-  console.log(getExpiryTimeFromStorage())
-  console.log("tokenStillValid")
-  console.log(tokenStillValid())
-  console.log("checkTokenValidity")
-  console.log(checkTokenValidity())
+  // const token = getTokenFromStorage()
+  // console.log("token")
+  // console.log(token)
+  // console.log("getExpiryTimeFromStorage")
+  // console.log(getExpiryTimeFromStorage())
+  // console.log("tokenStillValid")
+  // console.log(tokenStillValid())
+  // console.log("checkTokenValidity")
+  // console.log(checkTokenValidity())
 
   // if(checkLogin() && checkTokenValidity() && tokenStillValid() ){
   //     history.push('/user/dashboard')
