@@ -1,14 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput } from "../../../components/Input";
 import MiniLoader from "../../../components/Loaders/MiniLoader";
 import { employeeLogin } from "../../../utils/ApiRequests";
 import {
+  checkLogin,
+  checkTokenValidity,
+  getExpiryTimeFromStorage,
+  getTokenFromStorage,
   setExpiryTimeToStorage,
   setTokenToStorage,
   setuserDataToStorage,
+  tokenStillValid,
 } from "../../../utils/ApiUtils";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -31,6 +36,33 @@ export const UserLogin = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const token = getTokenFromStorage()
+  console.log("token")
+  console.log(token)
+  console.log("getExpiryTimeFromStorage")
+  console.log(getExpiryTimeFromStorage())
+  console.log("tokenStillValid")
+  console.log(tokenStillValid())
+  console.log("checkTokenValidity")
+  console.log(checkTokenValidity())
+
+  // if(checkLogin() && checkTokenValidity() && tokenStillValid() ){
+  //     history.push('/user/dashboard')
+  // }
+
+  // const toke1n = useMemo(() => {
+  //   token
+  // }, [token])
+
+  // useEffect(() => {
+  //   if(token) {
+  //     history.push('/user/dashboard')
+  //   }  
+
+  //   // getTokenFromStorage
+
+  // }, [token, history])
 
   const onSubmit = async (formData) => {
     if (formData) {
@@ -60,6 +92,7 @@ export const UserLogin = () => {
       }
     }
   };
+
   return (
     <>
       <div className="flex flex-col h-full justify-center mobiles:w-full mobiles:block mobiles:mt-20 mobiles:p-0 mobiles:h-0 auth_container mx-auto">

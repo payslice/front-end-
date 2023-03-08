@@ -68,22 +68,47 @@ export const DahboardMobileNav = () => {
 			path: '/user/dashboard',
 			Icon: AiFillHome,
 			name: 'Dashboard',
+			subMenuList: []
 		},
 		{
 			path: '/user/withdrawals',
 			Icon: MdAnalytics,
 			name: 'Withdrawals',
+			subMenuList: []
 		},
 		{
 			path: '/user/Wallets',
 			Icon: HiBriefcase,
 			name: 'wallets',
+			subMenuList: []
 		},
 		{
 			path: '/user/settings',
 			Icon: AiFillSetting,
 			name: 'Settings',
-		},
+			subMenuList: [
+				{
+					path: '/user/settings',
+					Icon: AiFillSetting,
+					name: 'Personal Infomation'
+				},
+				{
+					path: '/user/settings/banking',
+					Icon: AiFillSetting,
+					name: 'Banking Information'
+				},
+				{
+					path: '/user/settings/kyc',
+					Icon: AiFillSetting,
+					name: 'KYC'
+				},
+				{
+					path: '/user/settings/nextofkin',
+					Icon: AiFillSetting,
+					name: 'Next Of Kin'
+				}
+			]
+		}
 	];
 
 	const activeMenuList = isEmployee ? userMenuList : menuItems;
@@ -129,13 +154,24 @@ export const DahboardMobileNav = () => {
 					onClick={() => setShow(!show)}
 					className="flex items-center bg-gray-100 rounded w-[196px] h-[61px] pl-4 cursor-pointer"
 				>
-					<img
-						src={require('../assets/imgs/user-payslice.jpg')}
-						alt="notification"
-						width="38"
-						height="41"
-						className="object-cover"
-					/>
+					{
+						user?.picture
+						?
+						<img
+							src={require('../assets/imgs/user-payslice.jpg')}
+							alt="notification"
+							width="38"
+							height="41"
+							className="object-cover"
+						/>
+						:
+						(
+							<div className='bg-[navy] text-white px-3 py-3'>
+							
+								<div className='text-[24px]'>{user?.first_name.charAt(0)}</div>
+							</div>
+						)
+					}
 					<div className="text-gray-400 my-auto ml-2">
 						<h3 className="text-base font-semibold text-gray-400 mb-0 truncate w-20">{`${user?.first_name} ${user?.last_name}`}</h3>
 						<p className="font-light text-[10px] mb-0 capitalize">{user?.section} account</p>
@@ -185,6 +221,25 @@ export const DahboardMobileNav = () => {
 										<item.Icon fill="#FFFFFF" className="my-auto" />{' '}
 										<div className="text-white font-normal my-auto ml-3">{item.name}</div>
 									</NavLink>
+									
+									{item.subMenuList.map((subItem) => (
+										<div>
+											<NavLink
+												to={subItem.path}
+												// activeClassName="sidebar_active rounded"
+												className="flex p-2"
+												onClick={() => setShowMenu(false)}
+											>
+												<div className="pl-[34px]  md:hidden">
+													
+													<>
+														<div className="text-white font-normal my-auto ml-3">{subItem.name}</div>
+													</>
+												
+												</div>
+											</NavLink>
+										</div>
+										))}
 								</div>
 							);
 						})}

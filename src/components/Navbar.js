@@ -41,13 +41,24 @@ const Navbar = () => {
             <div
                 onClick={() => setShow(!show)}
                 className='flex items-center bg-gray-100 rounded w-[196px] h-[61px] pl-4 cursor-pointer'>
-                <img
-                    src={require("../assets/imgs/user-payslice.jpg")}
-                    alt='notification'
-                    width='38'
-                    height='41'
-                    className='object-cover'
-                />
+                {
+                    user?.picture
+                    ?
+                    <img
+                        src={require('../assets/imgs/user-payslice.jpg')}
+                        alt="notification"
+                        width="38"
+                        height="41"
+                        className="object-cover"
+                    />
+                    :
+                    (
+                        <div className='bg-[#1F2148] text-white px-3 py-3'>
+                        
+                            <div className='text-[24px]'>{user?.first_name.charAt(0)}</div>
+                        </div>
+                    )
+                }
                 <div className='my-auto ml-2 text-gray-400'>
                     <h3 className='w-20 mb-0 text-base font-semibold text-gray-400 truncate'>{`${user?.first_name} ${user?.last_name}`}</h3>
                     <p className='font-light text-[10px] mb-0 capitalize'>

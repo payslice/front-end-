@@ -64,9 +64,13 @@ const PrivateEmployeeRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        checkLogin() && checkTokenValidity() ? (
+        checkLogin() && checkTokenValidity() 
+        ? 
+        (
           <Component {...props} />
-        ) : (
+        ) 
+        : 
+        (
           <Redirect to="/user/login" />
         )
       }
