@@ -13,6 +13,8 @@ import { useSelector } from 'react-redux/es/exports';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 import { removeTokenFromStorage, removeUserDataFromStorage } from '../utils/ApiUtils'
+import { AiOutlineDown } from "react-icons/ai";
+
 
 export const DahboardMobileNav = () => {
 	const tdc = useRef();
@@ -158,15 +160,15 @@ export const DahboardMobileNav = () => {
 						user?.picture
 						?
 						<img
-							src={require('../assets/imgs/user-payslice.jpg')}
-							alt="notification"
+							src={`${user.picture}`}
+							alt="."
 							width="38"
 							height="41"
 							className="object-cover"
 						/>
 						:
 						(
-							<div className='bg-[navy] text-white px-3 py-3'>
+							<div className='bg-[navy] text-white px-3 py-1'>
 							
 								<div className='text-[24px]'>{user?.first_name.charAt(0)}</div>
 							</div>

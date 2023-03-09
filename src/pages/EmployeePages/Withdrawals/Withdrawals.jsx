@@ -137,7 +137,6 @@ const Withdrawals = () => {
 						{/* }))}*/}
 					</tr>
 
-					<br />
 
 					{transactionData?.slice(0, 4).map((data, index) => {
 						return (

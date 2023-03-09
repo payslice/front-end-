@@ -210,7 +210,7 @@ const PersonalInfo = () => {
             <div className="my-auto">
               {imgFile ? (
                 <label
-                  htmlFor=""
+                  htmlFor="file-upload"
                   className="rounded bg-gray-200 cursor-pointer my-auto py-2 px-4 ml-5 "
                   onClick={uploadProfileIcon}
                 >
@@ -218,7 +218,7 @@ const PersonalInfo = () => {
                 </label>
               ) : (
                 <label
-                  // htmlFor="file-upload"
+                  htmlFor="file-upload"
                   className="rounded bg-gray-200 cursor-pointer my-auto py-2 px-4 ml-5 "
                   disabled
                 >
