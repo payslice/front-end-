@@ -3,7 +3,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useClickOutside } from '../hooks/useClickOutside';
 import { removeTokenFromStorage, removeUserDataFromStorage } from '../utils/ApiUtils';
 import { useHistory, useLocation } from 'react-router';
-import { IoIosSearch } from 'react-icons/io';
+// import { IoIosSearch } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import { persistSelector } from '../slices/persist';
 
@@ -32,8 +32,8 @@ const Navbar = () => {
 			className="flex justify-between px-10 2xl:px-[76px] bg-white p-6 items-center mobiles:hidden h-[92px] nav-shadow relative"
 		>
 			<div className="flex items-center">
-				<IoIosSearch className="w-6 h-6 text-[#CECED0]" />
-				<input type="text" placeholder="Type in to search" className="outline-none border-none ml-9" />
+				{/* <IoIosSearch className="w-6 h-6 text-[#CECED0]" /> */}
+				{/* <input type="text" placeholder="Type in to search" className="outline-none border-none ml-9" /> */}
 			</div>
 
 			<div
