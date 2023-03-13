@@ -27,13 +27,23 @@ const Kyc = () => {
         const [loading, setLoading] = useState(false);
 
         const [imgFile, setImgFile] = useState();
+        const [imgFile2, setImgFile2] = useState();
 
         const onSubmit = async (onSubmit) => {
                 setLoading(true);
+                let formdata = new FormData()
+                formdata.append("file", imgFile)
+                formdata.append("picture", imgFile2)
+
+                formdata.append("marital_status", onSubmit.marital_status)
+                formdata.append("address", onSubmit.address)
+                formdata.append("id_type", onSubmit.id_type)
+                // formdata.append("bvn", onSubmit.onSubmit)
                 try {
-                        const { data } = await saveKyc(onSubmit);
+                        const { data } = await saveKyc(formdata);
                         if (data.status === 200) {
-                                toast.success("next of kin user saved")
+                                // toast.success("next of kin user saved")
+                                toast.success(data.message)
                         }
                         else {
                                 toast.error(data.message)
@@ -158,7 +168,7 @@ const Kyc = () => {
                                                 className="hidden"
                                                 onChange={(e) => {
                                                         const [file] = e.target.files;
-                                                        setImgFile(file);
+                                                        setImgFile2(file);
                                                 }}
                                                 type="file"
                                                 accept=".png, .jpeg, .jpg"

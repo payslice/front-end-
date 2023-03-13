@@ -109,12 +109,23 @@ const PersonalInfo = () => {
 
   const updateUserInfo = async (formData) => {
     setSubmitting(true);
+    let formdata = new FormData()
+    formdata.append("file", imgFile)
+    formdata.append("first_name", formData.first_name)
+    formdata.append("last_name", formData.last_name)
+    formdata.append("phone_number", formData.phone_number)
+    formdata.append("gender", formData.gender)
+    console.log("formdata")
+    console.log(formdata)
+    console.log("formData")
+    console.log(formData)
     try {
-      const {data} = await updateEmployee(formData);
+      const {data} = await updateEmployee(formdata);
       if(data.status === true) {
         console.log("sstart of try block")
-        removeUserDataFromStorage();
-        setuserDataToStorage(data.data);
+        console.log(data.data)
+        // removeUserDataFromStorage();
+        // setuserDataToStorage(data.data);
         setUser(data.data);
         setSubmitting(false);
         // window.location.reload();
@@ -167,7 +178,7 @@ const PersonalInfo = () => {
 
           <div className="w-1/3 mr-5 mobiles:w-full">          
               <div className="pt-5">
-                  <label className="text-normal text-sm md:text-base font-medium relative">Relationship 
+                  <label className="text-normal text-sm md:text-base font-medium relative">Gender 
                   <span
                       style={{ color: 'red', width: '40px', marginLeft: '20px', marginTop: '-2px' }}
                       className="absolute text-3xl md:text-5xl w-10 md:ml-5 -mt-0.5 text-rose-600"
@@ -177,8 +188,8 @@ const PersonalInfo = () => {
                   </label>
                   <div className="select-pay mb-5 mt-2 w-full flex mobiles:block">
                       <select
-                          {...register('relationship', {required: true})}
-                          name="relationship"
+                          {...register('gender', {required: true})}
+                          name="gender"
                           className="bg-gray-100 px-5 py-5 w-full rounded"
                       >
                           <option value=""></option>
@@ -210,7 +221,7 @@ const PersonalInfo = () => {
             <div className="my-auto">
               {imgFile ? (
                 <label
-                  htmlFor="file-upload"
+                  htmlFor=""
                   className="rounded bg-gray-200 cursor-pointer my-auto py-2 px-4 ml-5 "
                   onClick={uploadProfileIcon}
                 >
@@ -220,7 +231,6 @@ const PersonalInfo = () => {
                 <label
                   htmlFor="file-upload"
                   className="rounded bg-gray-200 cursor-pointer my-auto py-2 px-4 ml-5 "
-                  disabled
                 >
                   Select Image
                 </label>
@@ -233,9 +243,9 @@ const PersonalInfo = () => {
                   const [file] = e.target.files;
                   setImgFile(file);
                 }}
+                // ref={register}
                 type="file"
                 accept=".png, .jpeg, .jpg"
-                disabled
               />
             </div>
           </div>

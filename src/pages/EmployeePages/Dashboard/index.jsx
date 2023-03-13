@@ -38,6 +38,7 @@ const UserDashboard = () => {
 	const [clockedIn, setClockedIn] = useState(false);
 	const [fetchingWithdrawnAmount, setFetchingWithdrawnAmount] = useState(false);
 	const history = useHistory();
+	
 
 	const columns = [
 		{
@@ -66,16 +67,20 @@ const UserDashboard = () => {
 		// 	setClockedIn(true);
 		// }
 
-		// const gettingWorkplaceInfo = async () => {
-		// 	try {
-		// 		const {data} = await getWorkPlaceEmployee();
-		// 		if(data.status === true) {
-		// 			setWorkplaceInfoState(data.data)
-		// 		}
-		// 	} catch (error) {
-		// 		toast.error('An error occurred');
-		// 	}
-		// };
+		const gettingWorkplaceInfo = async () => {
+			try {
+				const {data} = await getWorkPlaceEmployee();
+				console.log("workplace data")
+				console.log(data.data)
+				if(data.status === true) {
+
+					setWorkplaceInfoState(data.data)
+					toast.success(data.message);
+				}
+			} catch (error) {
+				toast.error('An error occurred');
+			}
+		};
 
 		// const fetchWithdrawalAmount = async () => {
 		// 	try {
@@ -124,7 +129,7 @@ const UserDashboard = () => {
 
 
 
-		// gettingWorkplaceInfo();
+		gettingWorkplaceInfo();
 		// getTotalWithdrawn();
 		// fetchWithdrawalAmount();
 		// getTransactions();
@@ -162,7 +167,7 @@ const UserDashboard = () => {
 		navigator.geolocation.getCurrentPosition(showPosition, handleError);
 	}
 
-	const addEmployeeHandler = () => {
+	const addWorkplaceHandler = () => {
 		history.push('/user/dashboard/workplace/confirm_employee')
 	}
 	// const submitClockIn = async () => {
@@ -201,67 +206,79 @@ const UserDashboard = () => {
 		<div className="text-gray-400 capitalize font-semibold mt-3 handle_user_homepage_responsive_in pb-5" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
 			
 			{
-				workplaceInfoState  === []
+				workplaceInfoState.length  !== 0
 				?
 				(
 					<>
-						<div className="flex justify-between mb-8 handle_user_homepage_responsive">
-						
-							<div className="text-gray-400 capitalize font-semibold mt-3 handle_user_homepage_responsive_in" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
+							<>
 							
-			
-							{/*
-								{clockedIn || checkInSuccess ? (
-									<Button buttonText="Employee CheckOut" loading={checkLoading} onClick={submitClockOut} base />
-								) : (
-									<Button buttonText="Employee CheckIn" loading={checkLoading} onClick={submitClockIn} base />
-								)}
-							*/}
-							
-							<Button buttonText="Add Employee" loading={checkLoading} onClick={addEmployeeHandler} base />
-						</div>
-			
-						<div className="flex w-full justify-between handle_user_homepage_responsive">
-							<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-1/2 sm:w-full handle_user_homepage_responsive_in2">
-								<div className="my-auto">
-									<div className="text-normal">Total Earned</div>
-									<h3 className="text-xl text-white mb-0 font-bold">
-										NGN {parseInt(availableFunds?.amount_avaliable_to_withdraw).toLocaleString()}{' '}
-									</h3>
-								</div>
-								<div className="border flex justify-center ml-10 items-center border-white rounded-full h-16 w-16">
-									{' '}
-									<button className="mb-0 cursor-pointer" onClick={() => history.push('/user/withdrawals/withdraw')}>
-										Get <br />
-										Paid
-									</button>
-								</div>
-							</div>
-							<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
-								<div className="my-auto">
-									<div className="text-normal">Total withdrawn </div>
-									<h3 className="text-xl  mb-0 font-bold">
-										{fetchingWithdrawnAmount ? (
-											<>
-												{' '}
-												<DotLoader />{' '}
-											</>
-										) : (
-											<> NGN {parseInt(totalWithdrawn).toLocaleString()} </>
-										)}
-									</h3>
-								</div>
-			
-								<button
-									style={{ background: '#CA7652' }}
-									className="h-max py-2 my-auto px-4 rounded text-white"
-									onClick={() => history.push('/user/withdrawals')}
-								>
-									History
-								</button>
-							</div>
-						</div>
+								<div className="flex justify-between mb-8 handle_user_homepage_responsive">
 					
+									{/*
+										{clockedIn || checkInSuccess ? (
+											<Button buttonText="Employee CheckOut" loading={checkLoading} onClick={submitClockOut} base />
+										) : (
+											<Button buttonText="Employee CheckIn" loading={checkLoading} onClick={submitClockIn} base />
+										)}
+									*/}
+									
+									<Button buttonText="Add Workplace" loading={checkLoading} onClick={addWorkplaceHandler} base />
+								</div>
+					
+								<div className="flex w-full justify-between handle_user_homepage_responsive">
+									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-1/2 sm:w-full handle_user_homepage_responsive_in2">
+										<div className="my-auto">
+											<div className="text-normal">Total Earned</div>
+											<h3 className="text-xl text-white mb-0 font-bold">
+												
+												NGN {workplaceInfoState[0].amount_earned}{' '}
+											</h3>
+										</div>
+										<div className="border flex justify-center ml-10 items-center border-white rounded-full h-16 w-16">
+											{' '}
+											<button className="mb-0 cursor-pointer" onClick={() => history.push('/user/withdrawals/withdraw')}>
+												Get <br />
+												Paid
+											</button>
+										</div>
+									</div>
+									<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
+										<div className="my-auto">
+											<div className="text-normal">Total withdrawn </div>
+											<h3 className="text-xl  mb-0 font-bold">
+												{/*
+												{fetchingWithdrawnAmount ? (
+													<>
+														{' '}
+														<DotLoader />{' '}
+													</>
+												) : (
+													<> {parseInt(totalWithdrawn).toLocaleString()} </>
+												)}
+												*/}
+												
+												NGN {workplaceInfoState[0].total_withdrawn}
+											</h3>
+										</div>
+					
+										<button
+											style={{ background: '#CA7652' }}
+											className="h-max py-2 my-auto px-4 rounded text-white"
+											onClick={() => history.push('/user/withdrawals')}
+										>
+											History
+										</button>
+									</div>
+								</div>
+								
+								<div>
+								
+									salary<div>{workplaceInfoState[0].salary}</div>
+									<div>{workplaceInfoState[0].company_name}</div>
+									<div>{workplaceInfoState[0].bank_name}</div>
+									<div>{workplaceInfoState[0].account_number}</div>
+								</div>
+							</>
 					</>
 				)
 				: 
@@ -297,6 +314,7 @@ const UserDashboard = () => {
 
 
 
+			{/*
 			{
 
 				loadingTransactionData
@@ -309,7 +327,7 @@ const UserDashboard = () => {
 				:
 
 				(
-					transactionData === []   
+					transactionData !== []   
 						?
 						(
 							
@@ -373,7 +391,7 @@ const UserDashboard = () => {
 								})} 
 								
 								
-								{/*
+								
 								<div className="relative mt-6">
 									<table className="w-full text-sm text-left border text-gray-500">
 										<thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -433,7 +451,7 @@ const UserDashboard = () => {
 										</tbody>
 									</table>
 								</div>
-								*/}
+								
 							</div>
 						)
 
@@ -442,6 +460,7 @@ const UserDashboard = () => {
 				)
 
 			}
+		*/}
 			
 		</div>
 	);

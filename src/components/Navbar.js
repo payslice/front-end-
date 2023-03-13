@@ -45,8 +45,8 @@ const Navbar = () => {
                     user?.picture
                     ?
                     <img
-                        src={require('../assets/imgs/user-payslice.jpg')}
-                        alt="notification"
+                        src={`${user.picture}`}
+                        alt="."
                         width="38"
                         height="41"
                         className="object-cover"

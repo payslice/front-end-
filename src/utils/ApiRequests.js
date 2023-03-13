@@ -38,14 +38,14 @@ const companyId = {
 
 const ApiRequestMultiPart = () => {
   const config = { baseURL: constant.baseUrl };
+  let token;
   if (storageContainsToken()) {
-    const token = getTokenFromStorage();
-    config.headers = {
-      Authorization: `Bearer ${token}`,
-      "content-type": `multipart/form-data; `,
-    };
+    token = getTokenFromStorage();
   }
-  const instance = axios.create(config);
+  const instance = axios.create({
+    ...config,
+    headers : { "Authorization": `Bearer ${token}`, "content-type": `multipart/form-data; ` }
+  });
   return instance;
 };
 
