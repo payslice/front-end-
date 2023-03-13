@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 // import Team from "../assets/svgs/Team";
-// import Settings from "../assets/svgs/Settings";
+// import  from "../assets/svgs/";
 // import Logout from "../assets/svgs/Logout";
 // import Contact from "../assets/svgs/Contact";
 import SidebarItem from './SidebarItem.js';
@@ -53,7 +53,7 @@ const Sidebar = () => {
 					<SidebarItem currentPath={currentLocation} Icon={HiBriefcase} path="/payments" caption="Payments" isDb />
 					<div className="border-white border-b-2 w-10 mt-3 mb-4 ml-[26px]"></div>
 					<SidebarItem currentPath={currentLocation} Icon={FaCommentDots} path="/support" caption="Support" isDb />
-					<SidebarItem currentPath={currentLocation} Icon={AiFillSetting} path="/settings" caption="Settings" isDb />
+					<SidebarItem currentPath={currentLocation} Icon={AiFillSetting} path="/" caption="" isDb />
 				</ul>
 			</div>
 			{/* <div className="mt-8">
@@ -63,9 +63,9 @@ const Sidebar = () => {
         <ul className="pl-8">
           <SidebarItem
             currentPath={currentLocation}
-            Icon={Settings}
-            path="/settings"
-            caption="Settings"
+            Icon={}
+            path="/"
+            caption=""
           />
           <SidebarItem
             currentPath={currentLocation}

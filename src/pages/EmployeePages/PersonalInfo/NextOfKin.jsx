@@ -75,7 +75,7 @@ const NextOfKin = () => {
                 //     options={relationship}
                 // />
                 */}
-                <div>
+                <div className='mt-5'>
                     <label className="text-normal text-sm md:text-base font-medium relative">Relationship 
                     <span
                         style={{ color: 'red', width: '40px', marginLeft: '20px', marginTop: '-2px' }}
@@ -88,7 +88,7 @@ const NextOfKin = () => {
                         <select
                             {...register('relationship', {required: true})}
                             name="relationship"
-                            className="bg-gray-100 px-5 py-4 w-full rounded"
+                            className="bg-gray-100 px-5 py-5 w-full rounded"
                         >
                             <option value=""></option>
                             {relationshipData.map(({id, name, value}) => (
