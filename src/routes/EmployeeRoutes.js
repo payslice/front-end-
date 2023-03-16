@@ -13,6 +13,7 @@ import UpdateWorkplace from "../pages/EmployeePages/PersonalInfo/UpdateWorkplace
 import AddWorkPlace from "../pages/EmployeePages/Dashboard/AddWorkPlace/AddWorkplace";
 import ConfirmEmployee from "../pages/EmployeePages/Dashboard/AddWorkPlace/ConfirmEmployee";
 import { Wallets } from "../pages/EmployeePages/Withdrawals/Wallets";
+import WithdrawalsProcessing from "../pages/EmployeePages/Withdrawals/WithdrawalsProcessing";
 
 export const EmployeeIdContext = createContext('')
 
@@ -32,6 +33,13 @@ export const EmployeeRoutesList = [
     component: WithdrawFunds,
     exact: true,
   },
+
+  {
+    path: "/user/withdrawals/withdraw/processing",
+    component: WithdrawalsProcessing,
+    exact: true,
+  },
+  
   { path: "/user/wallets", component: Wallets, exact: true },
 //   { path: "/user/attendance", component: TimeAttendance, exact: true },
   { path: "/user/settings", component: PersonalInfo, exact: true },
