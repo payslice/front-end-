@@ -17,8 +17,8 @@ import { toCurrency, truncateString } from '../../../utils/helpers';
 import { DotLoader } from '../../../components/Loaders/DotLoader';
 // import { getUserDataFromStorage, removeClockInFromStorage, setClockInTimeToStorage } from '../../../utils/ApiUtils';
 import { constant } from '../../../utils/ApiConstants';
-import { useSelector } from 'react-redux';
-import { persistSelector } from '../../../slices/persist';
+import { useDispatch, useSelector } from 'react-redux';
+import { persistSelector, setUser } from '../../../slices/persist';
 import {AiOutlineArrowRight} from 'react-icons/ai'
 // import MiniLoader from '../../../components/Loaders/MiniLoader';
 import { Link } from 'react-router-dom';
@@ -38,6 +38,12 @@ const UserDashboard = () => {
 	const [clockedIn, setClockedIn] = useState(false);
 	const [fetchingWithdrawnAmount, setFetchingWithdrawnAmount] = useState(false);
 	const history = useHistory();
+
+	const dispatch = useDispatch()
+
+	console.log("user")
+	user.workplace = workplaceInfoState
+	console.log(user)
 	
 
 	const columns = [
@@ -59,6 +65,8 @@ const UserDashboard = () => {
 		},
 	];
 
+	
+
 	useEffect(() => {
 		setFetchingData(true);
 		setFetchingWithdrawnAmount(true);
@@ -75,10 +83,12 @@ const UserDashboard = () => {
 				if(data.status === true) {
 
 					setWorkplaceInfoState(data.data)
-					toast.success(data.message);
+					// dispatch(setUser(user));
+					// toast.success(data.message);
 				}
 			} catch (error) {
-				toast.error('An error occurred');
+				toast.error('An error occurred'); 
+				// toast.error('An error occurred in gettingworkplace'); 
 			}
 		};
 
@@ -203,7 +213,6 @@ const UserDashboard = () => {
 		<div className="user-dashboard-wrapper">
 
 		
-		<div className="text-gray-400 capitalize font-semibold mt-3 handle_user_homepage_responsive_in pb-5" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
 			
 			{
 				workplaceInfoState.length  !== 0
@@ -213,6 +222,8 @@ const UserDashboard = () => {
 							<>
 							
 								<div className="flex justify-between mb-8 handle_user_homepage_responsive">
+								
+									<div className="text-gray-400 capitalize font-semibold mt-0 handle_user_homepage_responsive_in pb-5" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
 					
 									{/*
 										{clockedIn || checkInSuccess ? (
@@ -226,26 +237,26 @@ const UserDashboard = () => {
 								</div>
 					
 								<div className="flex w-full justify-between handle_user_homepage_responsive">
-									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-1/2 sm:w-full handle_user_homepage_responsive_in2">
+									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-full lg:w-1/2 handle_user_homepage_responsive_in2">
 										<div className="my-auto">
-											<div className="text-normal">Total Earned</div>
-											<h3 className="text-xl text-white mb-0 font-bold">
+											<div className="text-medium pb-5 text-[20px]">Withdrawable Balance</div>
+											<h3 className="text-[26px] text-white mb-0 font-semibold">
 												
 												NGN {workplaceInfoState[0].amount_earned}{' '}
 											</h3>
 										</div>
-										<div className="border flex justify-center ml-10 items-center border-white rounded-full h-16 w-16">
+										<div className="border flex justify-center ml-10 items-center border-white rounded-full h-24 w-24">
 											{' '}
-											<button className="mb-0 cursor-pointer" onClick={() => history.push('/user/withdrawals/withdraw')}>
+											<button className="mb-0 cursor-pointer font-medium" onClick={() => history.push('/user/withdrawals/withdraw')}>
 												Get <br />
 												Paid
 											</button>
 										</div>
 									</div>
-									<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
+									<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-full lg:w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
 										<div className="my-auto">
-											<div className="text-normal">Total withdrawn </div>
-											<h3 className="text-xl  mb-0 font-bold">
+											<div className="text-medium pb-5 text-[20px]">Withdrawn This Month</div>
+											<h3 className="text-xl mb-0 font-semibold">
 												{/*
 												{fetchingWithdrawnAmount ? (
 													<>
@@ -263,20 +274,61 @@ const UserDashboard = () => {
 					
 										<button
 											style={{ background: '#CA7652' }}
-											className="h-max py-2 my-auto px-4 rounded text-white"
+											className="h-max py-3 my-auto px-12 rounded text-white font-semibold"
 											onClick={() => history.push('/user/withdrawals')}
 										>
 											History
 										</button>
 									</div>
 								</div>
+
+								
+								<div className="flex w-full justify-between handle_user_homepage_responsive mt-8 text-black">
+									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 bg-[#F4F5F7]">
+										<div className="my-auto w-1/2">
+											<div className="text-medium pb-1 text-[20px]">Payslice Wallet</div>
+											<h3 className="text-[26px] mb-0 font-bold">
+												NGN {workplaceInfoState[0].amount_earned}{' '}
+											</h3>
+										</div>
+										<div className="border flex justify-center ml-10 items-center border-white rounded-full h-24 w-1/2">
+											{' '}
+											<div className="text-[#000]/[0.8] text-[13px]">
+												<span className="block">Virtual Account</span>
+												<span className="block">Acc.No : 7505519950</span>
+												<span className="block">Acc. Name : payslice /peter brown </span>
+												<span className="block">Bank : Providus Bank </span>
+												
+											</div>
+										</div>
+									</div>
+									<div className="bg-blue-600 flex px-12 ml-5 py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 bg-[#F4F5F7]">
+										<div className="my-auto w-4/6">
+											<div className="text-semibold pb-1 text-[20px]">Your Salary </div>
+											<h3 className="text-[26px] mb-0 font-bold">
+												NGN {workplaceInfoState[0].salary}{' '}
+											</h3>
+										</div>
+										<div className="border flex justify-center ml-10 items-center border-white rounded-full h-24 w-2/6">
+											{' '}
+											<div className="text-[#000]/[0.8] text-[13px]">
+												<span className="block text-[15px] font-medium">Employee code </span>
+												<span className="block">Payslice Limited </span>
+												<span className="block">HYEIEODJE </span>
+												
+											</div>
+										</div>
+									</div>
+								</div>
 								
 								<div>
 								
-									salary<div>{workplaceInfoState[0].salary}</div>
+									{/*
+									salary<div>{}</div>
 									<div>{workplaceInfoState[0].company_name}</div>
 									<div>{workplaceInfoState[0].bank_name}</div>
 									<div>{workplaceInfoState[0].account_number}</div>
+								*/}
 								</div>
 							</>
 					</>
@@ -285,6 +337,7 @@ const UserDashboard = () => {
 				(
 					<>
 					
+						<div className="text-gray-400 capitalize font-semibold mt-0 handle_user_homepage_responsive_in pb-5" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
 						<Link to="/user/dashboard/workplace/confirm_employee">
 							<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
 								<div className="my-auto">
