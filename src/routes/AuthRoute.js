@@ -17,23 +17,23 @@ import { UserOTPRequest } from "../pages/EmployeePages/Auth/UserOTPRequest";
 
 
 export const AuthRoutesList = [
-  { path: "/login", component: Login, exact: true },
-  { path: "/", component: ChooseUser, exact: true },
-  { path: "/choose-user", component: ChooseUser, exact: true },
-  { path: "/password", component: PasswordChanged, exact: true },
-  { path: "/verify-email", component: VerifyEmail, exact: true },
-  { path: "/user/register", component: EmployeeSignUp, exact: true },
-  { path: "/user/login", component: UserLogin, exact: true },
-  { path: "/reset-otp", component: OTPReset, exact: true },
-  { path: "/reset-password", component: ResetPassword, exact: true },
-  { path: "/invite", component: ReferEmployer, exact: true },
-  { path: "/user/invite", component: UserInvite },
-  { path: "/user/request_otp", component: UserOTPRequest },
+  { path: "/login", component: Login, exact: true, key: 'FDGHJK' },
+  { path: "/", component: ChooseUser, exact: true, key: 'ghjkhlh' },
+  { path: "/choose-user", component: ChooseUser, exact: true, key: 'ghjgjjkjgh' },
+  { path: "/password", component: PasswordChanged, exact: true, key: 'ghjkhg' },
+  { path: "/verify-email", component: VerifyEmail, exact: true, key: 'jhgkjh' },
+  { path: "/user/register", component: EmployeeSignUp, exact: true, key: 'ghjkhjk' },
+  { path: "/user/login", component: UserLogin, exact: true, key: 'hjgkhjhkh' },
+  { path: "/reset-otp", component: OTPReset, exact: true, key: 'trfjkhj' },
+  { path: "/reset-password", component: ResetPassword, exact: true, key: 'yiterrejhbm' },
+  { path: "/invite", component: ReferEmployer, exact: true, key: 'yiterrjhbm' },
+  { path: "/user/invite", component: UserInvite, exact: true, key: 'yierrejhbm' },
+  { path: "/user/request_otp", component: UserOTPRequest, exact: true, key: 'yterrejhbm' },
 ];
 
 export const emailContext = createContext('')
 
-const AuthRoutes = () => {
+const AuthRoutes = () => { 
 
   const [emailState, setEmailState] = useState('email@email.com')
 
@@ -43,7 +43,7 @@ const AuthRoutes = () => {
     <AuthLayout>
       <Switch>
         {AuthRoutesList.map((r) => (
-          <Route component={r.component} path={r.path} exact={r.exact} />
+          <Route component={r.component} path={r.path} exact={r.exact} key={r.key} />
         ))}
       </Switch>
     </AuthLayout>

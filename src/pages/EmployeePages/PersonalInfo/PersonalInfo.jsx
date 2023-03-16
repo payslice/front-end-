@@ -16,19 +16,25 @@ import {
 } from "../../../utils/ApiUtils";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { persistSelector } from "../../../slices/persist";
+import { persistSelector, setUser } from "../../../slices/persist";
 import { useForm } from "react-hook-form";
 import { PasswordChangeFormEmployee } from "../../../components/PasswordChangeFormEmployee";
 
 const PersonalInfo = () => {
+  
   const { user } = useSelector(persistSelector);
+  const mnn = getUserDataFromStorage()
+  console.log("user2")
+  const user2 = JSON.parse(mnn.persist)
+  console.log(user2)
+  console.log(user2.user.first_name)
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      first_name: user.first_name,
-      last_name: user.last_name,
-      phone_number: user.phone_number,
-      gender: user.gender,
+      first_name: user?.first_name,
+      last_name: user?.last_name,
+      phone_number: user?.phone_number,
+      gender: user?.gender,
 
 
     }
@@ -41,32 +47,32 @@ const PersonalInfo = () => {
     last_name,
     email,
     phone_number,
-    bankDetails,
-    id,
-    workDetails,
+    // bankDetails,
+    // id,
+    // workDetails,
   } = user;
 
-  const [formData, setFormData] = useState({
-    ...user,
-    first_name: first_name,
-    last_name: last_name,
-    phone_number: phone_number,
-    email: email,
-    bankDetails: {
-      ...bankDetails,
-      // bvn: bankDetails.bvn,
-      bank_code: "058",
-    },
-    workDetails: {
-      ...workDetails,
-      // location: workDetails.location,
-    },
-    company: {
-      employee_id: id,
-    },
-    gender: "male",
-    employee_id: id,
-  });
+  // const [formData, setFormData] = useState({
+  //   ...user,
+  //   first_name: first_name,
+  //   last_name: last_name,
+  //   phone_number: phone_number,
+  //   email: email,
+  //   bankDetails: {
+  //     ...bankDetails,
+  //     // bvn: bankDetails.bvn,
+  //     bank_code: "058",
+  //   },
+  //   workDetails: {
+  //     ...workDetails,
+  //     // location: workDetails.location,
+  //   },
+  //   company: {
+  //     employee_id: id,
+  //   },
+  //   gender: "male",
+  //   employee_id: id,
+  // });
 
   const [uploading, setUploading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -87,12 +93,12 @@ const PersonalInfo = () => {
     }
   };
 
-  const handleChange = (type, e) => {
-    const { name, value } = e.target;
-    const newFormData = { ...formData };
-    type ? (newFormData[type][name] = value) : (newFormData[name] = value);
-    setFormData(newFormData);
-  };
+  // const handleChange = (type, e) => {
+  //   const { name, value } = e.target;
+  //   const newFormData = { ...formData };
+  //   type ? (newFormData[type][name] = value) : (newFormData[name] = value);
+  //   setFormData(newFormData);
+  // };
 
   // const handlePasswordChange = (type, e) => {
   // 	const { name, value } = e.target;
@@ -103,15 +109,28 @@ const PersonalInfo = () => {
 
   const updateUserInfo = async (formData) => {
     setSubmitting(true);
+    let formdata = new FormData()
+    formdata.append("file", imgFile)
+    formdata.append("first_name", formData.first_name)
+    formdata.append("last_name", formData.last_name)
+    formdata.append("phone_number", formData.phone_number)
+    formdata.append("gender", formData.gender)
+    console.log("formdata")
+    console.log(formdata)
+    console.log("formData")
+    console.log(formData)
     try {
-      const {data} = await updateEmployee(formData);
+      const {data} = await updateEmployee(formdata);
       if(data.status === true) {
-        
-        removeUserDataFromStorage();
-        setuserDataToStorage(data.data);
+        console.log("sstart of try block")
+        console.log(data.data)
+        // removeUserDataFromStorage();
+        // setuserDataToStorage(data.data);
+        setUser(data.data);
         setSubmitting(false);
         // window.location.reload();
         toast.success(data.message)
+        console.log("end of try block")
       }
       else {
         toast.error(data.message)
@@ -142,7 +161,7 @@ const PersonalInfo = () => {
           <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
-              label="First Name"
+              label="Last Name"
               {...register('last_name', {required: true})}
             />
           </div>
@@ -155,12 +174,30 @@ const PersonalInfo = () => {
               {...register('phone_number', {required: true})}
             />
           </div>
-          <div className="w-1/3 mr-5 mobiles:w-full">
-            <InputField
-              required
-              label="Gender"
-              {...register('gender', {required: true})}
-            />
+
+
+          <div className="w-1/3 mr-5 mobiles:w-full">          
+              <div className="pt-5">
+                  <label className="text-normal text-sm md:text-base font-medium relative">Gender 
+                  <span
+                      style={{ color: 'red', width: '40px', marginLeft: '20px', marginTop: '-2px' }}
+                      className="absolute text-3xl md:text-5xl w-10 md:ml-5 -mt-0.5 text-rose-600"
+                  >
+                      *
+                  </span>
+                  </label>
+                  <div className="select-pay mb-5 mt-2 w-full flex mobiles:block">
+                      <select
+                          {...register('gender', {required: true})}
+                          name="gender"
+                          className="bg-gray-100 px-5 py-5 w-full rounded"
+                      >
+                          <option value=""></option>
+                          <option value="male" key="afaf" selected={user.gender === 'male'}>Male</option>
+                          <option value="female" key="adsfsf" selected={user.gender === 'female'}>Female</option>
+                      </select>
+                  </div>
+          </div>
           </div>
         </div>
 
@@ -206,6 +243,7 @@ const PersonalInfo = () => {
                   const [file] = e.target.files;
                   setImgFile(file);
                 }}
+                // ref={register}
                 type="file"
                 accept=".png, .jpeg, .jpg"
               />

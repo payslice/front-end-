@@ -20,150 +20,165 @@ const idTypeData = [
 ];
 
 const Kyc = () => {
-  const { id, kycDetails } = userData;
+        const { id, kycDetails } = userData;
 
-  const { register, handleSubmit } = useForm();
+        const { register, handleSubmit } = useForm();
 
-  const [loading, setLoading] = useState(false);
+        const [loading, setLoading] = useState(false);
 
-  const [imgFile, setImgFile] = useState();
+        const [imgFile, setImgFile] = useState();
+        const [imgFile2, setImgFile2] = useState();
 
-  const onSubmit = async (onSubmit) => {
-    setLoading(true);
-    try {
-      const { data } = await saveKyc(onSubmit);
-      if (data.status === 200) toast.success("next of kin user saved");
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      toast.error("data not created");
-    }
-  };
+        const onSubmit = async (onSubmit) => {
+                setLoading(true);
+                let formdata = new FormData()
+                formdata.append("file", imgFile)
+                formdata.append("picture", imgFile2)
 
-  return (
-    <div className="px-8">
-      <div className="text-2xl my-4">KYC</div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="w-full flex mobiles:block">
-          <div className="w-1/3 mr-5 mobiles:w-full">
-            <div>
-              <label className="text-normal text-sm md:text-base font-medium relative">
-                Marital Status
-                <span
-                  style={{
-                    color: "red",
-                    width: "40px",
-                    marginLeft: "20px",
-                    marginTop: "-2px",
-                  }}
-                  className="absolute text-3xl md:text-5xl w-10 md:ml-5 -mt-0.5 text-rose-600"
-                >
-                  *
-                </span>
-              </label>
-              <div className="select-pay mb-5 mt-2">
-                <select
-                  {...register("marital_status", { required: true })}
-                  name="marital_status"
-                  className="bg-gray-100 px-5 py-4 w-full rounded"
-                >
-                  <option value=""></option>
-                  {maritalStatusData.map(({ id, name, value }) => (
-                    <option value={value} key={id}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
+                formdata.append("marital_status", onSubmit.marital_status)
+                formdata.append("address", onSubmit.address)
+                formdata.append("id_type", onSubmit.id_type)
+                // formdata.append("bvn", onSubmit.onSubmit)
+                try {
+                        const { data } = await saveKyc(formdata);
+                        if (data.status === 200) {
+                                // toast.success("next of kin user saved")
+                                toast.success(data.message)
+                        }
+                        else {
+                                toast.error(data.message)
+                        }
+                        setLoading(false);
+                } catch (error) {
+                        setLoading(false);
+                        toast.error("data not created");
+                }
+        };
 
-          <div className="w-1/3 mr-5 mobiles:w-full">
-            <InputField
-              required
-              label="Address"
-              {...register("address", { required: true })}
-              value={kycDetails?.address}
-              type="text"
-            />
-          </div>
+        return (
+                <div className="px-8">
+                        <div className="text-2xl my-4">KYC</div>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                                <div className="w-full flex mobiles:block">
+                                        <div className="w-1/3 mr-5 mobiles:w-full mt-5">
+                                                <div>
+                                                <label className="text-normal text-sm md:text-base font-medium relative">
+                                                        Marital Status
+                                                        <span
+                                                        style={{
+                                                        color: "red",
+                                                        width: "40px",
+                                                        marginLeft: "20px",
+                                                        marginTop: "-2px",
+                                                        }}
+                                                        className="absolute text-3xl md:text-5xl w-10 md:ml-5 -mt-0.5 text-rose-600"
+                                                        >
+                                                        *
+                                                        </span>
+                                                </label>
+                                                <div className="select-pay mb-5 mt-2">
+                                                        <select
+                                                        {...register("marital_status", { required: true })}
+                                                        name="marital_status"
+                                                        className="bg-gray-100 px-5 py-5 w-full rounded"
+                                                        >
+                                                        <option value=""></option>
+                                                        {maritalStatusData.map(({ id, name, value }) => (
+                                                        <option value={value} key={id}>
+                                                        {name}
+                                                        </option>
+                                                        ))}
+                                                        </select>
+                                                </div>
+                                                </div>
+                                        </div>
 
-          <div className="w-1/3 mr-5 mobiles:w-full">
-            <div>
-              <label className="text-normal text-sm md:text-base font-medium relative">
-                ID Type
-                <span
-                  style={{
-                    color: "red",
-                    width: "40px",
-                    marginLeft: "20px",
-                    marginTop: "-2px",
-                  }}
-                  className="absolute text-3xl md:text-5xl w-10 md:ml-5 -mt-0.5 text-rose-600"
-                >
-                  *
-                </span>
-              </label>
-              <div className="select-pay mb-5 mt-2">
-                <select
-                  {...register("id_type", { required: true })}
-                  name="id_type"
-                  className="bg-gray-100 px-5 py-4 w-full rounded"
-                >
-                  <option value=""></option>
-                  {idTypeData.map(({ id, name, value }) => (
-                    <option value={value} key={id}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
+                                        <div className="w-1/3 mr-5 mobiles:w-full">
+                                                <InputField
+                                                required
+                                                label="Address"
+                                                {...register("address", { required: true })}
+                                                value={kycDetails?.address}
+                                                type="text"
+                                                />
+                                        </div>
 
-        <div className="w-full flex mobiles:block">            
-          <div className="w-1/3 mr-5 mobiles:w-full">
-              <InputField required label="BVN" {...register('bvn', {required: true})} value={kycDetails?.bvn} type="text" />
-          </div>
-          <div className="w-1/3 mr-5 mobiles:w-full">
-            <InputField
-              required
-              label="Upload ID"
-              {...register("file", { required: true })}
-              value={kycDetails?.file}
-              id="file"
-              className="hidden"
-              onChange={(e) => {
-                const [file] = e.target.files;
-                setImgFile(file);
-              }}
-              type="file"
-              accept=".png, .jpeg, .jpg"
-            />
-          </div>
+                                        <div className="w-1/3 mr-5 mobiles:w-full mt-5">
+                                        <div>
+                                        <label className="text-normal text-sm md:text-base font-medium relative">
+                                                ID Type
+                                                <span
+                                                style={{
+                                                color: "red",
+                                                width: "40px",
+                                                marginLeft: "20px",
+                                                marginTop: "-2px",
+                                                }}
+                                                className="absolute text-3xl md:text-5xl w-10 md:ml-5 -mt-0.5 text-rose-600"
+                                                >
+                                                *
+                                                </span>
+                                        </label>
+                                        <div className="select-pay mb-5 mt-2">
+                                                <select
+                                                {...register("id_type", { required: true })}
+                                                name="id_type"
+                                                className="bg-gray-100 px-5 py-5 w-full rounded"
+                                                >
+                                                <option value=""></option>
+                                                {idTypeData.map(({ id, name, value }) => (
+                                                <option value={value} key={id}>
+                                                {name}
+                                                </option>
+                                                ))}
+                                                </select>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
 
-          <div className="w-1/3 mr-5 mobiles:w-full">
-            <InputField
-              required
-              label="Profile Picture"
-              {...register("profile_picture", { required: true })}
-              value={kycDetails?.profile_picture}
-              id="profile_picture"
-              className="hidden"
-              onChange={(e) => {
-                const [file] = e.target.files;
-                setImgFile(file);
-              }}
-              type="file"
-              accept=".png, .jpeg, .jpg"
-            />
-          </div>
-        </div>
-        <Button buttonText="Update Details" loading={loading} />
-      </form>
-    </div>
-  );
+                                        <div className="w-full flex mobiles:block">            
+                                                <div className="w-1/3 mr-5 mobiles:w-full">
+                                                <InputField required label="BVN" {...register('bvn', {required: true})} value={kycDetails?.bvn} type="text" />
+                                                </div>
+                                                <div className="w-1/3 mr-5 mobiles:w-full">
+                                                <InputField
+                                                required
+                                                label="Upload ID"
+                                                {...register("file", { required: true })}
+                                                value={kycDetails?.file}
+                                                id="file"
+                                                className="hidden"
+                                                onChange={(e) => {
+                                                        const [file] = e.target.files;
+                                                        setImgFile(file);
+                                                }}
+                                                type="file"
+                                                accept=".png, .jpeg, .jpg"
+                                                />
+                                                </div>
+
+                                                <div className="w-1/3 mr-5 mobiles:w-full">
+                                                <InputField
+                                                required
+                                                label="Profile Picture"
+                                                {...register("profile_picture", { required: true })}
+                                                value={kycDetails?.profile_picture}
+                                                id="profile_picture"
+                                                className="hidden"
+                                                onChange={(e) => {
+                                                        const [file] = e.target.files;
+                                                        setImgFile2(file);
+                                                }}
+                                                type="file"
+                                                accept=".png, .jpeg, .jpg"
+                                                />
+                                                </div>
+                                        </div>
+                                <Button buttonText="Update Details" loading={loading} />
+                        </form>
+                </div>
+        );
 };
 
 export default Kyc;

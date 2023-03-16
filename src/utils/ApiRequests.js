@@ -9,24 +9,20 @@ import {
 
 // Resusable requests template
 export const ApiRequest = () => {
-  const config = { baseURL: constant.baseUrl };
-  const instance = axios.create({
-    ...config,
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-  });
-  return instance;
+    const config = { baseURL: constant.baseUrl };
+    const instance = axios.create({
+      ...config,
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+});
+    return instance;
 };
 
 export const ApiRequestWithToken = () => {
   const config = { baseURL: constant.baseUrl };
-  console.log('entered api request token')
   let token;
   if (storageContainsToken()) {
     token = getTokenFromStorage();
-    console.log('gotten token from storage');
-    console.log('token');
-    console.log(token)
-    config.headers = { Authorization: `Bearer ${token}`};
+    // console.log(token)
   }
   const instance = axios.create({
     ...config,
@@ -42,14 +38,14 @@ const companyId = {
 
 const ApiRequestMultiPart = () => {
   const config = { baseURL: constant.baseUrl };
+  let token;
   if (storageContainsToken()) {
-    const token = getTokenFromStorage();
-    config.headers = {
-      Authorization: `Bearer ${token}`,
-      "content-type": `multipart/form-data; `,
-    };
+    token = getTokenFromStorage();
   }
-  const instance = axios.create(config);
+  const instance = axios.create({
+    ...config,
+    headers : { "Authorization": `Bearer ${token}`, "content-type": `multipart/form-data; ` }
+  });
   return instance;
 };
 
@@ -67,26 +63,15 @@ export const employerRegister = (formData) => {
   return ApiRequest().post("/employer_auth/register", formData);
 };
 
-export const employerLogin = (formData) => {
-  return ApiRequest().post("/employer_auth/login", formData);
+export const employerLogin = formData => {
+    return ApiRequest().post("/employer_auth/login", formData);
 };
 
-export const employerInvite = (formData) => {
-  return ApiRequest().post("/employer_auth/login", formData);
+export const employeeLogin = formData => {
+    return ApiRequest().post("api/employee/login", formData);
 };
-
-export const employerOTPRequest = (formData) => {
-  console.log("formData otp request");
-  console.log(formData);
-  return ApiRequest().post("api/employee/verify_otp", formData);
-};
-
-export const employeeLogin = (formData) => {
-  return ApiRequest().post("api/employee/login", formData);
-};
-
-export const employeeRegister = (formData) => {
-  return ApiRequest().post("api/employee/register", formData);
+export const employeeRegister = formData => {
+    return ApiRequest().post("/employee_auth/login", formData);
 };
 
 export const companyInfoOnboarding = (formData) => {
@@ -125,8 +110,8 @@ export const getTotalNoAcceptedEmployees = () => {
  * Description: Fetch employees clockins in the system
  */
 
-export const getClockInTime = (employee_id) => {
-  return ApiRequestWithToken().get(`/attendance/get_clock_in/${employee_id}`);
+export const getClockInTime = employee_id => {
+    return ApiRequestWithToken().get(`/attendance/get_clock_in/${employee_id}`);
 };
 
 /*
@@ -172,11 +157,11 @@ export const employeeOTPRequest = (formData) => {
 /*
  * Description: Store employee clockout in storage
  */
-export const clockOut = (formData) => {
-  return ApiRequestWithToken().post(`/attendance/clock_out`, {
-    ...formData,
-    user_id: userData.id,
-  });
+export const clockOut = formData => {
+    return ApiRequestWithToken().post(`/attendance/clock_out`, {
+        ...formData,
+        user_id: userData.id,
+    });
 };
 
 /*
@@ -190,8 +175,8 @@ export const getAllCompanies = () => {
  * Description: Endpoint to fetch a company
  */
 
-export const getOneCompany = (company_id) => {
-  return ApiRequestWithToken().get(`/company/get/${company_id}`);
+export const getOneCompany = company_id => {
+    return ApiRequestWithToken().get(`/company/get/${company_id}`);
 };
 
 /*
@@ -256,8 +241,8 @@ export const employeeAddWorkPlace = (formData) => {
 /*
  * Description: Endpoint to confirmemployee an employee
  */
-export const employeeConfirmEmployeeId = (employee_id) => {
-  return ApiRequestWithToken().post(`api/employee/workplace/confirm_employee`, employee_id);
+export const employeeConfirmEmployeeId = (formData) => {
+  return ApiRequestWithToken().post(`api/employee/workplace/confirm_employee`, formData);
 };
 
 /*
@@ -403,12 +388,12 @@ export const generateTransactionCode = () => {
 /*
  * Description: Endpoint to save transaction : employer
  */
-export const saveTransaction = (formData) => {
-  return ApiRequestWithToken().post(`/transaction/save`, {
-    company_id: userData.company_id,
-    employer_id: userData.id,
-    ...formData,
-  });
+export const saveTransaction = formData => {
+    return ApiRequestWithToken().post(`/transaction/save`, {
+        company_id: userData.company_id,
+        employer_id: userData.id,
+        ...formData,
+    });
 };
 
 /*
@@ -429,8 +414,8 @@ export const resetPassword = (formData) => {
 /*
  * Description: Endpoint to change password for employer
  */
-export const changePassword = (formData) => {
-  return ApiRequestWithToken().post(`/change_password`, formData);
+export const changePassword = formData => {
+    return ApiRequestWithToken().post(`/change_password`, formData);
 };
 /*
  * Description: Endpoint to change password for employee

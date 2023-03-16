@@ -18,27 +18,27 @@ const Withdrawals = () => {
 	const handleClick = (param) => {};
 
 	useEffect(() => {
-		const getTransactions = async () => {
-			try {
-				const res = await getWithdrawalRequest();
-				const resetData = res.data.payload.data?.map((withdrawal, i) => {
-					return {
-						key: i,
-						transactionID: truncateString(withdrawal.request_code, 15),
-						amount: toCurrency(withdrawal.amount),
-						charges: withdrawal.service_charge,
-						date: new Date(withdrawal.updated_at).toDateString(),
-						status: withdrawal.status,
-					};
-				});
-				setTransactionData(resetData);
-				setFetchingData(false);
-			} catch (error) {
-				toast.error('An error occurred');
-				setFetchingData(false);
-			}
-		};
-		getTransactions();
+		// const getTransactions = async () => {
+		// 	try {
+		// 		const res = await getWithdrawalRequest();
+		// 		const resetData = res.data.payload.data?.map((withdrawal, i) => {
+		// 			return {
+		// 				key: i,
+		// 				transactionID: truncateString(withdrawal.request_code, 15),
+		// 				amount: toCurrency(withdrawal.amount),
+		// 				charges: withdrawal.service_charge,
+		// 				date: new Date(withdrawal.updated_at).toDateString(),
+		// 				status: withdrawal.status,
+		// 			};
+		// 		});
+		// 		setTransactionData(resetData);
+		// 		setFetchingData(false);
+		// 	} catch (error) {
+		// 		toast.error('An error occurred');
+		// 		setFetchingData(false);
+		// 	}
+		// };
+		// getTransactions();
 	}, []);
 
 	const tableOptions = [
@@ -90,9 +90,9 @@ const Withdrawals = () => {
 
 	return (
 		<div>
-			<div className="flex justify-between">
-				<h2 className="text-xl font-semibold">Transactions History </h2>
-				<div className="flex justify-between">
+			<div className="block lg:flex justify-between">
+				<h2 className="text-lg md:text-xl font-semibold">Transactions History </h2>
+				<div className="block lg:flex justify-between pt-10 lg:pt-0">
 					<div className="tab flex rounded bg-gray-100 mr-5">
 						<div
 							className={`px-5 rounded py-3 cursor-pointer ${activeIndex === 0 && '__tab-active'}`}
@@ -113,15 +113,65 @@ const Withdrawals = () => {
 							Month
 						</div>
 					</div>
-					<div className="tab flex rounded bg-gray-100 px-5 py-2">
+					<div className="tab flex rounded bg-gray-100 px-5 py-2 mt-5 lg:mt-0 mr-5 lg:mr-0">
 						<BiCalendarEvent size="20" className="my-auto" />
 						<div className="px-3 my-auto">Jan, 2019 - Dec, 2019</div>
 					</div>
 				</div>
 			</div>
 
+
+			
 			<div className=" my-16">
-				{/* <Table columns={columns} dataSource={transactionData} loading={fetchingData} /> */}
+				<table style={{textAlign: 'left', width: '95%'}} >
+					<tr className="font-semibold" style={{background: "#F9F9F9"}}>
+						{/*{columns.map((data, i) => ( */}
+
+							<th className='hidden lg:block py-5 px-5'>Transaction ID</th>
+							<th className='py-5 px-5'>Amount</th>
+							<th className='hidden lg:block py-5 px-5'>Charges</th>
+							<th className='py-5 px-5'>Date</th>
+							<th className='py-5 px-5'>Status</th>
+							<th className='hidden lg:block py-5 px-5'>Action</th>
+
+						{/* }))}*/}
+					</tr>
+
+
+					{transactionData?.slice(0, 4).map((data, index) => {
+						return (
+							<tr className='mt-10'>
+								<td className='hidden lg:block px-5'>{data.transactionID}</td>
+								<td className='px-5'>{data.amount}</td>
+								<td className='hidden lg:block px-5'>{toCurrency(data.charges)}</td>
+								<td className='px-5'>{data.date}</td>
+								<td className='px-5'>
+									<CustomTag
+										text={data.status}
+										isDanger={data.status === 'declined'}
+										isSuccess={data.status === 'approved'}
+										isWarning={data.status === 'pending'}
+									/>
+								</td>
+								<td className='hidden lg:block px-5'>
+									<div className="three_dot flex">
+										<ul>
+											<li></li>
+											<li></li>
+											<li></li>
+										</ul>
+										<span className="text-xs font-semibold"> Download Payslip</span>
+									</div>
+								</td>
+							</tr>
+						);
+				})} 
+				</table>
+			</div>
+			{/* 
+
+			<div className=" my-16">
+				<Table columns={columns} dataSource={transactionData} loading={fetchingData} /> 
 				
 							<div className="mt-10 ">
 								<div className="flex justify-between pt-4 pb-4 mb-5 px-8 font-semibold" style={{background: "#F9F9F9"}}>
@@ -185,6 +235,7 @@ const Withdrawals = () => {
 								})} 
 							</div>
 			</div>
+			*/}
 		</div>
 	);
 };

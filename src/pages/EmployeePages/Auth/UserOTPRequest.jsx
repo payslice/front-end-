@@ -20,11 +20,6 @@ export const UserOTPRequest = () => {
 
   const {emailState} = useContext(emailContext)
 
-  console.log("emailRecievedContext userotp")
-  console.log(emailState)
-
-  console.log(data);
-
   const {
     register,
     handleSubmit,
@@ -45,7 +40,7 @@ export const UserOTPRequest = () => {
 
           if (data.status) {
             history.push("/user/register");
-            toast.error(data.message)
+            toast.success(data.message)
             setLoading(false)
           }
           else {

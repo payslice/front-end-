@@ -6,7 +6,7 @@ import { Button } from "../../components/Button/Button";
 import { useHistory } from "react-router-dom";
 
 export const ChooseUser = () => {
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(2);
   const history = useHistory();
 
   const handleUserRoute = () => {
@@ -39,7 +39,8 @@ export const ChooseUser = () => {
               ? "bg-white border border-blue-600"
               : "bg-gray-100 border border-transparent"
           }`}
-          onClick={() => setSelectedIndex(1)}
+          // onClick={() => setSelectedIndex(1)}
+          disabled
         >
           <div>
             <div className="rounded border border-blue-700">
