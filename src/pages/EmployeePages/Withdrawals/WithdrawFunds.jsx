@@ -59,21 +59,41 @@ const WithdrawFunds = () => {
           </span>
         </div>
         
-        </Link>
+      </Link>
+
         <div className="text-2xl font-semibold mb-6 capitalize text-black">Withdraw funds</div>
         <p className="text-xs lg:text-base font-bold capitalize mb-7 leading-loose">
           Please note that funds will be sent to your bank account <br />
           currently linked with your Payslice wallet or account.{" "}
         </p>
         <form onSubmit={submitRequest}>
-          <InputField
-            type="text"
-            // label="Amount"
-            onChange={(e) => setAmount(e.target.value)}
-            value={amount}
-            placeholder="Enter amount"
-            // required
-          />
+            
+            <InputField
+              type="text"
+              label="Amount"
+              onChange={(e) => setAmount(e.target.value)}
+              value={amount}
+              placeholder="Enter amount"
+              // required
+            />
+        
+
+            <InputField
+              type="text"
+              label="Employee ID"
+              placeholder="Tejriljy"
+              // required
+            />
+          
+
+            <InputField
+              type="text"
+              label="Service Charge"
+              placeholder="750"
+              // required
+            />
+    
+            
           <div className="container lg:hidden">
             <div className="flex justify-between font-semibold text-sm mb-10" style={{marginTop: '-12px'}} >
               <p>Min: NGN 5000</p>
@@ -83,7 +103,7 @@ const WithdrawFunds = () => {
           </div>
 
           <p className="mb-2 lg:mb-5 font-medium lg:font-bold">
-            Serivce Charge: 750
+          
           </p>
           {/*
           <p>
