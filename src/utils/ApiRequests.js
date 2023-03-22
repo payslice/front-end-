@@ -22,7 +22,7 @@ export const ApiRequestWithToken = () => {
   let token;
   if (storageContainsToken()) {
     token = getTokenFromStorage();
-    // console.log(token)
+    console.log(token)
   }
   const instance = axios.create({
     ...config,
@@ -461,6 +461,20 @@ export const getWithdrawalRequest = () => {
   // console.log("userData")
   return ApiRequestWithToken().get(
     `/employee/withdrawal_requests/${data.user.id}`
+  );
+};
+
+export const getTransactionHistory = (formData) => {
+  const data = JSON.parse(userData.persist);
+  return ApiRequestWithToken().get(
+    `api/employee/transaction/history`, formData
+  );
+};
+
+export const employeeTransactionRequestMoney = (formData) => {
+  // const data = JSON.parse(userData.persist);
+  return ApiRequestWithToken().post(
+    `api/employee/transaction/make_request`, formData
   );
 };
 
