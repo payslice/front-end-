@@ -39,7 +39,7 @@ const WithdrawalsProcessing = () => {
                 <p className='text-xs'> Funds usually take  between 24-48 hours to arrive your  account </p>
             </div>
 
-            <img className='ml-16' src={require('../../../assets/imgs/Vector.jpg')} 
+            <img className='m-auto' src={require('../../../assets/imgs/Vector.jpg')} 
             alt=""
             width="130"
             />
