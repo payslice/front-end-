@@ -24,7 +24,7 @@ export const ContractorLogin = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(false);
   const history = useHistory();
 
