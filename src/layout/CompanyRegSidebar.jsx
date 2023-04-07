@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import SidebarItem from './SidebarItem';
 import { FaUserAlt, FaFolder } from 'react-icons/fa';
-import { HiBriefcase } from 'react-icons/hi';
-import { RiBankFill } from 'react-icons/ri';
+// import { HiBriefcase } from 'react-icons/hi';
+// import { RiBankFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 const CompanyRegSidebar = () => {
@@ -43,6 +43,8 @@ const CompanyRegSidebar = () => {
 						path="/onboard/step2"
 						caption="Company Representative"
 					/>
+					
+					{/*
 					<SidebarItem
 						currentPath={currentLocation}
 						Icon={HiBriefcase}
@@ -50,6 +52,8 @@ const CompanyRegSidebar = () => {
 						caption="Company policy"
 					/>
 					<SidebarItem currentPath={currentLocation} Icon={RiBankFill} path="/onboard/step4" caption="Agreement" />
+					
+					*/}
 				</ul>
 			</div>
 

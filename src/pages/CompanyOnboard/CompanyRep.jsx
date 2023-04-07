@@ -88,7 +88,7 @@ const CompanyRepresentative = () => {
             <div className='text-xl font-semibold md:text-2xl'>
                 Company Representative
             </div>
-            <p className='max-w-md mt-2 text-sm text-gray-400 md:text-base'>
+            <p className='max-w-xl mt-4 text-sm text-[#111111]/[0.6] md:text-base font-medium'>
                 Kindly complete the steps below to activate your account, once
                 you have complete all the required section, clicks on Request
                 Activation
@@ -104,6 +104,7 @@ const CompanyRepresentative = () => {
                             type='text'
                             errors={errors.legal_name ?? false}
                             {...register("legal_name", { required: true })}
+                            required
                         />
                     </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
@@ -114,6 +115,7 @@ const CompanyRepresentative = () => {
                             type='text'
                             errors={errors.address ?? false}
                             {...register("address", { required: true })}
+                            required
                         />
                     </div>
                 </div>
@@ -126,17 +128,18 @@ const CompanyRepresentative = () => {
                             type='date'
                             errors={errors.date_of_birth ?? false}
                             {...register("date_of_birth", { required: true })}
+                            required
                         />
                     </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <SelectInput
                             label='ID Type'
-                            required
                             options={idTypes}
                             selectedValue={selectedValue}
                             setSelectedValue={setSelectedValue}
                             setFormValue={setValue}
                             {...register("id_type", { required: true })}
+                            required
                         />
                     </div>
                 </div>
@@ -149,22 +152,24 @@ const CompanyRepresentative = () => {
                             type='number'
                             errors={errors.id_number ?? false}
                             {...register("id_number", { required: true })}
+                            required
                         />
                     </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Ownership percentage'
-                            name='ownership_percentage'
-                            placeholder='10'
+                            label='Upload ID'
+                            name='upload_id'
+                            // placeholder='10'
                             type='tel'
-                            errors={errors.ownership_percentage ?? false}
-                            {...register("ownership_percentage", {
+                            errors={errors.upload_id ?? false}
+                            {...register("upload_id", {
                                 required: true,
                             })}
                         />
                     </div>
                 </div>
                 <div className='flex w-full mobiles:block'>
+                    {/*
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
                             label='Title (if a senior manager)'
@@ -176,8 +181,10 @@ const CompanyRepresentative = () => {
                                 required: true,
                                 minLength: 2,
                             })}
+                            required
                         />
                     </div>
+                    */}
 
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
@@ -189,15 +196,18 @@ const CompanyRepresentative = () => {
                             {...register("bankDetails", {
                                 required: true,
                             })}
+                            required
                         />
                     </div>
                 </div>
 
                 <div className='flex justify-between mt-10 signUp__submit-btn'>
                     <Link to='/onboard/step1'>
+                        {/*
                         <button className='py-3 text-sm font-semibold bg-gray-100 rounded-md px-7 md:text-base'>
                             Go back
                         </button>
+                        */}
                     </Link>
                     <Button type='submit' buttonText='Save' loading={loading} />
                 </div>

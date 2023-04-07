@@ -32,19 +32,19 @@ export const ContractorSignup = () => {
     if (formData) {
       setLoading(true);
       try {
-        const {data} = await employeeLogin(formData);
+        // const {data} = await employeeLogin(formData);
 
-        if(data.status){
-          dispatch(setUser(data.data));
-          Cookies.set("PAYSL-ADTK", data.token);
-          setExpiryTimeToStorage(new Date());
-          setLoading(false);
+        // if(data.status){
+        //   dispatch(setUser(data.data));
+        //   Cookies.set("PAYSL-ADTK", data.token);
+        //   setExpiryTimeToStorage(new Date());
+        //   setLoading(false);
           history.push("user/dashboard")
-          toast.success(data.message)
-        }
-        else {
-          toast.error(data.message)
-        }
+        //   toast.success(data.message)
+        // }
+        // else {
+        //   toast.error(data.message)
+        // }
       } catch (error) {
         setLoading(false);
         // console.log("error", error);
@@ -123,7 +123,7 @@ export const ContractorSignup = () => {
 
         <div className="mt-16 text-sm md:text-base">
           Own an account?{" "}
-          <Link to="/business/login" className="font-medium text-primary ml-1 pb-10">
+          <Link to="/onboard/step1" className="font-medium text-primary ml-1 pb-10">
             Login Up now
           </Link>
         </div>
