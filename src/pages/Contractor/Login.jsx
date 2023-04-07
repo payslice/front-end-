@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "../../../components/Button/Button";
-import { InputField, PasswordInput } from "../../../components/Input";
-import { employeeLogin } from "../../../utils/ApiRequests";
-import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
-import { ErrorMessage } from "../../../components/Message/Message";
+import { Button } from "../../components/Button/Button";
+import { InputField, PasswordInput } from "../../components/Input";
+import { employeeLogin } from "../../utils/ApiRequests";
+import { setExpiryTimeToStorage } from "../../utils/ApiUtils";
+import { ErrorMessage } from "../../components/Message/Message";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import isEmail from "is-email";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, persistSelector } from "../../../slices/persist";
+import { setUser, persistSelector } from "../../slices/persist";
 import { toast } from "react-toastify";
 
-export const Login = () => {
+export const ContractorLogin = () => {
   const dispatch = useDispatch();
   const data = useSelector(persistSelector);
 

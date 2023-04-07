@@ -116,6 +116,8 @@ const UserDashboard = () => {
 
 		const getTransactions = async () => {
 			try {
+				console.log("user.employeeIds[0]")
+				console.log(user.employeeIds[0])
 				const {data} = await getTransactionHistory({employee_id: user.employeeIds[0]});
 				console.log("transaction data")
 				console.log(data)

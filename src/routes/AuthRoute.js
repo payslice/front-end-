@@ -14,10 +14,12 @@ import { PasswordChanged } from "../pages/EmployeePages/Auth/PasswordChanged";
 //added routes
 import { UserInvite } from "../pages/EmployeePages/Auth/UserInvite";
 import { UserOTPRequest } from "../pages/EmployeePages/Auth/UserOTPRequest";
+import { ContractorLogin } from "../pages/Contractor/Login";
 
 
 export const AuthRoutesList = [
   { path: "/login", component: Login, exact: true, key: 'FDGHJK' },
+  { path: "/contractor/login", component: ContractorLogin, exact: true, key: 'FDGHJasK' },
   { path: "/", component: ChooseUser, exact: true, key: 'ghjkhlh' },
   { path: "/choose-user", component: ChooseUser, exact: true, key: 'ghjgjjkjgh' },
   { path: "/password", component: PasswordChanged, exact: true, key: 'ghjkhg' },

@@ -12,13 +12,13 @@ export const ChooseUser = () => {
   const handleUserRoute = () => {
     switch (selectedIndex) {
       case 1:
-        history.push("/login");
+        history.push("/contractor/login");
         break;
       case 2:
         history.push("/user/login");
         break;
       default:
-        history.push("/login");
+        history.push("/user/login");
         break;
     }
   };
@@ -39,7 +39,7 @@ export const ChooseUser = () => {
               ? "bg-white border border-blue-600"
               : "bg-gray-100 border border-transparent"
           }`}
-          // onClick={() => setSelectedIndex(1)}
+          onClick={() => setSelectedIndex(1)}
           disabled
         >
           <div>
