@@ -19,7 +19,7 @@ import { ContractorLogin } from "../pages/Business/Login";
 
 export const AuthRoutesList = [
   { path: "/login", component: Login, exact: true, key: 'FDGHJK' },
-  { path: "/contractor/login", component: ContractorLogin, exact: true, key: 'FDGHJasK' },
+  { path: "/business/login", component: ContractorLogin, exact: true, key: 'FDGHJasK' },
   { path: "/", component: ChooseUser, exact: true, key: 'ghjkhlh' },
   { path: "/choose-user", component: ChooseUser, exact: true, key: 'ghjgjjkjgh' },
   { path: "/password", component: PasswordChanged, exact: true, key: 'ghjkhg' },

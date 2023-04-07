@@ -12,7 +12,7 @@ export const ChooseUser = () => {
   const handleUserRoute = () => {
     switch (selectedIndex) {
       case 1:
-        history.push("/contractor/login");
+        history.push("/business/login");
         break;
       case 2:
         history.push("/user/login");
