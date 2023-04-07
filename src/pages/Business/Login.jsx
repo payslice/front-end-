@@ -30,25 +30,25 @@ export const ContractorLogin = () => {
 
   const onSubmit = async (formData) => {
     if (formData) {
-      setLoading(true);
+      // setLoading(true);
       try {
-        const {data} = await employeeLogin(formData);
+        // const {data} = await employeeLogin(formData);
 
-        if(data.status){
-          dispatch(setUser(data.data));
-          Cookies.set("PAYSL-ADTK", data.token);
-          setExpiryTimeToStorage(new Date());
-          setLoading(false);
-          history.push("user/dashboard")
-          toast.success(data.message)
-        }
-        else {
-          toast.error(data.message)
-        }
+        // if(data.status){
+        //   dispatch(setUser(data.data));
+        //   Cookies.set("PAYSL-ADTK", data.token);
+        //   setExpiryTimeToStorage(new Date());
+        //   setLoading(false);
+        //   history.push("user/dashboard")
+        //   toast.success(data.message)
+        // }
+        // else {
+        //   toast.error(data.message)
+        // }
       } catch (error) {
-        setLoading(false);
-        // console.log("error", error);
-        setError(true);
+        // setLoading(false);
+        // // console.log("error", error);
+        // setError(true);
       }
     }
   };
@@ -99,7 +99,7 @@ export const ContractorLogin = () => {
 
         <div className="mt-16 text-sm md:text-base">
           Don't have an account?{" "}
-          <Link to="/register" className="font-medium text-primary ml-1">
+          <Link to="/business/register" className="font-medium text-primary ml-1">
             Sign Up now
           </Link>
         </div>
