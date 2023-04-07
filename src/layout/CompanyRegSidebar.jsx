@@ -20,7 +20,7 @@ const CompanyRegSidebar = () => {
 
 	return (
 		<section className="min-h-screen relative onboarding_sidebar auth_sidebar_bg overflow-hidden overflow-x-hidden mobiles:hidden z-30">
-			<div className="pt-[123px] px-16">
+			<div className="pt-[70px] px-12">
 				<div className="mb-3 mobiles:px-1 mobiles:w-full ">
 					<Link to="/">
 						<img
@@ -30,7 +30,7 @@ const CompanyRegSidebar = () => {
 						/>
 					</Link>
 				</div>
-				<ul className="mt-24">
+				<ul className="mt-16">
 					<SidebarItem
 						currentPath={currentLocation}
 						Icon={FaUserAlt}
