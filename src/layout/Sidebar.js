@@ -40,20 +40,20 @@ const Sidebar = () => {
 			</h1>
 			<div className="mt-24">
 				<ul className="px-8 mt-10">
-					<SidebarItem currentPath={currentLocation} Icon={AiFillHome} path="/dashboard" caption="Dashboard" isDb />
-					<SidebarItem currentPath={currentLocation} Icon={FaFolder} path="/employee" caption="Wallets" isDb />
+					<SidebarItem currentPath={currentLocation} Icon={AiFillHome} path="/business/dashboard" caption="Dashboard" isDb />
+					<SidebarItem currentPath={currentLocation} Icon={FaFolder} path="/business/employee" caption="Wallets" isDb />
 					<SidebarItem
 						currentPath={currentLocation}
 						Icon={MdAnalytics}
-						path="/withdrawals"
+						path="/business/withdrawals"
 						caption="Request money"
 						isDb
 					/>
 
 					<div className="border-white border-b-2 w-10 mb-3 mt-3 ml-[26px]"></div>
-					<SidebarItem currentPath={currentLocation} Icon={HiBriefcase} path="/payments" caption="Payments" isDb />
+					<SidebarItem currentPath={currentLocation} Icon={HiBriefcase} path="/business/payments" caption="Payments" isDb />
 					{/*<SidebarItem currentPath={currentLocation} Icon={FaCommentDots} path="/support" caption="Support" isDb /> */}
-					<SidebarItem currentPath={currentLocation} Icon={AiFillSetting} path="/" caption="Settings" isDb />
+					<SidebarItem currentPath={currentLocation} Icon={AiFillSetting} path="/business/settings" caption="Settings" isDb />
 				</ul>
 			</div>
 			{/* <div className="mt-8">
