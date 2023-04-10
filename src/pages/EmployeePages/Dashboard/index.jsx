@@ -242,6 +242,7 @@ const UserDashboard = () => {
 											</button>
 										</div>
 									</div>
+									
 									<div className="flex px-12 py-6 ml-5 justify-between rounded-xl  w-1/2 handle_user_homepage_responsive_in2" style={{ background: '#FBE5DC' }}>
 										<div className="my-auto">
 											<div className="text-normal">Total withdrawn </div>
