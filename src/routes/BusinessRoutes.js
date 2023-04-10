@@ -3,9 +3,13 @@ import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
 // import { checkLogin, checkTokenValidity } from "../utils/ApiUtils";
 import DashboardHome from "../pages/DashboardHome/DashboardHome";
+import TransferMoney from "../pages/Business/Employee/TransferMoney";
+import MoneyRequest from "../pages/Business/Employee/MoneyRequest";
 
 export const BusinessRoutesList = [
   { path: "/business/dashboard", component: DashboardHome, exact: true },
+  { path: "/business/transfer", component: TransferMoney, exact: true },
+  { path: "/business/money", component: MoneyRequest, exact: true },
 
 ];
 
@@ -27,14 +31,21 @@ const BusinessRoute = ({ component: Component, ...rest }) => {
 
 const employeeNavTab = [
   {
-    name: "Employees",
-    link: "/employee",
-  },
-  {
-    name: "Accepted Employees",
-    link: "/employee/accepted-employee",
-  },
+    name: "Employee",
+    link: "/business/transfer",
+  }
 ];
+
+const moneyNavTab = [
+ { name: "Credit Limit Money",
+  link: "business/money",
+},
+
+ { name: "Associate Money  ",
+  link: "business/money",
+}
+]; 
+
 const settingsNavTab = [
   {
     name: "Legal & Policy",
@@ -71,7 +82,7 @@ const BusinessRoutes = () => {
   const location = useLocation();
 
   const useNavTab = () => {
-    if (location.pathname.startsWith("/employee")) {
+    if (location.pathname.startsWith("/business/transfer")) {
       return employeeNavTab;
     }
     if (location.pathname.startsWith("/payments")) {
@@ -82,6 +93,9 @@ const BusinessRoutes = () => {
     }
     if (location.pathname.startsWith("/settings")) {
       return settingsNavTab;
+    }
+    if (location.pathname.startsWith("/business/money")) {
+      return moneyNavTab;
     }
   };
 
