@@ -27,19 +27,19 @@ const CompanyOnboard = () => {
         if (formData) {
             setLoading(true);
             try {
-                const res = await companyInfoOnboarding(formData);
-                setLoading(false);
-                sessionStorage.setItem("P_Slice_CID", res.data.payload.data.id);
+                // const res = await companyInfoOnboarding(formData);
+                // setLoading(false);
+                // sessionStorage.setItem("P_Slice_CID", res.data.payload.data.id);
 
-                console.log(res.data.payload.data);
+                // console.log(res.data.payload.data);
 
-                dispatch(
-                    setUser({
-                        ...user,
-                        company: res.data.payload.data,
-                        company_id: res.data.payload.data.id,
-                    })
-                );
+                // dispatch(
+                //     setUser({
+                //         ...user,
+                //         company: res.data.payload.data,
+                //         company_id: res.data.payload.data.id,
+                //     })
+                // );
 
                 history.push("/onboard/step2");
             } catch (error) {
@@ -57,7 +57,7 @@ const CompanyOnboard = () => {
             <div className='text-xl font-semibold md:text-2xl'>
                 Company onboarding process
             </div>
-            <p className='max-w-md mt-2 text-sm text-gray-400 md:text-base'>
+            <p className='max-w-xl mt-4 text-sm text-[#111111]/[0.6] md:text-base font-medium'>
                 Kindly complete the steps below to activate your account, once
                 you have complete all the required section, clicks on Request
                 Activation
@@ -67,56 +67,30 @@ const CompanyOnboard = () => {
                 <div className='flex w-full mobiles:block'>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Full Name'
+                            label='Company Name'
                             name='name'
                             placeholder='John Doe'
                             type='text'
-                            errors={errors.name ?? false}
-                            {...register("name", {
+                            errors={errors.company_name ?? false}
+                            {...register("company_name", {
                                 required: true,
                                 minLength: 4,
                             })}
+                            required
                         />
                     </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Registered Business Name'
-                            name='registered_business_name'
-                            placeholder='ABC Company'
-                            type='text'
-                            errors={errors.registered_business_name ?? false}
-                            {...register("registered_business_name", {
+                            label='Tax Identification Number'
+                            name='tax_identification_number'
+                            placeholder='Enter Tax ID Number'
+                            type='number'
+                            errors={errors.tax_identification_number ?? false}
+                            {...register("tax_identification_number", {
                                 required: true,
                                 minLength: 4,
                             })}
-                        />
-                    </div>
-                </div>
-                <div className='flex w-full mobiles:block'>
-                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
-                        <InputField
-                            label='Business Phone Number'
-                            name='phone_number'
-                            placeholder='+2349012345678'
-                            type='tel'
-                            errors={errors.phone_number ?? false}
-                            {...register("phone_number", {
-                                required: true,
-                                minLength: 9,
-                            })}
-                        />
-                    </div>
-                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
-                        <InputField
-                            label='Business Address'
-                            name='address'
-                            placeholder='Enter Business Address'
-                            type='text'
-                            errors={errors.address ?? false}
-                            {...register("address", {
-                                required: true,
-                                minLength: 6,
-                            })}
+                            required
                         />
                     </div>
                 </div>
@@ -132,36 +106,25 @@ const CompanyOnboard = () => {
                                 required: true,
                                 minLength: 4,
                             })}
+                            required
                         />
                     </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Tax Identification Number'
-                            name='tax_identification_number'
-                            placeholder='Enter Tax ID Number'
-                            type='number'
-                            errors={errors.tax_identification_number ?? false}
-                            {...register("tax_identification_number", {
+                            label='Business Address'
+                            name='address'
+                            placeholder='Enter Business Address'
+                            type='text'
+                            errors={errors.address ?? false}
+                            {...register("address", {
                                 required: true,
-                                minLength: 4,
+                                minLength: 6,
                             })}
+                            required
                         />
                     </div>
                 </div>
                 <div className='flex w-full mobiles:block'>
-                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
-                        <InputField
-                            label='Industry'
-                            name='industry'
-                            placeholder='Enter Industry'
-                            type='text'
-                            errors={errors.industry ?? false}
-                            {...register("industry", {
-                                required: true,
-                                minLength: 2,
-                            })}
-                        />
-                    </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
                             label='Payment Email'
@@ -174,6 +137,21 @@ const CompanyOnboard = () => {
                                     isEmail(value) ||
                                     "Please provide a valid email",
                             })}
+                            required
+                        />
+                    </div>
+                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
+                        <InputField
+                            label='Business Phone Number'
+                            name='phone_number'
+                            placeholder='+2349012345678'
+                            type='tel'
+                            errors={errors.phone_number ?? false}
+                            {...register("phone_number", {
+                                required: true,
+                                minLength: 9,
+                            })}
+                            required
                         />
                     </div>
                 </div>

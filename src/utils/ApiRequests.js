@@ -465,9 +465,9 @@ export const getWithdrawalRequest = () => {
 };
 
 export const getTransactionHistory = (formData) => {
-  const data = JSON.parse(userData.persist);
+  // const data = JSON.parse(userData.persist);
   return ApiRequestWithToken().get(
-    `api/employee/transaction/history`, formData
+    `/api/employee/transaction/history`, formData
   );
 };
 

@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "../../../components/Button/Button";
-import { InputField, PasswordInput } from "../../../components/Input";
-import { employeeLogin } from "../../../utils/ApiRequests";
-import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
-import { ErrorMessage } from "../../../components/Message/Message";
+import { Button } from "../../components/Button/Button";
+import { InputField, PasswordInput } from "../../components/Input";
+import { employeeLogin } from "../../utils/ApiRequests";
+import { setExpiryTimeToStorage } from "../../utils/ApiUtils";
+import { ErrorMessage } from "../../components/Message/Message";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import isEmail from "is-email";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, persistSelector } from "../../../slices/persist";
+import { setUser, persistSelector } from "../../slices/persist";
 import { toast } from "react-toastify";
 
-export const Login = () => {
+export const BusinessLogin = () => {
   const dispatch = useDispatch();
   const data = useSelector(persistSelector);
 
@@ -24,31 +24,31 @@ export const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(false);
   const history = useHistory();
 
   const onSubmit = async (formData) => {
     if (formData) {
-      setLoading(true);
+      // setLoading(true);
       try {
-        const {data} = await employeeLogin(formData);
+        // const {data} = await employeeLogin(formData);
 
-        if(data.status){
-          dispatch(setUser(data.data));
-          Cookies.set("PAYSL-ADTK", data.token);
-          setExpiryTimeToStorage(new Date());
-          setLoading(false);
-          history.push("user/dashboard")
-          toast.success(data.message)
-        }
-        else {
-          toast.error(data.message)
-        }
+        // if(data.status){
+        //   dispatch(setUser(data.data));
+        //   Cookies.set("PAYSL-ADTK", data.token);
+        //   setExpiryTimeToStorage(new Date());
+        //   setLoading(false);
+        //   history.push("user/dashboard")
+        //   toast.success(data.message)
+        // }
+        // else {
+        //   toast.error(data.message)
+        // }
       } catch (error) {
-        setLoading(false);
-        // console.log("error", error);
-        setError(true);
+        // setLoading(false);
+        // // console.log("error", error);
+        // setError(true);
       }
     }
   };
@@ -99,7 +99,7 @@ export const Login = () => {
 
         <div className="mt-16 text-sm md:text-base">
           Don't have an account?{" "}
-          <Link to="/register" className="font-medium text-primary ml-1">
+          <Link to="/business/register" className="font-medium text-primary ml-1">
             Sign Up now
           </Link>
         </div>
