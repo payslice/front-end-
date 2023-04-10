@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, persistSelector } from "../../slices/persist";
 import { toast } from "react-toastify";
 
-export const ContractorLogin = () => {
+export const BusinessLogin = () => {
   const dispatch = useDispatch();
   const data = useSelector(persistSelector);
 

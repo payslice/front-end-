@@ -14,14 +14,14 @@ import { PasswordChanged } from "../pages/EmployeePages/Auth/PasswordChanged";
 //added routes
 import { UserInvite } from "../pages/EmployeePages/Auth/UserInvite";
 import { UserOTPRequest } from "../pages/EmployeePages/Auth/UserOTPRequest";
-import { ContractorLogin } from "../pages/Business/Login";
-import { ContractorSignup } from "../pages/Business/Signup";
+import { BusinessLogin } from "../pages/Business/Login";
+import { BusinessSignup } from "../pages/Business/Signup";
 
 
 export const AuthRoutesList = [
   { path: "/login", component: Login, exact: true, key: 'FDGHJK' },
-  { path: "/business/login", component: ContractorLogin, exact: true, key: 'FDGHJasK' },
-  { path: "/business/register", component: ContractorSignup, exact: true, key: 'FDGasdHJasK' },
+  { path: "/business/login", component: BusinessLogin, exact: true, key: 'FDGHJasK' },
+  { path: "/business/register", component: BusinessSignup, exact: true, key: 'FDGasdHJasK' },
   { path: "/", component: ChooseUser, exact: true, key: 'ghjkhlh' },
   { path: "/choose-user", component: ChooseUser, exact: true, key: 'ghjgjjkjgh' },
   { path: "/password", component: PasswordChanged, exact: true, key: 'ghjkhg' },
