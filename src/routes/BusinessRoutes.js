@@ -5,11 +5,16 @@ import AppLayout from "../layout/AppLayout";
 import DashboardHome from "../pages/DashboardHome/DashboardHome";
 import TransferMoney from "../pages/Business/Employee/TransferMoney";
 import MoneyRequest from "../pages/Business/Employee/MoneyRequest";
+import AssociateMoney from "../pages/Business/Employee/AssociateMoney";
+import FundWallet from "../pages/Business/Employee/FundWallet";
+
 
 export const BusinessRoutesList = [
   { path: "/business/dashboard", component: DashboardHome, exact: true },
   { path: "/business/transfer", component: TransferMoney, exact: true },
   { path: "/business/money", component: MoneyRequest, exact: true },
+  { path: "/business/associate", component: AssociateMoney, exact: true },
+  { path: "/business/wallet", component: FundWallet, exact: true },
 
 ];
 
@@ -36,15 +41,30 @@ const employeeNavTab = [
   }
 ];
 
+const uploadEmployeeNavTab = [
+  {
+    name: "Employee",
+    link: "/business/upload",
+  }
+];
+
 const moneyNavTab = [
  { name: "Credit Limit Money",
   link: "business/money",
 },
 
  { name: "Associate Money  ",
-  link: "business/money",
+  link: "business/associate",
 }
 ]; 
+
+const walletNavTab = [
+  { name: "Wallet",
+   link: "business/wallet",
+ },
+ 
+ 
+ ]; 
 
 const settingsNavTab = [
   {
@@ -97,6 +117,13 @@ const BusinessRoutes = () => {
     if (location.pathname.startsWith("/business/money")) {
       return moneyNavTab;
     }
+    if (location.pathname.startsWith("/business/associate")) {
+      return moneyNavTab;
+    }
+    if (location.pathname.startsWith("/business/wallet")) {
+      return walletNavTab;
+    }
+   
   };
 
   return (
