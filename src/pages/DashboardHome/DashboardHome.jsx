@@ -217,6 +217,7 @@ const DashboardHome = () => {
 
             <div className='mt-10 cards'>
                 <div className='flex mobiles:block'>
+                    {/*
                     <div className='w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Payroll Size
@@ -242,7 +243,8 @@ const DashboardHome = () => {
                             </span>
                         </h4>
                     </div>
-                    <div className='w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
+                    */}
+                    <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Credit limit
                         </p>
@@ -255,7 +257,7 @@ const DashboardHome = () => {
                         ).getFullYear()} `}</p>
                         <h4 className='text-[28px] font-bold mt-1.5'>0</h4>
                     </div>
-                    <div className='w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
+                    <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Wallet Balance
                         </p>
@@ -282,7 +284,7 @@ const DashboardHome = () => {
                             </span>
                         </h4>
                     </div>
-                    <div className='w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
+                    <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Upcoming payments
                         </p>
@@ -291,7 +293,7 @@ const DashboardHome = () => {
                             <span
                                 className='flex ml-2 font-bold'
                                 style={{ color: "#D0000C" }}>
-                                0% <BsArrowDown className='my-auto font-bold' />
+                                -3% <BsArrowDown className='my-auto font-bold' />
                             </span>
                         </p>
                         <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
@@ -310,7 +312,7 @@ const DashboardHome = () => {
                 <div className='flex w-full mobiles:block'>
                     <div className='p-6 mobiles:p-0 mr-8 w-2/3 mobiles:w-full mobiles:my-4 border border-gray-200 rounded-[10px] h-[527px]'>
                         <h3 className='text-xl font-semibold text-[#111111b3] pt-5 mb-6 px-2'>
-                            Active Withdrawal
+                            Withdrawal
                         </h3>
                         <ResponsiveContainer width='100%' height='85%'>
                             <AreaChart
