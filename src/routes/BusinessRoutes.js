@@ -7,6 +7,9 @@ import TransferMoney from "../pages/Business/Employee/TransferMoney";
 import MoneyRequest from "../pages/Business/Employee/MoneyRequest";
 import AssociateMoney from "../pages/Business/Employee/AssociateMoney";
 import FundWallet from "../pages/Business/Employee/FundWallet";
+import FloatMoney from "../pages/Business/Employee/FloatMoney";
+import EmployeeReport from "../pages/Business/Employee/EmployeeReport";
+import LinkBank from "../pages/Business/Employee/LinkBank";
 
 
 export const BusinessRoutesList = [
@@ -15,6 +18,9 @@ export const BusinessRoutesList = [
   { path: "/business/money", component: MoneyRequest, exact: true },
   { path: "/business/associate", component: AssociateMoney, exact: true },
   { path: "/business/wallet", component: FundWallet, exact: true },
+  { path: "/business/float", component: FloatMoney, exact: true },
+  { path: "/business/report", component: EmployeeReport, exact: true },
+  { path: "/business/link", component: LinkBank, exact: true },
 
 ];
 
@@ -41,10 +47,17 @@ const employeeNavTab = [
   }
 ];
 
-const uploadEmployeeNavTab = [
+const floatNavTab = [
   {
     name: "Employee",
-    link: "/business/upload",
+    link: "/business/float",
+  }
+];
+
+const reportNavTab = [
+  {
+    name: "Employee",
+    link: "/business/report",
   }
 ];
 
@@ -62,8 +75,12 @@ const walletNavTab = [
   { name: "Wallet",
    link: "business/wallet",
  },
- 
- 
+ ]; 
+
+const linkNavTab = [
+  { name: "Employee",
+   link: "business/link",
+ },
  ]; 
 
 const settingsNavTab = [
@@ -122,6 +139,15 @@ const BusinessRoutes = () => {
     }
     if (location.pathname.startsWith("/business/wallet")) {
       return walletNavTab;
+    }
+    if (location.pathname.startsWith("/business/float")) {
+      return floatNavTab;
+    }
+    if (location.pathname.startsWith("/business/report")) {
+      return reportNavTab;
+    }
+    if (location.pathname.startsWith("/business/link")) {
+      return linkNavTab;
     }
    
   };
