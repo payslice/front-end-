@@ -19,11 +19,11 @@ const RouteList = [
     exact: true,
     component: CompanyOnboardRoutes,
   },
-  // {
-  //   path: EmployerRoutesList.map((r) => r.path),
-  //   exact: true,
-  //   component: EmployerRoutes,
-  // },
+  {
+    path: EmployerRoutesList.map((r) => r.path),
+    exact: true,
+    component: EmployerRoutes,
+  },
   {
     path: EmployeeRoutesList.map((r) => r.path),
     exact: true,
