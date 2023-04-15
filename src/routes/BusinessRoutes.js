@@ -7,10 +7,12 @@ import DashboardHome from "../pages/Business/DashboardHome";
 import TransferMoney from "../pages/Business/Employee/TransferMoney";
 import MoneyRequest from "../pages/Business/Employee/MoneyRequest";
 import DashboardWallet from "../pages/Business/DashboardWallet";
+import DashboardPayroll from "../pages/Business/DashboardPayroll";
 
 export const BusinessRoutesList = [
   { path: "/business/dashboard", component: DashboardHome, exact: true },
   { path: "/business/dashboard/wallet", component: DashboardWallet, exact: true },
+  { path: "/business/dashboard/payroll", component: DashboardPayroll, exact: true },
   { path: "/business/transfer", component: TransferMoney, exact: true },
   { path: "/business/money", component: MoneyRequest, exact: true },
 
@@ -45,6 +47,20 @@ const dashboardWalletNavTab = [
   },
   {
     name: "Associate Money  ",
+    link: "/business/dashboard",
+  }
+];
+const dashboardPayroll = [
+  {
+    name: "Employee Payroll ",
+    link: "/business/dashboard",
+  },
+  {
+    name: "Earn as you",
+    link: "/business/dashboard",
+  },
+  {
+    name: "Payroll Histroy",
     link: "/business/dashboard",
   }
 ];
@@ -100,6 +116,9 @@ const BusinessRoutes = () => {
     }
     if (location.pathname.startsWith("/business/dashboard/wallet")) {
       return dashboardWalletNavTab;
+    }
+    if (location.pathname.startsWith("/business/dashboard/payroll")) {
+      return dashboardPayroll;
     }
     if (location.pathname.startsWith("/payments")) {
       return paymentNavTab;
