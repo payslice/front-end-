@@ -14,6 +14,7 @@ import LinkBank from "../pages/Business/Employee/LinkBank";
 import DashboardWallet from "../pages/Business/DashboardWallet";
 import DashboardPayroll from "../pages/Business/DashboardPayroll";
 import DashboardPayrollReport from "../pages/Business/DashboardPayrollReport";
+import EmployeeDetails from "../pages/Employees/EmployeeDetails";
 
 
 export const BusinessRoutesList = [
@@ -21,6 +22,7 @@ export const BusinessRoutesList = [
   { path: "/business/dashboard/wallet", component: DashboardWallet, exact: true },
   { path: "/business/dashboard/payroll", component: DashboardPayroll, exact: true }, 
   { path: "/business/dashboard/payroll/report", component: DashboardPayrollReport, exact: true }, 
+  { path: "/business/details", component: EmployeeDetails, exact: true }, 
   { path: "/business/transfer", component: TransferMoney, exact: true },
   { path: "/business/money", component: MoneyRequest, exact: true },
   { path: "/business/associate", component: AssociateMoney, exact: true },
