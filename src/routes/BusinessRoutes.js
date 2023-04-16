@@ -13,12 +13,14 @@ import EmployeeReport from "../pages/Business/Employee/EmployeeReport";
 import LinkBank from "../pages/Business/Employee/LinkBank";
 import DashboardWallet from "../pages/Business/DashboardWallet";
 import DashboardPayroll from "../pages/Business/DashboardPayroll";
+import DashboardPayrollReport from "../pages/Business/DashboardPayrollReport";
 
 
 export const BusinessRoutesList = [
   { path: "/business/dashboard", component: DashboardHome, exact: true },
   { path: "/business/dashboard/wallet", component: DashboardWallet, exact: true },
-  { path: "/business/dashboard/payroll", component: DashboardPayroll, exact: true },
+  { path: "/business/dashboard/payroll", component: DashboardPayroll, exact: true }, 
+  { path: "/business/dashboard/payroll/report", component: DashboardPayrollReport, exact: true }, 
   { path: "/business/transfer", component: TransferMoney, exact: true },
   { path: "/business/money", component: MoneyRequest, exact: true },
   { path: "/business/associate", component: AssociateMoney, exact: true },
@@ -154,7 +156,7 @@ const BusinessRoutes = () => {
     if (location.pathname.startsWith("/business/dashboard/wallet")) {
       return dashboardWalletNavTab;
     }
-    if (location.pathname.startsWith("/business/dashboard/payroll")) {
+    if (location.pathname.startsWith("/business/dashboard/payroll") || location.pathname.startsWith("//business/dashboard/payroll/report")) {
       return dashboardPayroll;
     }
     if (location.pathname.startsWith("/payments")) {
