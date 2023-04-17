@@ -16,6 +16,7 @@ import DashboardPayroll from "../pages/Business/DashboardPayroll";
 import DashboardPayrollReport from "../pages/Business/DashboardPayrollReport";
 import EmployeeDetails from "../pages/Employees/EmployeeDetails";
 import UploadEmployee from "../pages/Business/Employee/UploadEmployee";
+import CreateEmployee from "../pages/Business/Employee/CreateEmployee";
 
 
 export const BusinessRoutesList = [
@@ -23,6 +24,7 @@ export const BusinessRoutesList = [
   { path: "/business/dashboard/wallet", component: DashboardWallet, exact: true },
   { path: "/business/dashboard/payroll", component: DashboardPayroll, exact: true }, 
   { path: "/business/dashboard/payroll/report", component: DashboardPayrollReport, exact: true }, 
+  { path: "/business/create", component: CreateEmployee, exact: true }, 
   { path: "/business/details", component: EmployeeDetails, exact: true }, 
   { path: "/business/upload", component: UploadEmployee, exact: true }, 
   { path: "/business/transfer", component: TransferMoney, exact: true },
@@ -55,6 +57,16 @@ const employeeNavTab = [
   {
     name: "Employee",
     link: "/business/transfer",
+  }
+];
+const createemployeeNavTab = [
+  {
+    name: "Employee",
+    link: "/business/dashboard",
+  },
+  {
+    name: "Accepted Employees",
+    link: "/business/dashboard",
   }
 ];
 const uploadNavBar = [
@@ -168,6 +180,9 @@ const BusinessRoutes = () => {
     }
     if (location.pathname.startsWith("/business/upload")) {
       return uploadNavBar;
+    }
+    if (location.pathname.startsWith("/business/create")) {
+      return createemployeeNavTab;
     }
     if (location.pathname.startsWith("/business/dashboard/payroll") || location.pathname.startsWith("//business/dashboard/payroll/report")) {
       return dashboardPayroll;
