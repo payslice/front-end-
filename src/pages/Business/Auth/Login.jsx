@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "../../components/Button/Button";
-import { InputField, PasswordInput } from "../../components/Input";
-import { employeeLogin } from "../../utils/ApiRequests";
-import { setExpiryTimeToStorage } from "../../utils/ApiUtils";
-import { ErrorMessage } from "../../components/Message/Message";
+import { Button } from "../../../components/Button/Button";
+import { InputField, PasswordInput } from "../../../components/Input";
+import { businessLogin, employeeLogin } from "../../../utils/ApiRequests";
+import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
+import { ErrorMessage } from "../../../components/Message/Message";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import isEmail from "is-email";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, persistSelector } from "../../slices/persist";
+import { setUser, persistSelector } from "../../../slices/persist";
 import { toast } from "react-toastify";
 
 export const BusinessLogin = () => {
@@ -30,24 +30,26 @@ export const BusinessLogin = () => {
 
   const onSubmit = async (formData) => {
     if (formData) {
-      // setLoading(true);
+      setLoading(true);
       try {
-        // const {data} = await employeeLogin(formData);
+        const {data} = await businessLogin(formData);
 
-        // if(data.status){
-        //   dispatch(setUser(data.data));
-        //   Cookies.set("PAYSL-ADTK", data.token);
-        //   setExpiryTimeToStorage(new Date());
-        //   setLoading(false);
-        //   history.push("user/dashboard")
-        //   toast.success(data.message)
-        // }
-        // else {
-        //   toast.error(data.message)
-        // }
+        if(data.status){
+          dispatch(setUser(data.data));
+          Cookies.set("PAYSL-ADTK", data.token);
+          setExpiryTimeToStorage(new Date());
+          setLoading(false);
+          history.push("/business/dashboard")
+          toast.success(data.message)
+        }
+        else {
+          toast.error(data.message)
+          setLoading(false);
+        }
       } catch (error) {
-        // setLoading(false);
-        // // console.log("error", error);
+        setLoading(false);
+        console.log("error", error);
+        toast.error(data.message)
         // setError(true);
       }
     }

@@ -67,6 +67,13 @@ export const employerLogin = formData => {
     return ApiRequest().post("/employer_auth/login", formData);
 };
 
+export const businessLogin = formData => {
+    return ApiRequest().post("/api/business/login", formData);
+};
+export const businessRegister = formData => {
+    return ApiRequest().post("api/business/register", formData);
+};
+
 export const employeeLogin = formData => {
     return ApiRequest().post("api/employee/login", formData);
 };
@@ -75,7 +82,7 @@ export const employeeRegister = formData => {
 };
 
 export const companyInfoOnboarding = (formData) => {
-  return ApiRequestWithToken().post("/company/save", formData);
+  return ApiRequestWithToken().post("/api/business/onboard/company", formData);
 };
 
 export const companyRepOnboarding = (formData) => {
