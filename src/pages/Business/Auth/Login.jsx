@@ -34,13 +34,25 @@ export const BusinessLogin = () => {
       try {
         const {data} = await businessLogin(formData);
 
+        // console.log("data")
+        // console.log(data)
+
+        // if(data.status && data.is_onboarded){
+        //         setLoading(false);
+        //         history.push("/onboard/step1")
+        //         toast.success(data.message)
+        // }
+        // else if (data.status) {
+
+        // }
         if(data.status){
           dispatch(setUser(data.data));
           Cookies.set("PAYSL-ADTK", data.token);
           setExpiryTimeToStorage(new Date());
           setLoading(false);
-          history.push("/business/dashboard")
-          toast.success(data.message)
+          if(data.is_onboarded) history.push("/business/dashboard")
+          else {history.push("/onboard/step1");toast.success("successfully signed up, please onboard yourself")}
+    
         }
         else {
           toast.error(data.message)
