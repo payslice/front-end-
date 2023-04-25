@@ -39,28 +39,35 @@ const CompanyRepresentative = () => {
     const onSubmit = async formData => {
         if (formData) {
             setLoading(true);
+            console.log("CompanyReg")
+            console.log(formData)
             try {
-                const res = await companyRepOnboarding({
-                    // company_id: user?.company?.id,
-                    // company_id: user?.company_id,
-                    company_id: sessionStorage.getItem("P_Slice_CID"),
-                    user_id: user?.id,
-                    id_type: [
-                        {
-                            in: [selectedValue?.value],
-                        },
-                    ],
-                    ...formData,
-                });
+                const {data} = await companyRepOnboarding(formData
+                // {
+                //     // company_id: user?.company?.id,
+                //     // company_id: user?.company_id,
+                //     company_id: sessionStorage.getItem("P_Slice_CID"),
+                //     user_id: user?.id,
+                //     id_type: [
+                //         {
+                //             in: [selectedValue?.value],
+                //         },
+                //     ],
+                //     ...formData,
+                // }
+                );
 
-                if (res.status === 200 && res.data) {
+                
+                if (data.status === 200 ) {
+                    history.push("/business/dashboard");
+                    toast.success(data.message)
                     setLoading(false);
-                    reset();
-                    sessionStorage.setItem(
-                        "P_Slice_CID",
-                        res.data.payload.data.id
-                    );
-                    console.log(res.data.payload.data);
+                    // reset();
+                    // sessionStorage.setItem(
+                    //     "P_Slice_CID",
+                    //     data.payload.data.id
+                    // );
+                    // console.log(data.payload.data);
 
                     // dispatch(
                     //     setUser({
@@ -70,8 +77,33 @@ const CompanyRepresentative = () => {
                     //     })
                     // );
 
-                    history.push("/onboard/step3");
                 }
+                else {
+                    toast.error(data.message)
+                    setLoading(false);
+
+                }
+
+
+                // if (data.status === 200 && res.data) {
+                //     setLoading(false);
+                //     reset();
+                //     sessionStorage.setItem(
+                //         "P_Slice_CID",
+                //         res.data.payload.data.id
+                //     );
+                //     console.log(res.data.payload.data);
+
+                //     // dispatch(
+                //     //     setUser({
+                //     //         ...user,
+                //     //         company: res.data.payload.data.company,
+                //     //         company_id: res.data.payload.data.company_id,
+                //     //     })
+                //     // );
+
+                //     history.push("/onboard/step3");
+                // }
             } catch (error) {
                 console.log(error?.response?.data?.payload);
                 toast.error(
@@ -96,25 +128,27 @@ const CompanyRepresentative = () => {
 
             <form onSubmit={handleSubmit(onSubmit)} className='mt-5'>
                 <div className='flex w-full mobiles:block'>
+                
+                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
+                        <InputField
+                            label='Title'
+                            name='title'
+                            placeholder='e.g. mr'
+                            type='text'
+                            {...register("title", {
+                                required: true,
+                                minLength: 2,
+                            })}
+                            required
+                        />
+                    </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
                             label='Legal name'
                             name='legal_name'
                             placeholder='ABC Company'
                             type='text'
-                            errors={errors.legal_name ?? false}
                             {...register("legal_name", { required: true })}
-                            required
-                        />
-                    </div>
-                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
-                        <InputField
-                            label='Address'
-                            name='address'
-                            placeholder='ABC Company'
-                            type='text'
-                            errors={errors.address ?? false}
-                            {...register("address", { required: true })}
                             required
                         />
                     </div>
@@ -122,15 +156,26 @@ const CompanyRepresentative = () => {
                 <div className='flex w-full mobiles:block'>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
+                            label='Address'
+                            name='address'
+                            placeholder="Company's address"
+                            type='text'
+                            {...register("address", { required: true })}
+                            required
+                        />
+                    </div>
+                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
+                        <InputField
                             label='Date of birth'
                             name='date_of_birth'
-                            placeholder='ABC Company'
+                            placeholder='Enter your date of birth'
                             type='date'
-                            errors={errors.date_of_birth ?? false}
                             {...register("date_of_birth", { required: true })}
                             required
                         />
                     </div>
+                </div>
+                <div className='flex w-full mobiles:block'>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <SelectInput
                             label='ID Type'
@@ -142,59 +187,56 @@ const CompanyRepresentative = () => {
                             required
                         />
                     </div>
-                </div>
-                <div className='flex w-full mobiles:block'>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
                             label='ID number'
                             name='id_number'
-                            placeholder='ABC Company'
+                            placeholder='Enter your ID number'
                             type='number'
-                            errors={errors.id_number ?? false}
                             {...register("id_number", { required: true })}
                             required
                         />
                     </div>
+                </div>
+                <div className='flex w-full mobiles:block'>
+                
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Upload ID'
-                            name='upload_id'
+                            label='Upload ID file'
+                            name='id_file'
                             // placeholder='10'
                             type='tel'
-                            errors={errors.upload_id ?? false}
-                            {...register("upload_id", {
+                            {...register("id_file", {
                                 required: true,
                             })}
                         />
                     </div>
-                </div>
-                <div className='flex w-full mobiles:block'>
-                    {/*
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Title (if a senior manager)'
-                            name='title'
-                            placeholder='ABC Company'
+                            label='BVN'
+                            name='bvn'
+                            placeholder='Bank Verification Number'
                             type='text'
-                            errors={errors.title ?? false}
-                            {...register("title", {
+                            {...register("bvn", {
                                 required: true,
-                                minLength: 2,
                             })}
                             required
                         />
                     </div>
-                    */}
 
+                </div>
+                
+                <div className='flex w-full mobiles:block'>
+                
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='BVN'
-                            name='bankDetails'
-                            placeholder='Bank Verification Number'
+                            label='Ownership Percentage'
+                            name='ownership_percentage'
+                            placeholder=''
                             type='text'
-                            errors={errors.title ?? false}
-                            {...register("bankDetails", {
+                            {...register("ownership_percentage", {
                                 required: true,
+                                minLength: 2,
                             })}
                             required
                         />

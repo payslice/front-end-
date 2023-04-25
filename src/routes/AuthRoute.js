@@ -14,8 +14,8 @@ import { PasswordChanged } from "../pages/EmployeePages/Auth/PasswordChanged";
 //added routes
 import { UserInvite } from "../pages/EmployeePages/Auth/UserInvite";
 import { UserOTPRequest } from "../pages/EmployeePages/Auth/UserOTPRequest";
-import { BusinessLogin } from "../pages/Business/Login";
-import { BusinessSignup } from "../pages/Business/Signup";
+import { BusinessLogin } from "../pages/Business/Auth/Login";
+import { BusinessSignup } from "../pages/Business/Auth/Signup";
 
 
 export const AuthRoutesList = [
