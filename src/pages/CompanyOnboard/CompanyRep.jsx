@@ -39,28 +39,35 @@ const CompanyRepresentative = () => {
     const onSubmit = async formData => {
         if (formData) {
             setLoading(true);
+            console.log("CompanyReg")
+            console.log(formData)
             try {
-                const res = await companyRepOnboarding({
-                    // company_id: user?.company?.id,
-                    // company_id: user?.company_id,
-                    company_id: sessionStorage.getItem("P_Slice_CID"),
-                    user_id: user?.id,
-                    id_type: [
-                        {
-                            in: [selectedValue?.value],
-                        },
-                    ],
-                    ...formData,
-                });
+                const {data} = await companyRepOnboarding(formData
+                // {
+                //     // company_id: user?.company?.id,
+                //     // company_id: user?.company_id,
+                //     company_id: sessionStorage.getItem("P_Slice_CID"),
+                //     user_id: user?.id,
+                //     id_type: [
+                //         {
+                //             in: [selectedValue?.value],
+                //         },
+                //     ],
+                //     ...formData,
+                // }
+                );
 
-                if (res.status === 200 && res.data) {
+                
+                if (data.status === 200 ) {
+                    history.push("/business/dashboard");
+                    toast.success(data.message)
                     setLoading(false);
-                    reset();
-                    sessionStorage.setItem(
-                        "P_Slice_CID",
-                        res.data.payload.data.id
-                    );
-                    console.log(res.data.payload.data);
+                    // reset();
+                    // sessionStorage.setItem(
+                    //     "P_Slice_CID",
+                    //     data.payload.data.id
+                    // );
+                    // console.log(data.payload.data);
 
                     // dispatch(
                     //     setUser({
@@ -70,8 +77,33 @@ const CompanyRepresentative = () => {
                     //     })
                     // );
 
-                    history.push("/onboard/step3");
                 }
+                else {
+                    toast.error(data.message)
+                    setLoading(false);
+
+                }
+
+
+                // if (data.status === 200 && res.data) {
+                //     setLoading(false);
+                //     reset();
+                //     sessionStorage.setItem(
+                //         "P_Slice_CID",
+                //         res.data.payload.data.id
+                //     );
+                //     console.log(res.data.payload.data);
+
+                //     // dispatch(
+                //     //     setUser({
+                //     //         ...user,
+                //     //         company: res.data.payload.data.company,
+                //     //         company_id: res.data.payload.data.company_id,
+                //     //     })
+                //     // );
+
+                //     history.push("/onboard/step3");
+                // }
             } catch (error) {
                 console.log(error?.response?.data?.payload);
                 toast.error(
@@ -88,7 +120,7 @@ const CompanyRepresentative = () => {
             <div className='text-xl font-semibold md:text-2xl'>
                 Company Representative
             </div>
-            <p className='max-w-md mt-2 text-sm text-gray-400 md:text-base'>
+            <p className='max-w-xl mt-4 text-sm text-[#111111]/[0.6] md:text-base font-medium'>
                 Kindly complete the steps below to activate your account, once
                 you have complete all the required section, clicks on Request
                 Activation
@@ -96,108 +128,128 @@ const CompanyRepresentative = () => {
 
             <form onSubmit={handleSubmit(onSubmit)} className='mt-5'>
                 <div className='flex w-full mobiles:block'>
+                
+                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
+                        <InputField
+                            label='Title'
+                            name='title'
+                            placeholder='e.g. mr'
+                            type='text'
+                            {...register("title", {
+                                required: true,
+                                minLength: 2,
+                            })}
+                            required
+                        />
+                    </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
                             label='Legal name'
                             name='legal_name'
                             placeholder='ABC Company'
                             type='text'
-                            errors={errors.legal_name ?? false}
                             {...register("legal_name", { required: true })}
-                        />
-                    </div>
-                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
-                        <InputField
-                            label='Address'
-                            name='address'
-                            placeholder='ABC Company'
-                            type='text'
-                            errors={errors.address ?? false}
-                            {...register("address", { required: true })}
+                            required
                         />
                     </div>
                 </div>
                 <div className='flex w-full mobiles:block'>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Date of birth'
-                            name='date_of_birth'
-                            placeholder='ABC Company'
-                            type='date'
-                            errors={errors.date_of_birth ?? false}
-                            {...register("date_of_birth", { required: true })}
+                            label='Address'
+                            name='address'
+                            placeholder="Company's address"
+                            type='text'
+                            {...register("address", { required: true })}
+                            required
                         />
                     </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
+                        <InputField
+                            label='Date of birth'
+                            name='date_of_birth'
+                            placeholder='Enter your date of birth'
+                            type='date'
+                            {...register("date_of_birth", { required: true })}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className='flex w-full mobiles:block'>
+                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <SelectInput
                             label='ID Type'
-                            required
                             options={idTypes}
                             selectedValue={selectedValue}
                             setSelectedValue={setSelectedValue}
                             setFormValue={setValue}
                             {...register("id_type", { required: true })}
+                            required
                         />
                     </div>
-                </div>
-                <div className='flex w-full mobiles:block'>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
                             label='ID number'
                             name='id_number'
-                            placeholder='ABC Company'
+                            placeholder='Enter your ID number'
                             type='number'
-                            errors={errors.id_number ?? false}
                             {...register("id_number", { required: true })}
-                        />
-                    </div>
-                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
-                        <InputField
-                            label='Ownership percentage'
-                            name='ownership_percentage'
-                            placeholder='10'
-                            type='tel'
-                            errors={errors.ownership_percentage ?? false}
-                            {...register("ownership_percentage", {
-                                required: true,
-                            })}
+                            required
                         />
                     </div>
                 </div>
                 <div className='flex w-full mobiles:block'>
+                
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Title (if a senior manager)'
-                            name='title'
-                            placeholder='ABC Company'
-                            type='text'
-                            errors={errors.title ?? false}
-                            {...register("title", {
+                            label='Upload ID file'
+                            name='id_file'
+                            // placeholder='10'
+                            type='tel'
+                            {...register("id_file", {
                                 required: true,
-                                minLength: 2,
                             })}
                         />
                     </div>
-
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
                             label='BVN'
-                            name='bankDetails'
+                            name='bvn'
                             placeholder='Bank Verification Number'
                             type='text'
-                            errors={errors.title ?? false}
-                            {...register("bankDetails", {
+                            {...register("bvn", {
                                 required: true,
                             })}
+                            required
+                        />
+                    </div>
+
+                </div>
+                
+                <div className='flex w-full mobiles:block'>
+                
+                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
+                        <InputField
+                            label='Ownership Percentage'
+                            name='ownership_percentage'
+                            placeholder=''
+                            type='text'
+                            {...register("ownership_percentage", {
+                                required: true,
+                                minLength: 2,
+                            })}
+                            required
                         />
                     </div>
                 </div>
 
                 <div className='flex justify-between mt-10 signUp__submit-btn'>
                     <Link to='/onboard/step1'>
+                        {/*
                         <button className='py-3 text-sm font-semibold bg-gray-100 rounded-md px-7 md:text-base'>
                             Go back
                         </button>
+                        */}
                     </Link>
                     <Button type='submit' buttonText='Save' loading={loading} />
                 </div>

@@ -47,10 +47,9 @@ const EmployerRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        checkLogin() && checkTokenValidity() ? (
+        // checkLogin() && checkTokenValidity() ? (
+        (
           <Component {...props} />
-        ) : (
-          <Redirect to="/login" />
         )
       }
     />

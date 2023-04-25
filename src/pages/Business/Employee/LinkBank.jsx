@@ -2,12 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from "../../../components/Button/Button";
 
-
-const WithdrawalsProcessing = () => {
+const LinkBank = () => {
   return (
     <>
-     
-     <div className="w-full mt-10 flex justify-center withdraww" style={{color: 'rgba(17, 17, 17, 0.6)'}}>
+        <div className="w-full mt-10 flex justify-center withdraww" style={{color: 'rgba(17, 17, 17, 0.6)'}}>
       <div className="relative">
         <Link to="/user/dashboard">
         <div className="absolute right-36 flex" style={{ width: '90px'}}>
@@ -34,28 +32,26 @@ const WithdrawalsProcessing = () => {
         
       </Link>
 
-            <div className='mb-10'>
-                <h3 className='font-bold text-lg'>Your funds are currently being processed </h3>
-                <p className='text-xs'> Funds usually take  between 24-48 hours to arrive your  account </p>
+            <div className='mb-5'>
+                <h3 className='font-bold text-lg'>Link Account Details With MONO  </h3>
+                <p className='text-sm mt-5'> Please Connect Your Account To Mono For Account <br /> 
+                 Statemtent And Direct Debit </p>
             </div>
 
-            <img className='m-auto' src={require('../../../assets/imgs/Vector.jpg')} 
-            alt=""
-            width="130"
+            <Button
+            buttonText="Connect Bank "
+            type="submit"
+            className=""
             />
 
-            <Button
-            buttonText="Contact Support"
-            fullwidth
-            type="submit"
-            className="py-4 mt-10 mr-5"
-            
+            <img className='mt-12' src={require('../../../assets/imgs/Momo.jpg')} 
+            alt=""
+            width=""
             />
      </div>
     </div>
-        
     </>
   )
 }
 
-export default WithdrawalsProcessing
+export default LinkBank

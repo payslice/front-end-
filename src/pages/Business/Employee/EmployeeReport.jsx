@@ -2,12 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from "../../../components/Button/Button";
 
-
-const WithdrawalsProcessing = () => {
+const EmployeeReport = () => {
   return (
     <>
-     
-     <div className="w-full mt-10 flex justify-center withdraww" style={{color: 'rgba(17, 17, 17, 0.6)'}}>
+        <div className="w-full mt-10 flex justify-center withdraww" style={{color: 'rgba(17, 17, 17, 0.6)'}}>
       <div className="relative">
         <Link to="/user/dashboard">
         <div className="absolute right-36 flex" style={{ width: '90px'}}>
@@ -35,8 +33,8 @@ const WithdrawalsProcessing = () => {
       </Link>
 
             <div className='mb-10'>
-                <h3 className='font-bold text-lg'>Your funds are currently being processed </h3>
-                <p className='text-xs'> Funds usually take  between 24-48 hours to arrive your  account </p>
+                <h3 className='font-bold text-lg'>Thank You For Connecting With Us </h3>
+                <p className='text-xs'> A Member of Our Team Will Reach Out Shortly </p>
             </div>
 
             <img className='m-auto' src={require('../../../assets/imgs/Vector.jpg')} 
@@ -53,9 +51,8 @@ const WithdrawalsProcessing = () => {
             />
      </div>
     </div>
-        
     </>
   )
 }
 
-export default WithdrawalsProcessing
+export default EmployeeReport

@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import SidebarItem from './SidebarItem';
 import { FaUserAlt, FaFolder } from 'react-icons/fa';
-import { HiBriefcase } from 'react-icons/hi';
-import { RiBankFill } from 'react-icons/ri';
+// import { HiBriefcase } from 'react-icons/hi';
+// import { RiBankFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
 const CompanyRegSidebar = () => {
@@ -20,7 +20,7 @@ const CompanyRegSidebar = () => {
 
 	return (
 		<section className="min-h-screen relative onboarding_sidebar auth_sidebar_bg overflow-hidden overflow-x-hidden mobiles:hidden z-30">
-			<div className="pt-[123px] px-16">
+			<div className="pt-[70px] px-12">
 				<div className="mb-3 mobiles:px-1 mobiles:w-full ">
 					<Link to="/">
 						<img
@@ -30,7 +30,7 @@ const CompanyRegSidebar = () => {
 						/>
 					</Link>
 				</div>
-				<ul className="mt-24">
+				<ul className="mt-16">
 					<SidebarItem
 						currentPath={currentLocation}
 						Icon={FaUserAlt}
@@ -43,6 +43,8 @@ const CompanyRegSidebar = () => {
 						path="/onboard/step2"
 						caption="Company Representative"
 					/>
+					
+					{/*
 					<SidebarItem
 						currentPath={currentLocation}
 						Icon={HiBriefcase}
@@ -50,6 +52,8 @@ const CompanyRegSidebar = () => {
 						caption="Company policy"
 					/>
 					<SidebarItem currentPath={currentLocation} Icon={RiBankFill} path="/onboard/step4" caption="Agreement" />
+					
+					*/}
 				</ul>
 			</div>
 

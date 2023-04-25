@@ -22,7 +22,7 @@ export const ApiRequestWithToken = () => {
   let token;
   if (storageContainsToken()) {
     token = getTokenFromStorage();
-    // console.log(token)
+    console.log(token)
   }
   const instance = axios.create({
     ...config,
@@ -67,6 +67,20 @@ export const employerLogin = formData => {
     return ApiRequest().post("/employer_auth/login", formData);
 };
 
+export const businessLogin = formData => {
+    return ApiRequest().post("/api/business/login", formData);
+};
+export const businessRegister = formData => {
+    return ApiRequest().post("/api/business/register", formData);
+};
+export const businessTransferMoney = (formData) => {
+  return ApiRequestWithToken().post(`/api/business/account/transfer`, formData);
+};
+
+export const businessAccountDetails = (formData) => {
+  return ApiRequestWithToken().get(`/api/business/account/details`, formData);
+};
+
 export const employeeLogin = formData => {
     return ApiRequest().post("api/employee/login", formData);
 };
@@ -75,11 +89,11 @@ export const employeeRegister = formData => {
 };
 
 export const companyInfoOnboarding = (formData) => {
-  return ApiRequestWithToken().post("/company/save", formData);
+  return ApiRequestWithToken().post("/api/business/onboard/company", formData);
 };
 
 export const companyRepOnboarding = (formData) => {
-  return ApiRequestWithToken().post("/company_rep/save", formData);
+  return ApiRequestWithToken().post("/api/business/onboard/representative", formData);
 };
 
 export const companyPolicy = (formData) => {
@@ -461,6 +475,20 @@ export const getWithdrawalRequest = () => {
   // console.log("userData")
   return ApiRequestWithToken().get(
     `/employee/withdrawal_requests/${data.user.id}`
+  );
+};
+
+export const getTransactionHistory = (formData) => {
+  // const data = JSON.parse(userData.persist);
+  return ApiRequestWithToken().get(
+    `/api/employee/transaction/history`, formData
+  );
+};
+
+export const employeeTransactionRequestMoney = (formData) => {
+  // const data = JSON.parse(userData.persist);
+  return ApiRequestWithToken().post(
+    `api/employee/transaction/make_request`, formData
   );
 };
 

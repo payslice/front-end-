@@ -1,24 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../../components/Button/Button";
 import { InputField } from "../../../components/Input";
-import { requestWithdrawal } from "../../../utils/ApiRequests";
+import { employeeTransactionRequestMoney, requestWithdrawal } from "../../../utils/ApiRequests";
 import { SuccessMessage } from "../../../components/Message/Message";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import persist from "../../../slices/persist";
+import { getUserDataFromStorage } from "../../../utils/ApiUtils";
 
 const WithdrawFunds = () => {
   const [submitting, setSubmitting] = useState(false);
   const [amount, setAmount] = useState("");
+  const [charge, setcharge] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const submitRequest = async (e) => {
-    e.preventDefault();
+  const history = useHistory()
+
+  const {user} = persist
+  console.log("user")
+  console.log(user)
+
+  useEffect(() => {
+    if(amount < 5000) {
+      setcharge(250)
+    }
+    else if (amount < 10000 ) setcharge(500)
+    else if (amount < 25000 ) setcharge(750)
+    else if (amount < 40000 ) setcharge(750)
+    else if (amount > 40000 ) setcharge(1250)
+
+
+  }, [amount])
+  
+  console.count("renderer ")
+
+  
+	console.log("getUserDataFromStorage()")
+	let persistUserData = getUserDataFromStorage()
+	let convertedPersistedData = JSON.parse(persistUserData.persist)
+	console.log(convertedPersistedData.user.employeeIds[0])
+
+  const {register, handleSubmit} = useForm({
+    defaultValues: {
+      amount: 0,
+      employee_id: convertedPersistedData.user.employeeIds[0]
+    }
+  })
+
+  const onSubmit = async (formData) => {
     setSubmitting(true);
     try {
-      await requestWithdrawal({ amount: amount });
+      const {data} = await employeeTransactionRequestMoney({ ...formData, amount: amount });
+      if(data.status) {
+        toast.success(data.message)
+        history.push('/user/withdrawals/withdraw/processing')
+      }
+      else {
+        toast.error(data.message)
+      }
       setSubmitting(false);
       setSuccess(true);
-      setAmount("");
     } catch (error) {
       setSubmitting(false);
 
@@ -29,7 +71,7 @@ const WithdrawFunds = () => {
             error.response.data.payload.data
         );
 
-      setSuccess(false);
+      // setSuccess(false);
     }
   };
 
@@ -66,15 +108,16 @@ const WithdrawFunds = () => {
           Please note that funds will be sent to your bank account <br />
           currently linked with your Payslice wallet or account.{" "}
         </p>
-        <form onSubmit={submitRequest}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             
             <InputField
               type="text"
               label="Amount"
               onChange={(e) => setAmount(e.target.value)}
-              value={amount}
+              // {...register("amount", {required: true, max: 40000})}
+              // value={amount}jh
               placeholder="Enter amount"
-              // required
+              required
             />
         
 
@@ -82,15 +125,18 @@ const WithdrawFunds = () => {
               type="text"
               label="Employee ID"
               placeholder="Tejriljy"
-              // required
+              {...register("employee_id", {required: true})}
+              disabled
             />
           
 
             <InputField
               type="text"
               label="Service Charge"
-              placeholder="750"
-              // required
+              placeholder=""
+              value={charge}
+              required
+              disabled
             />
     
             
@@ -130,12 +176,14 @@ const WithdrawFunds = () => {
             className="py-5"
           />
         </form>
+        {/*
         {success && (
           <SuccessMessage
             title="Success"
             message="Your request has been sent, you'll get a response from us soon."
           />
         )}
+      */}
       </div>
     </div>
   );

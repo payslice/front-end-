@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { RiMenuLine } from 'react-icons/ri';
 import { FaUserAlt, FaFolder } from 'react-icons/fa';
-import { HiBriefcase } from 'react-icons/hi';
-import { RiBankFill } from 'react-icons/ri';
+// import { HiBriefcase } from 'react-icons/hi';
+// import { RiBankFill } from 'react-icons/ri';
 import { NavLink } from 'react-router-dom';
 import { MdArrowBackIosNew } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -22,16 +22,16 @@ export const OnboardMobileNav = () => {
 			Icon: FaFolder,
 			name: 'Representative',
 		},
-		{
-			path: '/onboard/step3',
-			Icon: HiBriefcase,
-			name: 'Company policy',
-		},
-		{
-			path: '/onboard/step4',
-			Icon: RiBankFill,
-			name: 'Agreement',
-		},
+		// {
+		// 	path: '/onboard/step3',
+		// 	Icon: HiBriefcase,
+		// 	name: 'Company policy',
+		// },
+		// {
+		// 	path: '/onboard/step4',
+		// 	Icon: RiBankFill,
+		// 	name: 'Agreement',
+		// },
 	];
 	return (
 		<div

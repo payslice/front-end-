@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput } from "../../../components/Input";
-import { employeeLogin } from "../../../utils/ApiRequests";
+import { businessLogin, employeeLogin } from "../../../utils/ApiRequests";
 import { setExpiryTimeToStorage } from "../../../utils/ApiUtils";
 import { ErrorMessage } from "../../../components/Message/Message";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, persistSelector } from "../../../slices/persist";
 import { toast } from "react-toastify";
 
-export const Login = () => {
+export const BusinessLogin = () => {
   const dispatch = useDispatch();
   const data = useSelector(persistSelector);
 
@@ -24,7 +24,7 @@ export const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(false);
   const history = useHistory();
 
@@ -32,23 +32,37 @@ export const Login = () => {
     if (formData) {
       setLoading(true);
       try {
-        const {data} = await employeeLogin(formData);
+        const {data} = await businessLogin(formData);
 
+        // console.log("data")
+        // console.log(data)
+
+        // if(data.status && data.is_onboarded){
+        //         setLoading(false);
+        //         history.push("/onboard/step1")
+        //         toast.success(data.message)
+        // }
+        // else if (data.status) {
+
+        // }
         if(data.status){
           dispatch(setUser(data.data));
           Cookies.set("PAYSL-ADTK", data.token);
           setExpiryTimeToStorage(new Date());
           setLoading(false);
-          history.push("user/dashboard")
-          toast.success(data.message)
+          if(data.is_onboarded) history.push("/business/dashboard")
+          else {history.push("/onboard/step1");toast.success("successfully signed up, please onboard yourself")}
+    
         }
         else {
           toast.error(data.message)
+          setLoading(false);
         }
       } catch (error) {
         setLoading(false);
-        // console.log("error", error);
-        setError(true);
+        console.log("error", error);
+        toast.error(data.message)
+        // setError(true);
       }
     }
   };
@@ -99,7 +113,7 @@ export const Login = () => {
 
         <div className="mt-16 text-sm md:text-base">
           Don't have an account?{" "}
-          <Link to="/register" className="font-medium text-primary ml-1">
+          <Link to="/business/register" className="font-medium text-primary ml-1">
             Sign Up now
           </Link>
         </div>

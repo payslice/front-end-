@@ -5,7 +5,8 @@ import CompanyOnboardRoutes, {
   CompanyOnboardRoutesList,
 } from "./CompanyOnboardRoutes";
 import EmployeeRoutes, { EmployeeRoutesList } from "./EmployeeRoutes";
-import EmployerRoutes, { EmployerRoutesList } from "./EmployerRoutes";
+// import EmployerRoutes, { EmployerRoutesList } from "./EmployerRoutes";
+import BusinessRoutes, { BusinessRoutesList } from "./BusinessRoutes";
 
 const RouteList = [
   {
@@ -18,15 +19,20 @@ const RouteList = [
     exact: true,
     component: CompanyOnboardRoutes,
   },
-  {
-    path: EmployerRoutesList.map((r) => r.path),
-    exact: true,
-    component: EmployerRoutes,
-  },
+  // {
+  //   path: EmployerRoutesList.map((r) => r.path),
+  //   exact: true,
+  //   component: EmployerRoutes,
+  // },
   {
     path: EmployeeRoutesList.map((r) => r.path),
     exact: true,
     component: EmployeeRoutes,
+  },
+  {
+    path: BusinessRoutesList.map((r) => r.path),
+    exact: true,
+    component: BusinessRoutes,
   },
 ];
 

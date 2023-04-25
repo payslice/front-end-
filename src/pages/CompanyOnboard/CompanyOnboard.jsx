@@ -10,11 +10,8 @@ import { setUser, persistSelector } from "../../slices/persist";
 import isEmail from "is-email";
 
 const CompanyOnboard = () => {
-    const dispatch = useDispatch();
-    const { user } = useSelector(persistSelector);
+    // const dispatch = useDispatch();
     const history = useHistory();
-
-    console.log(user);
 
     const {
         register,
@@ -23,25 +20,38 @@ const CompanyOnboard = () => {
     } = useForm();
     const [loading, setLoading] = useState(false);
 
+    // const {user} = useSelector(persistSelector)
+
     const onSubmit = async formData => {
         if (formData) {
             setLoading(true);
             try {
-                const res = await companyInfoOnboarding(formData);
-                setLoading(false);
-                sessionStorage.setItem("P_Slice_CID", res.data.payload.data.id);
+                // console.log(formData)api/business/onboard/company
+                const {data} = await companyInfoOnboarding(formData);
+                
+                if(data.status){
+                    history.push("/onboard/step2")
+                    toast.success(data.message)
+                    // dispatch(
+                    //     setUser({
+                    //         ...user,
+                    //         company: data.payload.data,
+                    //         company_id: data.payload.data.id,
+                    //     })
+                    // );
+                    setLoading(false);
+                }
+                else {
+                    toast.error(data.message)
+                    setLoading(false);
+                }
+                // setLoading(false);
+                // sessionStorage.setItem("P_Slice_CID", res.data.payload.data.id);
 
-                console.log(res.data.payload.data);
+                // console.log(res.data.payload.data);
 
-                dispatch(
-                    setUser({
-                        ...user,
-                        company: res.data.payload.data,
-                        company_id: res.data.payload.data.id,
-                    })
-                );
 
-                history.push("/onboard/step2");
+                // history.push("/onboard/step2");
             } catch (error) {
                 toast.error(
                     error?.response?.data?.payload?.data?.errors?.name[0] ||
@@ -57,7 +67,7 @@ const CompanyOnboard = () => {
             <div className='text-xl font-semibold md:text-2xl'>
                 Company onboarding process
             </div>
-            <p className='max-w-md mt-2 text-sm text-gray-400 md:text-base'>
+            <p className='max-w-xl mt-4 text-sm text-[#111111]/[0.6] md:text-base font-medium'>
                 Kindly complete the steps below to activate your account, once
                 you have complete all the required section, clicks on Request
                 Activation
@@ -67,60 +77,45 @@ const CompanyOnboard = () => {
                 <div className='flex w-full mobiles:block'>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Full Name'
+                            label='Name'
                             name='name'
                             placeholder='John Doe'
                             type='text'
-                            errors={errors.name ?? false}
                             {...register("name", {
                                 required: true,
-                                minLength: 4,
+                                minLength: 4
                             })}
+                            required
                         />
                     </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Registered Business Name'
-                            name='registered_business_name'
-                            placeholder='ABC Company'
-                            type='text'
-                            errors={errors.registered_business_name ?? false}
-                            {...register("registered_business_name", {
+                            label='Email'
+                            name='email'
+                            placeholder='JohnDoe@gmail.com'
+                            type='email'
+                            {...register("email", {
                                 required: true,
                                 minLength: 4,
                             })}
+                            required
                         />
                     </div>
                 </div>
                 <div className='flex w-full mobiles:block'>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Business Phone Number'
-                            name='phone_number'
-                            placeholder='+2349012345678'
-                            type='tel'
-                            errors={errors.phone_number ?? false}
-                            {...register("phone_number", {
+                            label='Tax Identification Number'
+                            name='tax_identification_number'
+                            placeholder='Enter Tax ID Number'
+                            type='number'
+                            {...register("tax_identification_number", {
                                 required: true,
-                                minLength: 9,
+                                minLength: 4,
                             })}
+                            required
                         />
                     </div>
-                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
-                        <InputField
-                            label='Business Address'
-                            name='address'
-                            placeholder='Enter Business Address'
-                            type='text'
-                            errors={errors.address ?? false}
-                            {...register("address", {
-                                required: true,
-                                minLength: 6,
-                            })}
-                        />
-                    </div>
-                </div>
-                <div className='flex w-full mobiles:block'>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
                             label='RC Number'
@@ -132,52 +127,66 @@ const CompanyOnboard = () => {
                                 required: true,
                                 minLength: 4,
                             })}
-                        />
-                    </div>
-                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
-                        <InputField
-                            label='Tax Identification Number'
-                            name='tax_identification_number'
-                            placeholder='Enter Tax ID Number'
-                            type='number'
-                            errors={errors.tax_identification_number ?? false}
-                            {...register("tax_identification_number", {
-                                required: true,
-                                minLength: 4,
-                            })}
+                            required
                         />
                     </div>
                 </div>
                 <div className='flex w-full mobiles:block'>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Industry'
-                            name='industry'
-                            placeholder='Enter Industry'
+                            label='Business Address'
+                            name='address'
+                            placeholder='Enter Your Business Address'
                             type='text'
-                            errors={errors.industry ?? false}
-                            {...register("industry", {
+                            {...register("address", {
                                 required: true,
-                                minLength: 2,
+                                minLength: 6,
                             })}
+                            required
                         />
                     </div>
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Payment Email'
-                            name='email'
-                            placeholder='abc@xyz.com'
-                            errors={errors.email ?? false}
-                            {...register("email", {
+                            label='Business Phone Number'
+                            name='phone_number'
+                            placeholder='e.g. +2349012345678'
+                            type='text'
+                            {...register("phone_number", {
                                 required: true,
-                                validate: value =>
-                                    isEmail(value) ||
-                                    "Please provide a valid email",
+                                minLength: 9,
                             })}
+                            required
                         />
                     </div>
                 </div>
-                <div className='flex justify-end mt-10 signUp__submit-btn'>
+                <div className='flex w-full mobiles:block'>
+                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
+                        <InputField
+                            label='Registered Business Name'
+                            name='registered_business_name'
+                            placeholder='e.g. molestiae'
+                            {...register("registered_business_name", {
+                                required: true,
+                                minLength: 6
+                            })}
+                            required
+                        />
+                    </div>
+                    <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
+                        <InputField
+                            label='industry'
+                            name='industry'
+                            placeholder='e.g. voluptates'
+                            type='text'
+                            {...register("industry", {
+                                required: true,
+                                minLength: 9,
+                            })}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className='flex justify-end mt-10 mb-16 md:mb-10 signUp__submit-btn'>
                     <Button type='submit' buttonText='Save' loading={loading} />
                 </div>
             </form>
