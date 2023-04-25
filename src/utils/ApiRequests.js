@@ -77,6 +77,10 @@ export const businessTransferMoney = (formData) => {
   return ApiRequestWithToken().post(`/api/business/account/transfer`, formData);
 };
 
+export const businessAccountDetails = (formData) => {
+  return ApiRequestWithToken().get(`/api/business/account/details`, formData);
+};
+
 export const employeeLogin = formData => {
     return ApiRequest().post("api/employee/login", formData);
 };
