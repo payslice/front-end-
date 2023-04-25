@@ -19,6 +19,8 @@ const UpdateWorkplace = () => {
 
   const { register, handleSubmit } = useForm();
 
+  const [loading, setLoading] = useState(false)
+
   const [imgFile, setImgFile] = useState();
 
   const {
@@ -110,15 +112,17 @@ const UpdateWorkplace = () => {
               type="number"
             />
           </div>
-          <div className="w-1/3 mr-5">
+          <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
               label="Account Number"
-              // onChange={(e) => handleChange("bankDetails", e)}
               value={formData.account_number}
               type="number"
+              name="account_number"
+              onChange={(e) => handleChange(null, e)}
             />
           </div>
+          
           <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
@@ -129,6 +133,8 @@ const UpdateWorkplace = () => {
             />
           </div>
         </div>
+
+        <Button buttonText="Update Details" loading={loading}  />
       </form>
     </div>
   );

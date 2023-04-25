@@ -40,7 +40,7 @@ const Navbar = () => {
 
             <div
                 onClick={() => setShow(!show)}
-                className='flex items-center bg-gray-100 rounded w-[196px] h-[61px] cursor-pointer'>
+                className='flex items-center mt-5 bg-gray-100 rounded w-[196px] h-[61px] cursor-pointer'>
                 {
                     user?.picture
                     ?

@@ -91,9 +91,9 @@ const Withdrawals = () => {
 	return (
 		<div>
 			<div className="block lg:flex justify-between">
-				<h2 className="text-lg md:text-xl font-semibold">Transactions History </h2>
+				<h2 className="text-lg mt-5 md:text-xl font-semibold">Transactions History </h2>
 				<div className="block lg:flex justify-between pt-10 lg:pt-0">
-					<div className="tab flex rounded bg-gray-100 mr-5">
+					{/* <div className="tab flex rounded bg-gray-100 mr-5">
 						<div
 							className={`px-5 rounded py-3 cursor-pointer ${activeIndex === 0 && '__tab-active'}`}
 							onClick={() => setActiveIndex(0)}
@@ -112,17 +112,17 @@ const Withdrawals = () => {
 						>
 							Month
 						</div>
-					</div>
-					<div className="tab flex rounded bg-gray-100 px-5 py-2 mt-5 lg:mt-0 mr-5 lg:mr-0">
+					</div> */}
+					{/* <div className="tab flex rounded bg-gray-100 px-5 py-2 mt-5 lg:mt-0 mr-5 lg:mr-0">
 						<BiCalendarEvent size="20" className="my-auto" />
 						<div className="px-3 my-auto">Jan, 2019 - Dec, 2019</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 
 
 			
-			<div className=" my-16">
+			<div className=" ">
 				<table style={{textAlign: 'left', width: '95%'}} >
 					<tr className="font-semibold" style={{background: "#F9F9F9"}}>
 						{/*{columns.map((data, i) => ( */}
