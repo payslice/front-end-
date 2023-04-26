@@ -224,7 +224,31 @@ const UserDashboard = () => {
 
 	return (
 		<div className="user-dashboard-wrapper">
+{/* 
+			<div className="relative">
+				<Link to="/user/dashboard">
+				<div className="absolute left-4 flex" style={{ width: '90px'}}>
+				<svg className="mt-12" style={{marginTop: '5px'}} width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M7.99182 10.5734L3.16183 6.2472L7.47744 1.40778L5.99065 0.0790062L0.336276 6.40578L6.66305 12.0602L7.99182 10.5734Z" fill="#737A91"/>
+				</svg>
+				<span className="font-normal text-base pl-5" style={{}} >
+					Go back
+				</span>
+				</div>
+				</Link>
+			</div> */}
 
+			<Link to="/user/dashboard">
+				<div className="lg:hidden flex mt-5">
+				<svg className="mt-12" style={{marginTop: '5px'}} width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M7.99182 10.5734L3.16183 6.2472L7.47744 1.40778L5.99065 0.0790062L0.336276 6.40578L6.66305 12.0602L7.99182 10.5734Z" fill="#737A91"/>
+				</svg>
+				<span className="font-normal text-base pl-5" style={{}} >
+					Go back
+				</span>
+				</div>
+        
+      		</Link>
 		
 			
 			{
@@ -234,9 +258,9 @@ const UserDashboard = () => {
 					<>
 							<>
 							
-								<div className="flex justify-between mb-8 handle_user_homepage_responsive">
+								<div className="flex justify-between mb-5 handle_user_homepage_responsive">
 								
-									<div className="text-gray-400 capitalize font-semibold mt-0 handle_user_homepage_responsive_in pb-5" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
+									<div className="text-gray-400 capitalize mt-5 font-semibold handle_user_homepage_responsive_in pb-5" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
 					
 									{/*
 										{clockedIn || checkInSuccess ? (
@@ -252,15 +276,15 @@ const UserDashboard = () => {
 								<div className="flex w-full justify-between handle_user_homepage_responsive">
 									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-full lg:w-1/2 handle_user_homepage_responsive_in2">
 										<div className="my-auto">
-											<div className="text-medium pb-5 text-[20px]">Withdrawable Balance</div>
+											<div className="text-medium pb-5 text-[18px]">Withdrawable Balance</div>
 											<h3 className="text-[26px] text-white mb-0 font-semibold">
 												
 												NGN {workplaceInfoState[0].amount_earned}{' '}
 											</h3>
 										</div>
-										<div className="border flex justify-center ml-10 items-center border-white rounded-full h-24 w-24">
+										<div className="border flex justify-center ml-10 items-center border-white rounded-full h-14 w-16">
 											{' '}
-											<button className="mb-0 cursor-pointer font-medium" onClick={() => history.push('/user/withdrawals/withdraw')}>
+											<button className="mb-0 cursor-pointer" onClick={() => history.push('/user/withdrawals/withdraw')}>
 												Get <br />
 												Paid
 											</button>
@@ -297,8 +321,8 @@ const UserDashboard = () => {
 								</div>
 
 								
-								<div className="flex w-full justify-between handle_user_homepage_responsive mt-8 text-black">
-									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 bg-[#F4F5F7]">
+								<div className="flex w-full justify-between handle_user_homepage_responsive mt-8">
+									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between text-white rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2">
 										
 										<h2 className="text-[24px] font-medium flex align-center justify-center">Pending KYC...</h2>
 										{/*
@@ -320,7 +344,7 @@ const UserDashboard = () => {
 										</div>
 										*/}
 									</div>
-									<div className="bg-blue-600 flex px-12 ml-5 py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 bg-[#F4F5F7]">
+									<div className="bg-blue-600 flex px-12 ml-5 text-white py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2">
 										<div className="my-auto w-4/6">
 											<div className="text-semibold pb-1 text-[20px]">Your Salary </div>
 											<h3 className="text-[26px] mb-0 font-bold">
@@ -329,7 +353,7 @@ const UserDashboard = () => {
 										</div>
 										<div className="flex justify-center ml-10 items-center h-24 w-2/6">
 											{' '}
-											<div className="text-[#000]/[0.8] text-[13px]">
+											<div className="text-white text-[13px]">
 												<span className="block text-[15px] font-medium">Employee code </span>
 												<span className="block">Payslice Limited </span>
 												<span className="block">HYEIEODJE </span>
