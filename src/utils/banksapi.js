@@ -1,1807 +1,1168 @@
-export const Banksapi = 
-{
-        "status": true,
-        "message": "Banks retrieved",
-        "data": [
-        {
-        "id": 302,
-        "name": "9mobile 9Payment Service Bank",
-        "slug": "9mobile-9payment-service-bank-ng",
-        "code": "120001",
-        "longcode": "120001",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-05-31T06:50:27.000Z",
-        "updatedAt": "2022-06-23T09:33:55.000Z"
-        },
-        {
-        "id": 174,
-        "name": "Abbey Mortgage Bank",
-        "slug": "abbey-mortgage-bank",
-        "code": "801",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-12-07T16:19:09.000Z",
-        "updatedAt": "2020-12-07T16:19:19.000Z"
-        },
-        {
-        "id": 188,
-        "name": "Above Only MFB",
-        "slug": "above-only-mfb",
-        "code": "51204",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-10-13T20:35:17.000Z",
-        "updatedAt": "2021-10-13T20:35:17.000Z"
-        },
-        {
-        "id": 627,
-        "name": "Abulesoro MFB",
-        "slug": "abulesoro-mfb-ng",
-        "code": "51312",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-08-31T08:26:20.000Z",
-        "updatedAt": "2022-08-31T08:26:20.000Z"
-        },
-        {
-        "id": 1,
-        "name": "Access Bank",
-        "slug": "access-bank",
-        "code": "044",
-        "longcode": "044150149",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2020-02-18T08:06:44.000Z"
-        },
-        {
-        "id": 3,
-        "name": "Access Bank (Diamond)",
-        "slug": "access-bank-diamond",
-        "code": "063",
-        "longcode": "063150162",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2020-02-18T08:06:48.000Z"
-        },
+export const Banksapi = {
+        banks: [
         {
-        "id": 495,
-        "name": "Accion Microfinance Bank",
-        "slug": "accion-microfinance-bank-ng",
-        "code": "602",
-        "longcode": "",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-07-28T14:22:56.000Z",
-        "updatedAt": "2022-09-19T07:48:37.000Z"
-        },
-        {
-        "id": 676,
-        "name": "Ahmadu Bello University Microfinance Bank",
-        "slug": "ahmadu-bello-university-microfinance-bank-ng",
-        "code": "50036",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-11-14T13:35:42.000Z",
-        "updatedAt": "2022-11-14T13:35:42.000Z"
-        },
-        {
-        "id": 300,
-        "name": "Airtel Smartcash PSB",
-        "slug": "airtel-smartcash-psb-ng",
-        "code": "120004",
-        "longcode": "120004",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-05-30T14:03:00.000Z",
-        "updatedAt": "2022-05-31T06:58:22.000Z"
-        },
-        {
-        "id": 27,
-        "name": "ALAT by WEMA",
-        "slug": "alat-by-wema",
-        "code": "035A",
-        "longcode": "035150103",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2017-11-15T12:21:31.000Z",
-        "updatedAt": "2022-05-31T15:54:34.000Z"
-        },
-        {
-        "id": 179,
-        "name": "Amju Unique MFB",
-        "slug": "amju-unique-mfb",
-        "code": "50926",
-        "longcode": "511080896",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-07-07T13:45:57.000Z",
-        "updatedAt": "2021-07-07T13:45:57.000Z"
-        },
-        {
-        "id": 689,
-        "name": "AMPERSAND MICROFINANCE BANK",
-        "slug": "ampersand-microfinance-bank-ng",
-        "code": "51341",
-        "longcode": "",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2023-03-23T11:11:40.000Z",
-        "updatedAt": "2023-03-23T11:11:40.000Z"
-        },
-        {
-        "id": 614,
-        "name": "Aramoko MFB",
-        "slug": "aramoko-mfb",
-        "code": "50083",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-08-10T09:48:24.000Z",
-        "updatedAt": "2022-08-10T09:48:24.000Z"
-        },
-        {
-        "id": 63,
-        "name": "ASO Savings and Loans",
-        "slug": "asosavings",
-        "code": "401",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2018-09-23T05:52:38.000Z",
-        "updatedAt": "2019-01-30T09:38:57.000Z"
-        },
-        {
-        "id": 297,
-        "name": "Astrapolaris MFB LTD",
-        "slug": "astrapolaris-mfb",
-        "code": "MFB50094",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-05-25T10:46:17.000Z",
-        "updatedAt": "2022-05-25T10:46:17.000Z"
-        },
-        {
-        "id": 181,
-        "name": "Bainescredit MFB",
-        "slug": "bainescredit-mfb",
-        "code": "51229",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-07-12T14:41:18.000Z",
-        "updatedAt": "2021-07-12T14:41:18.000Z"
-        },
-        {
-        "id": 686,
-        "name": "Banc Corp Microfinance Bank",
-        "slug": "banc-corp-microfinance-bank-ng",
-        "code": "50117",
-        "longcode": "50117",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2023-03-06T15:39:58.000Z",
-        "updatedAt": "2023-03-06T15:39:58.000Z"
-        },
-        {
-        "id": 108,
-        "name": "Bowen Microfinance Bank",
-        "slug": "bowen-microfinance-bank",
-        "code": "50931",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-02-11T15:38:57.000Z",
-        "updatedAt": "2020-02-11T15:38:57.000Z"
-        },
-        {
-        "id": 82,
-        "name": "Carbon",
-        "slug": "carbon",
-        "code": "565",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-06-16T08:15:31.000Z",
-        "updatedAt": "2021-08-05T15:25:01.000Z"
-        },
-        {
-        "id": 692,
-        "name": "CASHCONNECT MFB",
-        "slug": "cashconnect-mfb-ng",
-        "code": "865",
-        "longcode": "865",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2023-04-05T14:29:19.000Z",
-        "updatedAt": "2023-04-05T14:29:19.000Z"
-        },
-        {
-        "id": 74,
-        "name": "CEMCS Microfinance Bank",
-        "slug": "cemcs-microfinance-bank",
-        "code": "50823",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-03-23T15:06:13.000Z",
-        "updatedAt": "2020-03-23T15:06:28.000Z"
-        },
-        {
-        "id": 284,
-        "name": "Chanelle Microfinance Bank Limited",
-        "slug": "chanelle-microfinance-bank-limited-ng",
-        "code": "50171",
-        "longcode": "50171",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-02-10T13:28:38.000Z",
-        "updatedAt": "2022-02-10T13:28:38.000Z"
-        },
-        {
-        "id": 2,
-        "name": "Citibank Nigeria",
-        "slug": "citibank-nigeria",
-        "code": "023",
-        "longcode": "023150005",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2020-02-18T20:24:02.000Z"
-        },
-        {
-        "id": 691,
-        "name": "Consumer Microfinance Bank",
-        "slug": "consumer-microfinance-bank-ng",
-        "code": "50910",
-        "longcode": "50910",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2023-03-28T06:18:02.000Z",
-        "updatedAt": "2023-03-28T06:18:02.000Z"
-        },
-        {
-        "id": 283,
-        "name": "Corestep MFB",
-        "slug": "corestep-mfb",
-        "code": "50204",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-02-09T14:33:06.000Z",
-        "updatedAt": "2022-02-09T14:33:06.000Z"
-        },
-        {
-        "id": 173,
-        "name": "Coronation Merchant Bank",
-        "slug": "coronation-merchant-bank-ng",
-        "code": "060001",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-11-24T10:25:07.000Z",
-        "updatedAt": "2023-04-14T14:55:14.000Z"
-        },
-        {
-        "id": 366,
-        "name": "Crescent MFB",
-        "slug": "crescent-mfb",
-        "code": "51297",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-07-18T12:39:03.000Z",
-        "updatedAt": "2022-07-18T12:39:03.000Z"
-        },
-        {
-        "id": 637,
-        "name": "Dot Microfinance Bank",
-        "slug": "dot-microfinance-bank-ng",
-        "code": "50162",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-11-03T14:39:09.000Z",
-        "updatedAt": "2022-11-03T14:39:09.000Z"
-        },
-        {
-        "id": 4,
-        "name": "Ecobank Nigeria",
-        "slug": "ecobank-nigeria",
-        "code": "050",
-        "longcode": "050150010",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2020-02-18T20:23:53.000Z"
-        },
-        {
-        "id": 628,
-        "name": "Ekimogun MFB",
-        "slug": "ekimogun-mfb-ng",
-        "code": "50263",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-08-31T08:26:39.000Z",
-        "updatedAt": "2022-08-31T08:26:39.000Z"
-        },
-        {
-        "id": 64,
-        "name": "Ekondo Microfinance Bank",
-        "slug": "ekondo-microfinance-bank-ng",
-        "code": "098",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2018-09-23T05:55:06.000Z",
-        "updatedAt": "2022-09-21T15:09:51.000Z"
-        },
-        {
-        "id": 167,
-        "name": "Eyowo",
-        "slug": "eyowo",
-        "code": "50126",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-09-07T13:52:22.000Z",
-        "updatedAt": "2020-11-24T10:03:21.000Z"
-        },
-        {
-        "id": 677,
-        "name": "Fairmoney Microfinance Bank",
-        "slug": "fairmoney-microfinance-bank-ng",
-        "code": "51318",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-11-15T12:33:47.000Z",
-        "updatedAt": "2022-11-15T12:37:44.000Z"
-        },
-        {
-        "id": 6,
-        "name": "Fidelity Bank",
-        "slug": "fidelity-bank",
-        "code": "070",
-        "longcode": "070150003",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2021-08-27T09:15:29.000Z"
-        },
-        {
-        "id": 177,
-        "name": "Firmus MFB",
-        "slug": "firmus-mfb",
-        "code": "51314",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-06-01T15:33:26.000Z",
-        "updatedAt": "2021-06-01T15:33:26.000Z"
-        },
-        {
-        "id": 7,
-        "name": "First Bank of Nigeria",
-        "slug": "first-bank-of-nigeria",
-        "code": "011",
-        "longcode": "011151003",
-        "gateway": "ibank",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2021-03-25T14:22:52.000Z"
-        },
-        {
-        "id": 8,
-        "name": "First City Monument Bank",
-        "slug": "first-city-monument-bank",
-        "code": "214",
-        "longcode": "214150018",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2020-02-18T08:06:46.000Z"
-        },
-        {
-        "id": 682,
-        "name": "FirstTrust Mortgage Bank Nigeria",
-        "slug": "firsttrust-mortgage-bank-nigeria-ng",
-        "code": "107",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2023-02-17T12:12:37.000Z",
-        "updatedAt": "2023-02-17T12:12:37.000Z"
-        },
-        {
-        "id": 687,
-        "name": "FLOURISH MFB",
-        "slug": "flourish-mfb-ng",
-        "code": "50315",
-        "longcode": "50315",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2023-03-09T08:11:06.000Z",
-        "updatedAt": "2023-03-09T08:11:06.000Z"
-        },
-        {
-        "id": 112,
-        "name": "FSDH Merchant Bank Limited",
-        "slug": "fsdh-merchant-bank-limited",
-        "code": "501",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-08-20T09:37:04.000Z",
-        "updatedAt": "2020-11-24T10:03:22.000Z"
-        },
-        {
-        "id": 287,
-        "name": "Gateway Mortgage Bank LTD",
-        "slug": "gateway-mortgage-bank",
-        "code": "812",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-02-24T06:04:39.000Z",
-        "updatedAt": "2022-02-24T06:04:39.000Z"
-        },
-        {
-        "id": 70,
-        "name": "Globus Bank",
-        "slug": "globus-bank",
-        "code": "00103",
-        "longcode": "103015001",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-02-11T15:38:57.000Z",
-        "updatedAt": "2020-02-11T15:38:57.000Z"
-        },
-        {
-        "id": 183,
-        "name": "GoMoney",
-        "slug": "gomoney",
-        "code": "100022",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-08-04T11:49:46.000Z",
-        "updatedAt": "2021-11-12T13:32:14.000Z"
-        },
-        {
-        "id": 635,
-        "name": "Goodnews Microfinance Bank",
-        "slug": "goodnews-microfinance-bank-ng",
-        "code": "50739",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-09-29T09:14:18.000Z",
-        "updatedAt": "2022-10-18T14:59:07.000Z"
-        },
-        {
-        "id": 633,
-        "name": "Greenwich Merchant Bank",
-        "slug": "greenwich-merchant-bank-ng",
-        "code": "562",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-09-16T15:23:58.000Z",
-        "updatedAt": "2022-09-16T15:23:58.000Z"
-        },
-        {
-        "id": 9,
-        "name": "Guaranty Trust Bank",
-        "slug": "guaranty-trust-bank",
-        "code": "058",
-        "longcode": "058152036",
-        "gateway": "ibank",
-        "pay_with_bank": true,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2022-06-14T06:59:27.000Z"
-        },
-        {
-        "id": 111,
-        "name": "Hackman Microfinance Bank",
-        "slug": "hackman-microfinance-bank",
-        "code": "51251",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-08-20T09:32:48.000Z",
-        "updatedAt": "2020-11-24T10:03:24.000Z"
-        },
-        {
-        "id": 81,
-        "name": "Hasal Microfinance Bank",
-        "slug": "hasal-microfinance-bank",
-        "code": "50383",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-02-11T15:38:57.000Z",
-        "updatedAt": "2020-02-11T15:38:57.000Z"
-        },
-        {
-        "id": 10,
-        "name": "Heritage Bank",
-        "slug": "heritage-bank",
-        "code": "030",
-        "longcode": "030159992",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2020-02-18T20:24:23.000Z"
-        },
-        {
-        "id": 301,
-        "name": "HopePSB",
-        "slug": "hopepsb-ng",
-        "code": "120002",
-        "longcode": "120002",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-05-30T14:03:18.000Z",
-        "updatedAt": "2022-05-30T14:03:18.000Z"
-        },
-        {
-        "id": 168,
-        "name": "Ibile Microfinance Bank",
-        "slug": "ibile-mfb",
-        "code": "51244",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-10-21T10:54:20.000Z",
-        "updatedAt": "2020-10-21T10:54:33.000Z"
-        },
-        {
-        "id": 615,
-        "name": "Ikoyi Osun MFB",
-        "slug": "ikoyi-osun-mfb",
-        "code": "50439",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-08-10T09:48:24.000Z",
-        "updatedAt": "2022-08-10T09:48:24.000Z"
-        },
-        {
-        "id": 636,
-        "name": "Ilaro Poly Microfinance Bank",
-        "slug": "ilaro-poly-microfinance-bank-ng",
-        "code": "50442",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-10-12T09:15:26.000Z",
-        "updatedAt": "2022-10-12T09:15:26.000Z"
-        },
-        {
-        "id": 172,
-        "name": "Infinity MFB",
-        "slug": "infinity-mfb",
-        "code": "50457",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-11-24T10:23:37.000Z",
-        "updatedAt": "2020-11-24T10:23:37.000Z"
-        },
-        {
-        "id": 22,
-        "name": "Jaiz Bank",
-        "slug": "jaiz-bank",
-        "code": "301",
-        "longcode": "301080020",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-10-10T17:26:29.000Z",
-        "updatedAt": "2016-10-10T17:26:29.000Z"
-        },
-        {
-        "id": 187,
-        "name": "Kadpoly MFB",
-        "slug": "kadpoly-mfb",
-        "code": "50502",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-09-27T11:59:42.000Z",
-        "updatedAt": "2021-09-27T11:59:42.000Z"
-        },
-        {
-        "id": 11,
-        "name": "Keystone Bank",
-        "slug": "keystone-bank",
-        "code": "082",
-        "longcode": "082150017",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2020-02-18T20:23:45.000Z"
-        },
-        {
-        "id": 184,
-        "name": "Kredi Money MFB LTD",
-        "slug": "kredi-money-mfb",
-        "code": "50200",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-08-11T09:54:03.000Z",
-        "updatedAt": "2021-08-11T09:54:03.000Z"
-        },
-        {
-        "id": 67,
-        "name": "Kuda Bank",
-        "slug": "kuda-bank",
-        "code": "50211",
-        "longcode": "",
-        "gateway": "digitalbankmandate",
-        "pay_with_bank": true,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2019-11-15T17:06:54.000Z",
-        "updatedAt": "2022-04-08T17:07:53.000Z"
-        },
-        {
-        "id": 109,
-        "name": "Lagos Building Investment Company Plc.",
-        "slug": "lbic-plc",
-        "code": "90052",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-08-10T15:07:44.000Z",
-        "updatedAt": "2020-08-10T15:07:44.000Z"
-        },
-        {
-        "id": 180,
-        "name": "Links MFB",
-        "slug": "links-mfb",
-        "code": "50549",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-07-12T14:41:18.000Z",
-        "updatedAt": "2021-07-12T14:41:18.000Z"
-        },
-        {
-        "id": 296,
-        "name": "Living Trust Mortgage Bank",
-        "slug": "living-trust-mortgage-bank",
-        "code": "031",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-05-25T10:46:17.000Z",
-        "updatedAt": "2022-05-25T10:46:17.000Z"
-        },
-        {
-        "id": 233,
-        "name": "Lotus Bank",
-        "slug": "lotus-bank",
-        "code": "303",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-12-06T14:39:51.000Z",
-        "updatedAt": "2021-12-06T14:39:51.000Z"
-        },
-        {
-        "id": 175,
-        "name": "Mayfair MFB",
-        "slug": "mayfair-mfb",
-        "code": "50563",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-02-02T08:28:38.000Z",
-        "updatedAt": "2021-02-02T08:28:38.000Z"
-        },
-        {
-        "id": 178,
-        "name": "Mint MFB",
-        "slug": "mint-mfb",
-        "code": "50304",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-06-01T16:07:29.000Z",
-        "updatedAt": "2021-06-01T16:07:29.000Z"
-        },
-        {
-        "id": 688,
-        "name": "Moniepoint MFB",
-        "slug": "moniepoint-mfb-ng",
-        "code": "50515",
-        "longcode": "null",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2023-03-20T12:53:58.000Z",
-        "updatedAt": "2023-03-20T12:53:58.000Z"
-        },
-        {
-        "id": 303,
-        "name": "MTN Momo PSB",
-        "slug": "mtn-momo-psb-ng",
-        "code": "120003",
-        "longcode": "120003",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-05-31T06:52:07.000Z",
-        "updatedAt": "2022-06-23T09:33:55.000Z"
-        },
-        {
-        "id": 185,
-        "name": "Paga",
-        "slug": "paga",
-        "code": "100002",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-08-31T08:10:00.000Z",
-        "updatedAt": "2021-08-31T08:10:00.000Z"
-        },
-        {
-        "id": 169,
-        "name": "PalmPay",
-        "slug": "palmpay",
-        "code": "999991",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-11-24T09:58:37.000Z",
-        "updatedAt": "2020-11-24T10:03:19.000Z"
-        },
-        {
-        "id": 26,
-        "name": "Parallex Bank",
-        "slug": "parallex-bank",
-        "code": "104",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2017-03-31T13:54:29.000Z",
-        "updatedAt": "2021-10-29T08:00:19.000Z"
-        },
-        {
-        "id": 110,
-        "name": "Parkway - ReadyCash",
-        "slug": "parkway-ready-cash",
-        "code": "311",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-08-10T15:07:44.000Z",
-        "updatedAt": "2020-08-10T15:07:44.000Z"
-        },
-        {
-        "id": 171,
-        "name": "Paycom",
-        "slug": "paycom",
-        "code": "999992",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-11-24T10:20:45.000Z",
-        "updatedAt": "2020-11-24T10:20:54.000Z"
-        },
-        {
-        "id": 693,
-        "name": "Peace Microfinance Bank",
-        "slug": "peace-microfinance-bank-ng",
-        "code": "50743",
-        "longcode": "50743",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2023-04-12T16:51:04.000Z",
-        "updatedAt": "2023-04-12T16:51:04.000Z"
-        },
-        {
-        "id": 683,
-        "name": "Personal Trust MFB",
-        "slug": "personal-trust-mfb-ng",
-        "code": "51146",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2023-02-17T12:13:28.000Z",
-        "updatedAt": "2023-02-17T12:13:28.000Z"
-        },
-        {
-        "id": 170,
-        "name": "Petra Mircofinance Bank Plc",
-        "slug": "petra-microfinance-bank-plc",
-        "code": "50746",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-11-24T10:03:06.000Z",
-        "updatedAt": "2020-11-24T10:03:06.000Z"
-        },
-        {
-        "id": 13,
-        "name": "Polaris Bank",
-        "slug": "polaris-bank",
-        "code": "076",
-        "longcode": "076151006",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2016-07-14T10:04:29.000Z"
-        },
-        {
-        "id": 626,
-        "name": "Polyunwana MFB",
-        "slug": "polyunwana-mfb-ng",
-        "code": "50864",
-        "longcode": "null",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-08-17T17:27:23.000Z",
-        "updatedAt": "2022-08-17T17:27:23.000Z"
-        },
-        {
-        "id": 304,
-        "name": "PremiumTrust Bank",
-        "slug": "premiumtrust-bank-ng",
-        "code": "105",
-        "longcode": "000031",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-06-01T14:16:02.000Z",
-        "updatedAt": "2022-08-17T08:13:08.000Z"
-        },
-        {
-        "id": 25,
-        "name": "Providus Bank",
-        "slug": "providus-bank",
-        "code": "101",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2017-03-27T16:09:29.000Z",
-        "updatedAt": "2021-02-09T17:50:06.000Z"
-        },
-        {
-        "id": 232,
-        "name": "QuickFund MFB",
-        "slug": "quickfund-mfb",
-        "code": "51293",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-10-29T08:43:35.000Z",
-        "updatedAt": "2021-10-29T08:43:35.000Z"
-        },
-        {
-        "id": 176,
-        "name": "Rand Merchant Bank",
-        "slug": "rand-merchant-bank",
-        "code": "502",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-02-11T17:33:20.000Z",
-        "updatedAt": "2021-02-11T17:33:20.000Z"
-        },
-        {
-        "id": 295,
-        "name": "Refuge Mortgage Bank",
-        "slug": "refuge-mortgage-bank",
-        "code": "90067",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-05-25T10:46:17.000Z",
-        "updatedAt": "2022-05-25T10:46:17.000Z"
-        },
-        {
-        "id": 679,
-        "name": "ROCKSHIELD MICROFINANCE BANK",
-        "slug": "rockshield-microfinance-bank-ng",
-        "code": "50767",
-        "longcode": "",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-12-20T13:41:50.000Z",
-        "updatedAt": "2022-12-20T14:27:14.000Z"
-        },
-        {
-        "id": 69,
-        "name": "Rubies MFB",
-        "slug": "rubies-mfb",
-        "code": "125",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-01-25T09:49:59.000Z",
-        "updatedAt": "2020-01-25T09:49:59.000Z"
-        },
-        {
-        "id": 286,
-        "name": "Safe Haven MFB",
-        "slug": "safe-haven-mfb-ng",
-        "code": "51113",
-        "longcode": "51113",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-02-18T13:11:59.000Z",
-        "updatedAt": "2022-02-18T13:11:59.000Z"
-        },
-        {
-        "id": 609,
-        "name": "Safe Haven Microfinance Bank Limited",
-        "slug": "safe-haven-microfinance-bank-limited-ng",
-        "code": "951113",
-        "longcode": "",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-07-28T14:22:56.000Z",
-        "updatedAt": "2022-12-02T10:51:53.000Z"
-        },
-        {
-        "id": 632,
-        "name": "Shield MFB",
-        "slug": "shield-mfb-ng",
-        "code": "50582",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-09-16T15:16:47.000Z",
-        "updatedAt": "2022-09-16T15:16:47.000Z"
-        },
-        {
-        "id": 365,
-        "name": "Solid Rock MFB",
-        "slug": "solid-rock-mfb",
-        "code": "50800",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-06-27T10:24:28.000Z",
-        "updatedAt": "2022-06-27T10:24:28.000Z"
-        },
-        {
-        "id": 72,
-        "name": "Sparkle Microfinance Bank",
-        "slug": "sparkle-microfinance-bank",
-        "code": "51310",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-02-11T18:43:14.000Z",
-        "updatedAt": "2020-02-11T18:43:14.000Z"
-        },
-        {
-        "id": 14,
-        "name": "Stanbic IBTC Bank",
-        "slug": "stanbic-ibtc-bank",
-        "code": "221",
-        "longcode": "221159522",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2020-02-18T20:24:17.000Z"
-        },
-        {
-        "id": 15,
-        "name": "Standard Chartered Bank",
-        "slug": "standard-chartered-bank",
-        "code": "068",
-        "longcode": "068150015",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2020-02-18T20:23:40.000Z"
-        },
-        {
-        "id": 285,
-        "name": "Stellas MFB",
-        "slug": "stellas-mfb",
-        "code": "51253",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-02-17T14:54:01.000Z",
-        "updatedAt": "2022-02-17T14:54:01.000Z"
-        },
-        {
-        "id": 16,
-        "name": "Sterling Bank",
-        "slug": "sterling-bank",
-        "code": "232",
-        "longcode": "232150016",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2022-05-27T08:56:01.000Z"
-        },
-        {
-        "id": 23,
-        "name": "Suntrust Bank",
-        "slug": "suntrust-bank",
-        "code": "100",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-10-10T17:26:29.000Z",
-        "updatedAt": "2016-10-10T17:26:29.000Z"
-        },
-        {
-        "id": 631,
-        "name": "Supreme MFB",
-        "slug": "supreme-mfb-ng",
-        "code": "50968",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-09-16T15:16:29.000Z",
-        "updatedAt": "2022-09-16T15:16:29.000Z"
-        },
-        {
-        "id": 68,
-        "name": "TAJ Bank",
-        "slug": "taj-bank",
-        "code": "302",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-01-20T11:20:32.000Z",
-        "updatedAt": "2020-01-20T11:20:32.000Z"
-        },
-        {
-        "id": 634,
-        "name": "Tanadi Microfinance Bank",
-        "slug": "tanadi-microfinance-bank-ng",
-        "code": "090560",
-        "longcode": "",
-        "gateway": "ibank",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-09-22T09:14:25.000Z",
-        "updatedAt": "2022-09-22T09:14:25.000Z"
-        },
-        {
-        "id": 186,
-        "name": "Tangerine Money",
-        "slug": "tangerine-money",
-        "code": "51269",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2021-09-17T13:25:16.000Z",
-        "updatedAt": "2021-09-17T13:25:16.000Z"
-        },
-        {
-        "id": 75,
-        "name": "TCF MFB",
-        "slug": "tcf-mfb",
-        "code": "51211",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-04-03T09:34:35.000Z",
-        "updatedAt": "2020-04-03T09:34:35.000Z"
-        },
-        {
-        "id": 73,
-        "name": "Titan Bank",
-        "slug": "titan-bank",
-        "code": "102",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-03-10T11:41:36.000Z",
-        "updatedAt": "2020-03-23T15:06:29.000Z"
-        },
-        {
-        "id": 629,
-        "name": "Titan Paystack",
-        "slug": "titan-paystack",
-        "code": "100039",
-        "longcode": "",
-        "gateway": "",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-09-02T08:51:15.000Z",
-        "updatedAt": "2022-09-06T09:40:48.000Z"
-        },
-        {
-        "id": 690,
-        "name": "U&C Microfinance Bank Ltd (U AND C MFB)",
-        "slug": "uc-microfinance-bank-ltd-u-and-c-mfb-ng",
-        "code": "50840",
-        "longcode": "50840",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2023-03-27T16:55:53.000Z",
-        "updatedAt": "2023-03-27T16:55:53.000Z"
-        },
-        {
-        "id": 630,
-        "name": "Uhuru MFB",
-        "slug": "uhuru-mfb-ng",
-        "code": "MFB51322",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-09-14T12:58:20.000Z",
-        "updatedAt": "2022-09-14T12:58:20.000Z"
-        },
-        {
-        "id": 678,
-        "name": "Unaab Microfinance Bank Limited",
-        "slug": "unaab-microfinance-bank-limited-ng",
-        "code": "50870",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-11-24T13:47:10.000Z",
-        "updatedAt": "2022-11-24T13:49:16.000Z"
-        },
-        {
-        "id": 282,
-        "name": "Unical MFB",
-        "slug": "unical-mfb",
-        "code": "50871",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-01-10T09:52:47.000Z",
-        "updatedAt": "2022-01-10T09:52:47.000Z"
-        },
-        {
-        "id": 638,
-        "name": "Unilag Microfinance Bank",
-        "slug": "unilag-microfinance-bank-ng",
-        "code": "51316",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2022-11-07T07:41:50.000Z",
-        "updatedAt": "2022-11-07T07:41:50.000Z"
-        },
-        {
-        "id": 17,
-        "name": "Union Bank of Nigeria",
-        "slug": "union-bank-of-nigeria",
-        "code": "032",
-        "longcode": "032080474",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2020-02-18T20:22:54.000Z"
-        },
-        {
-        "id": 18,
-        "name": "United Bank For Africa",
-        "slug": "united-bank-for-africa",
-        "code": "033",
-        "longcode": "033153513",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2022-03-09T10:28:57.000Z"
-        },
-        {
-        "id": 19,
-        "name": "Unity Bank",
-        "slug": "unity-bank",
-        "code": "215",
-        "longcode": "215154097",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2019-07-22T12:44:02.000Z"
-        },
-        {
-        "id": 71,
-        "name": "VFD Microfinance Bank Limited",
-        "slug": "vfd",
-        "code": "566",
-        "longcode": "",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2020-02-11T15:44:11.000Z",
-        "updatedAt": "2020-10-28T09:42:08.000Z"
-        },
-        {
-        "id": 20,
-        "name": "Wema Bank",
-        "slug": "wema-bank",
-        "code": "035",
-        "longcode": "035150103",
-        "gateway": null,
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2021-02-09T17:49:59.000Z"
-        },
-        {
-        "id": 21,
-        "name": "Zenith Bank",
-        "slug": "zenith-bank",
-        "code": "057",
-        "longcode": "057150013",
-        "gateway": "emandate",
-        "pay_with_bank": false,
-        "active": true,
-        "country": "Nigeria",
-        "currency": "NGN",
-        "type": "nuban",
-        "is_deleted": false,
-        "createdAt": "2016-07-14T10:04:29.000Z",
-        "updatedAt": "2023-02-18T21:01:50.000Z"
+        bankCode: "110005",
+        bankName: "3LINE CARD MANAGEMENT LIMITED"
+        },
+        {
+        bankCode: "120001",
+        bankName: "9 PAYMENT SOLUTIONS BANK"
+        },
+        {
+        bankCode: "090270",
+        bankName: "AB MICROFINANCE BANK"
+        },
+        {
+        bankCode: "070010",
+        bankName: "ABBEY MORTGAGE BANK"
+        },
+        {
+        bankCode: "090260",
+        bankName: "ABOVE ONLY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090197",
+        bankName: "ABU MICROFINANCE BANK"
+        },
+        {
+        bankCode: "90202",
+        bankName: "ACCELEREX NETWORK LIMITED"
+        },
+        {
+        bankCode: "090202",
+        bankName: "ACCELEREX NETWORK LIMITED"
+        },
+        {
+        bankCode: "000014",
+        bankName: "ACCESS BANK"
+        },
+        {
+        bankCode: "100013",
+        bankName: "ACCESS MONEY"
+        },
+        {
+        bankCode: "100052",
+        bankName: "ACCESS YELLO & BETA"
+        },
+        {
+        bankCode: "000005",
+        bankName: "ACCESS(DIAMOND) BANK"
+        },
+        {
+        bankCode: "090134",
+        bankName: "ACCION MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090160",
+        bankName: "ADDOSSER MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090268",
+        bankName: "ADEYEMI COLLEGE STAFF MICROFINANCE BANK"
+        },
+        {
+        bankCode: "90155",
+        bankName: "ADVANS LA FAYETTE  MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090155",
+        bankName: "ADVANS LA FAYETTE  MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090292",
+        bankName: "AFEKHAFE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100028",
+        bankName: "AG MORTGAGE BANK"
+        },
+        {
+        bankCode: "090371",
+        bankName: "AGOSASA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090133",
+        bankName: "AL-BARAKAH MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090259",
+        bankName: "ALEKUN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090297",
+        bankName: "ALERT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090277",
+        bankName: "AL-HAYAT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090131",
+        bankName: "ALLWORKERS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090169",
+        bankName: "ALPHA KAPITAL MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090394",
+        bankName: "AMAC MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090180",
+        bankName: "AMJU UNIQUE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090116",
+        bankName: "AMML MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090143",
+        bankName: "APEKS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090376",
+        bankName: "APPLE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090282",
+        bankName: "ARISE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090001",
+        bankName: "ASO SAVINGS"
+        },
+        {
+        bankCode: "090287",
+        bankName: "ASSETMATRIX MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090172",
+        bankName: "ASTRAPOLARIS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090264",
+        bankName: "AUCHI MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090188",
+        bankName: "BAINES CREDIT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090326",
+        bankName: "BALOGUN GAMBARI MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090316",
+        bankName: "BAYERO UNIVERSITY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090127",
+        bankName: "BC KASH MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090336",
+        bankName: "BIPC MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090117",
+        bankName: "BOCTRUST MICROFINANCE BANK LIMITED"
+        },
+        {
+        bankCode: "090395",
+        bankName: "BORGU  MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090176",
+        bankName: "BOSAK MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090148",
+        bankName: "BOWEN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "070015",
+        bankName: "BRENT MORTGAGE BANK"
+        },
+        {
+        bankCode: "090293",
+        bankName: "BRETHREN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090393",
+        bankName: "BRIDGEWAY MICROFINANACE BANK"
+        },
+        {
+        bankCode: "090308",
+        bankName: "BRIGHTWAY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090406",
+        bankName: "BUSINESS SUPPORT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100026",
+        bankName: "CARBON"
+        },
+        {
+        bankCode: "090360",
+        bankName: "CASHCONNECT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100005",
+        bankName: "CELLULANT"
+        },
+        {
+        bankCode: "090154",
+        bankName: "CEMCS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100015",
+        bankName: "CHAMS MOBILE"
+        },
+        {
+        bankCode: "090141",
+        bankName: "CHIKUM MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090144",
+        bankName: "CIT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000009",
+        bankName: "CITI BANK"
+        },
+        {
+        bankCode: "090374",
+        bankName: "COASTLINE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090130",
+        bankName: "CONSUMER MICROFINANCE BANK"
+        },
+        {
+        bankCode: "070021",
+        bankName: "COOP MORTGAGE BANK"
+        },
+        {
+        bankCode: "090365",
+        bankName: "CORESTEP MICROFINANCE BANK"
+        },
+        {
+        bankCode: "060001",
+        bankName: "CORONATION MERCHANT BANK"
+        },
+        {
+        bankCode: "070006",
+        bankName: "COVENANT MFB"
+        },
+        {
+        bankCode: "090159",
+        bankName: "CREDIT AFRIQUE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "110014",
+        bankName: "CYBERSPACE LIMITED"
+        },
+        {
+        bankCode: "090391",
+        bankName: "DAVODANI  MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090167",
+        bankName: "DAYLIGHT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090294",
+        bankName: "EAGLE FLIGHT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100021",
+        bankName: "EARTHOLEUM"
+        },
+        {
+        bankCode: "090156",
+        bankName: "E-BARCS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000010",
+        bankName: "ECOBANK"
+        },
+        {
+        bankCode: "100008",
+        bankName: "ECOBANK XPRESS ACCOUNT"
+        },
+        {
+        bankCode: "100030",
+        bankName: "ECOMOBILE"
+        },
+        {
+        bankCode: "090310",
+        bankName: "EDFIN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090097",
+        bankName: "EKONDO MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090389",
+        bankName: "EK-RELIABLE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090273",
+        bankName: "EMERALD MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090114",
+        bankName: "EMPIRE TRUST MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000019",
+        bankName: "ENTERPRISE BANK"
+        },
+        {
+        bankCode: "090189",
+        bankName: "ESAN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090166",
+        bankName: "ESO-E MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100006",
+        bankName: "eTRANZACT"
+        },
+        {
+        bankCode: "090304",
+        bankName: "EVANGEL MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090332",
+        bankName: "EVERGREEN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090328",
+        bankName: "EYOWO"
+        },
+        {
+        bankCode: "090179",
+        bankName: "FAST MICROFINANCE BANK"
+        },
+        {
+        bankCode: "060002",
+        bankName: "FBNQUEST MERCHANT BANK"
+        },
+        {
+        bankCode: "100031",
+        bankName: "FCMB MOBILE"
+        },
+        {
+        bankCode: "090290",
+        bankName: "FCT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090398",
+        bankName: "FEDERAL POLYTECHNIC NEKEDE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090318",
+        bankName: "FEDERAL UNIVERSITY DUTSE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090298",
+        bankName: "FEDPOLY NASARAWA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100001",
+        bankName: "FETS"
+        },
+        {
+        bankCode: "090153",
+        bankName: "FFS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000007",
+        bankName: "FIDELITY BANK"
+        },
+        {
+        bankCode: "100019",
+        bankName: "FIDELITY MOBILE"
+        },
+        {
+        bankCode: "090126",
+        bankName: "FIDFUND MICROFINANCE Bank"
+        },
+        {
+        bankCode: "090111",
+        bankName: "FINATRUST MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090400",
+        bankName: "FINCA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090366",
+        bankName: "FIRMUS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "110004",
+        bankName: "FIRST APPLE LIMITED"
+        },
+        {
+        bankCode: "000016",
+        bankName: "FIRST BANK OF NIGERIA"
+        },
+        {
+        bankCode: "000003",
+        bankName: "FIRST CITY MONUMENT BANK"
+        },
+        {
+        bankCode: "070014",
+        bankName: "FIRST GENERATION MORTGAGE BANK"
+        },
+        {
+        bankCode: "090285",
+        bankName: "FIRST OPTION MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090164",
+        bankName: "FIRST ROYAL MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090107",
+        bankName: "FIRST TRUST MORTGAGE BANK PLC"
+        },
+        {
+        bankCode: "100014",
+        bankName: "FIRSTMONIE WALLET"
+        },
+        {
+        bankCode: "110002",
+        bankName: "FLUTTERWAVE TECHNOLOGY SOLUTIONS LIMITED"
+        },
+        {
+        bankCode: "070002",
+        bankName: "FORTIS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100016",
+        bankName: "FORTIS MOBILE"
+        },
+        {
+        bankCode: "400001",
+        bankName: "FSDH"
+        },
+        {
+        bankCode: "090145",
+        bankName: "FULLRANGE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090158",
+        bankName: "FUTO MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090168",
+        bankName: "GASHUA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "070009",
+        bankName: "GATEWAY MORTGAGE BANK"
+        },
+        {
+        bankCode: "090186",
+        bankName: "GIREI MICROFINANACE BANK"
+        },
+        {
+        bankCode: "000027",
+        bankName: "GLOBUS BANK"
+        },
+        {
+        bankCode: "090278",
+        bankName: "GLORY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090408",
+        bankName: "GMB MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090122",
+        bankName: "GOWANS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090178",
+        bankName: "GREENBANK MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090269",
+        bankName: "GREENVILLE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090195",
+        bankName: "GROOMING MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100009",
+        bankName: "GT MOBILE"
+        },
+        {
+        bankCode: "000013",
+        bankName: "GTBANK PLC"
+        },
+        {
+        bankCode: "090385",
+        bankName: "GTI MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090147",
+        bankName: "HACKMAN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "070017",
+        bankName: "HAGGAI MORTGAGE BANK LIMITED"
+        },
+        {
+        bankCode: "090121",
+        bankName: "HASAL MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090363",
+        bankName: "HEADWAY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100017",
+        bankName: "HEDONMARK"
+        },
+        {
+        bankCode: "000020",
+        bankName: "HERITAGE BANK"
+        },
+        {
+        bankCode: "120002",
+        bankName: "HOPEPSB"
+        },
+        {
+        bankCode: "090118",
+        bankName: "IBILE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090324",
+        bankName: "IKENNE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090279",
+        bankName: "IKIRE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090275",
+        bankName: "IKIRE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090370",
+        bankName: "ILISAN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090258",
+        bankName: "IMO STATE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100024",
+        bankName: "IMPERIAL HOMES MORTGAGE BANK"
+        },
+        {
+        bankCode: "090157",
+        bankName: "INFINITY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "070016",
+        bankName: "INFINITY TRUST MORTGAGE BANK"
+        },
+        {
+        bankCode: "100029",
+        bankName: "INNOVECTIVES KESH"
+        },
+        {
+        bankCode: "100027",
+        bankName: "INTELLIFIN"
+        },
+        {
+        bankCode: "090386",
+        bankName: "INTERLAND MICROFINANCE BANK"
+        },
+        {
+        bankCode: "110003",
+        bankName: "INTERSWITCH LIMITED"
+        },
+        {
+        bankCode: "090149",
+        bankName: "IRL MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090377",
+        bankName: "ISALEOYO MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000006",
+        bankName: "JAIZ BANK"
+        },
+        {
+        bankCode: "090003",
+        bankName: "JUBILEE LIFE"
+        },
+        {
+        bankCode: "090320",
+        bankName: "KADPOLY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090191",
+        bankName: "KCMB MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000002",
+        bankName: "KEYSTONE BANK"
+        },
+        {
+        bankCode: "090299",
+        bankName: "KONTAGORA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090380",
+        bankName: "KREDI MONEY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090267",
+        bankName: "KUDA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "070012",
+        bankName: "LAGOS BUILDING AND INVESTMENT COMPANY"
+        },
+        {
+        bankCode: "090177",
+        bankName: "LAPO MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090271",
+        bankName: "LAVENDER MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090372",
+        bankName: "LEGEND MICROFINANCE BANK"
+        },
+        {
+        bankCode: "070007",
+        bankName: "LIVINGTRUST MORTGAGE BANK PLC"
+        },
+        {
+        bankCode: "090265",
+        bankName: "LOVONUS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100035",
+        bankName: "M36"
+        },
+        {
+        bankCode: "090323",
+        bankName: "MAINLAND MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090171",
+        bankName: "MAINSTREET MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090174",
+        bankName: "MALACHY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090383",
+        bankName: "MANNY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090410",
+        bankName: "MARITIME MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090321",
+        bankName: "MAYFAIR MICROFINANCE BANK"
+        },
+        {
+        bankCode: "070019",
+        bankName: "MAYFRESH MORTGAGE BANK"
+        },
+        {
+        bankCode: "090280",
+        bankName: "MEGAPRAISE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090136",
+        bankName: "MICROCRED MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090113",
+        bankName: "MICROVIS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090192",
+        bankName: "MIDLAND MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090281",
+        bankName: "MINT-FINEX MFB"
+        },
+        {
+        bankCode: "100011",
+        bankName: "MKUDI"
+        },
+        {
+        bankCode: "090362",
+        bankName: "MOLUSI MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100020",
+        bankName: "MONEY BOX"
+        },
+        {
+        bankCode: "090129",
+        bankName: "MONEY TRUST MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090392",
+        bankName: "MOZFIN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090190",
+        bankName: "MUTUAL BENEFITS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090151",
+        bankName: "MUTUAL TRUST MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090152",
+        bankName: "NAGARTA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090128",
+        bankName: "NDIORAH MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090329",
+        bankName: "NEPTUNE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090205",
+        bankName: "NEW DAWN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090378",
+        bankName: "NEW GOLDEN PASTURES MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090108",
+        bankName: "NEW PRUDENTIAL BANK"
+        },
+        {
+        bankCode: "090263",
+        bankName: "NIGERIAN NAVY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "999999",
+        bankName: "NIP VIRTUAL BANK"
+        },
+        {
+        bankCode: "090194",
+        bankName: "NIRSAL NATIONAL MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090283",
+        bankName: "NNEW WOMEN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "060003",
+        bankName: "NOVA MERCHANT BANK"
+        },
+        {
+        bankCode: "100032",
+        bankName: "NOWNOW DIGITAL SYSTEMS LIMITED"
+        },
+        {
+        bankCode: "070001",
+        bankName: "NPF MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090364",
+        bankName: "NUTURE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090399",
+        bankName: "NWANNEGADI MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090333",
+        bankName: "OCHE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090119",
+        bankName: "OHAFIA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090161",
+        bankName: "OKPOGA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090272",
+        bankName: "OLABISI ONABANJO UNIVERSITY MICROFINANCE"
+        },
+        {
+        bankCode: "090404",
+        bankName: "OLOWOLAGBA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090295",
+        bankName: "OMIYE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100004",
+        bankName: "OPAY"
+        },
+        {
+        bankCode: "090396",
+        bankName: "OSCOTECH MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100002",
+        bankName: "PAGA"
+        },
+        {
+        bankCode: "070008",
+        bankName: "PAGE MFBank"
+        },
+        {
+        bankCode: "100033",
+        bankName: "PALMPAY"
+        },
+        {
+        bankCode: "090004",
+        bankName: "PARALLEX"
+        },
+        {
+        bankCode: "100003",
+        bankName: "PARKWAY-READYCASH"
+        },
+        {
+        bankCode: "090317",
+        bankName: "PATRICKGOLD MICROFINANCE BANK"
+        },
+        {
+        bankCode: "110001",
+        bankName: "PAYATTITUDE ONLINE"
+        },
+        {
+        bankCode: "110006",
+        bankName: "PAYSTACK PAYMENT LIMITED"
+        },
+        {
+        bankCode: "090137",
+        bankName: "PECANTRUST MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090196",
+        bankName: "PENNYWISE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090135",
+        bankName: "PERSONAL TRUST MICROFINANCE BANK"
+        },
+        {
+        bankCode: "90165",
+        bankName: "PETRA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090165",
+        bankName: "PETRA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090289",
+        bankName: "PILLAR MICROFINANCE BANK"
+        },
+        {
+        bankCode: "070013",
+        bankName: "PLATINUM MORTGAGE BANK"
+        },
+        {
+        bankCode: "000008",
+        bankName: "POLARIS BANK"
+        },
+        {
+        bankCode: "090296",
+        bankName: "POLYUNWANA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090274",
+        bankName: "PRESTIGE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000023",
+        bankName: "PROVIDUS BANK"
+        },
+        {
+        bankCode: "090303",
+        bankName: "PURPLEMONEY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090261",
+        bankName: "QUICKFUND MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000024",
+        bankName: "RAND MERCHANT BANK"
+        },
+        {
+        bankCode: "070011",
+        bankName: "REFUGE MORTGAGE BANK"
+        },
+        {
+        bankCode: "090125",
+        bankName: "REGENT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090173",
+        bankName: "RELIANCE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090198",
+        bankName: "RENMONEY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090322",
+        bankName: "REPHIDIM MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090132",
+        bankName: "RICHWAY MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090405",
+        bankName: "ROLEZ MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090138",
+        bankName: "ROYAL EXCHANGE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090175",
+        bankName: "RUBIES MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090286",
+        bankName: "SAFE HAVEN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090006",
+        bankName: "SAFETRUST"
+        },
+        {
+        bankCode: "090140",
+        bankName: "SAGAMU MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090112",
+        bankName: "SEED CAPITAL MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090369",
+        bankName: "SEEDVEST MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090401",
+        bankName: "SHERPERD TRUST MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090325",
+        bankName: "SPARKLE"
+        },
+        {
+        bankCode: "100007",
+        bankName: "STANBIC IBTC @Ease WALLET"
+        },
+        {
+        bankCode: "000012",
+        bankName: "STANBIC IBTC BANK"
+        },
+        {
+        bankCode: "000021",
+        bankName: "STANDARD CHARTERED BANK"
+        },
+        {
+        bankCode: "090162",
+        bankName: "STANFORD MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090262",
+        bankName: "STELLAS MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000001",
+        bankName: "STERLING BANK"
+        },
+        {
+        bankCode: "100022",
+        bankName: "STERLING MOBILE"
+        },
+        {
+        bankCode: "090305",
+        bankName: "SULSPAP MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000022",
+        bankName: "SUNTRUST BANK"
+        },
+        {
+        bankCode: "100023",
+        bankName: "TAGPAY"
+        },
+        {
+        bankCode: "000026",
+        bankName: "TAJ BANK"
+        },
+        {
+        bankCode: "090115",
+        bankName: "TCF MICROFINANCE BANK"
+        },
+        {
+        bankCode: "110007",
+        bankName: "TEAMAPT LIMITED"
+        },
+        {
+        bankCode: "100010",
+        bankName: "TEASY MOBILE"
+        },
+        {
+        bankCode: "090373",
+        bankName: "THINK FINANCE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000025",
+        bankName: "TITAN TRUST BANK"
+        },
+        {
+        bankCode: "090146",
+        bankName: "TRIDENT MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090327",
+        bankName: "TRUST MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090123",
+        bankName: "TRUSTBANC J6 MICROFINANCE BANK LIMITED"
+        },
+        {
+        bankCode: "090005",
+        bankName: "TRUSTBOND MORTGAGE BANK"
+        },
+        {
+        bankCode: "090276",
+        bankName: "TRUSTFUND MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090315",
+        bankName: "U & C MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090331",
+        bankName: "UNAAB MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090266",
+        bankName: "UNIBEN MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090193",
+        bankName: "UNICAL MICROFINANCE BANK"
+        },
+        {
+        bankCode: "90193",
+        bankName: "UNICAL MICROFINANCE BANK"
+        },
+        {
+        bankCode: "000018",
+        bankName: "UNION BANK"
+        },
+        {
+        bankCode: "000004",
+        bankName: "UNITED BANK FOR AFRICA"
+        },
+        {
+        bankCode: "000011",
+        bankName: "UNITY BANK"
+        },
+        {
+        bankCode: "090251",
+        bankName: "UNIVERSITY OF NIGERIA, NSUKKA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "110009",
+        bankName: "VENTURE GARDEN NIGERIA LIMITED"
+        },
+        {
+        bankCode: "090110",
+        bankName: "VFD MFB"
+        },
+        {
+        bankCode: "090150",
+        bankName: "VIRTUE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090139",
+        bankName: "VISA MICROFINANCE BANK"
+        },
+        {
+        bankCode: "100012",
+        bankName: "VT NETWORKS"
+        },
+        {
+        bankCode: "000017",
+        bankName: "WEMA BANK"
+        },
+        {
+        bankCode: "090120",
+        bankName: "WETLAND  MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090124",
+        bankName: "XSLNCE MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090142",
+        bankName: "YES MICROFINANCE BANK"
+        },
+        {
+        bankCode: "090252",
+        bankName: "YOBE MICROFINANCE  BANK"
+        },
+        {
+        bankCode: "000015",
+        bankName: "ZENITH BANK"
+        },
+        {
+        bankCode: "100034",
+        bankName: "ZENITH EASY WALLET"
+        },
+        {
+        bankCode: "100018",
+        bankName: "ZENITH MOBILE"
+        },
+        {
+        bankCode: "100025",
+        bankName: "ZINTERNET - KONGAPAY"
         }
         ]
 }
 
 
-export const listBanks = Banksapi.data.map((bank) => {
+export const listBanks = Banksapi.banks.map((bank) => {
         return {
-                code: bank.code,
-                label: bank.name,
+                code: bank.bankCode,
+                label: bank.bankName,
         };
 });

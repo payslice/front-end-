@@ -195,6 +195,7 @@ const DashboardHome = () => {
             (acc, num) => parseInt(acc) + parseInt(num.amount_remaining),
             0
         );
+        // Your application is undergoing a review at the moment. You would be notified via email after the assessment. If you need to make changes to your data, please edit below.
 
     return (
         <div>
