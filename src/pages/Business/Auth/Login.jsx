@@ -34,8 +34,8 @@ export const BusinessLogin = () => {
       try {
         const {data} = await businessLogin(formData);
 
-        // console.log("data")
-        // console.log(data)
+        console.log("data")
+        console.log(data)
 
         // if(data.status && data.is_onboarded){
         //         setLoading(false);
@@ -50,7 +50,7 @@ export const BusinessLogin = () => {
           Cookies.set("PAYSL-ADTK", data.token);
           setExpiryTimeToStorage(new Date());
           setLoading(false);
-          if(data.is_onboarded) history.push("/business/dashboard")
+          if(data.data.is_onboarded) history.push("/business/dashboard")
           else {history.push("/onboard/step1");toast.success("successfully signed up, please onboard yourself")}
     
         }

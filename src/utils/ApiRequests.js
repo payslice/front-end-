@@ -44,7 +44,7 @@ const ApiRequestMultiPart = () => {
   }
   const instance = axios.create({
     ...config,
-    headers : { "Authorization": `Bearer ${token}`, "content-type": `multipart/form-data; ` }
+    headers : { "Authorization": `Bearer ${token}`, "Content-Type": `multipart/form-data`, "Accept": "application/json" }
   });
   return instance;
 };
@@ -81,6 +81,10 @@ export const businessAccountDetails = (formData) => {
   return ApiRequestWithToken().get(`/api/business/account/details`, formData);
 };
 
+export const businessCheckStatements = (formData) => {
+  return ApiRequestWithToken().get(`/api/business/account/statements`, formData);
+};
+
 export const employeeLogin = formData => {
     return ApiRequest().post("api/employee/login", formData);
 };
@@ -93,7 +97,7 @@ export const companyInfoOnboarding = (formData) => {
 };
 
 export const companyRepOnboarding = (formData) => {
-  return ApiRequestWithToken().post("/api/business/onboard/representative", formData);
+  return ApiRequestMultiPart().post("/api/business/onboard/representative", formData);
 };
 
 export const companyPolicy = (formData) => {

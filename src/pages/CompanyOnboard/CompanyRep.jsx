@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 // import { app } from "./base";
 // import * as yup from "yup";
@@ -23,8 +23,15 @@ const CompanyRepresentative = () => {
         { id: 1, name: "NIN", value: "nin" },
         { id: 2, name: "Voters Card", value: "permanent voters card" },
     ];
+    const listTitle = [
+        { id: 0, name: "Mr", value: "mr" },
+        { id: 1, name: "Mrs", value: "mrs" },
+        { id: 2, name: "Miss", value: "miss" },
+    ];
 
     console.log(user);
+
+    let fileInputRef = useRef(null)
 
     const {
         register,
@@ -34,16 +41,45 @@ const CompanyRepresentative = () => {
         formState: { errors },
     } = useForm();
     const [selectedValue, setSelectedValue] = useState(idTypes[0]);
-    const [loading, setLoading] = useState(false);
+    const [selectedTitle, setSelectedTitle] = useState(listTitle[0]);
+    const [loading, setLoading] = useState();
+    const [imgFile, setImgFile] = useState();
+
+
 
     const onSubmit = async formData => {
+        console.log(formData)
         if (formData) {
             setLoading(true);
-            console.log("CompanyReg")
-            console.log(formData)
+            // console.log("CompanyReg")
+            // console.log({...formData, title:selectedTitle.value, id_type: selectedValue.value })
+            
+            let formdata = new FormData()
+            formdata.append("file", imgFile)
+            // formdata.append("title", `${formData.title}`)
+            // formdata.append("legal_name", formData.legal_name)
+            // formdata.append("address", formData.address)
+            // formdata.append("date_of_birth", formData.date_of_birth)
+            // formdata.append("id_type", formData.id_type)
+            // formdata.append("id_number", formData.id_number)
+            // formdata.append("bvn", formData.bvn)
+            // formdata.append("ownership_percentage", formData.ownership_percentage)
+
+            console.log("formdata company rep")
+            // console.log(formdata)
+            let filee;
+            for (const [key, value, file] of formdata) {
+                console.log(value);
+                filee = value
+              }
+
+              console.log("filee")
+              console.log(filee)
+              console.log({...formData, title:selectedTitle.value, id_type: selectedValue.value, id_file: filee }) 
+
             try {
-                const {data} = await companyRepOnboarding(formData
-                // {
+                const {data} = await companyRepOnboarding({...formData, title:selectedTitle.value, id_type: selectedValue.value, id_file: filee }
+                // {  
                 //     // company_id: user?.company?.id,
                 //     // company_id: user?.company_id,
                 //     company_id: sessionStorage.getItem("P_Slice_CID"),
@@ -130,15 +166,13 @@ const CompanyRepresentative = () => {
                 <div className='flex w-full mobiles:block'>
                 
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
-                        <InputField
-                            label='Title'
-                            name='title'
-                            placeholder='e.g. mr'
-                            type='text'
-                            {...register("title", {
-                                required: true,
-                                minLength: 2,
-                            })}
+                        
+                        <SelectInput
+                            name="title"
+                            label="Title "
+                            options={listTitle}
+                            selectedValue={selectedTitle}
+                            setSelectedValue={setSelectedTitle}
                             required
                         />
                     </div>
@@ -200,23 +234,53 @@ const CompanyRepresentative = () => {
                 </div>
                 <div className='flex w-full mobiles:block'>
                 
+
+                    
+                    <div className="my-auto">
+
+                        <label
+                            htmlFor="file-upload"
+                            className="rounded bg-gray-200 cursor-pointer my-auto py-2 px-4 ml-5 "
+                        >
+                            Select Image
+                        </label>
+
+                        <input
+                            id="file-upload"
+                            className="hidden"
+                            onChange={(e) => {
+                                const [file] = e.target.files;
+                                setImgFile(file);
+                            }}
+                            // ref={register}
+                            ref={inpute => (inpute = fileInputRef)}
+                            type="file"
+                            accept=".png, .jpeg, .jpg"
+                        />
+
+                    </div>
+                    {/*
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
-                            label='Upload ID file'
+                            label='Upload Identification Document'
                             name='id_file'
-                            // placeholder='10'
-                            type='tel'
-                            {...register("id_file", {
-                                required: true,
-                            })}
+                            // placeholder='10'\
+                            {...register("id_file" 
+                            // {
+                            //     required: true,
+                            // }
+                            )}
+                            type="file"
+                            accept=".png, .jpeg, .jpg"
                         />
                     </div>
+                    */}
                     <div className='w-1/2 pr-5 mobiles:w-full mobiles:p-0'>
                         <InputField
                             label='BVN'
                             name='bvn'
                             placeholder='Bank Verification Number'
-                            type='text'
+                            type='number'
                             {...register("bvn", {
                                 required: true,
                             })}
