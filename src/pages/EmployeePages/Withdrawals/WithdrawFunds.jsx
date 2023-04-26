@@ -26,9 +26,9 @@ const WithdrawFunds = () => {
       setcharge(250)
     }
     else if (amount < 10000 ) setcharge(500)
-    else if (amount < 25000 ) setcharge(750)
-    else if (amount < 40000 ) setcharge(750)
-    else if (amount > 40000 ) setcharge(1250)
+    else if (amount < 25000 ) setcharge(1250)
+    else if (amount <= 40000 ) setcharge(2000)
+    else setcharge(2000)
 
 
   }, [amount])
@@ -116,11 +116,11 @@ const WithdrawFunds = () => {
               label="Amount"
               onChange={(e) => setAmount(e.target.value)}
               // {...register("amount", {required: true, max: 40000})}
-              // value={amount}jh
+              value={amount}
               placeholder="Enter amount"
               required
             />
-        
+            {amount > 40000 && <p className="text-[#ff0000] mb-4 font-small">Amount can not be greater than 40,000</p>}
 
             <InputField
               type="text"

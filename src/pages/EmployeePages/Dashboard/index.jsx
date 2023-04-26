@@ -224,33 +224,7 @@ const UserDashboard = () => {
 
 	return (
 		<div className="user-dashboard-wrapper">
-{/* 
-			<div className="relative">
-				<Link to="/user/dashboard">
-				<div className="absolute left-4 flex" style={{ width: '90px'}}>
-				<svg className="mt-12" style={{marginTop: '5px'}} width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M7.99182 10.5734L3.16183 6.2472L7.47744 1.40778L5.99065 0.0790062L0.336276 6.40578L6.66305 12.0602L7.99182 10.5734Z" fill="#737A91"/>
-				</svg>
-				<span className="font-normal text-base pl-5" style={{}} >
-					Go back
-				</span>
-				</div>
-				</Link>
-			</div> */}
 
-			<Link to="/user/dashboard">
-				<div className="lg:hidden flex mt-5">
-				<svg className="mt-12" style={{marginTop: '5px'}} width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M7.99182 10.5734L3.16183 6.2472L7.47744 1.40778L5.99065 0.0790062L0.336276 6.40578L6.66305 12.0602L7.99182 10.5734Z" fill="#737A91"/>
-				</svg>
-				<span className="font-normal text-base pl-5" style={{}} >
-					Go back
-				</span>
-				</div>
-        
-      		</Link>
-		
-			
 			{
 				workplaceInfoState.length  !== 0
 				?
@@ -282,9 +256,19 @@ const UserDashboard = () => {
 												NGN {workplaceInfoState[0].amount_earned}{' '}
 											</h3>
 										</div>
-										<div className="border flex justify-center ml-10 items-center border-white rounded-full h-14 w-16">
+										
+										<button
+											style={{ background: '#60a5fa' }}
+											className="lg:hidden py-3 my-auto px-8 rounded text-white font-semibold"
+											onClick={() => history.push('/user/withdrawals/withdraw')}
+										>
+											Get_Paid
+										</button>
+
+										<div className="hidden border flex justify-center ml-10 items-center border-white rounded-full h-14 w-16">
 											{' '}
-											<button className="mb-0 cursor-pointer" onClick={() => history.push('/user/withdrawals/withdraw')}>
+
+											<button className="mb-0 cursor-pointer text-normal" onClick={() => history.push('/user/withdrawals/withdraw')}>
 												Get <br />
 												Paid
 											</button>
