@@ -1,47 +1,80 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../../components/Button/Button";
-import { InputField } from "../../../components/Input";
-import { requestWithdrawal } from "../../../utils/ApiRequests";
+import { InputField, SelectInput } from "../../../components/Input";
+import { businessAssociateMoneyRequest, requestWithdrawal } from "../../../utils/ApiRequests";
 import { SuccessMessage } from "../../../components/Message/Message";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
-const maritalStatusData = [
-    { id: 5543, name: "One Day", value: "single" },
-    { id: 14477, name: "One Week", value: "married" },
-    { id: 9654, name: "One Month", value: "divorced" },
-    { id: 3241, name: "One Year", value: "widowed" }
-  ];
+  const repayMethodTypes = [
+    { name: 'Amortized', value: 'amortized' },
+    { name: 'Bullet', value: 'bullet' }
+];
+
+const durationTypes = [
+  { name: '7', value: '7' },
+  { name: '14', value: '14' },
+  { name: '30', value: '30' },
+  { name: '60', value: '60' },
+  { name: '90', value: '90' },
+  { name: '120', value: '120' },
+  { name: '180', value: '7' },
+];
+
 
 const AssociateMoney = () => {
     const [submitting, setSubmitting] = useState(false);
   const [amount, setAmount] = useState("");
   const [success, setSuccess] = useState(false);
+  const [durationTitle, setdurationTitle] = useState(false);
+  const [repayMethodTitle, setrepayMethodTitle] = useState(false);
+
+  const history = useHistory()
   
   const { register, handleSubmit } = useForm();
 
-  const submitRequest = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (formData) => {
     setSubmitting(true);
+    console.log("formData")
+    console.log({...formData, duration: durationTitle.value, repay_method: repayMethodTitle.value})
     try {
-      await requestWithdrawal({ amount: amount });
-      setSubmitting(false);
-      setSuccess(true);
-      setAmount("");
+      const {data} = await businessAssociateMoneyRequest({...formData, 
+        duration: durationTitle.value, 
+        repay_method: repayMethodTitle.value
+      });
+      
+      if (data.status === 200 ) {
+          toast.success(data.message)
+          history.push("/business/dashboard");
+          setSubmitting(false);
+      }
+      else {
+          toast.error(data.message)
+          setSubmitting(false);
+      }
+
+
     } catch (error) {
+      toast.error(error)
       setSubmitting(false);
 
-      error &&
-        toast.error(
-          error.response.data.payload?.data?.errors?.amount[0] ||
-            error.response.data.payload.data.message ||
-            error.response.data.payload.data
-        );
+      // error &&
+      //   toast.error(
+      //     error.response.data.payload?.data?.errors?.amount[0] ||
+      //       error.response.data.payload.data.message ||
+      //       error.response.data.payload.data
+      //   );
 
-      setSuccess(false);
+      // setSuccess(false);
+    }
+    finally {
+      setSubmitting(false);
+
     }
   };
+
+
   return (
     <>
       <div
@@ -99,13 +132,12 @@ const AssociateMoney = () => {
           Associate money 
           </div>
 
-          <form onSubmit={submitRequest}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <InputField
               type="text"
               label="Title of request "
-              onChange={(e) => setAmount(e.target.value)}
-              value={amount}
-              placeholder="Enter Name "
+              {...register('title')}
+              placeholder="Enter Title "
               // required
             />
 
@@ -113,34 +145,32 @@ const AssociateMoney = () => {
               type="text"
               label="Amount"
               placeholder="Enter Amount"
+              {...register('amount')}
               // required
             />
 
-            <label className="font-medium">Duration</label>
-            <select
-              {...register("marital_status", { required: true })}
-              name="marital_status"
-              className="bg-gray-100 px-5 py-5 w-full rounded"
-            >
-              <option value=""></option>
-              {maritalStatusData.map(({ id, name, value }) => (
-                <option value={value} key={id}>
-                  {name}
-                </option>
-              ))}
-            </select>
+            <SelectInput
+                name="duration"
+                label="Duration"
+                selectedValue={durationTitle}
+                setSelectedValue={setdurationTitle}
+                options={durationTypes}
+            />
+           
+
+            <SelectInput
+                name="repay_method"
+                label="Repay Method"
+                selectedValue={repayMethodTitle}
+                setSelectedValue={setrepayMethodTitle}
+                options={repayMethodTypes}
+            />
            
             <InputField
-              type="text"
-              label="Expected Return "
-              placeholder="Enter number  "
-              // required
-            />
-            
-            <InputField
-              type="text"
+              type="number"
               label="Percentage Payback "
               placeholder="0.3 % daily "
+              {...register('percentage')}
               // required
             />
            

@@ -37,31 +37,37 @@ export const DahboardMobileNav = () => {
 			path: '/dashboard',
 			Icon: AiFillHome,
 			name: 'Dashboard',
+			subMenuList: []
 		},
 		{
 			path: '/employee',
 			Icon: FaFolder,
 			name: 'Employees',
+			subMenuList: []
 		},
 		{
 			path: '/withdrawals',
 			Icon: MdAnalytics,
 			name: 'Withdrawals',
+			subMenuList: []
 		},
 		{
 			path: '/payments',
 			Icon: HiBriefcase,
 			name: 'Payments',
+			subMenuList: []
 		},
 		{
 			path: '/legal-info',
 			Icon: FaCommentDots,
 			name: 'Support',
+			subMenuList: []
 		},
 		{
 			path: '/settings',
 			Icon: AiFillSetting,
 			name: 'Settings',
+			subMenuList: []
 		},
 	];
 

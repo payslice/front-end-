@@ -118,11 +118,11 @@ const reportNavTab = [
 
 const moneyNavTab = [
  { name: "Credit Limit Money",
-  link: "business/money",
+  link: "/business/money",
 },
 
  { name: "Associate Money  ",
-  link: "business/associate",
+  link: "/business/associate",
 }
 ]; 
 
