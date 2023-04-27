@@ -20,6 +20,7 @@ import {
     getTotalNoOfAcceptedEmployees,
     getTotalNoOfEmployees,
     payrollGetStatsApi,
+    payrollEmployeeListApi,
 } from "../../utils/ApiRequests";
 import { getTokenFromStorage, getuserFromStorage } from "../../utils/ApiUtils";
 import { toCurrency, truncateString } from "../../utils/helpers";
@@ -44,6 +45,7 @@ const DashboardPayroll = () => {
     const [clockOutData, setClockOutData] = useState();
     const [submitting, setSubmitting] = useState()
     const [payrollState, setpayrollState] = useState()
+    const [payrollEmployeeState, setpayrollEmployeeState] = useState([])
 
     const history = useHistory();
     
@@ -73,9 +75,44 @@ const DashboardPayroll = () => {
         } 
     }
 
+    const payrollEmployeeList = async () => {
+        setSubmitting(true);
+        try {
+            const {data} = await payrollEmployeeListApi();
+
+            console.log("payroll employee list")
+            console.log(data)
+            
+            if (data.status) {
+                console.log("entered payroll employee list inside status")
+                toast.success(data.message)
+                setpayrollEmployeeState(data.data)
+                console.log("payroll employee list inside status")
+                console.log(data.data)
+                setSubmitting(false);
+            }
+            else {
+                toast.error(data.message)
+                setSubmitting(false);
+            }
+
+        } catch (error) {
+            toast.error(error)
+            setSubmitting(false);
+        }
+        finally {
+            setSubmitting(false);
+        } 
+    }
+
     useEffect(() => {
         payrollGetStats()
+        payrollEmployeeList()
     }, []);
+
+
+    console.log("payrollEmployeeState")
+    console.log(payrollEmployeeState)
 
 
     const totalDue = paymentLogs
@@ -314,6 +351,34 @@ const DashboardPayroll = () => {
                                         </tr>
                                 </thead>
                                 <tbody>
+                                        {
+                                        payrollEmployeeState?.map(({ id, name, salary, balance }) => {
+                                                        return (
+                                                                <tr className="bg-white border-b last:border-none hover:bg-gray-50">
+                                                                        <td className="w-4 p-6">
+                                                                                <div className="flex items-center">
+                                                                                        <input
+                                                                                                id="checkbox-table-1"
+                                                                                                type="checkbox"
+                                                                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                                                                                        />
+                                                                                        <label htmlFor="checkbox-table-1" className="sr-only">
+                                                                                                checkbox
+                                                                                        </label>
+                                                                                </div>
+                                                                        </td>
+                                                                        {/* <td className="px-6 py-4">{name}</td>
+                                                                <td className="px-6 py-4">{salary}</td>
+                                                                <td className="px-6 py-4">{balance}</td> */}
+                                                                        <td className="px-6 py-4">
+                                                                                <div className="flex items-center">
+                                                                                        {/* <OptionsMenu options={tableOptions} param={id} /> */}
+                                                                                </div>
+                                                                        </td>
+                                                                </tr>
+                                                        );
+                                                })}
+                                            }
                                         {activeTab === 0 &&
                                                 clockInData?.map(({ id, name, salary, balance }) => {
                                                         return (
