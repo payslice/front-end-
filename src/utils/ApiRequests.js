@@ -97,6 +97,9 @@ export const payrollGetStatsApi = () => {
 export const payrollEmployeeListApi = () => {
   return ApiRequestWithToken().get(`/api/business/payroll/employees`);
 };
+export const businessAccountFlowApi = () => {
+  return ApiRequestWithToken().get(`/api/business/account/flow`);
+};
 
 export const employeeLogin = formData => {
     return ApiRequest().post("api/employee/login", formData);

@@ -3,15 +3,17 @@ import React, { useState, useEffect } from "react";
 import { BiCalendarEvent } from "react-icons/bi";
 import { BsArrowUp, BsArrowDown } from "react-icons/bs";
 import { toast } from "react-toastify";
-import {
-    AreaChart,
-    Area,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer,
-} from "recharts";
+// import {
+//     AreaChart,
+//     Area,
+//     XAxis,
+//     YAxis,
+//     CartesianGrid,
+//     Tooltip,
+//     ResponsiveContainer,
+//     BarChart,
+//     Bar
+// } from "recharts";
 import {
     getAllCompanyPolicy,
     getDashboardWithdrawalRequests,
@@ -20,6 +22,7 @@ import {
     getTotalNoOfAcceptedEmployees,
     getTotalNoOfEmployees,
     businessAccountDetails,
+    businessAccountFlowApi,
 } from "../../utils/ApiRequests";
 import { getTokenFromStorage, getuserFromStorage } from "../../utils/ApiUtils";
 import { toCurrency, truncateString } from "../../utils/helpers";
@@ -29,23 +32,129 @@ import Navbar from "../../components/Navbar";
 import { chart_one } from "../../utils/data";
 import { useSelector } from "react-redux";
 import { persistSelector } from "../../slices/persist";
+// import {Chart} from 'chart.js'
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+  } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import {TransactionStatusFail, TransactionStatusNeutral, TransactionStatusSuccess} from '../../components/TransactionStatus';
+// import faker from 'faker'
+
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  
+export const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '',
+      },
+    },
+  };
+
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'May', 'June', 'July'];
+
+  export const data = {
+    labels,
+    datasets: [
+      {
+        label: "(ks)",
+        data: [1,2,300,4,5,160,300,4,5,160],
+        backgroundColor: 'rgba(28, 106, 244, 0.5)',
+      },
+    //   {
+    //     label: 'Dataset 2',
+    //     data: [1,2,3,4,5,5,6],
+    //     backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    //   },
+    ],
+  };
+
 
 const DashboardHome = () => {
     const { user } = useSelector(persistSelector);
     const [activeIndex, setActiveIndex] = useState(0);
     const [policyResponse, setPolicyResponse] = useState();
     const [acceptedEmployees, setAcceptedEmployees] = useState();
-    const [graphData, setGraphData] = useState(chart_one);
+    // const [graphData, setGraphData] = useState(chart_one);
+    const [graphData, setGraphData] = useState();
     const [allWithdrawals, setAllWithdrawals] = useState();
     const [notificationLoading, setNotificationLoading] = useState(false);
     const [paymentLogs, setPaymentLogs] = useState();
     const [profile, setProfile] = useState(user);
+    const [loading, setloading] = useState(false);
+    const [accountDetails, setaccountDetails] = useState();
 
     console.log(user);
 
     const token = getTokenFromStorage();
 
     const history = useHistory();
+
+    const businessAccount = async () => {
+        setloading(true)
+        try {
+            const {data} = await businessAccountDetails();
+        
+            if (data.status) {
+                toast.success(data.message)
+                setaccountDetails(data.data)
+                setloading(false);
+            }
+            else {
+                toast.error(data.message)
+                setloading(false);
+            }
+        } catch (error) {
+            toast.error(error)
+            setloading(false);
+        }
+        finally {
+            setloading(false);
+        } 
+    };
+    const businessAccountFlow = async () => {
+        setloading(true)
+        try {
+            const {data} = await businessAccountFlowApi();
+
+            console.log(data)
+        
+            if (data.status) {
+                toast.success(data.message)
+                setGraphData(data.data)
+                setloading(false);
+            }
+            else {
+                toast.error(data.message)
+                setloading(false);
+            }
+        } catch (error) {
+            toast.error(error)
+            setloading(false);
+        }
+        finally {
+            setloading(false);
+        } 
+    };
 
     useEffect(() => {
         // date is currently hard coded. To be modified later.
@@ -65,19 +174,6 @@ const DashboardHome = () => {
         // };
         // fetchAcceptedEmployees();
 
-        const businessAccount = async () => {
-            try {
-                const {data} = await businessAccountDetails();
-
-                console.log(data)
-                toast.error(data.message);
-                // res.data.payload.data.length > 0 &&
-                //     setPolicyResponse(res?.data?.payload?.data[0]);
-            } catch (error) {
-                // console.log("error", error);
-                toast.error("An error occurred");
-            }
-        };
 
         businessAccount()
 
@@ -197,6 +293,7 @@ const DashboardHome = () => {
         );
         // Your application is undergoing a review at the moment. You would be notified via email after the assessment. If you need to make changes to your data, please edit below.
 
+
     return (
         <div>
             <div className='flex items-center justify-between mobiles:block '>
@@ -266,39 +363,32 @@ const DashboardHome = () => {
                         </h4>
                     </div>
                     */}
+                    
                     <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Credit limit
                         </p>
-                        <p className='flex mt-2 text-sm font-light'>{`${new Date(
-                            policyResponse?.updated_at
-                        ).toLocaleString("default", {
-                            month: "long",
-                        })} ${new Date(
-                            policyResponse?.updated_at
-                        ).getFullYear()} `}</p>
-                        <h4 className='text-[28px] font-bold mt-1.5'>0</h4>
+                        <p className='flex mt-2 text-sm font-light'>This Month</p>
+                        <h4 className='text-[28px] font-bold mt-1.5'>{accountDetails?.credit_limit}</h4>
                     </div>
                     <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Wallet Balance
                         </p>
                         <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
-                            {`${new Date(
-                                policyResponse?.updated_at
-                            ).toLocaleString("default", {
-                                month: "long",
-                            })} ${new Date(
-                                policyResponse?.updated_at
-                            ).getFullYear()} `}
-                            <span
-                                className='flex ml-2 font-bold'
-                                style={{ color: "#0B9B36" }}>
-                                0% <BsArrowUp className='my-auto' />
-                            </span>
+                            
+                            {/*
+                            {accountDetails?.main_account.balance}        
+                                <span
+                                    className='flex ml-2 font-bold'
+                                    style={{ color: "#0B9B36" }}>
+                                    0% <BsArrowUp className='my-auto' />
+                                </span>
+                            */}
+                            Today
                         </p>
                         <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
-                            {acceptedEmployees || "N/A"}
+                            {accountDetails?.main_account.balance}
                             <span
                                 className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
                                 onClick={() => history.push("/employee")}>
@@ -311,15 +401,17 @@ const DashboardHome = () => {
                             Upcoming payments
                         </p>
                         <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
-                            January 2021{" "}
+                        {accountDetails?.upcoming_payments.due_date}
+                        {/*
                             <span
                                 className='flex ml-2 font-bold'
                                 style={{ color: "#D0000C" }}>
                                 -3% <BsArrowDown className='my-auto font-bold' />
                             </span>
+                        */}
                         </p>
                         <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
-                            {toCurrency(totalDue)}
+                            {accountDetails?.upcoming_payments.amount}
                             <span
                                 className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
                                 onClick={() => history.push("/payments")}>
@@ -336,110 +428,27 @@ const DashboardHome = () => {
                         <h3 className='text-xl font-semibold text-[#111111b3] pt-5 mb-6 px-2'>
                             Withdrawal
                         </h3>
-                        <ResponsiveContainer width='100%' height='85%'>
-                            <AreaChart
-                                data={graphData}
-                                fontSize={14}
-                                fontWeight={"semibold"}
-                                margin={{
-                                    top: 10,
-                                    right: 10,
-                                    left: -12,
-                                    bottom: 0,
-                                }}>
-                                <defs>
-                                    <linearGradient
-                                        id='colorUv'
-                                        x1='0'
-                                        y1='0'
-                                        x2='0'
-                                        y2='1'>
-                                        <stop
-                                            offset='50%'
-                                            stopColor='#1C64F2'
-                                            stopOpacity={0.6}
-                                        />
-                                        <stop
-                                            offset='100%'
-                                            stopColor='#1C64F2'
-                                            stopOpacity={0}
-                                        />
-                                    </linearGradient>
-                                    <linearGradient
-                                        id='colorPv'
-                                        x1='0'
-                                        y1='0'
-                                        x2='0'
-                                        y2='1'>
-                                        <stop
-                                            offset='100%'
-                                            stopColor='#82ca9d'
-                                            stopOpacity={0.8}
-                                        />
-                                        <stop
-                                            offset='95%'
-                                            stopColor='#82ca9d'
-                                            stopOpacity={0}
-                                        />
-                                    </linearGradient>
-                                </defs>
-                                <XAxis
-                                    dataKey='name'
-                                    tick={{ fill: "#989898" }}
-                                />
-                                <YAxis
-                                    tick={{ fill: "#989898" }}
-                                    orientation='left'
-                                />
-                                <CartesianGrid
-                                    x='0'
-                                    vertical={false}
-                                    strokeDasharray='3 3'
-                                    strokeOpacity={0.3}
-                                />
-                                <Tooltip
-                                    wrapperStyle={{
-                                        color: "red",
-                                        backgroundColor: "#000 !important",
-                                    }}
-                                    labelStyle={{ color: "green" }}
-                                    itemStyle={{ color: "#000" }}
-                                    formatter={value => {
-                                        return [`${value}`, `Kwh`];
-                                    }}
-                                    labelFormatter={value => {
-                                        return `'Unit Purchased', ${value}`;
-                                    }}
-                                />
-                                <Area
-                                    dataKey='pv'
-                                    type='monotone'
-                                    stroke='#1C64F2'
-                                    fillOpacity={0.5}
-                                    strokeWidth={3}
-                                    dot={{
-                                        r: 6,
-                                        stroke: "#1C64F2",
-                                        strokeWidth: 1,
-                                        fill: "#fff",
-                                        fillOpacity: 2,
-                                    }}
-                                    activeDot={{
-                                        r: 5,
-                                        stroke: "#1C64F2",
-                                        strokeWidth: 4,
-                                        fill: "#fff",
-                                    }}
-                                    fill='url(#colorUv)'
-                                />
-                            </AreaChart>
-                        </ResponsiveContainer>
+                            <Bar options={options} data={data} />
+                            {/*
+                                
+                            <ResponsiveContainer width='100%' height='85%'>
+                                <BarChart width={150} height={40} data={graphData}>
+                                <Bar dataKey="uv" fill="#8884d8" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                            */}
                     </div>
                     <div className='w-1/3 mobiles:w-full rounded-[10px] border border-gray h-[527px]'>
                         <div className='text-base text-[#111111b3] font-semibold border-b border-gray-300 py-[18px] px-5'>
                             Recent transactions
                         </div>
                         <div className='transaction-timeline overflow-y-scroll h-full max-h-[440px]'>
+                        
+                            <TransactionStatusFail message="₦30,000 has been withdrawn from wallet" date="wed,24 may" statusKind="negative" rate="0.4" day="7"  balance="30,000" />
+                            <TransactionStatusSuccess message="₦30,000 has been withdrawn from wallet" date="wed,24 may" statusKind="neutral" balance="30,000" />
+                            <TransactionStatusSuccess message="₦30,000 has been withdrawn from wallet" date="wed,24 may" statusKind="positive"  balance="30,000" />
+                            <TransactionStatusNeutral message="₦30,000 has been withdrawn from wallet" date="wed,24 may" statusKind="negative" rate="0.4" day="7"  balance="30,000" />
+                            <TransactionStatusNeutral message="₦30,000 has been withdrawn from wallet" date="wed,24 may" statusKind="neutral" balance="30,000" />
                             {notificationLoading && (
                                 <div className='flex items-center justify-center h-full'>
                                     <svg

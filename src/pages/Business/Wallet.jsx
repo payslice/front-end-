@@ -33,6 +33,9 @@ import { persistSelector } from "../../slices/persist";
 import { Button } from "../../components/Button/Button";
 import { AiTwotoneCalendar } from 'react-icons/ai';
 import { BsArrowDownLeftCircle, BsArrowUpRightCircle } from "react-icons/bs";
+import {TransactionStatusFail, TransactionStatusNeutral, TransactionStatusSuccess} from '../../components/TransactionStatus'
+
+
 
 const Wallet = () => {
     const { user } = useSelector(persistSelector);
@@ -149,119 +152,13 @@ const Wallet = () => {
                                 <div className="py-4 px-10 font-bold border-b-2 border-[#f3f3f3] pt-8">
                                     <span className="bg-[#DBEAFE] text-[#1C6AF4] px-4 rounded-[100px] py-1">WALLET HISTORY</span>
                                 </div>
-                                <div className="flex">
 
-                                    <div className="w-2/12">
-                                        <div className="flex justify-center pt-5">
-                                            <div className="w-[42px] h-[40px]">
-                                                <div className="bg-[#FFEFF0] p-3 rounded-full">
-                                                    <BsArrowDownLeftCircle color="#D0000C" size={20} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="flex justify-center pt-5">
-                                            <hr className="bg-[#E5E5E5] w-[1px] h-[130px]" />
-                                        </div>
-                    
-                                    </div>
-                                    <div className="w-10/12">
-                                        <div className="pb-10">
-                                            <h2 className="font-semibold text-[20px] py-1 pt-4">₦30,000 has been withdrawn from wallet </h2>
-                                            <p className="pb-2 font-medium text-[14px]">wed,24 may by you</p>
-                                            <div className="border-2 border-[#f3f3f3] rounded-lg flex text-center mt-5 w-10/12">
-                                                <div className="w-1/3 p-4 py-3 border-r-2 border-[#f3f3f3]">
-                                                    <p>Amount</p>
-                                                    <h2 className="font-bold text-[#111111]/[0.7] text-[16px] md:text-[20px]">₦30,000</h2>
-                                                </div>
-                                                <div className="w-1/3 p-4 py-3 border-r-2 border-[#f3f3f3]">
-                                                    <p>Interest rate</p>
-                                                    <h2 className="font-bold text-[#111111]/[0.7] text-[16px] md:text-[20px]">0.4%</h2>
-                                                </div>
-                                                <div className="w-1/3 p-4 py-3">
-                                                    <p>Duration </p>
-                                                    <h2 className="font-bold text-[#111111]/[0.7] text-[16px] md:text-[20px]">7 days</h2>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <TransactionStatusFail message="₦30,000 has been withdrawn from wallet" date="wed,24 may" statusKind="negative" rate="0.4" day="7"  balance="30,000" />
+                                <TransactionStatusSuccess message="₦30,000 has been withdrawn from wallet" date="wed,24 may" statusKind="neutral" balance="30,000" />
+                                <TransactionStatusSuccess message="₦30,000 has been withdrawn from wallet" date="wed,24 may" statusKind="positive"  balance="30,000" />
+                                <TransactionStatusNeutral message="₦30,000 has been withdrawn from wallet" date="wed,24 may" statusKind="negative" rate="0.4" day="7"  balance="30,000" />
+                                <TransactionStatusNeutral message="₦30,000 has been withdrawn from wallet" date="wed,24 may" statusKind="neutral" balance="30,000" />
 
-                                    </div>
-                                </div>
-                                
-                                <div className="flex">
-
-                                    <div className="w-2/12">
-                                        <div className="flex justify-center pt-5">
-                                            <div className="w-[42px] h-[40px]">
-                                                <div className="bg-[#DCFFE6] p-3 rounded-full">
-                                                    <BsArrowUpRightCircle color="#087A2A" size={20} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="flex justify-center pt-5">
-                                            <hr className="bg-[#E5E5E5] w-[1px] h-[130px]" />
-                                        </div>
-                    
-                                    </div>
-                                    <div className="w-10/12">
-                                        <div className="pb-10">
-                                            <h2 className="font-semibold text-[20px] py-1 pt-4">₦12,000 has been Repaid from your debit card </h2>
-                                            <p className="pb-2 font-medium text-[14px]">wed,24 may by <span className="text-[#1C6AF4]">Payslice</span></p>
-                                            <div className="border-2 border-[#f3f3f3] rounded-lg flex text-center mt-5 w-10/12">
-                                                <div className="w-1/3 p-4 py-3 border-r-2 border-[#f3f3f3]">
-                                                    <p>Amount</p>
-                                                    <h2 className="font-bold text-[#111111]/[0.7] text-[16px] md:text-[20px]">₦30,000</h2>
-                                                </div>
-                                                <div className="w-1/3 p-4 py-3 border-r-2 border-[#f3f3f3]">
-                                                    <p>Interest rate</p>
-                                                    <h2 className="font-bold text-[#111111]/[0.7] text-[16px] md:text-[20px]">0.4%</h2>
-                                                </div>
-                                                <div className="w-1/3 p-4 py-3">
-                                                    <p>Duration </p>
-                                                    <h2 className="font-bold text-[#111111]/[0.7] text-[16px] md:text-[20px]">7 days</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="flex">
-
-                                    <div className="w-2/12">
-                                        <div className="flex justify-center pt-5">
-                                            <div className="w-[42px] h-[40px]">
-                                                <div className="bg-[#CEEDFF] p-3 rounded-full">
-                                                    <BsArrowDownLeftCircle color="#2A69AC" size={20} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="flex justify-center pt-5">
-                                            <hr className="bg-[#E5E5E5] w-[1px] h-[130px]" />
-                                        </div>
-                    
-                                    </div>
-                                    <div className="w-10/12">
-                                        <div className="pb-10">
-                                            <h2 className="font-semibold text-[20px] py-1 pt-4">₦12,000 has been Repaid from your debit card </h2>
-                                            <p className="pb-2 font-medium text-[14px]">wed,24 may by <span className="text-[#1C6AF4]">you</span></p>
-                                            <div className="border-2 border-[#f3f3f3] rounded-lg flex text-center mt-5 w-10/12">
-                                                <div className="w-1/3 p-4 py-3 border-r-2 border-[#f3f3f3]">
-                                                    <p>Amount</p>
-                                                    <h2 className="font-bold text-[#111111]/[0.7] text-[16px] md:text-[20px]">₦30,000</h2>
-                                                </div>
-                                                <div className="w-1/3 p-4 py-3 border-r-2 border-[#f3f3f3]">
-                                                    <p>Interest rate</p>
-                                                    <h2 className="font-bold text-[#111111]/[0.7] text-[16px] md:text-[20px]">0.4%</h2>
-                                                </div>
-                                                <div className="w-1/3 p-4 py-3">
-                                                    <p>Duration </p>
-                                                    <h2 className="font-bold text-[#111111]/[0.7] text-[16px] md:text-[20px]">7 days</h2>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

@@ -22,10 +22,10 @@ import Wallet from "../pages/Business/Wallet";
 
 export const BusinessRoutesList = [
   { path: "/business/dashboard", component: DashboardHome, exact: true },
+  { path: "/business/dashboard/wallets", component: Wallet, exact: true },
   { path: "/business/dashboard/wallet", component: DashboardWallet, exact: true },
   { path: "/business/dashboard/payroll", component: DashboardPayroll, exact: true }, 
   { path: "/business/dashboard/payroll/report", component: DashboardPayrollReport, exact: true }, 
-  { path: "/business/wallets", component: Wallet, exact: true },
   { path: "/business/create", component: CreateEmployee, exact: true }, 
   { path: "/business/details", component: EmployeeDetails, exact: true }, 
   { path: "/business/upload", component: UploadEmployee, exact: true }, 

@@ -51,7 +51,7 @@ const Sidebar = () => {
 					/>
 
 					<div className="border-white border-b-2 w-10 mb-3 mt-3 ml-[26px]"></div>
-					<SidebarItem currentPath={currentLocation} Icon={HiBriefcase} path="/business/payments" caption="Payments" isDb />
+					<SidebarItem currentPath={currentLocation} Icon={HiBriefcase} path="/business/payroll" caption="Payroll" isDb />
 					{/*<SidebarItem currentPath={currentLocation} Icon={FaCommentDots} path="/support" caption="Support" isDb /> */}
 					<SidebarItem currentPath={currentLocation} Icon={AiFillSetting} path="/business/settings" caption="Settings" isDb />
 				</ul>
