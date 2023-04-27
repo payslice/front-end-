@@ -90,7 +90,7 @@ const dashboardWalletNavTab = [
 const dashboardPayroll = [
   {
     name: "Employee Payroll ",
-    link: "/business/dashboard",
+    link: "/business/dashboard/payroll/report",
   },
   {
     name: "Earn as you",

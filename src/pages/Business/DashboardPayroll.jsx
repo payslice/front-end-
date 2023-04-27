@@ -19,6 +19,7 @@ import {
     getDashboardWithdrawalWithParams,
     getTotalNoOfAcceptedEmployees,
     getTotalNoOfEmployees,
+    payrollGetStatsApi,
 } from "../../utils/ApiRequests";
 import { getTokenFromStorage, getuserFromStorage } from "../../utils/ApiUtils";
 import { toCurrency, truncateString } from "../../utils/helpers";
@@ -31,148 +32,51 @@ import { persistSelector } from "../../slices/persist";
 import { Button } from "../../components/Button/Button";
 import { CustomTag } from "../../components/CustomTag";
 import { AiOutlineSearch, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
+import { DotLoader } from "../../components/Loaders/DotLoader";
 
 const DashboardPayroll = () => {
     const { user } = useSelector(persistSelector);
-    const [activeIndex, setActiveIndex] = useState(0);
     const [policyResponse, setPolicyResponse] = useState();
     const [acceptedEmployees, setAcceptedEmployees] = useState();
-    const [graphData, setGraphData] = useState(chart_one);
-    const [allWithdrawals, setAllWithdrawals] = useState();
-    const [notificationLoading, setNotificationLoading] = useState(false);
     const [paymentLogs, setPaymentLogs] = useState();
-    const [profile, setProfile] = useState(user);
     const [activeTab, setActiveTab] = useState(0);
     const [clockInData, setClockInData] = useState();
     const [clockOutData, setClockOutData] = useState();
-
-    console.log(user);
-
-    const token = getTokenFromStorage();
+    const [submitting, setSubmitting] = useState()
+    const [payrollState, setpayrollState] = useState()
 
     const history = useHistory();
+    
+    const payrollGetStats = async () => {
+        setSubmitting(true);
+        try {
+            const {data} = await payrollGetStatsApi();
+
+            console.log(data)
+            
+            if (data.status) {
+                toast.success(data.message)
+                setpayrollState(data.data)
+                setSubmitting(false);
+            }
+            else {
+                toast.error(data.message)
+                setSubmitting(false);
+            }
+
+        } catch (error) {
+            toast.error(error)
+            setSubmitting(false);
+        }
+        finally {
+            setSubmitting(false);
+        } 
+    }
 
     useEffect(() => {
-        // date is currently hard coded. To be modified later.
-        const employeesDate = new Date();
-
-        const fetchAcceptedEmployees = async filterParams => {
-            try {
-                const res = await getTotalNoOfEmployees(
-                    employeesDate.getDay(),
-                    employeesDate.getMonth() + 1,
-                    employeesDate.getUTCFullYear()
-                );
-                setAcceptedEmployees(res.data.payload.data?.numberOfEmployees);
-            } catch (error) {
-                console.log("error", error);
-            }
-        };
-        fetchAcceptedEmployees();
+        payrollGetStats()
     }, []);
 
-    useEffect(() => {
-        setNotificationLoading(true);
-        function handleChangeStorage() {
-            setProfile(user);
-        }
-        const fetchPolicy = async () => {
-            try {
-                const res = await getAllCompanyPolicy();
-                res.data.payload.data.length > 0 &&
-                    setPolicyResponse(res?.data?.payload?.data[0]);
-            } catch (error) {
-                // console.log("error", error);
-                toast.error("An error occurred");
-            }
-        };
-
-        const getApprovedTransaction = async () => {
-            try {
-                const response = await getDashboardWithdrawalWithParams(
-                    profile?.company_id,
-                    "approved"
-                );
-                const dataRes = response?.data?.payload?.data
-                    ?.slice(0, 7)
-                    ?.map((data, index) => {
-                        return {
-                            name: new Date(
-                                data.created_at
-                            ).toLocaleDateString(),
-                            uv: 40000,
-                            pv: parseInt(data.amount),
-                            amt: parseInt(data.amount),
-                        };
-                    });
-
-                // setGraphData(dataRes);
-            } catch (error) {
-                // console.log("approved error", error);
-                toast.error("An error occurred");
-            }
-        };
-
-        const getWithdrawals = async () => {
-            try {
-                const res = await getDashboardWithdrawalWithParams(
-                    profile.company_id,
-                    "approved"
-                );
-                setAllWithdrawals(res.data.payload.data.slice(0, 4));
-                setNotificationLoading(false);
-            } catch (error) {
-                toast.error("Can't get employee withdrawals");
-                setNotificationLoading(false);
-            }
-        };
-
-        const fetchPaymentLogs = async () => {
-            try {
-                const response = await getPaymentLogs();
-                const resetData = response.data.payload.paymentLogs?.map(
-                    (resData, i) => {
-                        const date = new Date(resData.created_at);
-                        return {
-                            key: i,
-                            id: resData.id,
-                            paymemtID: truncateString(resData.id, 8),
-                            amount: parseInt(resData.amount),
-                            totalPayable: toCurrency(resData.amount),
-                            totalPay:
-                                resData.amount_remaining === null
-                                    ? toCurrency(resData.amount)
-                                    : toCurrency(
-                                          parseInt(resData.amount) -
-                                              parseInt(resData.amount_remaining)
-                                      ),
-                            month: date.toLocaleString("default", {
-                                month: "long",
-                            }),
-                            status:
-                                resData.completed === "no" ? "Unpaid" : "Paid",
-                            dateYear: `${date.toLocaleString("default", {
-                                month: "long",
-                            })} ${date.getFullYear()}`,
-                            amount_remaining: resData.amount_remaining,
-                        };
-                    }
-                );
-                setPaymentLogs(resetData);
-                // setFetchingData(false);
-            } catch (error) {
-                toast.error("Something went wrong");
-            }
-        };
-        if (profile) {
-            fetchPolicy();
-            getApprovedTransaction();
-            getWithdrawals();
-            fetchPaymentLogs();
-        }
-        window.addEventListener("storage", handleChangeStorage);
-        return () => window.removeEventListener("storage", handleChangeStorage);
-    }, [profile, user]);
 
     const totalDue = paymentLogs
         ?.filter(data => typeof data.amount_remaining == "string")
@@ -265,62 +169,97 @@ const DashboardPayroll = () => {
                         <p className='text-lg font-bold text-gray-600'>
                                 Active Company size
                         </p>
-                        <p className='flex mt-2 text-sm font-light'>{`${new Date(
-                            policyResponse?.updated_at
-                        ).toLocaleString("default", {
-                            month: "long",
-                        })} ${new Date(
-                            policyResponse?.updated_at
-                        ).getFullYear()} `}</p>
-                        <h4 className='text-[28px] font-bold mt-1.5'>0</h4>
+                        {
+                            submitting
+                            ?
+                            <DotLoader/>
+                            :
+                            (
+                                <>
+                                    <p className='flex mt-2 text-sm font-light'>{`${new Date(
+                                        policyResponse?.updated_at
+                                    ).toLocaleString("default", {
+                                        month: "long",
+                                    })} ${new Date(
+                                        policyResponse?.updated_at
+                                    ).getFullYear()} `}</p>
+                                    <h4 className='text-[28px] font-bold mt-1.5'>{payrollState?.company_size}</h4>
+                                </>
+                            )
+
+                        }
                     </div>
                     <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                                 Active Payroll size 
                         </p>
-                        <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
-                            {`${new Date(
-                                policyResponse?.updated_at
-                            ).toLocaleString("default", {
-                                month: "long",
-                            })} ${new Date(
-                                policyResponse?.updated_at
-                            ).getFullYear()} `}
-                            <span
-                                className='flex ml-2 font-bold'
-                                style={{ color: "#0B9B36" }}>
-                                0% <BsArrowUp className='my-auto' />
-                            </span>
-                        </p>
-                        <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
-                            {acceptedEmployees || "N/A"}
-                            <span
-                                className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
-                                onClick={() => history.push("/employee")}>
-                                Manage{" "}
-                            </span>
-                        </h4>
+                        
+                        {
+                            submitting
+                            ?
+                            <DotLoader />
+                            :
+                            (
+                                <>
+                                <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
+                                    {`${new Date(
+                                        policyResponse?.updated_at
+                                    ).toLocaleString("default", {
+                                        month: "long",
+                                    })} ${new Date(
+                                        policyResponse?.updated_at
+                                    ).getFullYear()} `}
+                                    <span
+                                        className='flex ml-2 font-bold'
+                                        style={{ color: "#0B9B36" }}>
+                                        0% <BsArrowUp className='my-auto' />
+                                    </span>
+                                </p>
+                                <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
+                                {payrollState?.payroll_size}
+                                    <span
+                                        className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
+                                        onClick={() => history.push("/employee")}>
+                                        Manage{" "}
+                                    </span>
+                                </h4>
+                                </>
+                            )
+
+                        }
                     </div>
                     <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Upcoming payments
                         </p>
-                        <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
-                            January 2021{" "}
-                            <span
-                                className='flex ml-2 font-bold'
-                                style={{ color: "#D0000C" }}>
-                                -3% <BsArrowDown className='my-auto font-bold' />
-                            </span>
-                        </p>
-                        <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
-                            {toCurrency(totalDue)}
-                            <span
-                                className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
-                                onClick={() => history.push("/payments")}>
-                                Repay now
-                            </span>
-                        </h4>
+                        {
+                            submitting
+                            ?
+                            <DotLoader />
+                            :
+                            (
+                                <>
+                                    <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
+                                        January 2021{" "}
+                                        <span
+                                            className='flex ml-2 font-bold'
+                                            style={{ color: "#D0000C" }}>
+                                            -3% <BsArrowDown className='my-auto font-bold' />
+                                        </span>
+                                    </p>
+                                    <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
+                                    
+                                        {payrollState?.upcoming_payment}
+                                        <span
+                                            className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
+                                            onClick={() => history.push("/payments")}>
+                                            Repay now
+                                        </span>
+                                    </h4>
+                                </>
+                            )
+
+                        }
                     </div>
                 </div>
                 <div>
