@@ -97,6 +97,15 @@ export const payrollGetStatsApi = () => {
 export const payrollEmployeeListApi = () => {
   return ApiRequestWithToken().get(`/api/business/payroll/employees`);
 };
+export const pendingPayrollEarnasApi = () => {
+  return ApiRequestWithToken().get(`/api/business/payroll/pending_earn_as_you_go`);
+};
+export const payrollEarnasApi = () => {
+  return ApiRequestWithToken().get(`/api/business/payroll/earn_as_you_go_requests`);
+};
+export const payrollHistoryApi = () => {
+  return ApiRequestWithToken().get(`/api/business/payroll/payout_history`);
+};
 export const businessAccountFlowApi = () => {
   return ApiRequestWithToken().get(`/api/business/account/flow`);
 };

@@ -41,7 +41,7 @@ const Sidebar = () => {
 			<div className="mt-24">
 				<ul className="px-8 mt-10">
 					<SidebarItem currentPath={currentLocation} Icon={AiFillHome} path="/business/dashboard" caption="Dashboard" isDb />
-					<SidebarItem currentPath={currentLocation} Icon={FaFolder} path="/business/employee" caption="Wallets" isDb />
+					<SidebarItem currentPath={currentLocation} Icon={FaFolder} path="/business/wallets" caption="Wallets" isDb />
 					<SidebarItem
 						currentPath={currentLocation}
 						Icon={MdAnalytics}

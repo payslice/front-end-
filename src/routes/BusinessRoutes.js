@@ -12,23 +12,24 @@ import FloatMoney from "../pages/Business/Employee/FloatMoney";
 import EmployeeReport from "../pages/Business/Employee/EmployeeReport";
 import LinkBank from "../pages/Business/Employee/LinkBank";
 import DashboardWallet from "../pages/Business/DashboardWallet";
-import DashboardPayroll from "../pages/Business/DashboardPayroll";
+import DashboardPayroll from "../pages/Business/payroll/Payroll";
 import DashboardPayrollReport from "../pages/Business/DashboardPayrollReport";
 import EmployeeDetails from "../pages/Employees/EmployeeDetails";
 import UploadEmployee from "../pages/Business/Employee/UploadEmployee";
 import CreateEmployee from "../pages/Business/Employee/CreateEmployee";
 import Wallet from "../pages/Business/Wallet";
 import EarnasPayroll from '../pages/Business/payroll/EarnasPayroll';
+import PayrollHistory from "../pages/Business/payroll/PayrollHistory";
 
 
 export const BusinessRoutesList = [
   { path: "/business/dashboard", component: DashboardHome, exact: true },
-  { path: "/business/dashboard/wallets", component: Wallet, exact: true },
   { path: "/business/dashboard/wallet", component: DashboardWallet, exact: true },
   { path: "/business/dashboard/payroll/report", component: DashboardPayrollReport, exact: true }, 
+  { path: "/business/wallets", component: Wallet, exact: true },
   { path: "/business/payroll", component: DashboardPayroll, exact: true },  
   { path: "/business/payroll/earn", component: EarnasPayroll, exact: true },  
-  { path: "/business/payroll/history", component: EarnasPayroll, exact: true },  
+  { path: "/business/payroll/history", component: PayrollHistory, exact: true },  
   { path: "/business/create", component: CreateEmployee, exact: true }, 
   { path: "/business/details", component: EmployeeDetails, exact: true }, 
   { path: "/business/upload", component: UploadEmployee, exact: true }, 

@@ -5,36 +5,16 @@ import { BsArrowUp, BsArrowDown } from "react-icons/bs";
 import styled from 'styled-components'
 import { toast } from "react-toastify";
 import {
-    AreaChart,
-    Area,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer,
-} from "recharts";
-import {
-    getAllCompanyPolicy,
-    getDashboardWithdrawalRequests,
-    getPaymentLogs,
-    getDashboardWithdrawalWithParams,
-    getTotalNoOfAcceptedEmployees,
-    getTotalNoOfEmployees,
     payrollGetStatsApi,
     payrollEmployeeListApi,
-} from "../../utils/ApiRequests";
-import { getTokenFromStorage, getuserFromStorage } from "../../utils/ApiUtils";
-import { toCurrency, truncateString } from "../../utils/helpers";
+} from "../../../utils/ApiRequests";
 import { useHistory } from "react-router-dom";
-import Navbar from "../../components/Navbar";
-
-import { chart_one } from "../../utils/data";
 import { useSelector } from "react-redux";
-import { persistSelector } from "../../slices/persist";
-import { Button } from "../../components/Button/Button";
-import { CustomTag } from "../../components/CustomTag";
+import { persistSelector } from "../../../slices/persist";
+import { Button } from "../../../components/Button/Button";
+import { CustomTag } from "../../../components/CustomTag";
 import { AiOutlineSearch, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
-import { DotLoader } from "../../components/Loaders/DotLoader";
+import { DotLoader } from "../../../components/Loaders/DotLoader";
 import { useTable, usePagination, useRowSelect, useSortBy, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
 import { IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
 // import matchSorter from 'match-sorter'
@@ -360,7 +340,7 @@ function Table({ columns, data }) {
   }
   
 
-const DashboardPayroll = () => {
+const Payroll = () => {
     const { user } = useSelector(persistSelector);
     const [policyResponse, setPolicyResponse] = useState();
     const [acceptedEmployees, setAcceptedEmployees] = useState();
@@ -483,83 +463,12 @@ const DashboardPayroll = () => {
     }, []);
 
 
-    console.log("payrollEmployeeState")
-    console.log(payrollEmployeeState)
-
-    console.log("payrollEmployeeState2")
-    console.log(payrollEmployeeState2)
-
-
     const totalDue = paymentLogs
         ?.filter(data => typeof data.amount_remaining == "string")
         .reduce(
             (acc, num) => parseInt(acc) + parseInt(num.amount_remaining),
             0
         );
-
-        const columns = [
-		{
-			title: 'Full Name',
-			dataIndex: 'key',
-		},
-		{
-			title: 'Phone & email',
-			dataIndex: 'date',
-		},
-		{
-			title: 'Bank Details',
-			dataIndex: 'timeIn',
-		},
-		{
-			title: 'Salary',
-			dataIndex: 'timeIn',
-		},
-		{
-			title: 'Salary balance',
-			dataIndex: 'timeIn',
-		},
-		// {
-		// 	title: 'Checkin status',
-		// 	dataIndex: 'checkInStatus',
-		// 	render: (status) => (
-		// 		<span>
-		// 			<CustomTag text={status} isDanger={status === 'Pending'} isSuccess={status === 'Committed'} />
-		// 		</span>
-		// 	),
-		// },
-		{
-			title: 'Action',
-			dataIndex: 'location',
-		},
-	];
-
-	const columns2 = [
-		{
-			title: 'S/N',
-			dataIndex: 'key',
-		},
-		{
-			title: 'Dates',
-			dataIndex: 'date',
-		},
-		{
-			title: 'Time out',
-			dataIndex: 'timeOut',
-		},
-		{
-			title: 'Checkin status',
-			dataIndex: 'checkInStatus',
-			render: (status) => (
-				<span>
-					<CustomTag text={status} isDanger={status === 'Pending'} isSuccess={status === 'Committed'} />
-				</span>
-			),
-		},
-		{
-			title: 'Location',
-			dataIndex: 'location',
-		},
-	];
 
     return (
         <div>
@@ -717,4 +626,4 @@ const DashboardPayroll = () => {
     );
 };
 
-export default DashboardPayroll;
+export default Payroll;
