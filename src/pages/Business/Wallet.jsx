@@ -47,6 +47,8 @@ const Wallet = () => {
     const [notificationLoading, setNotificationLoading] = useState(false);
     const [paymentLogs, setPaymentLogs] = useState();
     const [profile, setProfile] = useState(user);
+    const [loading, setloading] = useState(false);
+    const [accountDetails, setaccountDetails] = useState();
 
     console.log(user);
 
@@ -63,28 +65,28 @@ const Wallet = () => {
         }
 
     
-    const businessAccount = async () => {
-        try {
-                //setLoading(true)
-                const data = await fetch('https://dev.app.payslices.com/api/business/account/details', options )
-                .then(res => res.json())
-        
-                console.log("data ")
-                console.log(data)
-        
-                if (data.status === true) {
+        const businessAccount = async () => {
+            setloading(true)
+            try {
+                const {data} = await businessAccountDetails();
+            
+                if (data.status) {
                     toast.success(data.message)
+                    setaccountDetails(data.data)
+                    setloading(false);
                 }
                 else {
                     toast.error(data.message)
+                    setloading(false);
                 }
-                console.log(data)
-        }
-        catch(err) {
-          console.log(err)
-        //   setLoading(false)
-        }
-    };
+            } catch (error) {
+                toast.error(error)
+                setloading(false);
+            }
+            finally {
+                setloading(false);
+            } 
+        };
     const businesscheckstatements = async () => {
         try {
             const {data} = await businessCheckStatements();
@@ -115,12 +117,12 @@ const Wallet = () => {
                         <div>
                             <div className="bg-[#E8E8E8]/[0.3] rounded px-10 py-5 mb-5">
                                 <p>Payslice Wallet</p>
-                                <h2 className="text-[#111111]/[0.9] font-bold py-3 text-[31px]">NGN 140,000</h2>
+                                <h2 className="text-[#111111]/[0.9] font-bold py-3 text-[31px]">NGN {accountDetails?.main_account.balance}</h2>
                                 <p className="text-sm text-[#111111]/[0.6] font-semibold pb-1">Virtual Account</p>
                                 <div className="font-semibold text-[#111111]/[0.6] text-[18px]">
-                                    <p>Acc. No: 7505519950</p>
-                                    <p>Acc. Name: Payslice</p>
-                                    <p>Bank: Providus Bank</p>
+                                    <p>Acc. No:  {accountDetails?.main_account.account_number}</p>
+                                    <p>Acc. Name:  {accountDetails?.main_account.name}</p>
+                                    <p>Bank:  {accountDetails.main_account.bank ? accountDetails?.main_account.bank : 'Payslice'}</p>
                                 </div>
                             </div>
                             <div className="mb-4">
