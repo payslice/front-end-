@@ -112,7 +112,7 @@ const TransferMoney = () => {
                                         type="text"
                                         label="Balance"
                                         {...register("balance")}
-                                        value={amount}
+                                        // value={amount}
                                         placeholder="NGN 120,000"
                                         // required
                                 />

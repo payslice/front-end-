@@ -12,20 +12,24 @@ import FloatMoney from "../pages/Business/Employee/FloatMoney";
 import EmployeeReport from "../pages/Business/Employee/EmployeeReport";
 import LinkBank from "../pages/Business/Employee/LinkBank";
 import DashboardWallet from "../pages/Business/DashboardWallet";
-import DashboardPayroll from "../pages/Business/DashboardPayroll";
+import DashboardPayroll from "../pages/Business/payroll/Payroll";
 import DashboardPayrollReport from "../pages/Business/DashboardPayrollReport";
 import EmployeeDetails from "../pages/Employees/EmployeeDetails";
 import UploadEmployee from "../pages/Business/Employee/UploadEmployee";
 import CreateEmployee from "../pages/Business/Employee/CreateEmployee";
 import Wallet from "../pages/Business/Wallet";
+import EarnasPayroll from '../pages/Business/payroll/EarnasPayroll';
+import PayrollHistory from "../pages/Business/payroll/PayrollHistory";
 
 
 export const BusinessRoutesList = [
   { path: "/business/dashboard", component: DashboardHome, exact: true },
   { path: "/business/dashboard/wallet", component: DashboardWallet, exact: true },
-  { path: "/business/dashboard/payroll", component: DashboardPayroll, exact: true }, 
   { path: "/business/dashboard/payroll/report", component: DashboardPayrollReport, exact: true }, 
   { path: "/business/wallets", component: Wallet, exact: true },
+  { path: "/business/payroll", component: DashboardPayroll, exact: true },  
+  { path: "/business/payroll/earn", component: EarnasPayroll, exact: true },  
+  { path: "/business/payroll/history", component: PayrollHistory, exact: true },  
   { path: "/business/create", component: CreateEmployee, exact: true }, 
   { path: "/business/details", component: EmployeeDetails, exact: true }, 
   { path: "/business/upload", component: UploadEmployee, exact: true }, 
@@ -36,7 +40,6 @@ export const BusinessRoutesList = [
   { path: "/business/float", component: FloatMoney, exact: true },
   { path: "/business/report", component: EmployeeReport, exact: true },
   { path: "/business/link", component: LinkBank, exact: true },
-
 ];
 
 const BusinessRoute = ({ component: Component, ...rest }) => {
@@ -87,18 +90,18 @@ const dashboardWalletNavTab = [
     link: "/business/dashboard",
   }
 ];
-const dashboardPayroll = [
+const Payroll = [
   {
     name: "Employee Payroll ",
-    link: "/business/dashboard",
+    link: "/business/payroll",
   },
   {
-    name: "Earn as you",
-    link: "/business/dashboard",
+    name: "Earn as you go",
+    link: "/business/payroll/earn",
   },
   {
     name: "Payroll Histroy",
-    link: "/business/dashboard",
+    link: "/business/payroll/history",
   }
 ];
 
@@ -177,6 +180,9 @@ const BusinessRoutes = () => {
     if (location.pathname.startsWith("/business/transfer")) {
       return employeeNavTab;
     }
+    // if (location.pathname.startsWith("/business/payroll")) {
+    //   return employeeNavTab;
+    // }
     if (location.pathname.startsWith("/business/dashboard/wallet")) {
       return dashboardWalletNavTab;
     }
@@ -186,8 +192,11 @@ const BusinessRoutes = () => {
     if (location.pathname.startsWith("/business/create")) {
       return createemployeeNavTab;
     }
-    if (location.pathname.startsWith("/business/dashboard/payroll") || location.pathname.startsWith("//business/dashboard/payroll/report")) {
-      return dashboardPayroll;
+    if (location.pathname.startsWith("/business/payroll")) {
+      return Payroll;
+    }
+    if (location.pathname.startsWith("/business/payroll/report")) {
+      return Payroll;
     }
     if (location.pathname.startsWith("/payments")) {
       return paymentNavTab;

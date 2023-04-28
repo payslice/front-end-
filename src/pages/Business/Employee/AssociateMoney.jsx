@@ -44,7 +44,7 @@ const AssociateMoney = () => {
         repay_method: repayMethodTitle.value
       });
       
-      if (data.status === 200 ) {
+      if (data.status ) {
           toast.success(data.message)
           history.push("/business/dashboard");
           setSubmitting(false);

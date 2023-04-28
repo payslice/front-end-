@@ -52,9 +52,9 @@ export const DahboardMobileNav = () => {
 			subMenuList: []
 		},
 		{
-			path: '/payments',
+			path: '/business/payroll',
 			Icon: HiBriefcase,
-			name: 'Payments',
+			name: 'Payroll',
 			subMenuList: []
 		},
 		{

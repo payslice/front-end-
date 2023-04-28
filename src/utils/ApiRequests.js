@@ -91,6 +91,24 @@ export const businessMoneyRequest = (formData) => {
 export const businessAssociateMoneyRequest = (formData) => {
   return ApiRequestWithToken().post(`/api/business/money_request/associate_request`, formData);
 };
+export const payrollGetStatsApi = () => {
+  return ApiRequestWithToken().get(`/api/business/payroll/get_stats`);
+};
+export const payrollEmployeeListApi = () => {
+  return ApiRequestWithToken().get(`/api/business/payroll/employees`);
+};
+export const pendingPayrollEarnasApi = () => {
+  return ApiRequestWithToken().get(`/api/business/payroll/pending_earn_as_you_go`);
+};
+export const payrollEarnasApi = () => {
+  return ApiRequestWithToken().get(`/api/business/payroll/earn_as_you_go_requests`);
+};
+export const payrollHistoryApi = () => {
+  return ApiRequestWithToken().get(`/api/business/payroll/payout_history`);
+};
+export const businessAccountFlowApi = () => {
+  return ApiRequestWithToken().get(`/api/business/account/flow`);
+};
 
 export const employeeLogin = formData => {
     return ApiRequest().post("api/employee/login", formData);

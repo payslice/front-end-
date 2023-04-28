@@ -41,7 +41,7 @@ const MoneyRequest = () => {
     try {
       const {data} = await businessMoneyRequest({...formData, duration: durationTitle.value, repay_method: repayMethodTitle.value});
       
-      if (data.status === 200 ) {
+      if (data.status) {
           toast.success(data.message)
           setSubmitting(false);
           history.push("/business/dashboard");
