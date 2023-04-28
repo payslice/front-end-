@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { BiCalendarEvent } from "react-icons/bi";
 import { BsArrowUp, BsArrowDown } from "react-icons/bs";
+import styled from 'styled-components'
 import { toast } from "react-toastify";
 import {
     AreaChart,
@@ -34,6 +35,330 @@ import { Button } from "../../components/Button/Button";
 import { CustomTag } from "../../components/CustomTag";
 import { AiOutlineSearch, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
 import { DotLoader } from "../../components/Loaders/DotLoader";
+import { useTable, usePagination, useRowSelect, useSortBy, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
+import { IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
+// import matchSorter from 'match-sorter'
+
+const Styles = styled.div`
+
+    width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  /* margin: 1rem; */
+
+  table {
+    border-spacing: 0;
+    border-bottom: 1px solid #b3b3b3;
+    width: '100%';
+
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+      :first-child {
+        th {
+        /* border-left: 1px solid #b3b3b3;   
+        border-right: 1px solid #b3b3b3;    */
+            background: none;
+        }
+      }
+    }
+    th {
+        background-color: rgba(242, 242, 242, 0.5);
+        font-size: 13px;
+        color: rgba(17, 17, 17, 0.8);
+        text-transform: capitalize;
+    }
+
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid #E1E4E9;
+      padding-top: 20px;
+      padding-bottom: 20px;
+        font-size: 12px;
+      /* border-right: 1px solid #d9d9d9; */
+
+      :last-child {
+        border-right: 0;
+      }
+    }
+  }
+`
+
+// IndeterminateCheckbox
+
+const IndeterminateCheckbox = React.forwardRef(
+    ({ indeterminate, ...rest }, ref) => {
+      const defaultRef = React.useRef()
+      const resolvedRef = ref || defaultRef
+  
+      React.useEffect(() => {
+        resolvedRef.current.indeterminate = indeterminate
+      }, [resolvedRef, indeterminate])
+  
+      return (
+        <>
+          <input type="checkbox" ref={resolvedRef} {...rest} />
+        </>
+      )
+    }
+  )
+
+
+// Define a default UI for filtering
+function GlobalFilter({
+    preGlobalFilteredRows,
+    globalFilter,
+    setGlobalFilter,
+  }) {
+    const count = preGlobalFilteredRows.length
+    const [value, setValue] = React.useState(globalFilter)
+    const onChange = useAsyncDebounce(value => {
+      setGlobalFilter(value || undefined)
+    }, 200)
+  
+    return (
+        <>
+        
+                <div className="border-b-2 border-black m-2 inline flex w-[200px]">
+                        <AiOutlineSearch size={20} />
+                        <input 
+                            className="px-2 focus:outline-none" 
+                            value={value || ""}
+                            onChange={e => {
+                            setValue(e.target.value);
+                            onChange(e.target.value);
+                            }}
+                            placeholder={`${count} records...`}
+                            style={{
+                            fontSize: '0.9rem',
+                            border: '0',
+                            }}
+                        />
+                </div>
+        
+        </>
+    )
+  }
+
+
+
+function Table({ columns, data }) {
+
+
+
+    // Use the state and functions returned from useTable to build your UI
+    const {
+      getTableProps,
+      getTableBodyProps,
+      headerGroups,
+      rows,
+      prepareRow,
+
+      page,
+      canPreviousPage,
+      canNextPage,
+      pageOptions,
+      pageCount,
+      gotoPage,
+      nextPage,
+      previousPage,
+      setPageSize,
+      state: {pageIndex, pageSize, selectedRowIds},
+
+      state,
+      visibleColumns,
+      preGlobalFilteredRows,
+      setGlobalFilter,
+
+      selectedFlatRows
+    } = useTable({
+            columns,
+            data,
+            initialState: { pageIndex: 0, pageSize: 5},
+            // filterTypes
+        },
+      useFilters,
+      useGlobalFilter,
+      useSortBy,      
+      usePagination,
+      useRowSelect,
+        
+        hooks => {
+            hooks.visibleColumns.push(columns => [
+            // Let's make a column for selection
+            {
+                id: 'selection',
+                // The header can use the table's getToggleAllRowsSelectedProps method
+                // to render a checkbox
+                Header: ({ getToggleAllRowsSelectedProps }) => (
+                <div>
+                    <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+                </div>
+                ),
+                // The cell can use the individual row's getToggleRowSelectedProps method
+                // to the render a checkbox
+                Cell: ({ row }) => (
+                <div>
+                    <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+                </div>
+                ),
+            },
+            ...columns,
+            ])
+        }
+
+    )
+  
+    // Render the UI for your table
+    return (
+        <>
+        {/*
+        **************************
+        details about page difference 
+            <pre>
+            <code>
+                {JSON.stringify(
+                {
+                    pageIndex,
+                    pageSize,
+                    pageCount,
+                    canNextPage,
+                    canPreviousPage,
+                },
+                null,
+                2
+                )}
+            </code>
+            </pre>
+        */}
+            <div
+            className="flex justify-between">
+                <GlobalFilter
+                    preGlobalFilteredRows={preGlobalFilteredRows}
+                    globalFilter={state.globalFilter}
+                    setGlobalFilter={setGlobalFilter}
+                />
+                
+                <select
+                    value={pageSize}
+                    onChange={e => {
+                        setPageSize(Number(e.target.value))
+                    }}
+                    className="border-2 border-[#1C6AF4] p-2 text-[14px]"
+                    >
+                    {[5, 10, 20].map(pageSize => (
+                        <option key={pageSize} value={pageSize}>
+                        Employees {pageSize}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <table {...getTableProps()}>
+              <thead>
+                
+                {headerGroups.map(headerGroup => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map(column => (
+                      <th {...column.getHeaderProps(column.getSortByToggleProps())} className="">
+                            <span className="flex">
+                            {column.render('Header')}
+                            {/*indicator*/}
+                            <span>
+                                {
+                                    column.isSorted
+                                    ?
+                                    <IoIosArrowRoundUp /> 
+                                    :
+                                    <IoIosArrowRoundDown /> 
+                                }
+                            </span>
+                            
+                            </span>
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+                
+              </thead>
+              <tbody {...getTableBodyProps()}>
+                {page.map((row, i) => {
+                  prepareRow(row)
+                  return (
+                    <tr {...row.getRowProps()}>
+                      {row.cells.map(cell => {
+                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                      })}
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+            
+      <div className="pagination mt-5">
+      <button onClick={() => gotoPage(0)} disabled={!canPreviousPage} className={` text-[14px] border-2 border-[#f2f2f2] p-1 m-1 rounded-md w-[35px] ${canPreviousPage ? 'bg-[#1C6AF4]' : 'bg-[#85b0f9]'}  text-white`}>
+        {'<<'}
+      </button>{' '}
+      <button onClick={() => previousPage()} disabled={!canPreviousPage} className={` text-[14px] border-2 border-[#f2f2f2] p-1 m-1 rounded-md w-[35px] ${canPreviousPage ? 'bg-[#1C6AF4]' : 'bg-[#85b0f9]'}  text-white`}>
+        {'<'}
+      </button>{' '}
+      <button onClick={() => nextPage()} disabled={!canNextPage} className={` text-[14px] border-2 border-[#f2f2f2] p-1 m-1 rounded-md w-[35px] ${canNextPage ? 'bg-[#1C6AF4]' : 'bg-[#85b0f9]'}  text-white`}>
+        {'>'}
+      </button>{' '}
+      <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} className={` text-[14px] border-2 border-[#f2f2f2] p-1 m-1 rounded-md w-[35px] ${canNextPage ? 'bg-[#1C6AF4]' : 'bg-[#85b0f9]'}  text-white`}>
+        {'>>'}
+      </button>{' '}
+      <span className="text-[15px]">
+        Page{' '}
+        <strong>
+          {pageIndex + 1} of {pageOptions.length}
+        </strong>{' '}
+      </span>
+      <span className="text-[15px]">
+        | Go to page:{' '}
+        <input
+          type="number"
+          defaultValue={pageIndex + 1}
+          onChange={e => {
+            const page = e.target.value ? Number(e.target.value) - 1 : 0
+            gotoPage(page)
+          }}
+          style={{ width: '100px' }}
+          className="border-2 border-[#ccc] mr-3 p-1 rounded"
+        />
+      </span>{' '}
+      <div>
+      
+        {/*
+        ******************************
+        selected data
+      <p>Selected Rows: {Object.keys(selectedRowIds).length}</p>
+        <pre>
+            <code>
+                {JSON.stringify(
+                {
+                    selectedRowIds: selectedRowIds,
+                    'selectedFlatRows[].original': selectedFlatRows.map(
+                    d => d.original
+                    ),
+                },
+                null,
+                2
+                )}
+            </code>
+        </pre>
+        */}
+      </div>
+    </div>
+        </>
+    )
+  }
+  
 
 const DashboardPayroll = () => {
     const { user } = useSelector(persistSelector);
@@ -45,16 +370,61 @@ const DashboardPayroll = () => {
     const [clockOutData, setClockOutData] = useState();
     const [submitting, setSubmitting] = useState()
     const [payrollState, setpayrollState] = useState()
-    const [payrollEmployeeState, setpayrollEmployeeState] = useState([])
+    const [payrollEmployeeState, setpayrollEmployeeState] = useState({})
+    const [payrollEmployeeState2, setpayrollEmployeeState2] = useState()
 
     const history = useHistory();
+    
+  const columns22 = React.useMemo(
+    () => [
+      {
+        Header: 'Employees Payroll',
+        columns: [
+          {
+            Header: 'Full Name',
+            accessor: 'full_name',
+          },
+          {
+            Header: 'Salary',
+            accessor: 'salary',
+          },
+          {
+            Header: 'Status',
+            accessor: 'status',
+          },
+          {
+            Header: 'Employee ID',
+            accessor: 'paycode',
+          },
+          {
+            Header: 'Email',
+            accessor: 'email',
+          },
+          {
+            Header: 'Phone Number',
+            accessor: 'phone',
+          },
+          {
+            Header: 'Account Number',
+            accessor: 'account_number',
+          },
+          {
+            Header: 'Bank Name',
+            accessor: 'bank_name',
+          }
+        ],
+      },
+    ],
+    []
+  )
+
     
     const payrollGetStats = async () => {
         setSubmitting(true);
         try {
             const {data} = await payrollGetStatsApi();
 
-            console.log(data)
+            // console.log(data)
             
             if (data.status) {
                 toast.success(data.message)
@@ -81,7 +451,9 @@ const DashboardPayroll = () => {
             const {data} = await payrollEmployeeListApi();
 
             console.log("payroll employee list")
-            console.log(data)
+            console.log(data.data)
+            setpayrollEmployeeState(data.data)
+            setpayrollEmployeeState2(data.data)
             
             if (data.status) {
                 console.log("entered payroll employee list inside status")
@@ -113,6 +485,9 @@ const DashboardPayroll = () => {
 
     console.log("payrollEmployeeState")
     console.log(payrollEmployeeState)
+
+    console.log("payrollEmployeeState2")
+    console.log(payrollEmployeeState2)
 
 
     const totalDue = paymentLogs
@@ -194,7 +569,7 @@ const DashboardPayroll = () => {
                         <div className="block md:flex justify-between">
                         
                                 <h2 className="font-semibold text-[21px] tracking-wide pb-10 md:pb-0">Employees payroll Report</h2>
-                                <Button buttonText="pay full  payroll" />
+                                <Button buttonText="schedule payout" />
                         </div>
                         
                         <br />
@@ -299,6 +674,7 @@ const DashboardPayroll = () => {
                         }
                     </div>
                 </div>
+                {/*
                 <div>
                         <div className="block md:flex justify-between pt-10">
                                 <div>
@@ -320,121 +696,19 @@ const DashboardPayroll = () => {
                                 </div>
                         </div>
                 </div>
+                */}
                 <div className="pt-10">   
-			<table className="w-full text-sm text-left border text-gray-500">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                                        <tr className="border-b">
-                                                <th scope="col" className="p-6">
-                                                        <div className="flex items-center">
-                                                                <input
-                                                                        id="checkbox-all"
-                                                                        type="checkbox"
-                                                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                                                                />
-                                                                <label htmlFor="checkbox-all" className="sr-only">
-                                                                        checkbox
-                                                                </label>
-                                                        </div>
-                                                </th>
-                                                {activeTab === 0 &&
-                                                        columns.map(({ title }, i) => (
-                                                                <th key={i} scope="col" className="px-6 py-3">
-                                                                        {title}
-                                                                </th>
-                                                        ))}
-                                                {activeTab === 1 &&
-                                                        columns2.map(({ title }, i) => (
-                                                                <th key={i} scope="col" className="px-6 py-3">
-                                                                        {title}
-                                                                </th>
-                                                        ))}
-                                        </tr>
-                                </thead>
-                                <tbody>
-                                        {
-                                        payrollEmployeeState?.map(({ id, name, salary, balance }) => {
-                                                        return (
-                                                                <tr className="bg-white border-b last:border-none hover:bg-gray-50">
-                                                                        <td className="w-4 p-6">
-                                                                                <div className="flex items-center">
-                                                                                        <input
-                                                                                                id="checkbox-table-1"
-                                                                                                type="checkbox"
-                                                                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                                                                                        />
-                                                                                        <label htmlFor="checkbox-table-1" className="sr-only">
-                                                                                                checkbox
-                                                                                        </label>
-                                                                                </div>
-                                                                        </td>
-                                                                        {/* <td className="px-6 py-4">{name}</td>
-                                                                <td className="px-6 py-4">{salary}</td>
-                                                                <td className="px-6 py-4">{balance}</td> */}
-                                                                        <td className="px-6 py-4">
-                                                                                <div className="flex items-center">
-                                                                                        {/* <OptionsMenu options={tableOptions} param={id} /> */}
-                                                                                </div>
-                                                                        </td>
-                                                                </tr>
-                                                        );
-                                                })}
-                                            }
-                                        {activeTab === 0 &&
-                                                clockInData?.map(({ id, name, salary, balance }) => {
-                                                        return (
-                                                                <tr className="bg-white border-b last:border-none hover:bg-gray-50">
-                                                                        <td className="w-4 p-6">
-                                                                                <div className="flex items-center">
-                                                                                        <input
-                                                                                                id="checkbox-table-1"
-                                                                                                type="checkbox"
-                                                                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                                                                                        />
-                                                                                        <label htmlFor="checkbox-table-1" className="sr-only">
-                                                                                                checkbox
-                                                                                        </label>
-                                                                                </div>
-                                                                        </td>
-                                                                        {/* <td className="px-6 py-4">{name}</td>
-                                                                <td className="px-6 py-4">{salary}</td>
-                                                                <td className="px-6 py-4">{balance}</td> */}
-                                                                        <td className="px-6 py-4">
-                                                                                <div className="flex items-center">
-                                                                                        {/* <OptionsMenu options={tableOptions} param={id} /> */}
-                                                                                </div>
-                                                                        </td>
-                                                                </tr>
-                                                        );
-                                                })}
-                                        {activeTab === 1 &&
-                                                clockOutData?.map(({ id, name, salary, balance }) => {
-                                                        return (
-                                                                <tr className="bg-white border-b last:border-none hover:bg-gray-50">
-                                                                        <td className="w-4 p-6">
-                                                                                <div className="flex items-center">
-                                                                                        <input
-                                                                                                id="checkbox-table-1"
-                                                                                                type="checkbox"
-                                                                                                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-                                                                                        />
-                                                                                        <label htmlFor="checkbox-table-1" className="sr-only">
-                                                                                                checkbox
-                                                                                        </label>
-                                                                                </div>
-                                                                        </td>
-                                                                        {/* <td className="px-6 py-4">{name}</td>
-                                                                <td className="px-6 py-4">{salary}</td>
-                                                                <td className="px-6 py-4">{balance}</td> */}
-                                                                        <td className="px-6 py-4">
-                                                                                <div className="flex items-center">
-                                                                                        {/* <OptionsMenu options={tableOptions} param={id} /> */}
-                                                                                </div>
-                                                                        </td>
-                                                                </tr>
-                                                        );
-                                                })}
-                                </tbody>
-                        </table>
+                        <div className="w-full">
+                            <Styles>
+                                {
+                                    payrollEmployeeState2
+                                    &&
+                                    payrollEmployeeState2.length !== 0
+                                    &&
+                                    <Table columns={columns22} data={payrollEmployeeState2} />
+                                }
+                            </Styles>
+                        </div>
                 
                 </div>
             </div>
