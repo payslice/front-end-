@@ -368,11 +368,11 @@ const PayrollHistory = () => {
           },
           {
             Header: 'Salary',
-            accessor: 'salary',
+            accessor: 'last_salary', 
           },
           {
             Header: 'Earn as You Go',
-            accessor: 'last_salary',
+            accessor: 'self_withdrawal_total', 
           },
           {
             Header: 'Direct Salary Transfer',
