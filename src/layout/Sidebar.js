@@ -45,7 +45,7 @@ const Sidebar = () => {
 					<SidebarItem
 						currentPath={currentLocation}
 						Icon={MdAnalytics}
-						path="/business/withdrawals"
+						path="/business/request_money"
 						caption="Request money"
 						isDb
 					/>

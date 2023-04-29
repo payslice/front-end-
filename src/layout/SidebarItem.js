@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const SidebarItem = ({ currentPath, Icon, path, caption, isDb }) => {
+const SidebarItem = ({ currentPath, Icon, path, caption, isDb, payrollSubMenu }) => {
 	const active = currentPath === path;
 	const fillValue = '#FFFFFF';
 
@@ -24,6 +24,25 @@ const SidebarItem = ({ currentPath, Icon, path, caption, isDb }) => {
 						{caption}
 					</span>
 				</NavLink>
+				{
+					payrollSubMenu 
+					&&
+					<li>
+						<NavLink
+							to={path}
+							activeClassName={`sidebar_active rounded`}
+							className={`${!isDb ? 'h-[53px] px-[26px]' : 'h-[43px] px-5'} flex mobiles:justify-center items-center`}
+						>
+							<Icon fill={fillValue} className="w-5 h-5" />
+							<span
+								className={`${!isDb ? 'text-lg pl-6' : 'text-[15px] pl-4'} transition-colors ${active ? '' : ''} t_white`}
+							>
+								{caption}
+							</span>
+						</NavLink>
+					</li>
+				}
+
 			</li>
 		</div>
 	);

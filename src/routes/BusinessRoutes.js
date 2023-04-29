@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
-// import { checkLogin, checkTokenValidity } from "../utils/ApiUtils";
+import { checkLogin, checkTokenValidity } from "../utils/ApiUtils";
 // import DashboardHome from "../pages/DashboardHome/DashboardHome";
 import DashboardHome from "../pages/Business/DashboardHome";
 import TransferMoney from "../pages/Business/Employee/TransferMoney";
@@ -29,12 +29,12 @@ export const BusinessRoutesList = [
   { path: "/business/wallets", component: Wallet, exact: true },
   { path: "/business/payroll", component: DashboardPayroll, exact: true },  
   { path: "/business/payroll/earn", component: EarnasPayroll, exact: true },  
-  { path: "/business/payroll/history", component: PayrollHistory, exact: true },  
+  { path: "/business/payroll/history", component: PayrollHistory, exact: true }, 
+  { path: "/business/payroll/upload", component: UploadEmployee, exact: true },  
   { path: "/business/create", component: CreateEmployee, exact: true }, 
   { path: "/business/details", component: EmployeeDetails, exact: true }, 
-  { path: "/business/upload", component: UploadEmployee, exact: true }, 
   { path: "/business/transfer", component: TransferMoney, exact: true },
-  { path: "/business/money", component: MoneyRequest, exact: true },
+  { path: "/business/request_money", component: MoneyRequest, exact: true },
   { path: "/business/associate", component: AssociateMoney, exact: true },
   { path: "/business/wallet", component: FundWallet, exact: true },
   { path: "/business/float", component: FloatMoney, exact: true },
@@ -47,12 +47,12 @@ const BusinessRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        // checkLogin() && checkTokenValidity() ? (
-        //   <Component {...props} />
-        // ) : (
-        //   <Redirect to="/login" />
-        // )
-        <Component {...props} />
+        checkLogin() && checkTokenValidity() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/business/login" />
+        )
+        // <Component {...props} />
       }
     />
   );

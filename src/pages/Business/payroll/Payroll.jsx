@@ -17,6 +17,7 @@ import { AiOutlineSearch, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
 import { DotLoader } from "../../../components/Loaders/DotLoader";
 import { useTable, usePagination, useRowSelect, useSortBy, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
 import { IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
+import {AiOutlineUpload}  from 'react-icons/ai'
 // import matchSorter from 'match-sorter'
 
 const Styles = styled.div`
@@ -25,6 +26,8 @@ const Styles = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: auto;
   /* margin: 1rem; */
 
   table {
@@ -123,6 +126,20 @@ function GlobalFilter({
                 </div>
         
         </>
+    )
+  }
+  
+  // const handlePayroll = () => {
+  //   // history.push('/business/payroll/upload')
+  // }
+
+  const SeparateComp = () => {
+    const history = useHistory()
+    return (
+      <div className="border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white" title="please upload files here" onClick={() => history.push('/business/payroll/upload')}>
+        <AiOutlineUpload size={20}  />
+      </div>
+
     )
   }
 
@@ -224,6 +241,8 @@ function Table({ columns, data }) {
                     globalFilter={state.globalFilter}
                     setGlobalFilter={setGlobalFilter}
                 />
+                <div className="flex">
+                <SeparateComp />
                 
                 <select
                     value={pageSize}
@@ -238,6 +257,7 @@ function Table({ columns, data }) {
                         </option>
                     ))}
                 </select>
+                </div>
             </div>
             <table {...getTableProps()}>
               <thead>
@@ -403,8 +423,6 @@ const Payroll = () => {
         setSubmitting(true);
         try {
             const {data} = await payrollGetStatsApi();
-
-            // console.log(data)
             
             if (data.status) {
                 toast.success(data.message)
@@ -497,13 +515,18 @@ const Payroll = () => {
                             :
                             (
                                 <>
-                                    <p className='flex mt-2 text-sm font-light'>{`${new Date(
+                                    <p className='flex mt-2 text-sm font-light'>
+                                    {/*
+                                    {`${new Date(
                                         policyResponse?.updated_at
                                     ).toLocaleString("default", {
                                         month: "long",
                                     })} ${new Date(
                                         policyResponse?.updated_at
-                                    ).getFullYear()} `}</p>
+                                    ).getFullYear()} `}
+                                    */}
+                                    This Month
+                                    </p>
                                     <h4 className='text-[28px] font-bold mt-1.5'>{payrollState?.company_size}</h4>
                                 </>
                             )
@@ -523,6 +546,7 @@ const Payroll = () => {
                             (
                                 <>
                                 <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
+                                    {/*
                                     {`${new Date(
                                         policyResponse?.updated_at
                                     ).toLocaleString("default", {
@@ -530,6 +554,8 @@ const Payroll = () => {
                                     })} ${new Date(
                                         policyResponse?.updated_at
                                     ).getFullYear()} `}
+                                  */}
+                                    This Month
                                     <span
                                         className='flex ml-2 font-bold'
                                         style={{ color: "#0B9B36" }}>
@@ -540,7 +566,8 @@ const Payroll = () => {
                                 {payrollState?.payroll_size}
                                     <span
                                         className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
-                                        onClick={() => history.push("/employee")}>
+                                        onClick={() => {/*history.push("/employee")*/}}
+                                        >
                                         Manage{" "}
                                     </span>
                                 </h4>
@@ -573,7 +600,7 @@ const Payroll = () => {
                                         {payrollState?.upcoming_payment}
                                         <span
                                             className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
-                                            onClick={() => history.push("/payments")}>
+                                            onClick={() => {/*history.push("/payments")*/}}>
                                             Repay now
                                         </span>
                                     </h4>

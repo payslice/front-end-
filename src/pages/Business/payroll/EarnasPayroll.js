@@ -26,6 +26,8 @@ const Styles = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: auto;
   /* margin: 1rem; */
 
   table {

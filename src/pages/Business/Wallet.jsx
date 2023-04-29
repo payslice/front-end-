@@ -122,7 +122,8 @@ const Wallet = () => {
                                 <div className="font-semibold text-[#111111]/[0.6] text-[18px]">
                                     <p>Acc. No:  {accountDetails?.main_account.account_number}</p>
                                     <p>Acc. Name:  {accountDetails?.main_account.name}</p>
-                                    <p>Bank:  {accountDetails.main_account.bank ? accountDetails?.main_account.bank : 'Payslice'}</p>
+                                    <p>Bank: Payslice</p>
+                                    {/*<p>Bank:  {accountDetails.main_account.bank ? accountDetails?.main_account.bank : 'Payslice'}</p>*/}
                                 </div>
                             </div>
                             <div className="mb-4">

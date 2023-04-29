@@ -13,13 +13,13 @@ import { Link, useHistory } from "react-router-dom";
 ];
 
 const durationTypes = [
-  { name: '7', value: '7' },
-  { name: '14', value: '14' },
-  { name: '30', value: '30' },
-  { name: '60', value: '60' },
-  { name: '90', value: '90' },
-  { name: '120', value: '120' },
-  { name: '180', value: '7' },
+  { name: '1 week', value: '7' },
+  { name: '2 weeks', value: '14' },
+  { name: '1 month', value: '30' },
+  { name: '2 months', value: '60' },
+  { name: '3 months', value: '90' },
+  { name: '4 months', value: '120' },
+  { name: '6 months', value: '180' },
 ];
 
 

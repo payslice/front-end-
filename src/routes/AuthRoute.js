@@ -19,7 +19,7 @@ import { BusinessSignup } from "../pages/Business/Auth/Signup";
 
 
 export const AuthRoutesList = [
-  { path: "/login", component: Login, exact: true, key: 'FDGHJK' },
+  // { path: "/login", component: Login, exact: true, key: 'FDGHJK' },
   { path: "/business/login", component: BusinessLogin, exact: true, key: 'FDGHJasK' },
   { path: "/business/register", component: BusinessSignup, exact: true, key: 'FDGasdHJasK' },
   { path: "/", component: ChooseUser, exact: true, key: 'ghjkhlh' },
