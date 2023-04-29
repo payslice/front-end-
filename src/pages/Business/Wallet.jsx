@@ -32,8 +32,11 @@ import { useSelector } from "react-redux";
 import { persistSelector } from "../../slices/persist";
 import { Button } from "../../components/Button/Button";
 import { AiTwotoneCalendar } from 'react-icons/ai';
+import { TfiWorld } from "react-icons/tfi";
 import { BsArrowDownLeftCircle, BsArrowUpRightCircle } from "react-icons/bs";
 import {TransactionStatusFail, TransactionStatusNeutral, TransactionStatusSuccess} from '../../components/TransactionStatus'
+import { SiDataverse } from "react-icons/si";import { FcElectricity } from "react-icons/fc";
+import { WalletIconText } from "../../components/WalletIconText";
 
 
 
@@ -55,8 +58,6 @@ const Wallet = () => {
     const token = getTokenFromStorage();
 
     const history = useHistory();
-
-    
     
         const options = {
         method: "GET",
@@ -127,10 +128,24 @@ const Wallet = () => {
                                 </div>
                             </div>
                             <div className="mb-4">
-                                <Button buttonText="Fund Wallet" fullwidth />
+                                <Button buttonText="Send to beneficiary" fullwidth />
                             </div>
                             <div>
-                                <Button buttonText="Transfer to Others " fullwidth inverted />
+                                <Button buttonText="Transfer to Others " fullwidth inverted onClick={() => history.push('/business/wallets/transfer')} />
+                            </div>
+                            <br />
+                            <div>
+                                <div className="flex relative overflow-auto">
+                                    <WalletIconText title="Airtime" onclick={() => history.push(`/business/wallets/airtime`)}>
+                                        <TfiWorld size={25} color="#737A91" />
+                                    </WalletIconText>
+                                    <WalletIconText title="Data" onclick={() => history.push(`/business/wallets/data`)}>
+                                        <SiDataverse size={25} color="#737A91" />
+                                    </WalletIconText>
+                                    <WalletIconText title="Electricity" onclick={() => history.push(`/business/wallets/electricity`)}>
+                                        <FcElectricity size={25} color="#737A91" />
+                                    </WalletIconText>
+                                </div>
                             </div>
                         </div>
                     </div>

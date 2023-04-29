@@ -110,6 +110,16 @@ export const businessAccountFlowApi = () => {
   return ApiRequestWithToken().get(`/api/business/account/flow`);
 };
 
+export const businessWalletAirtime = (data) => {
+  return ApiRequestWithToken().post(`/api/topup/airtime`, data);
+};
+export const businessWalletData = () => {
+  return ApiRequestWithToken().post(`/api/topup/data`);
+};
+export const businessWalletElectricity = () => {
+  return ApiRequestWithToken().post(`/api/topup/electricity`);
+};
+
 export const employeeLogin = formData => {
     return ApiRequest().post("api/employee/login", formData);
 };

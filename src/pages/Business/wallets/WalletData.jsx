@@ -2,34 +2,26 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../../components/Button/Button";
 import { InputField, SelectInput } from "../../../components/Input";
-import { businessAssociateMoneyRequest, requestWithdrawal } from "../../../utils/ApiRequests";
-import { SuccessMessage } from "../../../components/Message/Message";
+import { businessAssociateMoneyRequest, businessWalletData, requestWithdrawal } from "../../../utils/ApiRequests";
 import { toast } from "react-toastify";
 import { Link, useHistory } from "react-router-dom";
 
-  const repayMethodTypes = [
-    { name: 'Amortized', value: 'amortized' },
-    { name: 'Bullet', value: 'bullet' }
-];
 
-const durationTypes = [
-  { name: '1 week', value: '7' },
-  { name: '2 weeks', value: '14' },
-  { name: '1 month', value: '30' },
-  { name: '2 months', value: '60' },
-  { name: '3 months', value: '90' },
-  { name: '4 months', value: '120' },
-  { name: '6 months', value: '180' },
+
+  const networkTypes = [
+    { name: 'Mtn', value: 'mtn' },
+    { name: 'Airtel', value: 'airtel' },
+    { name: 'Glo', value: 'glo' },
+    { name: '9 mobile', value: 'etisalat' },
 ];
 
 
-const AssociateMoney = () => {
+const WalletData = () => {
     const [submitting, setSubmitting] = useState(false);
   const [amount, setAmount] = useState("");
   const [success, setSuccess] = useState(false);
   const [durationTitle, setdurationTitle] = useState(false);
-  const [repayMethodTitle, setrepayMethodTitle] = useState(false);
-
+  const [networkState, setnetworkState] = useState(false);
   const history = useHistory()
   
   const { register, handleSubmit } = useForm();
@@ -37,16 +29,13 @@ const AssociateMoney = () => {
   const onSubmit = async (formData) => {
     setSubmitting(true);
     console.log("formData")
-    console.log({...formData, duration: durationTitle.value, repay_method: repayMethodTitle.value})
+    console.log({...formData, duration: durationTitle.value, repay_method: networkState.value})
     try {
-      const {data} = await businessAssociateMoneyRequest({...formData, 
-        duration: durationTitle.value, 
-        repay_method: repayMethodTitle.value
-      });
+      const {data} = await businessWalletData({...formData, network: networkState.value});
       
       if (data.status ) {
           toast.success(data.message)
-          history.push("/business/dashboard");
+          history.push("/business/wallets");
           setSubmitting(false);
       }
       else {
@@ -82,8 +71,8 @@ const AssociateMoney = () => {
         style={{ color: "rgba(17, 17, 17, 0.6)" }}>
 
         <div className="relative">
-          <Link to="/user/dashboard">
-            <div className="absolute right-36 flex hidden" style={{ width: "90px" }}>
+          <Link to="/business/wallets">
+            <div className="absolute right-36 hiden md:flex" style={{ width: "90px" }}>
               <svg
                 className="mt-12"
                 style={{ marginTop: "5px" }}
@@ -106,8 +95,8 @@ const AssociateMoney = () => {
         </div>
 
         <div className="w-full md:w-1/2">
-          <Link to="business/associate">
-            <div className="hidden flex mb-12">
+          <Link to="/business/wallets">
+            <div className="flex md:hidden mb-12">
               <svg
                 className="mt-12"
                 style={{ marginTop: "5px" }}
@@ -129,48 +118,33 @@ const AssociateMoney = () => {
           </Link>
 
           <div className="text-2xl font-semibold mb-6 capitalize text-black">
-            Associate money 
+          Data Top Up
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <InputField
-              type="text"
-              label="Title of request "
-              {...register('title')}
-              placeholder="Enter Title "
-              // required
-            />
 
-            <InputField
-              type="text"
-              label="Amount"
-              placeholder="Enter Amount"
-              {...register('amount')}
-              // required
-            />
-
+            
             <SelectInput
-                name="duration"
-                label="Duration"
-                selectedValue={durationTitle}
-                setSelectedValue={setdurationTitle}
-                options={durationTypes}
-            />
-           
-
-            <SelectInput
-                name="repay_method"
-                label="Repay Method"
-                selectedValue={repayMethodTitle}
-                setSelectedValue={setrepayMethodTitle}
-                options={repayMethodTypes}
+                name="network"
+                label="Network"
+                selectedValue={networkState}
+                setSelectedValue={setnetworkState}
+                options={networkTypes}
             />
            
             <InputField
               type="number"
-              label="Percentage Payback "
-              placeholder="0.3 % daily "
-              {...register('percentage')}
+              label="Phone Number "
+              placeholder=""
+              {...register('phone_number')}
+              // required
+            />
+
+            <InputField
+              type="text"
+              label="Variation"
+              placeholder="Enter Amount"
+              {...register('variation')}
               // required
             />
            
@@ -182,16 +156,11 @@ const AssociateMoney = () => {
               className="py-5 mt-5"
             />
           </form>
-          {success && (
-            <SuccessMessage
-              title="Success"
-              message="Your request has been sent, you'll get a response from us soon."
-            />
-          )}
+
         </div>
       </div>
     </>
   )
 }
 
-export default AssociateMoney
+export default WalletData

@@ -20,26 +20,32 @@ import CreateEmployee from "../pages/Business/Employee/CreateEmployee";
 import Wallet from "../pages/Business/Wallet";
 import EarnasPayroll from '../pages/Business/payroll/EarnasPayroll';
 import PayrollHistory from "../pages/Business/payroll/PayrollHistory";
+import WalletAirtime from "../pages/Business/wallets/WalletAirtime";
+import WalletData from "../pages/Business/wallets/WalletData";
+import WalletElectricity from "../pages/Business/wallets/WalletElectricity";
 
 
 export const BusinessRoutesList = [
   { path: "/business/dashboard", component: DashboardHome, exact: true },
-  { path: "/business/dashboard/wallet", component: DashboardWallet, exact: true },
-  { path: "/business/dashboard/payroll/report", component: DashboardPayrollReport, exact: true }, 
   { path: "/business/wallets", component: Wallet, exact: true },
+  { path: "/business/wallets/airtime", component: WalletAirtime, exact: true },
+  { path: "/business/wallets/data", component: WalletData, exact: true },
+  { path: "/business/wallets/electricity", component: WalletElectricity, exact: true },
+  { path: "/business/wallets/transfer", component: TransferMoney, exact: true },
   { path: "/business/payroll", component: DashboardPayroll, exact: true },  
   { path: "/business/payroll/earn", component: EarnasPayroll, exact: true },  
   { path: "/business/payroll/history", component: PayrollHistory, exact: true }, 
   { path: "/business/payroll/upload", component: UploadEmployee, exact: true },  
+  { path: "/business/request_money", component: MoneyRequest, exact: true },
+  { path: "/business/request_money/associate", component: AssociateMoney, exact: true },
   { path: "/business/create", component: CreateEmployee, exact: true }, 
   { path: "/business/details", component: EmployeeDetails, exact: true }, 
-  { path: "/business/transfer", component: TransferMoney, exact: true },
-  { path: "/business/request_money", component: MoneyRequest, exact: true },
-  { path: "/business/associate", component: AssociateMoney, exact: true },
   { path: "/business/wallet", component: FundWallet, exact: true },
   { path: "/business/float", component: FloatMoney, exact: true },
   { path: "/business/report", component: EmployeeReport, exact: true },
   { path: "/business/link", component: LinkBank, exact: true },
+  { path: "/business/dashboard/wallet", component: DashboardWallet, exact: true },
+  { path: "/business/dashboard/payroll/report", component: DashboardPayrollReport, exact: true }, 
 ];
 
 const BusinessRoute = ({ component: Component, ...rest }) => {
@@ -80,14 +86,18 @@ const uploadNavBar = [
     link: "/business/dashboard",
   }
 ];
-const dashboardWalletNavTab = [
+const RequestMoney = [
   {
     name: "Credit Limit Money ",
-    link: "/business/dashboard",
+    link: "/business/request_money",
   },
   {
-    name: "Associate Money  ",
-    link: "/business/dashboard",
+    name: "Associate Money",
+    link: "/business/request_money/associate",
+  },
+  {
+    name: "History",
+    link: "/business/request_money",
   }
 ];
 const Payroll = [
@@ -183,8 +193,8 @@ const BusinessRoutes = () => {
     // if (location.pathname.startsWith("/business/payroll")) {
     //   return employeeNavTab;
     // }
-    if (location.pathname.startsWith("/business/dashboard/wallet")) {
-      return dashboardWalletNavTab;
+    if (location.pathname.startsWith("/business/request_money")) {
+      return RequestMoney;
     }
     if (location.pathname.startsWith("/business/upload")) {
       return uploadNavBar;

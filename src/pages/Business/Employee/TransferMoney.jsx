@@ -57,7 +57,7 @@ const TransferMoney = () => {
                         style={{ color: "rgba(17, 17, 17, 0.6)" }}>
 
                         <div className="relative">
-                        <Link to="/business/transfer">
+                        <Link to="/business/wallets">
                                 <div className="absolute right-36 flex" style={{ width: "90px" }}>
                                 <svg
                                 className="mt-12"
@@ -81,7 +81,7 @@ const TransferMoney = () => {
                         </div>
 
                         <div className="w-1/2">
-                        <Link to="/user/dashboard">
+                        <Link to="/business/wallets">
                                 <div className="lg:hidden flex mb-12">
                                 <svg
                                 className="mt-12"
