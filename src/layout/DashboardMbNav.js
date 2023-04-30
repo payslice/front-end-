@@ -8,6 +8,7 @@ import { MdArrowBackIosNew } from 'react-icons/md';
 import { AiFillHome, AiFillSetting } from 'react-icons/ai';
 import { MdAnalytics } from 'react-icons/md';
 import { FaCommentDots } from 'react-icons/fa';
+import { TfiShiftRight } from "react-icons/tfi";
 import { persistSelector } from '../slices/persist';
 import { useSelector } from 'react-redux/es/exports';
 import { MdKeyboardArrowDown } from 'react-icons/md';
@@ -34,37 +35,69 @@ export const DahboardMobileNav = () => {
 
 	const menuItems = [
 		{
-			path: '/dashboard',
+			path: '/business/dashboard',
 			Icon: AiFillHome,
 			name: 'Dashboard',
 			subMenuList: []
 		},
 		{
-			path: '/employee',
+			path: '/business/wallets',
 			Icon: FaFolder,
-			name: 'Employees',
+			name: 'Wallets',
 			subMenuList: []
 		},
 		{
-			path: '/withdrawals',
+			path: '/business/request_money',
 			Icon: MdAnalytics,
-			name: 'Withdrawals',
-			subMenuList: []
+			name: 'Request Money',
+			subMenuList: [
+				{
+					path: '/business/request_money',
+					Icon: TfiShiftRight,
+					name: 'Credit Limit Money'
+				},
+				{
+					path: '/business/payroll/earn',
+					Icon: TfiShiftRight,
+					name: 'Associate Money'
+				},
+				{
+					path: '/business/request_money/associate',
+					Icon: TfiShiftRight,
+					name: 'History'
+				}
+			]
 		},
 		{
 			path: '/business/payroll',
 			Icon: HiBriefcase,
 			name: 'Payroll',
-			subMenuList: []
+			subMenuList: [
+				{
+					path: '/business/payroll',
+					Icon: TfiShiftRight,
+					name: 'Employee Payroll'
+				},
+				{
+					path: '/business/payroll/earn',
+					Icon: TfiShiftRight,
+					name: 'Earn as you go'
+				},
+				{
+					path: '/business/payroll/history',
+					Icon: TfiShiftRight,
+					name: 'Payroll History'
+				}
+			]
 		},
+		// {
+		// 	path: '/legal-info',
+		// 	Icon: FaCommentDots,
+		// 	name: 'Support',
+		// 	subMenuList: []
+		// },
 		{
-			path: '/legal-info',
-			Icon: FaCommentDots,
-			name: 'Support',
-			subMenuList: []
-		},
-		{
-			path: '/settings',
+			path: '/business/settings',
 			Icon: AiFillSetting,
 			name: 'Settings',
 			subMenuList: []

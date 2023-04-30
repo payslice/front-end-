@@ -91,6 +91,11 @@ export const businessMoneyRequest = (formData) => {
 export const businessAssociateMoneyRequest = (formData) => {
   return ApiRequestWithToken().post(`/api/business/money_request/associate_request`, formData);
 };
+export const businessTransactionsApi = (formData) => {
+  console.log("formData inside business transaction api")
+  console.log(formData)
+  return ApiRequestWithToken().get(`/api/business/account/statements`, {account_number:'9978731747', from:"23-02-12",to:"23-02-12"});
+};
 export const payrollGetStatsApi = () => {
   return ApiRequestWithToken().get(`/api/business/payroll/get_stats`);
 };

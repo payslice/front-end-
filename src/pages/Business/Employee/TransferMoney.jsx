@@ -14,7 +14,7 @@ const TransferMoney = () => {
         const [amount, setAmount] = useState("");
         const [success, setSuccess] = useState(false);
 	const [bank, setBank] = useState(listBanks[0]);
-
+ 
 
         const history = useHistory()
         
