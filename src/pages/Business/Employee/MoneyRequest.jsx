@@ -69,7 +69,9 @@ const MoneyRequest = () => {
   };
   return (
     <>
-        <div
+        
+    
+    <div
         className="w-full mt-0 font-bold withdraww"
         style={{ color: "rgba(17, 17, 17, 0.6)" }}>
           <div className="flex">
@@ -79,6 +81,8 @@ const MoneyRequest = () => {
               <div className="w-2/12 hidden">
                 <BackButton />
               </div>
+              <div className="w-2/12"></div>
+
               <div className="w-full md:w-6/12">
                 <Link to="/business/money">
                   <div className="hidden flex mb-12">
