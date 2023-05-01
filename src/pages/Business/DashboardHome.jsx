@@ -126,15 +126,11 @@ const DashboardHome = () => {
     const businessAccount = async () => {
         setloading(true)
         try {
-            console.log("entered business account")
             // const res2 = await axios.get("https://dev.app.payslices.com/api/business/account/statements", options).then(res => console.log(res))
             // const res = await fetch("https://dev.app.payslices.com/api/business/account/statements", options).then(res => res.json());
             // console.log("passed fetch business account")
             // console.log(res2)
             const {data} = await businessAccountDetails();
-            console.log("data.main_account.account_number")
-            console.log(data.data.recent_transactions)
-            console.log("data.main_account.account_number passes")
             setTotalTransaction(data.data.recent_transactions)
             // console.log(res2.data)
         
@@ -473,7 +469,7 @@ const DashboardHome = () => {
                             {accountDetails?.main_account.balance}
                             <span
                                 className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
-                                onClick={() => history.push("/employee")}>
+                                onClick={() => history.push("#")}>
                                 Manage{" "}
                             </span>
                         </h4>

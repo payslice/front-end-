@@ -18,6 +18,9 @@ import { DotLoader } from "../../../components/Loaders/DotLoader";
 import { useTable, usePagination, useRowSelect, useSortBy, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
 import { IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
 import {AiOutlineUpload}  from 'react-icons/ai'
+import {BsPlusLg}  from 'react-icons/bs'
+import {GiPencil}  from 'react-icons/gi'
+import {RiDeleteBinLine}  from 'react-icons/ri'
 // import matchSorter from 'match-sorter'
 
 const Styles = styled.div`
@@ -136,9 +139,20 @@ function GlobalFilter({
   const SeparateComp = () => {
     const history = useHistory()
     return (
+      <>
       <div className="border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white" title="please upload files here" onClick={() => history.push('/business/payroll/upload')}>
-        <AiOutlineUpload size={20}  />
+        <BsPlusLg size={20}  />
       </div>
+      <div className="border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white" title="please upload files here" onClick={() => history.push('/business/payroll/upload')}>
+        <GiPencil size={20}  />
+      </div>
+      <div className="border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white" title="please upload files here" onClick={() => history.push('/business/payroll/upload')}>
+        <AiOutlineUpload size={20}  /> 
+      </div>
+      <div className="border-2 border-[#D0000C] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#D0000C] text-[#D0000C] hover:text-white" title="please upload files here" onClick={() => history.push('/business/payroll/upload')}>
+        <RiDeleteBinLine size={20}  />
+      </div>
+      </>
 
     )
   }
