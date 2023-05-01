@@ -29,10 +29,6 @@ export const Banksapi = {
         bankName: "ACCELEREX NETWORK LIMITED"
         },
         {
-        bankCode: "090202",
-        bankName: "ACCELEREX NETWORK LIMITED"
-        },
-        {
         bankCode: "000014",
         bankName: "ACCESS BANK"
         },
@@ -62,10 +58,6 @@ export const Banksapi = {
         },
         {
         bankCode: "90155",
-        bankName: "ADVANS LA FAYETTE  MICROFINANCE BANK"
-        },
-        {
-        bankCode: "090155",
         bankName: "ADVANS LA FAYETTE  MICROFINANCE BANK"
         },
         {
@@ -553,10 +545,6 @@ export const Banksapi = {
         bankName: "IKIRE MICROFINANCE BANK"
         },
         {
-        bankCode: "090275",
-        bankName: "IKIRE MICROFINANCE BANK"
-        },
-        {
         bankCode: "090370",
         bankName: "ILISAN MICROFINANCE BANK"
         },
@@ -877,10 +865,6 @@ export const Banksapi = {
         bankName: "PETRA MICROFINANCE BANK"
         },
         {
-        bankCode: "090165",
-        bankName: "PETRA MICROFINANCE BANK"
-        },
-        {
         bankCode: "090289",
         bankName: "PILLAR MICROFINANCE BANK"
         },
@@ -1078,10 +1062,6 @@ export const Banksapi = {
         },
         {
         bankCode: "090193",
-        bankName: "UNICAL MICROFINANCE BANK"
-        },
-        {
-        bankCode: "90193",
         bankName: "UNICAL MICROFINANCE BANK"
         },
         {

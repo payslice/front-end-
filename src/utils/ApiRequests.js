@@ -111,9 +111,16 @@ export const payrollEarnasApi = () => {
 export const payrollHistoryApi = () => {
   return ApiRequestWithToken().get(`/api/business/payroll/payout_history`);
 };
+export const payrollDeleteRow = () => {
+  return ApiRequestWithToken().delete(`/api/business/payroll/employee/delete`);
+};
+export const payrollCreateEmployee = (formData) => {
+  return ApiRequestWithToken().post(`/api/business/payroll/employee/create`, formData);
+};
 export const businessAccountFlowApi = () => {
   return ApiRequestWithToken().get(`/api/business/account/flow`);
 };
+
 
 export const businessWalletAirtime = (data) => {
   return ApiRequestWithToken().post(`/api/topup/airtime`, data);

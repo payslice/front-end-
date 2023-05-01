@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { BiCalendarEvent } from "react-icons/bi";
 import { BsArrowUp, BsArrowDown } from "react-icons/bs";
 import styled from 'styled-components'
@@ -136,21 +136,12 @@ function GlobalFilter({
   //   // history.push('/business/payroll/upload')
   // }
 
-  const SeparateComp = () => {
+  const SeparateComp = ({children, linkto, deletee, inactive}) => {
     const history = useHistory()
     return (
       <>
-      <div className="border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white" title="please upload files here" onClick={() => history.push('/business/payroll/upload')}>
-        <BsPlusLg size={20}  />
-      </div>
-      <div className="border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white" title="please upload files here" onClick={() => history.push('/business/payroll/upload')}>
-        <GiPencil size={20}  />
-      </div>
-      <div className="border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white" title="please upload files here" onClick={() => history.push('/business/payroll/upload')}>
-        <AiOutlineUpload size={20}  /> 
-      </div>
-      <div className="border-2 border-[#D0000C] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#D0000C] text-[#D0000C] hover:text-white" title="please upload files here" onClick={() => history.push('/business/payroll/upload')}>
-        <RiDeleteBinLine size={20}  />
+      <div className={`${inactive && 'opacity-20'} border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white ${deletee && 'border-[#D0000C] hover:bg-[#D0000C] text-[#D0000C] hover:text-white'}`} title="please upload files here" onClick={() => history.push(`/business/payroll/${linkto}`)}>
+        {children}
       </div>
       </>
 
@@ -162,6 +153,10 @@ function GlobalFilter({
 function Table({ columns, data }) {
 
 
+    const [wholeData, setwholeData] = useState({
+      "selectedRowIds": {},
+      "selectedFlatRows[].original": []
+    })
 
     // Use the state and functions returned from useTable to build your UI
     const {
@@ -225,6 +220,24 @@ function Table({ columns, data }) {
         }
 
     )
+
+    const tryit =  useCallback(() => {
+      
+        setwholeData(
+          {
+              'selectedRowIds': selectedRowIds,
+              'selectedFlatRows[].original': selectedFlatRows.map(
+              d => d.original
+              ),
+          })
+          console.log("wholeData")
+          console.log(wholeData['selectedFlatRows[].original'])
+    }, [wholeData, selectedRowIds, selectedFlatRows])
+
+    useEffect(() => {
+      tryit()
+    }, [])
+
   
     // Render the UI for your table
     return (
@@ -256,7 +269,10 @@ function Table({ columns, data }) {
                     setGlobalFilter={setGlobalFilter}
                 />
                 <div className="flex">
-                <SeparateComp />
+                <SeparateComp linkto="createemployee"><BsPlusLg size={20} /></SeparateComp>
+                <SeparateComp linkto="/" inactive> <GiPencil size={20}  /></SeparateComp>
+                <SeparateComp linkto="upload" ><AiOutlineUpload size={20}  /> </SeparateComp>
+                <SeparateComp linkto="/" deletee inactive><RiDeleteBinLine size={20}  /></SeparateComp>
                 
                 <select
                     value={pageSize}
@@ -369,6 +385,17 @@ function Table({ columns, data }) {
         */}
       </div>
     </div>
+    {console.log("selectedFlatRows.original")}
+    {console.log(JSON.stringify(
+      {
+          selectedRowIds: selectedRowIds,
+          'selectedFlatRows[].original': selectedFlatRows.map(
+          d => d.original
+          ),
+      },
+      null,
+      2
+      ))}
         </>
     )
   }

@@ -23,6 +23,7 @@ import PayrollHistory from "../pages/Business/payroll/PayrollHistory";
 import WalletAirtime from "../pages/Business/wallets/WalletAirtime";
 import WalletData from "../pages/Business/wallets/WalletData";
 import WalletElectricity from "../pages/Business/wallets/WalletElectricity";
+import CreateEmployeePayroll from "../pages/Business/payroll/CreateEmployeePayroll";
 
 
 export const BusinessRoutesList = [
@@ -36,6 +37,7 @@ export const BusinessRoutesList = [
   { path: "/business/payroll/earn", component: EarnasPayroll, exact: true },  
   { path: "/business/payroll/history", component: PayrollHistory, exact: true }, 
   { path: "/business/payroll/upload", component: UploadEmployee, exact: true },  
+  { path: "/business/payroll/createemployee", component: CreateEmployeePayroll, exact: true },  
   { path: "/business/request_money", component: MoneyRequest, exact: true },
   { path: "/business/request_money/associate", component: AssociateMoney, exact: true },
   { path: "/business/create", component: CreateEmployee, exact: true }, 
