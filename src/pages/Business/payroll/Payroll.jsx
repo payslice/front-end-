@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import {
     payrollGetStatsApi,
     payrollEmployeeListApi,
+    payrollDeleteRow
 } from "../../../utils/ApiRequests";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -15,12 +16,14 @@ import { Button } from "../../../components/Button/Button";
 import { CustomTag } from "../../../components/CustomTag";
 import { AiOutlineSearch, AiOutlineDown, AiOutlinePlus } from "react-icons/ai";
 import { DotLoader } from "../../../components/Loaders/DotLoader";
+import MiniLoader from "../../../components/Loaders/MiniLoader";
 import { useTable, usePagination, useRowSelect, useSortBy, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
 import { IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
 import {AiOutlineUpload}  from 'react-icons/ai'
 import {BsPlusLg}  from 'react-icons/bs'
 import {GiPencil}  from 'react-icons/gi'
 import {RiDeleteBinLine}  from 'react-icons/ri'
+// import {payrollDeleteRow} from '../../../'
 // import matchSorter from 'match-sorter'
 
 const Styles = styled.div`
@@ -140,7 +143,7 @@ function GlobalFilter({
     const history = useHistory()
     return (
       <>
-      <div className={`${inactive && 'opacity-20'} border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white ${deletee && 'border-[#D0000C] hover:bg-[#D0000C] text-[#D0000C] hover:text-white'}`} title="please upload files here" onClick={() => history.push(`/business/payroll/${linkto}`)}>
+      <div className={`${inactive && 'opacity-20 hover:pointer-events-none hover:bg-[#fff] hover:text-[#D0000C]'} disabled={inactive} border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white ${deletee && 'border-[#D0000C] hover:bg-[#D0000C] text-[#D0000C] hover:text-white'}`} title="please upload files here" onClick={() => history.push(`/business/payroll/${linkto}`)}>
         {children}
       </div>
       </>
@@ -152,7 +155,7 @@ function GlobalFilter({
 
 function Table({ columns, data }) {
 
-
+    const [submitting, setSubmitting] = useState(false)
     const [wholeData, setwholeData] = useState({
       "selectedRowIds": {},
       "selectedFlatRows[].original": []
@@ -234,9 +237,51 @@ function Table({ columns, data }) {
           console.log(wholeData['selectedFlatRows[].original'])
     }, [wholeData, selectedRowIds, selectedFlatRows])
 
-    useEffect(() => {
-      tryit()
-    }, [])
+
+
+    const altern = useMemo(() => {
+
+       setwholeData(
+        {
+            'selectedRowIds': selectedRowIds,
+            'selectedFlatRows[].original': selectedFlatRows.map(
+            d => d.original
+            ),
+        })
+    }, [ selectedRowIds, selectedFlatRows])
+
+    console.log("wholeData")
+    console.log(wholeData)
+
+    const handleDeleteRow = async () => {
+
+        // payrollDeleteRow()
+        // console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
+        if(wholeData['selectedFlatRows[].original'].length === 1){
+          try {
+            const {data} = await payrollDeleteRow({paycode: wholeData['selectedFlatRows[].original'][0]?.paycode});
+            
+            if (data.status) {
+                toast.success(data.message)
+                setSubmitting(false);
+            }
+            else {
+                toast.error(data.message)
+                setSubmitting(false);
+            }
+      
+      
+          } catch (error) {
+            toast.error(error)
+           console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
+        }
+        
+    }
+  }
+
+    // useEffect(() => {
+    //   tryit()
+    // }, [])
 
   
     // Render the UI for your table
@@ -270,9 +315,15 @@ function Table({ columns, data }) {
                 />
                 <div className="flex">
                 <SeparateComp linkto="createemployee"><BsPlusLg size={20} /></SeparateComp>
-                <SeparateComp linkto="/" inactive> <GiPencil size={20}  /></SeparateComp>
+                <SeparateComp linkto="/" inactive={wholeData['selectedFlatRows[].original'].length === 0 || wholeData['selectedFlatRows[].original'].length > 1}
+                > <GiPencil size={20}  /></SeparateComp>
                 <SeparateComp linkto="upload" ><AiOutlineUpload size={20}  /> </SeparateComp>
-                <SeparateComp linkto="/" deletee inactive><RiDeleteBinLine size={20}  /></SeparateComp>
+                <div onClick={()=> handleDeleteRow()}>
+                <SeparateComp linkto="#delete" deletee 
+                    inactive={wholeData['selectedFlatRows[].original'].length === 0 || wholeData['selectedFlatRows[].original'].length > 1}>
+                    {submitting ? <MiniLoader /> : <RiDeleteBinLine size={20}  />}
+                </SeparateComp>
+                </div>
                 
                 <select
                     value={pageSize}

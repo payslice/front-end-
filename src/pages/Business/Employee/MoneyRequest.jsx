@@ -45,7 +45,7 @@ const MoneyRequest = () => {
       if (data.status) {
           toast.success(data.message)
           setSubmitting(false);
-          history.push("/business/dashboard");
+          history.push("/business/request_money");
       }
       else {
           toast.error(data.message)

@@ -111,8 +111,10 @@ export const payrollEarnasApi = () => {
 export const payrollHistoryApi = () => {
   return ApiRequestWithToken().get(`/api/business/payroll/payout_history`);
 };
-export const payrollDeleteRow = () => {
-  return ApiRequestWithToken().delete(`/api/business/payroll/employee/delete`);
+export const payrollDeleteRow = (formData) => {
+  console.log("formData imside deletepayroll")
+  console.log(formData)
+  return ApiRequestWithToken().delete(`/api/business/payroll/employee/delete`, formData);
 };
 export const payrollCreateEmployee = (formData) => {
   return ApiRequestWithToken().post(`/api/business/payroll/employee/create`, formData);
@@ -121,6 +123,14 @@ export const businessAccountFlowApi = () => {
   return ApiRequestWithToken().get(`/api/business/account/flow`);
 };
 
+export const businessRequestMoneyHistoryApi = () => {
+  return ApiRequestWithToken().get(`/api/business/money_request/history`);
+};
+export const getAccountNameApi = (formData) => {
+  console.log("formData inside account name api")
+  console.log(formData)
+  return ApiRequestWithToken().get(`/api/account_info`, formData);
+};
 
 export const businessWalletAirtime = (data) => {
   return ApiRequestWithToken().post(`/api/topup/airtime`, data);
