@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../../components/Button/Button";
 import { InputField, PasswordInput, SelectInput } from "../../../components/Input";
-import { businessTransferMoney, requestWithdrawal } from "../../../utils/ApiRequests";
+import { businessTransferMoney, getAccountNameApi, requestWithdrawal } from "../../../utils/ApiRequests";
 import { SuccessMessage } from "../../../components/Message/Message";
 import { toast } from "react-toastify";
 import { Link, useHistory } from "react-router-dom";
@@ -11,9 +11,10 @@ import { listBanks } from "../../../utils/banksapi";
 
 const TransferMoney = () => {
         const [submitting, setSubmitting] = useState(false);
-        const [amount, setAmount] = useState("");
+        const [accountNameLoading, setaccountNameLoading] = useState(false);
         const [success, setSuccess] = useState(false);
-	const [bank, setBank] = useState(listBanks[0]);
+	const [bank, setBank] = useState();
+	const [account_number, setAccount_number] = useState();
  
 
         const history = useHistory()
@@ -25,7 +26,7 @@ const TransferMoney = () => {
                 setSubmitting(true);
 
                 try {
-                        const {data} = await businessTransferMoney({...formData, bank_code:  bank.code});
+                        const {data} = await businessTransferMoney({...formData, bank_code:  bank?.code});
                         
                         if(data.status){
                                 history.push("/business/dashboard")
@@ -50,6 +51,49 @@ const TransferMoney = () => {
                         setSuccess(false);
                 }
         };
+
+        const getAccountName = useCallback( async () => {
+                setaccountNameLoading(true);
+
+                try {
+                        const {data} = await getAccountNameApi({bank_code: bank?.code, account_number});
+                        console.log(data)
+                        
+                        if(data.status){
+                                toast.success(data.message)
+                                setaccountNameLoading(false);
+                        }
+                        else {
+                                toast.error(data.message)
+                                setaccountNameLoading(false);
+                        }
+
+                } catch (error) {
+                        setaccountNameLoading(false);
+
+                        error &&
+                        toast.error(
+                        error.response.data.payload?.data?.errors?.amount[0] ||
+                                error.response.data.payload.data.message ||
+                                error.response.data.payload.data
+                        );
+
+                        setSuccess(false);
+                }
+        }, [history, account_number, bank])
+
+        useEffect(() => {
+                console.log("entered the useEffect statement")
+                console.log("bank ", bank?.code, "account_number.length", account_number?.length)
+                if(bank?.code && account_number?.length === 10){
+                        console.log("entered the if statement")
+                        getAccountName()
+                }
+
+                // return () => getAccountName()
+
+        },[bank,account_number ])
+
         return (
                 <>
                 <div
@@ -109,16 +153,16 @@ const TransferMoney = () => {
 
                         <form onSubmit={handleSubmit(onSubmit)}>
                                 <InputField
-                                        type="text"
+                                        type="number"
                                         label="Balance"
                                         {...register("balance")}
                                         // value={amount}
-                                        placeholder="NGN 120,000"
+                                        placeholder="120,000"
                                         // required
                                 />
 
                                 <InputField
-                                        type="text"
+                                        type="number"
                                         label="Amount"
                                         placeholder="NGN 130,000"
                                         {...register("amount")}
@@ -135,15 +179,18 @@ const TransferMoney = () => {
                                 
                                 <div className="grid grid-cols-2 gap-4">
                                         <InputField
-                                                type="text"
+                                                type="number"
                                                 label="Account Number"
                                                 className=""
-                                                {...register("account_number")}
+                                                value={account_number}
+                                                onChange={(e) => setAccount_number(e.target.value)}
+                                                // {...register("account_number")}
                                         />
 
                                         <InputField
                                                 type="text"
                                                 label="Account Name"
+                                                disabled
                                                 {...register("account_name")}
                                         />
                                 </div>
@@ -158,7 +205,7 @@ const TransferMoney = () => {
 
                                 <PasswordInput
                                         type="text"
-                                        label="Enter Pin"
+                                        label="Enter Password"
                                         placeholder="********"
                                         {...register("description")}
                                         // required

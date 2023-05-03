@@ -46,7 +46,7 @@ const AssociateMoney = () => {
       
       if (data.status ) {
           toast.success(data.message)
-          history.push("/business/dashboard");
+          history.push("/business/request_money");
           setSubmitting(false);
       }
       else {
@@ -142,7 +142,7 @@ const AssociateMoney = () => {
             />
 
             <InputField
-              type="text"
+              type="number"
               label="Amount"
               placeholder="Enter Amount"
               {...register('amount')}

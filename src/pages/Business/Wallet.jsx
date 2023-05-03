@@ -33,10 +33,12 @@ import { persistSelector } from "../../slices/persist";
 import { Button } from "../../components/Button/Button";
 import { AiTwotoneCalendar } from 'react-icons/ai';
 import { TfiWorld } from "react-icons/tfi";
-import { BsArrowDownLeftCircle, BsArrowUpRightCircle } from "react-icons/bs";
+import { MdOutlineElectricBolt } from "react-icons/md";
+import { BsArrowDownLeftCircle, BsArrowUpRightCircle, BsPhoneVibrate } from "react-icons/bs";
 import {TransactionStatusFail, TransactionStatusNeutral, TransactionStatusSuccess} from '../../components/TransactionStatus'
-import { SiDataverse } from "react-icons/si";import { FcElectricity } from "react-icons/fc";
+import { SiDataverse, SiDocsdotrs } from "react-icons/si";import { FcElectricity } from "react-icons/fc";
 import { WalletIconText } from "../../components/WalletIconText";
+import Calender from "../../components/Calender";
 
 
 
@@ -54,6 +56,9 @@ const Wallet = () => {
     const [accountDetails, setaccountDetails] = useState();
     const [totalTransaction, setTotalTransaction] = useState(); 
 
+    const [startDate, setstartDate] = useState();
+    const [endDate, setEndDate] = useState(); 
+    console.log(startDate)
     console.log(user);
 
     const token = getTokenFromStorage();
@@ -106,7 +111,11 @@ const Wallet = () => {
     };
     const businesscheckstatements = async () => {
         try {
-            const {data} = await businessCheckStatements();
+            const {data} = await businessCheckStatements(
+                {account_number: accountDetails?.main_account.account_number, from: startDate, to: endDate}
+            );
+            console.log("business check statements")
+            console.log(data)
             if(data.status) {
                 console.log("business check statements")
                 console.log(data)
@@ -153,13 +162,13 @@ const Wallet = () => {
                             <div>
                                 <div className="flex relative overflow-auto">
                                     <WalletIconText title="Airtime" onclick={() => history.push(`/business/wallets/airtime`)}>
-                                        <TfiWorld size={25} color="#737A91" />
+                                        <BsPhoneVibrate size={25} color="#737A91" />
                                     </WalletIconText>
                                     <WalletIconText title="Data" onclick={() => history.push(`/business/wallets/data`)}>
-                                        <SiDataverse size={25} color="#737A91" />
+                                        <TfiWorld size={25} color="#737A91" />
                                     </WalletIconText>
                                     <WalletIconText title="Electricity" onclick={() => history.push(`/business/wallets/electricity`)}>
-                                        <FcElectricity size={25} color="#737A91" />
+                                        <MdOutlineElectricBolt size={25} color="#737A91" />
                                     </WalletIconText>
                                 </div>
                             </div>
@@ -173,11 +182,24 @@ const Wallet = () => {
                                 <div className="flex">
                                     <div className="w-1/2 border-r-2 border-black text-[#111111]/[0.7]">
                                         <span className="font-medium">From</span>
-                                        <div className="flex pt-3 font-bold"><span className="text-[18px]">2021-08-09</span> <span className="pt-1 px-4"><AiTwotoneCalendar /></span></div>
+                                        {/*<div className="flex pt-3 font-bold"><span className="text-[18px]">2021-08-09</span> <span className="pt-1 px-4"><AiTwotoneCalendar /></span></div>*/}
+                                        <input
+                                            type="date"
+                                            className="mb-5"
+                                            onChange={(e) => setstartDate(e.target.value)}
+                                            
+                                        />
+                                        <Button buttonText={"check"} disable={!startDate || !endDate} disabled={!startDate || !endDate} onClick={() => businesscheckstatements()} />
                                     </div>
                                     <div className="w-1/2 text-[#111111]/[0.7] pl-5">
                                         <span className="font-medium">To</span>
-                                        <div className="flex pt-3 font-bold"><span className="text-[18px]">2021-08-09</span> <span className="pt-1 px-4"><AiTwotoneCalendar /></span></div>
+                                        {/*<div className="flex pt-3 font-bold"><span className="text-[18px]">2021-08-09</span> <span className="pt-1 px-4"><AiTwotoneCalendar /></span></div>*/}
+                                        <input
+                                            type="date"
+                                            className="mb-5"
+                                            onChange={(e) => setEndDate(e.target.value)}
+                                        />
+                                        <Button buttonText={"Download"} />
                                     </div>
                                 </div>
                             </div>

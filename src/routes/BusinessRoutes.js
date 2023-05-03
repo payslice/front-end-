@@ -24,6 +24,7 @@ import WalletAirtime from "../pages/Business/wallets/WalletAirtime";
 import WalletData from "../pages/Business/wallets/WalletData";
 import WalletElectricity from "../pages/Business/wallets/WalletElectricity";
 import CreateEmployeePayroll from "../pages/Business/payroll/CreateEmployeePayroll";
+import RequestMoenyHistory from "../pages/Business/Employee/RequestMoneyHistory";
 
 
 export const BusinessRoutesList = [
@@ -38,7 +39,8 @@ export const BusinessRoutesList = [
   { path: "/business/payroll/history", component: PayrollHistory, exact: true }, 
   { path: "/business/payroll/upload", component: UploadEmployee, exact: true },  
   { path: "/business/payroll/createemployee", component: CreateEmployeePayroll, exact: true },  
-  { path: "/business/request_money", component: MoneyRequest, exact: true },
+  { path: "/business/request_money", component: RequestMoenyHistory, exact: true },
+  { path: "/business/request_money/credit_limit", component: MoneyRequest, exact: true },
   { path: "/business/request_money/associate", component: AssociateMoney, exact: true },
   { path: "/business/create", component: CreateEmployee, exact: true }, 
   { path: "/business/details", component: EmployeeDetails, exact: true }, 
@@ -89,17 +91,18 @@ const uploadNavBar = [
   }
 ];
 const RequestMoney = [
+  
   {
-    name: "Credit Limit Money ",
+    name: "Approval History",
     link: "/business/request_money",
   },
   {
-    name: "Associate Money",
+    name: "Credit Limit Money Request",
+    link: "/business/request_money/credit_limit",
+  },
+  {
+    name: "Associate Money Request",
     link: "/business/request_money/associate",
-  },
-  {
-    name: "History",
-    link: "/business/request_money",
   }
 ];
 const Payroll = [
