@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback,useContext } from "react";
 import { BiCalendarEvent } from "react-icons/bi";
 import { BsArrowUp, BsArrowDown } from "react-icons/bs";
 import styled from 'styled-components'
@@ -23,6 +23,7 @@ import {AiOutlineUpload}  from 'react-icons/ai'
 import {BsPlusLg}  from 'react-icons/bs'
 import {GiPencil}  from 'react-icons/gi'
 import {RiDeleteBinLine}  from 'react-icons/ri'
+import {UpdateEmployeeContext} from '../../../routes/BusinessRoutes'
 // import {payrollDeleteRow} from '../../../'
 // import matchSorter from 'match-sorter'
 
@@ -152,8 +153,10 @@ function GlobalFilter({
   }
 
 
-
 function Table({ columns, data }) {
+
+    const {employeeUpateData, setEmployeeUpdateData} = useContext(UpdateEmployeeContext)
+    const history = useHistory()
 
     const [submitting, setSubmitting] = useState(false)
     const [wholeData, setwholeData] = useState({
@@ -253,32 +256,40 @@ function Table({ columns, data }) {
     console.log("wholeData")
     console.log(wholeData)
 
-    const handleDeleteRow = async () => {
+        const handleDeleteRow = async () => {
 
-        // payrollDeleteRow()
-        // console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
-        if(wholeData['selectedFlatRows[].original'].length === 1){
-          try {
-            const {data} = await payrollDeleteRow({paycode: wholeData['selectedFlatRows[].original'][0]?.paycode});
-            
-            if (data.status) {
-                toast.success(data.message)
-                setSubmitting(false);
-            }
-            else {
-                toast.error(data.message)
-                setSubmitting(false);
-            }
-      
-      
-          } catch (error) {
-            toast.error(error)
-           console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
+                // payrollDeleteRow()
+                // console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
+                if(wholeData['selectedFlatRows[].original'].length === 1){
+                        try {
+                        const {data} = await payrollDeleteRow({paycode: wholeData['selectedFlatRows[].original'][0]?.paycode});
+                        
+                        if (data.status) {
+                                toast.success(data.message)
+                                setSubmitting(false);
+                        }
+                        else {
+                                toast.error(data.message)
+                                setSubmitting(false);
+                        }
+                
+                
+                        } catch (error) {
+                        toast.error(error)
+                        console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
+                        }
+                
+                }
         }
-        
-    }
-  }
+        const handleUpdateRow = async () => {
 
+                // payrollDeleteRow()
+                // console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
+                if(wholeData['selectedFlatRows[].original'].length === 1){
+                        setEmployeeUpdateData(wholeData['selectedFlatRows[].original'])
+                        history.push('/business/payroll/updateemployee')
+                }
+        }
     // useEffect(() => {
     //   tryit()
     // }, [])
@@ -314,30 +325,35 @@ function Table({ columns, data }) {
                     setGlobalFilter={setGlobalFilter}
                 />
                 <div className="flex">
-                <SeparateComp linkto="createemployee"><BsPlusLg size={20} /></SeparateComp>
-                <SeparateComp linkto="/" inactive={wholeData['selectedFlatRows[].original'].length === 0 || wholeData['selectedFlatRows[].original'].length > 1}
-                > <GiPencil size={20}  /></SeparateComp>
-                <SeparateComp linkto="upload" ><AiOutlineUpload size={20}  /> </SeparateComp>
-                <div onClick={()=> handleDeleteRow()}>
-                <SeparateComp linkto="#delete" deletee 
-                    inactive={wholeData['selectedFlatRows[].original'].length === 0 || wholeData['selectedFlatRows[].original'].length > 1}>
-                    {submitting ? <MiniLoader /> : <RiDeleteBinLine size={20}  />}
-                </SeparateComp>
-                </div>
-                
-                <select
-                    value={pageSize}
-                    onChange={e => {
-                        setPageSize(Number(e.target.value))
-                    }}
-                    className="border-2 border-[#1C6AF4] p-2 text-[14px]"
-                    >
-                    {[5, 10, 20].map(pageSize => (
-                        <option key={pageSize} value={pageSize}>
-                        Employees {pageSize}
-                        </option>
-                    ))}
-                </select>
+                        <SeparateComp linkto="createemployee"><BsPlusLg size={20} /></SeparateComp>
+                        
+                        <div onClick={()=> handleUpdateRow()}>
+                                <SeparateComp linkto="#fds" inactive={wholeData['selectedFlatRows[].original'].length === 0 || wholeData['selectedFlatRows[].original'].length > 1}
+                                > <GiPencil size={20} /></SeparateComp>
+                        </div>
+
+                        <SeparateComp linkto="upload" ><AiOutlineUpload size={20}  /> </SeparateComp>
+
+                        <div onClick={()=> handleDeleteRow()}>
+                                <SeparateComp linkto="#delete" deletee 
+                                inactive={wholeData['selectedFlatRows[].original'].length === 0 || wholeData['selectedFlatRows[].original'].length > 1}>
+                                {submitting ? <MiniLoader /> : <RiDeleteBinLine size={20}  />}
+                        </SeparateComp>
+                        </div>
+                        
+                        <select
+                                value={pageSize}
+                                onChange={e => {
+                                        setPageSize(Number(e.target.value))
+                                }}
+                                className="border-2 border-[#1C6AF4] p-2 text-[14px]"
+                        >
+                                {[5, 10, 20].map(pageSize => (
+                                        <option key={pageSize} value={pageSize}>
+                                        Employees {pageSize}
+                                        </option>
+                                ))}
+                        </select>
                 </div>
             </div>
             <table {...getTableProps()}>

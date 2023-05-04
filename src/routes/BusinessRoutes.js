@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
 import { checkLogin, checkTokenValidity } from "../utils/ApiUtils";
@@ -25,6 +25,9 @@ import WalletData from "../pages/Business/wallets/WalletData";
 import WalletElectricity from "../pages/Business/wallets/WalletElectricity";
 import CreateEmployeePayroll from "../pages/Business/payroll/CreateEmployeePayroll";
 import RequestMoenyHistory from "../pages/Business/Employee/RequestMoneyHistory";
+import UpdateEmployeePayroll from "../pages/Business/payroll/UpdateEmployeePayroll";
+
+export const UpdateEmployeeContext = createContext('')
 
 
 export const BusinessRoutesList = [
@@ -39,6 +42,7 @@ export const BusinessRoutesList = [
   { path: "/business/payroll/history", component: PayrollHistory, exact: true }, 
   { path: "/business/payroll/upload", component: UploadEmployee, exact: true },  
   { path: "/business/payroll/createemployee", component: CreateEmployeePayroll, exact: true },  
+  { path: "/business/payroll/updateemployee", component: UpdateEmployeePayroll, exact: true },  
   { path: "/business/request_money", component: RequestMoenyHistory, exact: true },
   { path: "/business/request_money/credit_limit", component: MoneyRequest, exact: true },
   { path: "/business/request_money/associate", component: AssociateMoney, exact: true },
@@ -190,6 +194,7 @@ const userInfoNavTab = [
 
 const BusinessRoutes = () => {
   const location = useLocation();
+  const [employeeUpateData, setEmployeeUpdateData] = useState()
 
   const useNavTab = () => {
     if (location.pathname.startsWith("/business/transfer")) {
@@ -244,6 +249,7 @@ const BusinessRoutes = () => {
   };
 
   return (
+    <UpdateEmployeeContext.Provider value={{employeeUpateData, setEmployeeUpdateData}}>
     <AppLayout navTab={useNavTab()}>
       <Switch>
         {BusinessRoutesList.map((r) => (
@@ -258,6 +264,7 @@ const BusinessRoutes = () => {
         ))}
       </Switch>
     </AppLayout>
+    </UpdateEmployeeContext.Provider>
   );
 };
 

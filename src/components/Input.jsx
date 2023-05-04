@@ -146,6 +146,7 @@ export const SelectInput = forwardRef(
             required,
             label,
             errors,
+            selectIncomingData,
             props,
         },
         ref
@@ -175,7 +176,7 @@ export const SelectInput = forwardRef(
                         } mb-5 mt-2 w-full rounded bg-gray-100 overflow-hidden flex justify-between input text-sm md:text-base px-7 items-center cursor-pointer relative`}>
                         <div className='flex justify-between w-full'>
                             <span className=''>
-                                {selectedValue?.name || selectedValue?.label}
+                                {selectedValue?.name || selectedValue?.label || selectIncomingData}
                             </span>
                             <FaChevronDown className='mt-1' />
                         </div>
@@ -193,7 +194,7 @@ export const SelectInput = forwardRef(
                                     onClick={() => {
                                         setShowDropDown(false);
                                         setSelectedValue(option);
-                                        setFormValue("id_type", option.value);
+                                        setFormValue("id_type", option.value || option?.label);
                                     }}
                                     className='text-gray-600 py-2.5 cursor-pointer w-full hover:bg-gray-50 active:bg-gray-100 px-7 font-medium'>
                                     {option?.name || option?.label}

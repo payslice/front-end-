@@ -119,6 +119,9 @@ export const payrollDeleteRow = (formData) => {
 export const payrollCreateEmployee = (formData) => {
   return ApiRequestWithToken().post(`/api/business/payroll/employee/create`, formData);
 };
+export const payrollUpdateEmployee = (formData) => {
+  return ApiRequestWithToken().patch(`/api/business/payroll/employee/update`, formData);
+};
 export const businessAccountFlowApi = () => {
   return ApiRequestWithToken().get(`/api/business/account/flow`);
 };
