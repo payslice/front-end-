@@ -44,6 +44,7 @@ export const BusinessRoutesList = [
   { path: "/business/payroll/createemployee", component: CreateEmployeePayroll, exact: true },  
   { path: "/business/payroll/updateemployee", component: UpdateEmployeePayroll, exact: true },  
   { path: "/business/request_money", component: RequestMoenyHistory, exact: true },
+  { path: "/business/request_money/dashboard", component: RequestMoenyHistory, exact: true },
   { path: "/business/request_money/credit_limit", component: MoneyRequest, exact: true },
   { path: "/business/request_money/associate", component: AssociateMoney, exact: true },
   { path: "/business/create", component: CreateEmployee, exact: true }, 

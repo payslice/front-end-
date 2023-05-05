@@ -23,17 +23,17 @@ const RequestMoneyHistory = () => {
             const {data} = await payrollGetStatsApi();
 
             if (data.status) {
-                toast.success(data.message)
+                // toast.success(data.message)
                 setpayrollState(data.data)
                 setSubmitting(false);
             }
             else {
-                toast.error(data.message)
+                // toast.error(data.message)
                 setSubmitting(false);
             }
 
         } catch (error) {
-            toast.error(error)
+            // toast.error(error)
             setSubmitting(false);
         }
         finally {
@@ -48,17 +48,17 @@ const RequestMoneyHistory = () => {
             console.log(data.data)
             
             if (data.status) {
-                toast.success(data.message)
+                // toast.success(data.message)
                 setrequestHistoryState(data.data)
                 setrequestHistoryLoading(false);
             }
             else {
-                toast.error(data.message)
+                // toast.error(data.message)
                 setrequestHistoryLoading(false);
             }
 
         } catch (error) {
-            toast.error(error)
+            // toast.error(error)
             setrequestHistoryLoading(false);
         }
         finally {

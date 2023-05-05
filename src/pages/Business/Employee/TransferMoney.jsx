@@ -124,7 +124,7 @@ const TransferMoney = () => {
                         </Link>
                         </div>
 
-                        <div className="w-1/2">
+                        <div className="w-full md:w-1/2">
                         <Link to="/business/wallets">
                                 <div className="lg:hidden flex mb-12">
                                 <svg

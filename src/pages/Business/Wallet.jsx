@@ -93,16 +93,16 @@ const Wallet = () => {
             // console.log(res2.data)
         
             if (data.status) {
-                toast.success(data.message)
+                // toast.success(data.message)
                 setaccountDetails(data.data)
                 setloading(false);
             }
             else {
-                toast.error(data.message)
+                // toast.error(data.message)
                 setloading(false);
             }
         } catch (error) {
-            toast.error(error)
+            // toast.error(error)
             setloading(false);
         }
         finally {

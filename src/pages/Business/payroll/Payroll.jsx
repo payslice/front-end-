@@ -24,7 +24,6 @@ import {BsPlusLg}  from 'react-icons/bs'
 import {GiPencil}  from 'react-icons/gi'
 import {RiDeleteBinLine}  from 'react-icons/ri'
 import {UpdateEmployeeContext} from '../../../routes/BusinessRoutes'
-// import {payrollDeleteRow} from '../../../'
 // import matchSorter from 'match-sorter'
 
 const Styles = styled.div`
@@ -533,12 +532,12 @@ const Payroll = () => {
             const {data} = await payrollGetStatsApi();
             
             if (data.status) {
-                toast.success(data.message)
+                // toast.success(data.message)
                 setpayrollState(data.data)
                 setSubmitting(false);
             }
             else {
-                toast.error(data.message)
+                // toast.error(data.message)
                 setSubmitting(false);
             }
 
@@ -563,14 +562,14 @@ const Payroll = () => {
             
             if (data.status) {
                 console.log("entered payroll employee list inside status")
-                toast.success(data.message)
+                // toast.success(data.message)
                 setpayrollEmployeeState(data.data)
                 console.log("payroll employee list inside status")
                 console.log(data.data)
                 setSubmitting(false);
             }
             else {
-                toast.error(data.message)
+                // toast.error(data.message)
                 setSubmitting(false);
             }
 
