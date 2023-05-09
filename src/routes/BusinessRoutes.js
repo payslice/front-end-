@@ -26,6 +26,7 @@ import WalletElectricity from "../pages/Business/wallets/WalletElectricity";
 import CreateEmployeePayroll from "../pages/Business/payroll/CreateEmployeePayroll";
 import RequestMoenyHistory from "../pages/Business/Employee/RequestMoneyHistory";
 import UpdateEmployeePayroll from "../pages/Business/payroll/UpdateEmployeePayroll";
+import RequestMoneyDashboard from "../pages/Business/Employee/RequestMoneyDashboard";
 
 export const UpdateEmployeeContext = createContext('')
 
@@ -43,7 +44,8 @@ export const BusinessRoutesList = [
   { path: "/business/payroll/upload", component: UploadEmployee, exact: true },  
   { path: "/business/payroll/createemployee", component: CreateEmployeePayroll, exact: true },  
   { path: "/business/payroll/updateemployee", component: UpdateEmployeePayroll, exact: true },  
-  { path: "/business/request_money", component: RequestMoenyHistory, exact: true },
+  { path: "/business/request_money", component: RequestMoneyDashboard, exact: true },
+  { path: "/business/request_money/history", component: RequestMoenyHistory, exact: true },
   { path: "/business/request_money/dashboard", component: RequestMoenyHistory, exact: true },
   { path: "/business/request_money/credit_limit", component: MoneyRequest, exact: true },
   { path: "/business/request_money/associate", component: AssociateMoney, exact: true },
@@ -99,7 +101,7 @@ const RequestMoney = [
   
   {
     name: "Approval History",
-    link: "/business/request_money",
+    link: "/business/request_money/history",
   },
   {
     name: "Credit Limit Money Request",

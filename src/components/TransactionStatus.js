@@ -5,15 +5,15 @@ export const TransactionStatusFail = ({name, message, date, statusKind, rate, da
     
         <div className="flex">
                 <div className="w-2/12">
-                    <div className="flex justify-center pt-5">
+                    <div className="flex justify-center pt-5 z-50 relative">
                         <div className="w-[42px] h-[10px]">
                             <div className="bg-[#FFEFF0] p-3 rounded-full">
                                 <BsArrowDownLeftCircle color="#D0000C" size={20} />
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-center pt-5">
-                        <hr className="bg-[#E5E5E5] w-[1px] h-[130px]" />
+                    <div className="flex justify-center pt-5 z-0 relative">
+                        <hr className="bg-[#E5E5E5] w-[1px] h-[130px] " />
                     </div>
                 </div>
     
@@ -41,7 +41,7 @@ export const TransactionStatusFail = ({name, message, date, statusKind, rate, da
         
         <div className="flex">
                 <div className="w-2/12">
-                    <div className="flex justify-center pt-5">
+                    <div className="flex justify-center pt-5 z-50 relative">
                         <div className="w-[42px] h-[10px]">
                                 <div className="bg-[#DCFFE6] p-3 rounded-full">
                                     <BsArrowUpRightCircle color="#087A2A" size={20} />
@@ -73,7 +73,7 @@ export const TransactionStatusNeutral = ({message, date, statusKind, rate, day, 
         
         <div className="flex">
                 <div className="w-2/12">
-                    <div className="flex justify-center pt-5">
+                    <div className="flex justify-center pt-5 z-50 relative">
                         <div className="w-[42px] h-[10px]">
                                 <div className="bg-[#CEEDFF] p-3 rounded-full">
                                     <BsArrowDownLeftCircle color="#2A69AC" size={20} />
@@ -104,7 +104,7 @@ export const TransactionStatusPending = ({message, date, statusKind, rate, day, 
         
         <div className="flex">
                 <div className="w-2/12">
-                    <div className="flex justify-center pt-5">
+                    <div className="flex justify-center pt-5 z-50 relative">
                         <div className="w-[42px] h-[10px]">
                                 <div className="bg-[#ffedb3] p-3 rounded-full">
                                     <BsArrowDownLeftCircle color="#806200" size={20} />

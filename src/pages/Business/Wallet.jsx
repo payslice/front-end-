@@ -71,14 +71,26 @@ const Wallet = () => {
         // // body: JSON.stringify({...formData, employee_id: employeeIdState})
         // }
 
-    // const options = {
-    //     method: 'GET',
-    //     headers: {"Authorization": `Bearer ${token}`, "Content-Type": "application/json", "Accept": "application/json"},
-    //     body: JSON.stringify({"account_number":'9978731747'})
-    // }
-    // const businessTransactionsApiFetch = () => {
-    //     return fetch("https://dev.app.payslices.com/api/business/account/statements", options).then(res => res.json());
-    // }
+    const businessTransactionsApiFetch = async () => {
+        
+        const options = {
+            method: 'GET',
+            headers: {"Authorization": `Bearer ${token}`, "Content-Type": "application/json", "Accept": "application/json"},
+            body: JSON.stringify({account_number: '123456789'})
+        }
+        
+        console.log("businessTransactionsApiFetch before try")
+        try {
+            console.log("businessTransactionsApiFetch after try")
+            let res = await fetch("https://dev.app.payslices.com/api/business/account/statements", options).then(res => res.json());
+            console.log("businessTransactionsApiFetch after res")
+            console.log(res)
+
+        }
+        catch(err) {
+
+        }
+    }
     // console.log(businessTransactionsApiFetch)
 
     const businessAccount = async () => {
@@ -110,6 +122,10 @@ const Wallet = () => {
         } 
     };
     const businesscheckstatements = async () => {
+
+        console.log("{account_number: accountDetails?.main_account.account_number, from: startDate, to: endDate}")
+        console.log({account_number: accountDetails?.main_account.account_number, from: startDate, to: endDate})
+
         try {
             const {data} = await businessCheckStatements(
                 {account_number: accountDetails?.main_account.account_number, from: startDate, to: endDate}
@@ -185,21 +201,20 @@ const Wallet = () => {
                                         {/*<div className="flex pt-3 font-bold"><span className="text-[18px]">2021-08-09</span> <span className="pt-1 px-4"><AiTwotoneCalendar /></span></div>*/}
                                         <input
                                             type="date"
-                                            className="mb-5"
+                                            className="my-5 border-2 border-[#1c61f4] text-[#1c61f4] p-2 rounded-lg"
                                             onChange={(e) => setstartDate(e.target.value)}
-                                            
                                         />
-                                        <Button buttonText={"check"} disable={!startDate || !endDate} disabled={!startDate || !endDate} onClick={() => businesscheckstatements()} />
+                                        <Button buttonText={"Check"} disable={!startDate || !endDate} disabled={!startDate || !endDate} onClick={() => businessTransactionsApiFetch()} />
                                     </div>
                                     <div className="w-1/2 text-[#111111]/[0.7] pl-5">
                                         <span className="font-medium">To</span>
                                         {/*<div className="flex pt-3 font-bold"><span className="text-[18px]">2021-08-09</span> <span className="pt-1 px-4"><AiTwotoneCalendar /></span></div>*/}
                                         <input
                                             type="date"
-                                            className="mb-5"
+                                            className="my-5 border-2 border-[#1c61f4] text-[#1c61f4] p-2 rounded-lg"
                                             onChange={(e) => setEndDate(e.target.value)}
                                         />
-                                        <Button buttonText={"Download"} />
+                                        <Button buttonText={"Download Statement"} disable={!startDate || !endDate} disabled={!startDate || !endDate} />
                                     </div>
                                 </div>
                             </div>

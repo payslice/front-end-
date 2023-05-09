@@ -113,17 +113,17 @@ const RequestMoneyHistory = () => {
                                                 {
                                                         e.status === 'disapproved'
                                                         ?
-                                                        <TransactionStatusFail message={e.title} date="wed,24 may" statusKind="neutral" balance="30,000" />
+                                                        <TransactionStatusFail message={e.title} date={e.created_at} statusKind="neutral" balance={e.amount} />
                                                         :
                                                         e.status === 'approved'
                                                         ?
-                                                        <TransactionStatusSuccess message={e.title} date="wed,24 may" statusKind="neutral" balance="30,000" />
+                                                        <TransactionStatusSuccess message={e.title} date={e.created_at} statusKind="neutral" balance={e.amount} />
                                                         :
                                                         e.status === 'unattended'
                                                         ?
-                                                        <TransactionStatusPending message={e.title} date="wed,24 may" statusKind="neutral" balance="30,000" />
+                                                        <TransactionStatusPending message={e.title} date={e.created_at} statusKind="neutral" balance={e.amount} />
                                                         :
-                                                        <TransactionStatusNeutral message={e.title} date="wed,24 may" statusKind="neutral" balance="30,000" />
+                                                        <TransactionStatusNeutral message={e.title} date={e.created_at} statusKind="neutral" balance={e.amount} />
                                                 }
                                         </div>
                                 ))      
