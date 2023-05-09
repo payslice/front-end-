@@ -431,7 +431,7 @@ const EarnasPayroll = () => {
             // console.log(data)
             
             if (data.status) {
-                toast.success(data.message)
+                // toast.success(data.message)
                 setpayrollState(data.data)
                 setSubmitting(false);
             }
@@ -460,7 +460,7 @@ const EarnasPayroll = () => {
             
             if (data.status) {
                 console.log("entered payroll employee list inside status")
-                toast.success(data.message)
+                // toast.success(data.message)
                 setpayrollEmployeeState(data.data)
                 console.log("payroll employee list inside status")
                 console.log(data.data)
@@ -490,7 +490,7 @@ const EarnasPayroll = () => {
             
             if (data.status) {
                 console.log("entered payroll employee list inside status")
-                toast.success(data.message)
+                // toast.success(data.message)
                 setpayrollEmployeeState(data.data)
                 console.log("payroll employee list inside status")
                 console.log(data.data)

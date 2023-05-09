@@ -214,7 +214,7 @@ const Wallet = () => {
                                             className="my-5 border-2 border-[#1c61f4] text-[#1c61f4] p-2 rounded-lg"
                                             onChange={(e) => setEndDate(e.target.value)}
                                         />
-                                        <Button buttonText={"Download Statement"} disable={!startDate || !endDate} disabled={!startDate || !endDate} />
+                                        <Button buttonText={"Download"} disable={!startDate || !endDate} disabled={!startDate || !endDate} />
                                     </div>
                                 </div>
                             </div>
