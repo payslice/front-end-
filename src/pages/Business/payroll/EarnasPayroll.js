@@ -359,9 +359,6 @@ const EarnasPayroll = () => {
     
   const columns22 = React.useMemo(
     () => [
-      {
-        Header: 'Pending Requests',
-        columns: [
           {
             Header: 'Full Name',
             accessor: 'full_name',
@@ -386,16 +383,11 @@ const EarnasPayroll = () => {
             Header: 'Disapproved',
             accessor: 'disapproved',
           }
-        ],
-      },
     ],
     []
   )
   const columns23 = React.useMemo(
     () => [
-      {
-        Header: 'Approved Requests',
-        columns: [
           {
             Header: 'Full Name',
             accessor: 'full_name',
@@ -417,8 +409,6 @@ const EarnasPayroll = () => {
             accessor: 'payment_date',
           }
         ],
-      },
-    ],
     []
   )
 
@@ -661,6 +651,7 @@ const EarnasPayroll = () => {
                 </div>
                 */}
                 <div className="pt-10">   
+                        <h2 className="font-bold text-[18px]">Pending Requests</h2>
                         <div className="w-full">
                             <Styles>
                                 {
@@ -675,6 +666,7 @@ const EarnasPayroll = () => {
                 
                 </div>
                 <div className="pt-10">   
+                        <h2 className="font-bold text-[18px]">Approved Requests</h2>
                         <div className="w-full">
                             <Styles>
                                 {

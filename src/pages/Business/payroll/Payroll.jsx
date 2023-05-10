@@ -432,9 +432,6 @@ const Payroll = () => {
     
   const columns22 = React.useMemo(
     () => [
-      {
-        Header: 'Employees Payroll',
-        columns: [
           {
             Header: 'Full Name',
             accessor: 'full_name',
@@ -468,8 +465,6 @@ const Payroll = () => {
             accessor: 'bank_name',
           }
         ],
-      },
-    ],
     []
   )
 
@@ -689,6 +684,7 @@ const Payroll = () => {
                 </div>
                 */}
                 <div className="pt-10">   
+                        <h2 className="font-bold text-[18px]">Employees Payroll</h2>
                         <div className="w-full">
                             <Styles>
                                 {
