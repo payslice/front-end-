@@ -13,11 +13,14 @@ import { useSelector } from "react-redux";
 import { persistSelector } from "../../../slices/persist";
 import { useForm } from "react-hook-form";
 import { UpdateWorkplaceData } from "../../../utils/ApiRequests";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 
 const UpdateWorkplace = () => {
   const { user } = useSelector(persistSelector);
 
   const { register, handleSubmit } = useForm();
+
+  const [loading, setLoading] = useState(false)
 
   const [imgFile, setImgFile] = useState();
 
@@ -68,6 +71,19 @@ const UpdateWorkplace = () => {
 
   return (
     <div className="px-8">
+
+      <Link to="/user/dashboard">
+				<div className="lg:hidden flex mt-5">
+				<svg className="mt-12" style={{marginTop: '5px'}} width="8" height="13" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M7.99182 10.5734L3.16183 6.2472L7.47744 1.40778L5.99065 0.0790062L0.336276 6.40578L6.66305 12.0602L7.99182 10.5734Z" fill="#737A91"/>
+				</svg>
+				<span className="font-normal text-base pl-5" style={{}} >
+					Go back
+				</span>
+				</div>
+        
+      		</Link>
+
       <div className="text-2xl my-4">Update Workplace</div>
 
       <form onSubmit={handleSubmit(updateUserInfo)}>
@@ -79,6 +95,8 @@ const UpdateWorkplace = () => {
               value={formData.employee_id}
               disabled
               type="text"
+              name="employee_id"
+              onChange={(e) => handleChange(null, e)}
             />
           </div>
           <div className="w-1/3 mr-5 mobiles:w-full">
@@ -110,15 +128,17 @@ const UpdateWorkplace = () => {
               type="number"
             />
           </div>
-          <div className="w-1/3 mr-5">
+          <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
               label="Account Number"
-              // onChange={(e) => handleChange("bankDetails", e)}
               value={formData.account_number}
               type="number"
+              name="account_number"
+              onChange={(e) => handleChange(null, e)}
             />
           </div>
+          
           <div className="w-1/3 mr-5 mobiles:w-full">
             <InputField
               required
@@ -129,6 +149,8 @@ const UpdateWorkplace = () => {
             />
           </div>
         </div>
+
+        <Button buttonText="Update Details" loading={loading}  />
       </form>
     </div>
   );

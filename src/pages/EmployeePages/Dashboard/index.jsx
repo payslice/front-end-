@@ -225,8 +225,6 @@ const UserDashboard = () => {
 	return (
 		<div className="user-dashboard-wrapper">
 
-		
-			
 			{
 				workplaceInfoState.length  !== 0
 				?
@@ -234,9 +232,9 @@ const UserDashboard = () => {
 					<>
 							<>
 							
-								<div className="flex justify-between mb-8 handle_user_homepage_responsive">
+								<div className="flex justify-between mb-5 handle_user_homepage_responsive">
 								
-									<div className="text-gray-400 capitalize font-semibold mt-0 handle_user_homepage_responsive_in pb-5" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
+									<div className="text-gray-400 capitalize mt-5 font-semibold handle_user_homepage_responsive_in pb-5" style={{color: "#111111"}}>Welcome to Payslice , {`${user?.first_name} ${user?.last_name}`}</div>
 					
 									{/*
 										{clockedIn || checkInSuccess ? (
@@ -252,15 +250,25 @@ const UserDashboard = () => {
 								<div className="flex w-full justify-between handle_user_homepage_responsive">
 									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl text-white w-full lg:w-1/2 handle_user_homepage_responsive_in2">
 										<div className="my-auto">
-											<div className="text-medium pb-5 text-[20px]">Withdrawable Balance</div>
+											<div className="text-medium pb-5 text-[18px]">Withdrawable Balance</div>
 											<h3 className="text-[26px] text-white mb-0 font-semibold">
 												
 												NGN {workplaceInfoState[0].amount_earned}{' '}
 											</h3>
 										</div>
-										<div className="border flex justify-center ml-10 items-center border-white rounded-full h-24 w-24">
+										
+										<button
+											style={{ background: '#60a5fa' }}
+											className="lg:hidden py-3 my-auto px-8 rounded text-white font-semibold"
+											onClick={() => history.push('/user/withdrawals/withdraw')}
+										>
+											Get_Paid
+										</button>
+
+										<div className="hidden border flex justify-center ml-10 items-center border-white rounded-full h-14 w-16">
 											{' '}
-											<button className="mb-0 cursor-pointer font-medium" onClick={() => history.push('/user/withdrawals/withdraw')}>
+
+											<button className="mb-0 cursor-pointer text-normal" onClick={() => history.push('/user/withdrawals/withdraw')}>
 												Get <br />
 												Paid
 											</button>
@@ -297,8 +305,8 @@ const UserDashboard = () => {
 								</div>
 
 								
-								<div className="flex w-full justify-between handle_user_homepage_responsive mt-8 text-black">
-									<div className="bg-[#F4F5F7] flex px-12 mr-5 py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 bg-[#F4F5F7]">
+								<div className="flex w-full justify-between handle_user_homepage_responsive mt-8">
+									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between text-white rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2">
 										
 										<h2 className="text-[24px] font-medium flex align-center justify-center">Pending KYC...</h2>
 										{/*
@@ -320,7 +328,7 @@ const UserDashboard = () => {
 										</div>
 										*/}
 									</div>
-									<div className="bg-[#F4F5F7] flex px-12 ml-5 py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 bg-[#F4F5F7]">
+									<div className="bg-blue-600 flex px-12 ml-5 text-white py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2">
 										<div className="my-auto w-4/6">
 											<div className="text-semibold pb-1 text-[20px]">Your Salary </div>
 											<h3 className="text-[26px] mb-0 font-bold">
@@ -329,7 +337,7 @@ const UserDashboard = () => {
 										</div>
 										<div className="flex justify-center ml-10 items-center h-24 w-2/6">
 											{' '}
-											<div className="text-[#000]/[0.8] text-[13px]">
+											<div className="text-white text-[13px]">
 												<span className="block text-[15px] font-medium">Employee code </span>
 												<span className="block">Payslice Limited </span>
 												<span className="block">HYEIEODJE </span>
