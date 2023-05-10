@@ -89,7 +89,7 @@ const UserDashboard = () => {
 					// toast.success(data.message);
 				}
 			} catch (error) {
-				toast.error('An error occurred'); 
+				// toast.error('An error occurred'); 
 				// toast.error('An error occurred in gettingworkplace'); 
 			}
 		};
@@ -122,10 +122,10 @@ const UserDashboard = () => {
 				console.log("transaction data")
 				console.log(data)
 				if(data.status === true) {
-					toast.success(data.message);
+					// toast.success(data.message);
 				}
 				else {
-					toast.error(data.message)
+					// toast.error(data.message)
 				}
 				setLoadingTransactionData(false)
 				// setLoadingTransactionData(true)
@@ -144,7 +144,7 @@ const UserDashboard = () => {
 				setTransactionData(resetData);
 				// setFetchingData(false);
 			} catch (error) {
-				toast.error('An error occurred');
+				// toast.error('An error occurred');
 				setFetchingData(false);
 			}
 		};
@@ -298,7 +298,7 @@ const UserDashboard = () => {
 
 								
 								<div className="flex w-full justify-between handle_user_homepage_responsive mt-8 text-black">
-									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 bg-[#F4F5F7]">
+									<div className="bg-[#F4F5F7] flex px-12 mr-5 py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 bg-[#F4F5F7]">
 										
 										<h2 className="text-[24px] font-medium flex align-center justify-center">Pending KYC...</h2>
 										{/*
@@ -320,7 +320,7 @@ const UserDashboard = () => {
 										</div>
 										*/}
 									</div>
-									<div className="bg-blue-600 flex px-12 ml-5 py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 bg-[#F4F5F7]">
+									<div className="bg-[#F4F5F7] flex px-12 ml-5 py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 bg-[#F4F5F7]">
 										<div className="my-auto w-4/6">
 											<div className="text-semibold pb-1 text-[20px]">Your Salary </div>
 											<h3 className="text-[26px] mb-0 font-bold">
