@@ -212,16 +212,18 @@ function Table({ columns, data }) {
                 // console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
                 if(wholeData['selectedFlatRows[].original'].length === 1){
                         try {
-                        const {data} = await payrollDeleteRow({paycode: wholeData['selectedFlatRows[].original'][0]?.paycode});
-                        
-                        if (data.status) {
-                                toast.success(data.message)
-                                setSubmitting(false);
-                        }
-                        else {
-                                toast.error(data.message)
-                                setSubmitting(false);
-                        }
+
+                                
+                                const {data} = await payrollDeleteRow({paycode: wholeData['selectedFlatRows[].original'][0]?.paycode});
+                                
+                                if (data.status) {
+                                        toast.success(data.message)
+                                        setSubmitting(false);
+                                }
+                                else {
+                                        toast.error(data.message)
+                                        setSubmitting(false);
+                                }
                 
                 
                         } catch (error) {
@@ -278,6 +280,7 @@ function Table({ columns, data }) {
                   console.log("whole data in business payroll mark active")
                   console.log(wholeData['selectedFlatRows[].original'])
                   let me = wholeData['selectedFlatRows[].original'];
+
                   let filteredMe = me.filter(x => {
                     delete x.full_name; delete x.id; delete x.phone
                     delete x.salary; delete x.account_number; delete x.amount_earned
@@ -290,8 +293,10 @@ function Table({ columns, data }) {
                   })
 
                   try {
-                        const {data} = await businessPayrollMarkStatusApi(filteredMe);
-                        
+
+                        // filteredMe.map(x => {
+                        //         await businessPayrollMarkStatusApi({x.status, x.paycode});
+                        // })
                         if (data.status) {
                                 toast.success(data.message)
                                 setSubmitting(false);
