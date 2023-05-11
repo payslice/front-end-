@@ -25,6 +25,9 @@ import {GiPencil}  from 'react-icons/gi'
 import {RiDeleteBinLine}  from 'react-icons/ri'
 import {UpdateEmployeeContext} from '../../../routes/BusinessRoutes'
 import { Styles } from "../../../components/Styles";
+import EarnasPayroll from './EarnasPayroll'
+import PayrollHistory from './PayrollHistory'
+// import {Tabs} from 'antd';
 // import matchSorter from 'match-sorter'
 
 
@@ -516,7 +519,7 @@ const Payroll = () => {
     const [payrollState, setpayrollState] = useState()
     const [payrollEmployeeState, setpayrollEmployeeState] = useState({})
     const [payrollEmployeeState2, setpayrollEmployeeState2] = useState()
-
+    const [tabState, setTabState] = useState('emp_pay')
     const history = useHistory();
     
   const columns22 = React.useMemo(
@@ -626,6 +629,38 @@ const Payroll = () => {
             (acc, num) => parseInt(acc) + parseInt(num.amount_remaining),
             0
         );
+
+
+
+        const items = [
+                {
+                        key: '3',
+                        label: 'Tokens',
+                        children: (
+                                <>
+                                        Tokens
+                                </>
+                        )
+                },
+                {
+                        key: '2',
+                        label: 'Earn as you go',
+                        children: (
+                                <>
+                                        Earn as you go
+                                </>
+                        )
+                },
+                {
+                        key: '3',
+                        label: 'History',
+                        children: (
+                                <>
+                                        History
+                                </>
+                        )
+                },
+        ]
 
     return (
         <div>
@@ -751,7 +786,7 @@ const Payroll = () => {
                 </div>
                 {/*
                 <div>
-                        <div className="block md:flex justify-between pt-10">
+                        <div className="block md:flex justify-between pt-16">
                                 <div>
                                         <div className="inline">
                                                 <button className="bg-[#F3F4F6] px-6 py-2 m-2 rounded ">create single staff <span className="px-2">+</span> </button>
@@ -772,21 +807,63 @@ const Payroll = () => {
                         </div>
                 </div>
                 */}
-                <div className="pt-10">   
-                        <h2 className="font-bold text-[18px]">Employees Payroll</h2>
-                        <div className="w-full">
-                            <Styles>
-                                {
-                                    payrollEmployeeState2
-                                    &&
-                                    payrollEmployeeState2.length !== 0
-                                    &&
-                                    <Table columns={columns22} data={payrollEmployeeState2} />
-                                }
-                            </Styles>
-                        </div>
-                
+
+                <div className="mb-4 border-b border-gray-200 dark:border-gray-700 pt-20">
+                        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center">
+                                <li className={`mr-2`} onClick={() => setTabState('emp_pay')}>
+                                        <button className={`${tabState === 'emp_pay' && 'bg-[#1c6af4] text-white'} inline-block p-4 border-b-2  border-transparent rounded-t-lg hover:bg-[#1c6af4] hover:text-white hover:border-gray-300 dark:hover:text-gray-300 `} type="button">Employee Payroll</button>
+                                </li>
+                                <li className="mr-2" onClick={() => setTabState('earn_as')}>
+                                        <button className={`${tabState === 'earn_as' && 'bg-[#1c6af4] text-white'} inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:bg-[#1c6af4] hover:text-white hover:border-gray-300 dark:hover:text-gray-300 `} type="button">Earn as you go</button>
+                                </li>
+                                <li className="mr-2" onClick={() => setTabState('pay_history')}>
+                                        <button className={`${tabState === 'pay_history' && 'bg-[#1c6af4] text-white'} inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:bg-[#1c6af4] hover:text-white hover:border-gray-300 dark:hover:text-gray-300 `} type="button">Payroll History</button>
+                                </li>
+                        </ul>
                 </div>
+                <div>
+                        {
+                                tabState === 'emp_pay'
+                                ?
+                                (
+                                        <>
+
+                                        <div className="pt-10">   
+                                                <div className="w-full">
+                                                    <Styles>
+                                                        {
+                                                            payrollEmployeeState2
+                                                            &&
+                                                            payrollEmployeeState2.length !== 0
+                                                            &&
+                                                            <Table columns={columns22} data={payrollEmployeeState2} />
+                                                        }
+                                                    </Styles>
+                                                </div>
+                                        
+                                        </div>
+
+                                        </>
+                                )
+                                :
+                                tabState === 'earn_as'
+                                ?
+                                (
+                                        <>
+                                                <EarnasPayroll />
+                                        </>
+                                )
+                                :
+                                (
+                                        <>
+                                                <PayrollHistory />
+                                        
+                                        </>
+                                )
+
+                        }
+                </div>
+
             </div>
 
         </div>

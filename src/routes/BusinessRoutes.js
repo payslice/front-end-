@@ -18,8 +18,6 @@ import EmployeeDetails from "../pages/Employees/EmployeeDetails";
 import UploadEmployee from "../pages/Business/Employee/UploadEmployee";
 import CreateEmployee from "../pages/Business/Employee/CreateEmployee";
 import Wallet from "../pages/Business/Wallet";
-import EarnasPayroll from '../pages/Business/payroll/EarnasPayroll';
-import PayrollHistory from "../pages/Business/payroll/PayrollHistory";
 import WalletAirtime from "../pages/Business/wallets/WalletAirtime";
 import WalletData from "../pages/Business/wallets/WalletData";
 import WalletElectricity from "../pages/Business/wallets/WalletElectricity";
@@ -39,8 +37,6 @@ export const BusinessRoutesList = [
   { path: "/business/wallets/electricity", component: WalletElectricity, exact: true },
   { path: "/business/wallets/transfer", component: TransferMoney, exact: true },
   { path: "/business/payroll", component: DashboardPayroll, exact: true },  
-  { path: "/business/payroll/earn", component: EarnasPayroll, exact: true },  
-  { path: "/business/payroll/history", component: PayrollHistory, exact: true }, 
   { path: "/business/payroll/upload", component: UploadEmployee, exact: true },  
   { path: "/business/payroll/createemployee", component: CreateEmployeePayroll, exact: true },  
   { path: "/business/payroll/updateemployee", component: UpdateEmployeePayroll, exact: true },  
@@ -112,21 +108,6 @@ const RequestMoney = [
     link: "/business/request_money/associate",
   }
 ];
-const Payroll = [
-  {
-    name: "Employee Payroll ",
-    link: "/business/payroll",
-  },
-  {
-    name: "Earn as you go",
-    link: "/business/payroll/earn",
-  },
-  {
-    name: "Payroll Histroy",
-    link: "/business/payroll/history",
-  }
-];
-
 const floatNavTab = [
   {
     name: "Employee",
@@ -214,12 +195,6 @@ const BusinessRoutes = () => {
     }
     if (location.pathname.startsWith("/business/create")) {
       return createemployeeNavTab;
-    }
-    if (location.pathname.startsWith("/business/payroll")) {
-      return Payroll;
-    }
-    if (location.pathname.startsWith("/business/payroll/report")) {
-      return Payroll;
     }
     if (location.pathname.startsWith("/payments")) {
       return paymentNavTab;
