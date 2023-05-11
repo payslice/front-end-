@@ -15,7 +15,11 @@ export const Styles = styled.div`
     border-spacing: 0;
     border-bottom: 1px solid #b3b3b3;
     width: '100%';
+        margin-top: 20px;
 
+    thead {
+        background-color: rgba(242, 242, 242, 0.5);
+    }
     tr {
       :last-child {
         td {

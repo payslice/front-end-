@@ -129,6 +129,12 @@ export const businessAccountFlowApi = () => {
 export const businessRequestMoneyHistoryApi = () => {
   return ApiRequestWithToken().get(`/api/business/money_request/history`);
 };
+
+export const businessPayrollMarkStatusApi = (formdata) => {
+  return ApiRequestWithToken().patch(`/api/business/payroll/employee/update_status`, formdata);
+};
+
+
 export const getAccountNameApi = (formData) => {
   console.log("formData inside account name api")
   console.log(formData)

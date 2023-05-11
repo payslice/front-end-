@@ -6,7 +6,8 @@ import { toast } from "react-toastify";
 import {
     payrollGetStatsApi,
     payrollEmployeeListApi,
-    payrollDeleteRow
+    payrollDeleteRow,
+    businessPayrollMarkStatusApi
 } from "../../../utils/ApiRequests";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -87,11 +88,11 @@ function GlobalFilter({
   //   // history.push('/business/payroll/upload')
   // }
 
-  const SeparateComp = ({children, linkto, deletee, inactive}) => {
+  const SeparateComp = ({children, linkto, deletee, inactive, invert}) => {
     const history = useHistory()
     return (
       <>
-      <div className={`${inactive && 'opacity-20 hover:pointer-events-none hover:bg-[#fff] hover:text-[#D0000C]'} disabled={inactive} border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white ${deletee && 'border-[#D0000C] hover:bg-[#D0000C] text-[#D0000C] hover:text-white'}`} title="please upload files here" onClick={() => history.push(`/business/payroll/${linkto}`)}>
+      <div className={`${inactive && 'opacity-20 hover:pointer-events-none hover:!bg-[#fff] hover:text-[#D0000C]'} ${invert && 'bg-[#1C6AF4] text-[#fff] hover:!bg-[#fff] hover:!text-[#1C6AF4]'} disabled={inactive} flex rounded border-2 border-[#1C6AF4] p-2 mr-3 text-[14px] hover:cursor-pointer hover:bg-[#1C6AF4] hover:text-white ${deletee && 'border-[#D0000C] hover:bg-[#D0000C] text-[#D0000C] hover:text-white'}`} title="please upload files here" onClick={() => history.push(`/business/payroll/${linkto}`)}>
         {children}
       </div>
       </>
@@ -204,7 +205,6 @@ function Table({ columns, data }) {
     console.log(wholeData)
 
         const handleDeleteRow = async () => {
-
                 // payrollDeleteRow()
                 // console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
                 if(wholeData['selectedFlatRows[].original'].length === 1){
@@ -228,6 +228,84 @@ function Table({ columns, data }) {
                 
                 }
         }
+
+        const businessPayrollMarkActive = async () => {
+                // payrollDeleteRow()
+                // console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
+                console.log("whole data in business payroll mark active")
+                console.log(wholeData['selectedFlatRows[].original'])
+                let me = wholeData['selectedFlatRows[].original'];
+                let filteredMe = me.filter(x => {
+                  delete x.full_name; delete x.id; delete x.phone
+                  delete x.salary; delete x.account_number; delete x.amount_earned
+                  delete x.bank_code; delete x.bank_name; delete x.company_name
+                  delete x.email; delete x.self_withdrawal_total; delete x.total_upaid_withdrawal;
+                  delete x.total_withdrawn
+                  
+                  x.status = 'active'
+                 return x
+                })
+                console.log(filteredMe)
+
+
+                if(wholeData['selectedFlatRows[].original'].length > 0){
+                        try {
+                        const {data} = await businessPayrollMarkStatusApi(filteredMe);
+                        
+                        if (data.status) {
+                                toast.success(data.message)
+                                setSubmitting(false);
+                        }
+                        else {
+                                toast.error(data.message)
+                                setSubmitting(false);
+                        }
+                
+                
+                        } catch (error) {
+                        toast.error(error)
+                        console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
+                        }
+                
+                }
+        }
+        const businessPayrollMarkInactive = async () => {
+                  // payrollDeleteRow()
+                  // console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
+                  console.log("whole data in business payroll mark active")
+                  console.log(wholeData['selectedFlatRows[].original'])
+                  let me = wholeData['selectedFlatRows[].original'];
+                  let filteredMe = me.filter(x => {
+                    delete x.full_name; delete x.id; delete x.phone
+                    delete x.salary; delete x.account_number; delete x.amount_earned
+                    delete x.bank_code; delete x.bank_name; delete x.company_name
+                    delete x.email; delete x.self_withdrawal_total; delete x.total_upaid_withdrawal;
+                    delete x.total_withdrawn
+                    
+                    x.status = 'Inactive'
+                  return x
+                  })
+
+                  try {
+                        const {data} = await businessPayrollMarkStatusApi(filteredMe);
+                        
+                        if (data.status) {
+                                toast.success(data.message)
+                                setSubmitting(false);
+                        }
+                        else {
+                                toast.error(data.message)
+                                setSubmitting(false);
+                        }
+                
+                
+                  } catch (error) {
+                        toast.error(error)
+                        console.log(wholeData['selectedFlatRows[].original'][0]?.paycode)
+                  }
+                
+            
+        }
         const handleUpdateRow = async () => {
 
                 // payrollDeleteRow()
@@ -245,6 +323,17 @@ function Table({ columns, data }) {
     // Render the UI for your table
     return (
         <>
+        <div className="flex justify-end mb-5"> 
+          <div onClick={()=> businessPayrollMarkActive()} className="flex">
+                  <SeparateComp invert linkto="#fds" inactive={wholeData['selectedFlatRows[].original'].length < 1 }
+                  > <GiPencil size={20} /> <span className="pl-2">Mark Active</span> </SeparateComp>
+          </div>
+          <div onClick={()=> businessPayrollMarkInactive()} className="flex">
+                  <SeparateComp invert linkto="#fds" inactive={wholeData['selectedFlatRows[].original'].length < 1}
+                  > <GiPencil size={20} /> <span className="pl-2">Mark Inactive</span> </SeparateComp>
+          </div>
+        
+        </div>
         {/*
         **************************
         details about page difference 
@@ -283,7 +372,7 @@ function Table({ columns, data }) {
 
                         <div onClick={()=> handleDeleteRow()}>
                                 <SeparateComp linkto="#delete" deletee 
-                                inactive={wholeData['selectedFlatRows[].original'].length === 0 || wholeData['selectedFlatRows[].original'].length > 1}>
+                                inactive={wholeData['selectedFlatRows[].original'].length < 1}>
                                 {submitting ? <MiniLoader /> : <RiDeleteBinLine size={20}  />}
                         </SeparateComp>
                         </div>
