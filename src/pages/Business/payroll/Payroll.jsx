@@ -27,7 +27,7 @@ import {UpdateEmployeeContext} from '../../../routes/BusinessRoutes'
 import { Styles } from "../../../components/Styles";
 import EarnasPayroll from './EarnasPayroll'
 import PayrollHistory from './PayrollHistory'
-// import {Tabs} from 'antd';
+import { Link } from "react-router-dom";
 // import matchSorter from 'match-sorter'
 
 
@@ -675,7 +675,11 @@ const Payroll = () => {
                         <div className="block md:flex justify-between">
                         
                                 <h2 className="font-semibold text-[21px] tracking-wide pb-10 md:pb-0">Employees payroll Report</h2>
+                                {/**/}
+                                <Link to="/business/payroll/schedule">
+                                
                                 <Button buttonText="schedule payout" />
+                                </Link>
                         </div>
                         
                         <br />

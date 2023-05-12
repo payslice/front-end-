@@ -134,6 +134,18 @@ export const businessPayrollMarkStatusApi = (formdata) => {
   return ApiRequestWithToken().patch(`/api/business/payroll/employee/update_status`, formdata);
 };
 
+export const businessPendingSchedulesApi = (formdata) => {
+  return ApiRequestWithToken().get(`/api/business/payroll/pending_schedules`, formdata);
+};
+
+export const businessSchedulePayoutApi = (formdata) => {
+  return ApiRequestWithToken().post(`/api/business/payroll/schedule_payout`, formdata);
+};
+
+export const businessScheduleDeleteApi = (formdata) => {
+  return ApiRequestWithToken().delete(`/api/business/payroll/delete_schedule`, formdata);
+};
+
 
 export const getAccountNameApi = (formData) => {
   console.log("formData inside account name api")

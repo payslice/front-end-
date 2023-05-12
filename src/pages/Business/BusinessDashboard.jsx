@@ -308,7 +308,7 @@ const BusinessDashboard = () => {
                                     Credit limit
                                 </p>
                                 <p className='flex mt-2 text-sm font-light'>This Month</p>
-                                <h4 className='text-[28px] font-bold mt-1.5'>{accountDetails?.credit_limit}</h4>
+                                <h4 className='text-[28px] font-bold mt-1.5'>NGN {accountDetails?.credit_limit}</h4>
                             </div>
                             <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                                 <p className='text-lg font-bold text-gray-600'>
@@ -327,7 +327,7 @@ const BusinessDashboard = () => {
                                     Today
                                 </p>
                                 <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
-                                    {accountDetails?.main_account.balance}
+                                NGN {accountDetails?.main_account.balance}
                                     <span
                                         className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
                                         onClick={() => history.push("#")}>
@@ -340,7 +340,7 @@ const BusinessDashboard = () => {
                                     Upcoming payments
                                 </p>
                                 <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
-                                {accountDetails?.upcoming_payments.due_date}
+                                NGN {accountDetails?.upcoming_payments.due_date}
                                 {/*
                                     <span
                                         className='flex ml-2 font-bold'

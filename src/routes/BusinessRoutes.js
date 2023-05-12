@@ -14,6 +14,7 @@ import EmployeeReport from "../pages/Business/Employee/EmployeeReport";
 import LinkBank from "../pages/Business/Employee/LinkBank";
 import DashboardWallet from "../pages/Business/DashboardWallet";
 import DashboardPayroll from "../pages/Business/payroll/Payroll";
+import DashboardPayroll2 from "../pages/Business/payroll/DashboardPayroll";
 import DashboardPayrollReport from "../pages/Business/DashboardPayrollReport";
 import EmployeeDetails from "../pages/Employees/EmployeeDetails";
 import UploadEmployee from "../pages/Business/Employee/UploadEmployee";
@@ -26,6 +27,8 @@ import CreateEmployeePayroll from "../pages/Business/payroll/CreateEmployeePayro
 import RequestMoenyHistory from "../pages/Business/Employee/RequestMoneyHistory";
 import UpdateEmployeePayroll from "../pages/Business/payroll/UpdateEmployeePayroll";
 import RequestMoneyDashboard from "../pages/Business/Employee/RequestMoneyDashboard";
+import SchedulePayout from "../pages/Business/payroll/SchedulePayout";
+import CreatePayoutSchedule from "../pages/Business/payroll/CreatePayoutSchedule";
 
 export const UpdateEmployeeContext = createContext('')
 
@@ -42,6 +45,8 @@ export const BusinessRoutesList = [
   { path: "/business/payroll/upload", component: UploadEmployee, exact: true },  
   { path: "/business/payroll/createemployee", component: CreateEmployeePayroll, exact: true },  
   { path: "/business/payroll/updateemployee", component: UpdateEmployeePayroll, exact: true },  
+  { path: "/business/payroll/schedule", component: SchedulePayout, exact: true },  
+  { path: "/business/payroll/schedule/create", component: CreatePayoutSchedule, exact: true },  
   { path: "/business/request_money", component: RequestMoneyDashboard, exact: true },
   { path: "/business/request_money/history", component: RequestMoenyHistory, exact: true },
   { path: "/business/request_money/dashboard", component: RequestMoenyHistory, exact: true },
