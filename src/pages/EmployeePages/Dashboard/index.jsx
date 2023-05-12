@@ -306,7 +306,7 @@ const UserDashboard = () => {
 
 								
 								<div className="flex w-full justify-between handle_user_homepage_responsive mt-8">
-									<div className="bg-blue-600 flex px-12 mr-5 py-6 justify-between text-white rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2">
+									<div className="bg-[#F4F5F7] flex px-12 mr-5 py-6 justify-between text-white rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 text-[#111111]">
 										
 										<h2 className="text-[24px] font-medium flex align-center justify-center">Pending KYC...</h2>
 										{/*
@@ -328,7 +328,7 @@ const UserDashboard = () => {
 										</div>
 										*/}
 									</div>
-									<div className="bg-blue-600 flex px-12 ml-5 text-white py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2">
+									<div className="bg-[#F4F5F7] flex px-12 ml-5 text-white py-6 justify-between rounded-xl w-full lg:w-1/2 handle_user_homepage_responsive_in2 text-[#111111]/[0.8]">
 										<div className="my-auto w-4/6">
 											<div className="text-semibold pb-1 text-[20px]">Your Salary </div>
 											<h3 className="text-[26px] mb-0 font-bold">
@@ -337,7 +337,7 @@ const UserDashboard = () => {
 										</div>
 										<div className="flex justify-center ml-10 items-center h-24 w-2/6">
 											{' '}
-											<div className="text-white text-[13px]">
+											<div className="text-[#111111]/[0.7] text-[13px]">
 												<span className="block text-[15px] font-medium">Employee code </span>
 												<span className="block">Payslice Limited </span>
 												<span className="block">HYEIEODJE </span>
