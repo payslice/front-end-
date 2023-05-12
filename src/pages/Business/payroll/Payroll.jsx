@@ -834,6 +834,7 @@ const Payroll = () => {
                                         <>
 
                                         <div className="pt-10">   
+                                        <h2 className="font-bold text-[18px]">Employee's List</h2>
                                                 <div className="w-full">
                                                     <Styles>
                                                         {

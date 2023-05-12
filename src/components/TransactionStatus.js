@@ -20,13 +20,13 @@ export const TransactionStatusFail = ({name, message, date, statusKind, rate, da
             <div className="w-10/12">
                 <div className="pb-0">
                     <div className="flex pt-7 text-[#dc3545]">
-                        <h2 className="font-medium text-[16px]">{name} </h2>
-                        -
-                        <span className=" font-medium text-[16px]text-red">₦{balance}</span>
+                        <h2 className="font-medium text-[16px]">{name}{' '} </h2>
+                        {' '}  <span className="px-2">-</span>
+                        <span className=" font-medium text-[16px]text-red">{' '}  ₦{balance}</span>
                     </div>
                     <div className=" rounded-lg text-center mt-2 w-10/12 text-left">
                             <div className="w-full p-4 py-3 pb-0">
-                                <p className="text-left pb-2">{date}</p>
+                                <p className="text-left pb-2 font-medium">{date}</p>
                                 <h2 className="font-bold text-[#111111]/[0.5] text-[12px] md:text-[14px] text-left">{message}</h2>
 
                             </div>

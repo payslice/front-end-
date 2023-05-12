@@ -432,6 +432,7 @@ const EarnasPayroll = () => {
             <div className='mt-10 lg:mt-0 cards'>
                 
                 <div className="pt-10">
+                        <h2 className="font-bold text-[18px]">Pending Requests</h2>
                         <div className="w-full">
                             <Styles>
                                 {

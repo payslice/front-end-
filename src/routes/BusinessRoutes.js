@@ -2,8 +2,9 @@ import React, { createContext, useState } from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import AppLayout from "../layout/AppLayout";
 import { checkLogin, checkTokenValidity } from "../utils/ApiUtils";
-// import DashboardHome from "../pages/DashboardHome/DashboardHome";
+// import DashboardHome from "../pages/DashboardHome/DashboardHome";z
 import DashboardHome from "../pages/Business/DashboardHome";
+import BusinessDashboard from "../pages/Business/BusinessDashboard";
 import TransferMoney from "../pages/Business/Employee/TransferMoney";
 import MoneyRequest from "../pages/Business/Employee/MoneyRequest";
 import AssociateMoney from "../pages/Business/Employee/AssociateMoney";
@@ -30,7 +31,8 @@ export const UpdateEmployeeContext = createContext('')
 
 
 export const BusinessRoutesList = [
-  { path: "/business/dashboard", component: DashboardHome, exact: true },
+  // { path: "/business/dashboard", component: DashboardHome, exact: true },
+  { path: "/business/dashboard", component: BusinessDashboard, exact: true },
   { path: "/business/wallets", component: Wallet, exact: true },
   { path: "/business/wallets/airtime", component: WalletAirtime, exact: true },
   { path: "/business/wallets/data", component: WalletData, exact: true },
@@ -95,10 +97,6 @@ const uploadNavBar = [
 ];
 const RequestMoney = [
   
-  {
-    name: "Approval History",
-    link: "/business/request_money/history",
-  },
   {
     name: "Credit Limit Money Request",
     link: "/business/request_money/credit_limit",

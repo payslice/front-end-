@@ -7,7 +7,9 @@ import { toast } from "react-toastify";
 import {
     payrollGetStatsApi,
     payrollEmployeeListApi,
-    payrollDeleteRow
+    payrollDeleteRow,
+    businessRequestMoneyHistoryApi,
+    businessAccountDetails
 } from "../../../utils/ApiRequests";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -25,6 +27,8 @@ import {GiPencil}  from 'react-icons/gi'
 import {RiDeleteBinLine}  from 'react-icons/ri'
 import {UpdateEmployeeContext} from '../../../routes/BusinessRoutes'
 import { InputField } from "../../../components/Input";
+import { TransactionStatusNeutral, TransactionStatusSuccess, TransactionStatusFail, TransactionStatusPending } from "../../../components/TransactionStatus";
+import FullLoader from "../../../components/Loaders/FullLoader";
 // import matchSorter from 'match-sorter'
 
 
@@ -42,37 +46,43 @@ const RequestMoneyDashboard = () => {
     const [payrollState, setpayrollState] = useState()
     const [payrollEmployeeState, setpayrollEmployeeState] = useState({})
     const [payrollEmployeeState2, setpayrollEmployeeState2] = useState()
+    const [requestHistoryState, setrequestHistoryState] = useState([])
+    const [requestHistoryLoading, setrequestHistoryLoading] = useState(false)
+    const [accountDetails, setaccountDetails] = useState();
+    const [loading, setloading] = useState(false);
+    const [totalTransaction, setTotalTransaction] = useState();   
 
     const history = useHistory();
+
     
-    const payrollGetStats = async () => {
-        setSubmitting(true);
+    const businessAccount = async () => {
+        setloading(true)
         try {
-            const {data} = await payrollGetStatsApi();
-            
+            // const res2 = await axios.get("https://dev.app.payslices.com/api/business/account/statements", options).then(res => console.log(res))
+            // const res = await fetch("https://dev.app.payslices.com/api/business/account/statements", options).then(res => res.json());
+            // console.log("passed fetch business account")
+            // console.log(res2)
+            const {data} = await businessAccountDetails();
+            setTotalTransaction(data.data.recent_transactions)
+            // console.log(res2.data)
+        
             if (data.status) {
                 // toast.success(data.message)
-                setpayrollState(data.data)
-                setSubmitting(false);
+                setaccountDetails(data.data)
+                setloading(false);
             }
             else {
                 // toast.error(data.message)
-                setSubmitting(false);
+                setloading(false);
             }
-
         } catch (error) {
             toast.error(error)
-            setSubmitting(false);
+            setloading(false);
         }
         finally {
-            setSubmitting(false);
+            setloading(false);
         } 
-    }
-
-
-    useEffect(() => {
-        payrollGetStats()
-    }, []);
+    };
 
 
     const totalDue = paymentLogs
@@ -81,6 +91,38 @@ const RequestMoneyDashboard = () => {
             (acc, num) => parseInt(acc) + parseInt(num.amount_remaining),
             0
         );
+        
+  const businessRequestMoneyHistory = async () => {
+    setrequestHistoryLoading(true);
+    try {
+        const {data} = await businessRequestMoneyHistoryApi();
+
+        console.log(data.data)
+        
+        if (data.status) {
+            // toast.success(data.message)
+            setrequestHistoryState(data.data)
+            setrequestHistoryLoading(false);
+        }
+        else {
+            // toast.error(data.message)
+            setrequestHistoryLoading(false);
+        }
+
+    } catch (error) {
+        // toast.error(error)
+        setrequestHistoryLoading(false);
+    }
+    finally {
+        setrequestHistoryLoading(false);
+    } 
+}
+
+useEffect(() => {
+    businessRequestMoneyHistory()
+    businessAccount()
+    
+}, [])
 
     return (
         <div>
@@ -99,103 +141,51 @@ const RequestMoneyDashboard = () => {
 
                 </div>
 
-                <div className='flex mobiles:block'>
-                    <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
+                
+                <div className="flex mobiles:block">
+                        
+                        <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
-                                Active Company size 
+                            Credit limit
                         </p>
-                        {
-                            submitting
-                            ?
-                            <DotLoader/>
-                            :
-                            (
-                                <>
-                                    <p className='flex mt-2 text-sm font-light'>
-                                        This Month
-                                    </p>
-                                    <h4 className='text-[28px] font-bold mt-1.5'>{payrollState?.company_size}</h4>
-                                </>
-                            )
-
-                        }
+                        <p className='flex mt-2 text-sm font-light'>This Month</p>
+                        <h4 className='text-[28px] font-bold mt-1.5'>{accountDetails?.credit_limit}</h4>
                     </div>
                     <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
-                                Active Payroll size 
+                            Wallet Balance
                         </p>
-                        
-                        {
-                            submitting
-                            ?
-                            <DotLoader />
-                            :
-                            (
-                                <>
-                                <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
-                                    {/*
-                                    {`${new Date(
-                                        policyResponse?.updated_at
-                                    ).toLocaleString("default", {
-                                        month: "long",
-                                    })} ${new Date(
-                                        policyResponse?.updated_at
-                                    ).getFullYear()} `}
-                                  */}
-                                    This Month
-                                    <span
-                                        className='flex ml-2 font-bold'
-                                        style={{ color: "#0B9B36" }}>
-                                        0% <BsArrowUp className='my-auto' />
-                                    </span>
-                                </p>
-                                <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
-                                {payrollState?.payroll_size}
-                                    <span
-                                        className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
-                                        onClick={() => {/*history.push("/employee")*/}}
-                                        >
-                                        Manage{" "}
-                                    </span>
-                                </h4>
-                                </>
-                            )
-
-                        }
+                        <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
+                            Today
+                        </p>
+                        <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
+                            {accountDetails?.main_account.balance}
+                            <span
+                                className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
+                                onClick={() => history.push("#")}>
+                                Manage{" "}
+                            </span>
+                        </h4>
                     </div>
                     <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Upcoming payments
                         </p>
-                        {
-                            submitting
-                            ?
-                            <DotLoader />
-                            :
-                            (
-                                <>
-                                    <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
-                                        January 2021{" "}
-                                        <span
-                                            className='flex ml-2 font-bold'
-                                            style={{ color: "#D0000C" }}>
-                                            -3% <BsArrowDown className='my-auto font-bold' />
-                                        </span>
-                                    </p>
-                                    <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
-                                    
-                                        {payrollState?.upcoming_payment}
-                                        <span
-                                            className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
-                                            onClick={() => {/*history.push("/payments")*/}}>
-                                            Repay now
-                                        </span>
-                                    </h4>
-                                </>
-                            )
-                        }
+                        <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
+                        {accountDetails?.upcoming_payments.due_date}
+                        </p>
+                        <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
+                            {accountDetails?.upcoming_payments.amount}
+                            <span
+                                className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
+                                onClick={() => history.push("/payments")}>
+                                Repay now
+                            </span>
+                        </h4>
                     </div>
                 </div>
+                
+
                 {/*
                 <div>
                         <div className="block md:flex justify-between pt-10">
@@ -227,11 +217,39 @@ const RequestMoneyDashboard = () => {
                             <h2 className="p-2 font-semibold text-[#111111]/[0.9] ">Request Money and History</h2>
                             <hr />
                     </div>
-                    <h2 className="text-[22px] py-7 font-semibold capitalize">Float Details </h2>
                     <div>
                             <div className="block md:flex">
                                     <div className="w-full md:w-6/12">
                                             <div>
+
+
+                                            {
+                                                requestHistoryState.length === 0
+                                                ?
+                                                <FullLoader />
+                                                :
+                                                requestHistoryState.map((e) => (
+                                                        <div key={e.created_at}>
+                                                                {
+                                                                        e.status === 'disapproved'
+                                                                        ?
+                                                                        <TransactionStatusFail message={e.title} date={e.created_at} statusKind="neutral" balance={e.amount} />
+                                                                        :
+                                                                        e.status === 'approved'
+                                                                        ?
+                                                                        <TransactionStatusSuccess message={e.title} date={e.created_at} statusKind="neutral" balance={e.amount} />
+                                                                        :
+                                                                        e.status === 'unattended'
+                                                                        ?
+                                                                        <TransactionStatusPending message={e.title} date={e.created_at} statusKind="neutral" balance={e.amount} />
+                                                                        :
+                                                                        <TransactionStatusNeutral message={e.title} date={e.created_at} statusKind="neutral" balance={e.amount} />
+                                                                }
+                                                        </div>
+                                                ))      
+                                        }
+
+                                                {/*
                                                         <div>
                                                                 <InputField
                                                                         required
@@ -261,11 +279,15 @@ const RequestMoneyDashboard = () => {
                                                                 />
                                                         
                                                         </div>
+                                                    */}
                                             </div>
                                     </div>
                                     <div className="w-full md:w-2/12">
                                     </div>
                                     <div className="w-full md:w-6/12">
+                                            {/*
+                                    
+                                            <h2 className="text-[22px] py-7 font-semibold capitalize">Float Details </h2>
                                             <div>
                                             <InputField
                                                     required
@@ -288,11 +310,14 @@ const RequestMoneyDashboard = () => {
                                             />
 
                                             </div>
+                                        */}
                                     </div>
                             </div>
                     </div>
                     <div className="flex justify-end align-right">
+                            {/*
                                 <Button buttonText="Next" />
+                            */}
                     </div>
             </div>
 

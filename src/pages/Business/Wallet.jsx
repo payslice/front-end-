@@ -175,17 +175,26 @@ const Wallet = () => {
                                 <Button buttonText="Transfer to Others " fullwidth inverted onClick={() => history.push('/business/wallets/transfer')} />
                             </div>
                             <br />
-                            <div>
-                                <div className="flex relative overflow-auto">
-                                    <WalletIconText title="Airtime" onclick={() => history.push(`/business/wallets/airtime`)}>
-                                        <BsPhoneVibrate size={25} color="#737A91" />
-                                    </WalletIconText>
-                                    <WalletIconText title="Data" onclick={() => history.push(`/business/wallets/data`)}>
-                                        <TfiWorld size={25} color="#737A91" />
-                                    </WalletIconText>
+                            <div className="w-full">
+                                <div className="flex relative overflow-auto w-full">
+                                    <div className="w-1/3">
+                                        <WalletIconText title="Airtime" onclick={() => history.push(`/business/wallets/airtime`)}>
+                                            <BsPhoneVibrate size={25} color="#737A91" />
+                                        </WalletIconText>
+
+                                    </div>
+                                    <div className="w-1/3">
+                                        <WalletIconText title="Data" onclick={() => history.push(`/business/wallets/data`)}>
+                                            <TfiWorld size={25} color="#737A91" />
+                                        </WalletIconText>
+                                    
+                                    </div>
+                                    <div className="w-1/3">
                                     <WalletIconText title="Electricity" onclick={() => history.push(`/business/wallets/electricity`)}>
                                         <MdOutlineElectricBolt size={25} color="#737A91" />
                                     </WalletIconText>
+                                    
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -196,27 +205,36 @@ const Wallet = () => {
                             <div className="w-full md:w-10/12 bg-[#F4F9FF] p-10 rounded-lg">
                                 <h2 className="font-semibold pb-3 text-[20px]">Time Period</h2>
                                 <div className="flex">
-                                    <div className="w-1/2 border-r-2 border-black text-[#111111]/[0.7]">
-                                        <span className="font-medium">From</span>
+                                    <div className="w-1/2 border-r-2 border-[#ccc]/[0.5] text-[#111111]/[0.72]">
+                                        <span className="font-medium block">From</span>
                                         {/*<div className="flex pt-3 font-bold"><span className="text-[18px]">2021-08-09</span> <span className="pt-1 px-4"><AiTwotoneCalendar /></span></div>*/}
                                         <input
                                             type="date"
-                                            className="my-5 border-2 border-[#1c61f4] text-[#1c61f4] p-2 rounded-lg"
+                                            className="my-5 border-2 text-[#1c61f4] p-2 rounded-lg"
                                             onChange={(e) => setstartDate(e.target.value)}
                                         />
+                                        {/** 
                                         <Button buttonText={"Check"} disable={!startDate || !endDate} disabled={!startDate || !endDate} onClick={() => businessTransactionsApiFetch()} />
+                                        */}
                                     </div>
                                     <div className="w-1/2 text-[#111111]/[0.7] pl-5">
-                                        <span className="font-medium">To</span>
+                                        <span className="font-medium block">To</span>
                                         {/*<div className="flex pt-3 font-bold"><span className="text-[18px]">2021-08-09</span> <span className="pt-1 px-4"><AiTwotoneCalendar /></span></div>*/}
                                         <input
                                             type="date"
-                                            className="my-5 border-2 border-[#1c61f4] text-[#1c61f4] p-2 rounded-lg"
+                                            className="my-5 border-2 text-[#1c61f4] p-2 rounded-lg"
                                             onChange={(e) => setEndDate(e.target.value)}
                                         />
+                                        {/** 
                                         <Button buttonText={"Download"} disable={!startDate || !endDate} disabled={!startDate || !endDate} />
+                                        */}
                                     </div>
                                 </div>
+                            </div>
+                            <div className="w-full md:w-10/12 justify-between block md:flex p-10">
+                                <Button buttonText={"Check"} disable={!startDate || !endDate} disabled={!startDate || !endDate} onClick={() => businessTransactionsApiFetch()} />
+                                <Button buttonText={"Download"} disable={!startDate || !endDate} disabled={!startDate || !endDate} />
+                            
                             </div>
 
                             <div className="rounded-lg border-2 border-[#f3f3f3] mt-5 ">
