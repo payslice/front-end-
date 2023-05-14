@@ -163,7 +163,8 @@ useEffect(() => {
                             <span
                                 className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
                                 onClick={() => history.push("#")}>
-                                Manage{" "}
+                                {/*Manage{" "}*/}
+                                
                             </span>
                         </h4>
                     </div>
@@ -220,7 +221,7 @@ useEffect(() => {
                     <div>
                             <div className="block md:flex">
                                     <div className="w-full md:w-6/12">
-                                            <div>
+                                            <div className="overflow-auto h-[400px]">
 
 
                                             {

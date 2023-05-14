@@ -7,7 +7,8 @@ import {
     payrollGetStatsApi,
     payrollEmployeeListApi,
     payrollDeleteRow,
-    businessPayrollMarkStatusApi
+    businessPayrollMarkStatusApi,
+    businessSchedulePayoutApi
 } from "../../../utils/ApiRequests";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -27,7 +28,8 @@ import {UpdateEmployeeContext} from '../../../routes/BusinessRoutes'
 import { Styles } from "../../../components/Styles";
 import EarnasPayroll from './EarnasPayroll'
 import PayrollHistory from './PayrollHistory'
-import { Link } from "react-router-dom";
+import SchedulePayout from './SchedulePayout'
+// import { Link } from "react-router-dom";
 // import matchSorter from 'match-sorter'
 
 
@@ -520,11 +522,17 @@ const Payroll = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [clockInData, setClockInData] = useState();
     const [clockOutData, setClockOutData] = useState();
-    const [submitting, setSubmitting] = useState()
+    const [submitting, setSubmitting] = useState() 
+    const [submitting2, setSubmitting2] = useState() 
     const [payrollState, setpayrollState] = useState()
     const [payrollEmployeeState, setpayrollEmployeeState] = useState({})
     const [payrollEmployeeState2, setpayrollEmployeeState2] = useState()
     const [tabState, setTabState] = useState('emp_pay')
+    const [popup, setPopup] = useState(true); 
+    const [salaryMonth, setsalaryMonth] = useState(); 
+    const [scheduleDate, setscheduleDate] = useState(); 
+    const [comments, setComments] = useState(); 
+    const [reloadTrigger, setreloadTrigger] = useState(false); 
     const history = useHistory();
     
   const columns22 = React.useMemo(
@@ -627,45 +635,65 @@ const Payroll = () => {
         payrollEmployeeList()
     }, []);
 
-
-    const totalDue = paymentLogs
-        ?.filter(data => typeof data.amount_remaining == "string")
-        .reduce(
-            (acc, num) => parseInt(acc) + parseInt(num.amount_remaining),
-            0
-        );
+    
+    const businessSchedulePayout = async () => {
+        setSubmitting(true);
 
 
+        try {
+            const {data} = await businessSchedulePayoutApi({comment:comments, salary_month:salaryMonth, payout_date:scheduleDate});
 
-        const items = [
-                {
-                        key: '3',
-                        label: 'Tokens',
-                        children: (
-                                <>
-                                        Tokens
-                                </>
-                        )
-                },
-                {
-                        key: '2',
-                        label: 'Earn as you go',
-                        children: (
-                                <>
-                                        Earn as you go
-                                </>
-                        )
-                },
-                {
-                        key: '3',
-                        label: 'History',
-                        children: (
-                                <>
-                                        History
-                                </>
-                        )
-                },
-        ]
+            
+            if (data.status) {
+                toast.success(data.message)
+                setSubmitting(false);
+                setPopup(false)
+                setreloadTrigger(true)
+            }
+            else {
+                toast.error(data.message)
+                setSubmitting(false);
+                setPopup(false)
+            }
+
+        } catch (error) {
+            toast.error(error)
+            setSubmitting(false);
+            setPopup(false)
+        }
+        finally {
+            setSubmitting(false);
+        } 
+    }
+    const businessSchedulePayout2 = async () => {
+        setSubmitting2(true);
+        try {
+            const {data} = await businessSchedulePayoutApi({comment:comments, salary_month:salaryMonth, payout_date:scheduleDate});
+
+            
+            if (data.status) {
+                toast.success(data.message)
+                setSubmitting2(false);
+                setPopup(false)
+                setreloadTrigger(true)
+            }
+            else {
+                toast.error(data.message)
+                setSubmitting2(false);
+                setPopup(false)
+            }
+
+        } catch (error) {
+            toast.error(error)
+            setSubmitting2(false);
+            setPopup(false)
+        }
+        finally {
+            setSubmitting2(false);
+            setPopup(false)
+        } 
+    }
+
 
     return (
         <div>
@@ -675,11 +703,72 @@ const Payroll = () => {
                         <div className="block md:flex justify-between">
                         
                                 <h2 className="font-semibold text-[21px] tracking-wide pb-10 md:pb-0">Employees payroll Report</h2>
-                                {/**/}
+                                {/*
                                 <Link to="/business/payroll/schedule">
                                 
-                                <Button buttonText="schedule payout" />
                                 </Link>
+                                */}
+                                <Button buttonText="schedule payout" onClick={() => setPopup(true)} />
+                                {popup &&
+                                <div className="">
+                                <div className="transalte-x-1/2 transalte-y-1/2 w-[300px] absolute bottom-0 top-[20%] left-[0%] md:left-[70%] z-50 p-4">
+                                <div className="relative w-full max-w-md max-h-full">
+                                        <div className="relative bg-white rounded-lg shadow">
+                                        <button type="button" className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal"
+                                                    onClick={() => setPopup(false)}
+                                        >
+                                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                                <span className="sr-only">Close modal</span>
+                                        </button>
+                                        <div className="px-6 py-6 lg:px-8">
+                                                <div className="block">
+                                                        <label className="block">Salary Month</label>
+                                                        <input
+                                                            type="date"
+                                                            className="bg-gray-100 my-2 mb-4 text-[#000]/[0.7] py-2 px-6 rounded-lg w-full"
+                                                            onChange={(e) => setsalaryMonth(e.target.value)}
+                                                        />
+                                                </div>
+                                                <div className="block">
+                                                        <label className="block">Schedule Date</label>
+                                                        <input
+                                                            type="date"
+                                                            className="bg-gray-100 my-2 mb-4 text-[#000]/[0.7] py-2 px-6 rounded-lg w-full"
+                                                            onChange={(e) => setscheduleDate(e.target.value)}
+                                                        />
+                                                </div>
+                                                <div className="block">
+                                                <label className="block">Comments</label>
+                                                <input
+                                                    type="text"
+                                                    className="bg-gray-100 my-2 mb-4 text-[#000]/[0.7] py-2 px-6 rounded-lg w-full"
+                                                    onChange={(e) => setComments(e.target.value)}
+                                                />
+                                                
+                                                </div>
+                                                {/*
+                                                <InputField
+                                                        type="text"
+                                                        label="Comments"
+                                                        placeholder=""
+                                                        onChange={(e) => setComments(e.target.value)}
+                                                />
+                                              */}
+                                                <div className="w-full justify-between">
+                                                    <span className="">
+                                                    <Button buttonText="Schedule" loading={submitting} onClick={businessSchedulePayout} className="mb-3"  /> 
+                                                    
+                                                    </span>
+                                                    <br />
+                                                    <Button buttonText="Pay now" loading={submitting2} onClick={businessSchedulePayout2}  />
+                                                </div>
+                                        </div>
+                                        </div>
+                                </div>
+                                </div> 
+                        
+                                </div>
+                                    }
                         </div>
                         
                         <br />
@@ -710,7 +799,7 @@ const Payroll = () => {
                                     */}
                                     This Month
                                     </p>
-                                    <h4 className='text-[28px] font-bold mt-1.5'>{payrollState?.company_size}</h4>
+                                    <h4 className='text-[24px] font-bold mt-1.5'>{payrollState?.company_size}</h4>
                                 </>
                             )
 
@@ -745,13 +834,14 @@ const Payroll = () => {
                                         0% <BsArrowUp className='my-auto' />
                                     </span>
                                 </p>
-                                <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
-                                {payrollState?.payroll_size}
+                                <h4 className='text-[24px] font-bold flex justify-between items-center mt-1.5'>
+                                NGN {payrollState?.payroll_size.toLocaleString('en-US')}
                                     <span
                                         className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
                                         onClick={() => {/*history.push("/employee")*/}}
                                         >
-                                        Manage{" "}
+                                        {/*Manage{" "}*/}
+                                        
                                     </span>
                                 </h4>
                                 </>
@@ -778,9 +868,9 @@ const Payroll = () => {
                                             -3% <BsArrowDown className='my-auto font-bold' />
                                         </span>
                                     </p>
-                                    <h4 className='text-[28px] font-bold flex justify-between items-center mt-1.5'>
+                                    <h4 className='text-[24px] font-bold flex justify-between items-center mt-1.5'>
                                     
-                                        {payrollState?.upcoming_payment}
+                                        NGN {payrollState?.upcoming_payment.toFixed(2)}
                                         <span
                                             className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
                                             onClick={() => {/*history.push("/payments")*/}}>
@@ -866,8 +956,8 @@ const Payroll = () => {
                                 :
                                 (
                                         <>
+                                                <SchedulePayout reloadTrigger={reloadTrigger} />
                                                 <PayrollHistory />
-                                        
                                         </>
                                 )
 

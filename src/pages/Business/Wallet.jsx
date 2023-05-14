@@ -210,7 +210,7 @@ const Wallet = () => {
                                         {/*<div className="flex pt-3 font-bold"><span className="text-[18px]">2021-08-09</span> <span className="pt-1 px-4"><AiTwotoneCalendar /></span></div>*/}
                                         <input
                                             type="date"
-                                            className="my-5 border-2 text-[#1c61f4] p-2 rounded-lg"
+                                            className="my-5 border-2 text-[#ccc] p-2 rounded-lg"
                                             onChange={(e) => setstartDate(e.target.value)}
                                         />
                                         {/** 
@@ -222,7 +222,7 @@ const Wallet = () => {
                                         {/*<div className="flex pt-3 font-bold"><span className="text-[18px]">2021-08-09</span> <span className="pt-1 px-4"><AiTwotoneCalendar /></span></div>*/}
                                         <input
                                             type="date"
-                                            className="my-5 border-2 text-[#1c61f4] p-2 rounded-lg"
+                                            className="my-5 border-2 text-[#ccc] p-2 rounded-lg"
                                             onChange={(e) => setEndDate(e.target.value)}
                                         />
                                         {/** 

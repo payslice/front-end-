@@ -125,7 +125,7 @@ function GlobalFilter({
   }
 
 
-function Table({ columns, data, setPopup }) {
+function Table({ columns, data }) {
 
     const {employeeUpateData, setEmployeeUpdateData} = useContext(UpdateEmployeeContext)
     const history = useHistory()
@@ -305,9 +305,14 @@ function Table({ columns, data, setPopup }) {
                 
 
                 <div className="flex">
+                
+                        
+                {/*
                         <span onClick={() => setPopup(true)}>
                                 <SeparateComp2 ><BsPlusLg size={20} /></SeparateComp2>
                         </span>
+                        
+                      */}
 
 
                         
@@ -453,7 +458,7 @@ function Table({ columns, data, setPopup }) {
   }
   
 
-const SchedulePayout = () => {
+const SchedulePayout = ({reloadTrigger}) => {
     const { user } = useSelector(persistSelector);
     const [policyResponse, setPolicyResponse] = useState();
     const [acceptedEmployees, setAcceptedEmployees] = useState();
@@ -470,7 +475,6 @@ const SchedulePayout = () => {
     const [salaryMonth, setsalaryMonth] = useState(); 
     const [scheduleDate, setscheduleDate] = useState(); 
     const [comments, setComments] = useState(); 
-    const [reloadTrigger, setreloadTrigger] = useState(false); 
     const history = useHistory();
 
     const {register} = useForm()
@@ -536,64 +540,6 @@ const SchedulePayout = () => {
         } 
     }
 
-    const businessSchedulePayout = async () => {
-        setSubmitting(true);
-
-
-        try {
-            const {data} = await businessSchedulePayoutApi({comment:comments, salary_month:salaryMonth, payout_date:scheduleDate});
-
-            
-            if (data.status) {
-                toast.success(data.message)
-                setSubmitting(false);
-                setPopup(false)
-                setreloadTrigger(true)
-            }
-            else {
-                toast.error(data.message)
-                setSubmitting(false);
-                setPopup(false)
-            }
-
-        } catch (error) {
-            toast.error(error)
-            setSubmitting(false);
-            setPopup(false)
-        }
-        finally {
-            setSubmitting(false);
-        } 
-    }
-    const businessSchedulePayout2 = async () => {
-        setSubmitting2(true);
-        try {
-            const {data} = await businessSchedulePayoutApi({comment:comments, salary_month:salaryMonth, payout_date:scheduleDate});
-
-            
-            if (data.status) {
-                toast.success(data.message)
-                setSubmitting2(false);
-                setPopup(false)
-                setreloadTrigger(true)
-            }
-            else {
-                toast.error(data.message)
-                setSubmitting2(false);
-                setPopup(false)
-            }
-
-        } catch (error) {
-            toast.error(error)
-            setSubmitting2(false);
-            setPopup(false)
-        }
-        finally {
-            setSubmitting2(false);
-            setPopup(false)
-        } 
-    }
-
     useEffect(() => {
         businessPendingSchedules()
     }, [reloadTrigger]);
@@ -602,16 +548,6 @@ const SchedulePayout = () => {
         <ContextForTable.Provider value={{popup ,setPopup}}>
         <div>
             <div className='mt-10 lg:mt-0 cards'>
-                
-                <div>
-                        <div className="block md:flex justify-between">
-                        
-                                <h2 className="font-semibold text-[21px] tracking-wide pb-10 md:pb-0 border-b-2 border-[#12464a]">Schedule Payout</h2>
-                        </div>
-                        
-                        <br />
-
-                </div>
 
                 <div>
 
@@ -624,7 +560,7 @@ const SchedulePayout = () => {
                                                 &&
                                                 payrollEmployeeState2.length !== 0
                                                 &&
-                                                <Table columns={columns22} data={payrollEmployeeState2} setPopup={setPopup} />
+                                                <Table columns={columns22} data={payrollEmployeeState2} />
                                         }
                                         </Styles>
                                 </div>
@@ -633,56 +569,6 @@ const SchedulePayout = () => {
                 </div>
 
             </div>
-            
-            {popup &&
-            <div className="">
-            <div className="transalte-x-1/2 transalte-y-1/2 w-full absolute bottom-0 top-[20%] left-[0%] md:left-[50%] z-50 p-4">
-            <div className="relative w-full max-w-md max-h-full">
-                    <div className="relative bg-white rounded-lg shadow">
-                    <button type="button" className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal"
-                                onClick={() => setPopup(false)}
-                    >
-                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                            <span className="sr-only">Close modal</span>
-                    </button>
-                    <div className="px-6 py-6 lg:px-8">
-                            <div className="block">
-                                    <label className="block">Salary Month</label>
-                                    <input
-                                        type="date"
-                                        className="bg-gray-100 my-5 text-[#000]/[0.7] py-4 px-6 rounded-lg"
-                                        onChange={(e) => setsalaryMonth(e.target.value)}
-                                    />
-                            </div>
-                            <div className="block">
-                                    <label className="block">Schedule Date</label>
-                                    <input
-                                        type="date"
-                                        className="bg-gray-100 my-5 text-[#000]/[0.7] py-4 px-6 rounded-lg"
-                                        onChange={(e) => setscheduleDate(e.target.value)}
-                                    />
-                            </div>
-                            <InputField
-                                    type="text"
-                                    label="Comments"
-                                    placeholder=""
-                                    onChange={(e) => setComments(e.target.value)}
-                            />
-                            <div className="w-full justify-between">
-                                <span className="pr-5">
-                                <Button buttonText="Schedule" loading={submitting} onClick={businessSchedulePayout}  /> 
-                                
-                                </span>
-                                <Button buttonText="Pay now" loading={submitting2} onClick={businessSchedulePayout2}  />
-                            </div>
-                    </div>
-                    </div>
-            </div>
-            </div> 
-    
-            </div>
-                }
-
         </div>
         </ContextForTable.Provider>
     );

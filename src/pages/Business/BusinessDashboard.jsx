@@ -303,14 +303,14 @@ const BusinessDashboard = () => {
                             </div>
                             */}
                             
-                            <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
+                            <div className='w-1/3 h-[180px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                                 <p className='text-lg font-bold text-gray-600'>
                                     Credit limit
                                 </p>
                                 <p className='flex mt-2 text-sm font-light'>This Month</p>
                                 <h4 className='text-[28px] font-bold mt-1.5'>NGN {accountDetails?.credit_limit}</h4>
                             </div>
-                            <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
+                            <div className='w-1/3 h-[180px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                                 <p className='text-lg font-bold text-gray-600'>
                                     Wallet Balance
                                 </p>
@@ -330,12 +330,12 @@ const BusinessDashboard = () => {
                                 NGN {accountDetails?.main_account.balance}
                                     <span
                                         className='ml-2 text-sm font-bold text-gray-500 cursor-pointer'
-                                        onClick={() => history.push("#")}>
+                                        onClick={() => history.push("/business/wallets")}>
                                         Manage{" "}
                                     </span>
                                 </h4>
                             </div>
-                            <div className='w-1/3 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
+                            <div className='w-1/3 h-[180px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                                 <p className='text-lg font-bold text-gray-600'>
                                     Upcoming payments
                                 </p>
@@ -468,7 +468,7 @@ const BusinessDashboard = () => {
                                         labelStyle={{ color: 'green' }}
                                         itemStyle={{ color: '#000' }}
                                         formatter={(value) => {
-                                            return [`${value}`, `Kwh`];
+                                            return [`${value}`, `NGN`];
                                         }}
                                         labelFormatter={(value) => {
                                             return `'Unit Purchased', ${value}`;
