@@ -52,6 +52,7 @@ export const BusinessRoutesList = [
   { path: "/business/request_money/dashboard", component: RequestMoenyHistory, exact: true },
   { path: "/business/request_money/credit_limit", component: MoneyRequest, exact: true },
   { path: "/business/request_money/associate", component: AssociateMoney, exact: true },
+  { path: "/business/settings", component: AssociateMoney, exact: true },
   { path: "/business/create", component: CreateEmployee, exact: true }, 
   { path: "/business/details", component: EmployeeDetails, exact: true }, 
   { path: "/business/wallet", component: FundWallet, exact: true },

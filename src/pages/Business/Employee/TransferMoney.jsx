@@ -158,6 +158,7 @@ const TransferMoney = () => {
                                         {...register("balance")}
                                         // value={amount}
                                         placeholder="120,000"
+                                        disabled
                                         // required
                                 />
 

@@ -528,7 +528,7 @@ const Payroll = () => {
     const [payrollEmployeeState, setpayrollEmployeeState] = useState({})
     const [payrollEmployeeState2, setpayrollEmployeeState2] = useState()
     const [tabState, setTabState] = useState('emp_pay')
-    const [popup, setPopup] = useState(true); 
+    const [popup, setPopup] = useState(false); 
     const [salaryMonth, setsalaryMonth] = useState(); 
     const [scheduleDate, setscheduleDate] = useState(); 
     const [comments, setComments] = useState(); 
